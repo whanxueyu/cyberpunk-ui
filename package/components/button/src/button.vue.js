@@ -3,7 +3,6 @@ export default defineComponent({
     name: 'CpButton',
 });
 ;
-
 function __VLS_template() {
     let __VLS_ctx;
     let __VLS_otherComponents;

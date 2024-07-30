@@ -31,14 +31,14 @@ yarn add cyberpunk-ui
 在您的Vue项目中导入所需的组件：
 
 ```javascript
-import { CpButton, CpCard } from 'cyberpunk-ui';
-
-export default {
-  components: {
-    CpButton,
-    CpCard,
-  },
-};
+//main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import CyberpunkUi from 'cyberpunk-ui'
+import "cyberpunk-ui/lib/style.css";
+const app = createApp(App)
+app.use(CyberpunkUi)
+app.mount('#app')
 ```
 然后在模板中使用这些组件：
 

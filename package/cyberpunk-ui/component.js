@@ -1,5 +1,5 @@
-import { CPButton } from '../components/button/index';
+import { CpButton } from '../components/button/index';
 export default [
-    CPButton
+    CpButton
 ];
 //# sourceMappingURL=component.js.map
