@@ -1,7 +1,7 @@
 {
   "name": "cyberpunk-ui",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
@@ -20,32 +20,32 @@
     "vite": "^5.3.4",
     "vue-tsc": "^2.0.24"
   },
-    "author": "anxueyu",
-    "description": "cyberpunk-ui,cyberpunk,cyberpunkUI",
-    "keywords": [
-        "cyberpunk-ui"
-    ],
-    "homepage": "",
-    "repository": {
-        "type": "git",
-        "url": ""
+  "author": "anxueyu",
+  "description": "cyberpunk-ui,cyberpunk,cyberpunkUI",
+  "keywords": [
+    "cyberpunk-ui"
+  ],
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "lib/*",
+    "package/*",
+    "READEME.md",
+    "package.json"
+  ],
+  "main": "./lib/cyberpunk-ui.umd.js",
+  "module": "./lib/cyberpunk-ui.mjs",
+  "exports": {
+    ".": {
+      "import": "./lib/cyberpunk-ui.mjs",
+      "require": "./lib/cyberpunk-ui.umd.js"
     },
-    "files": [
-        "lib/*",
-        "package/*",
-        "READEME.md",
-        "package.json"
-    ],
-    "main": "./lib/cyberpunk-ui.umd.js",
-    "module": "./lib/cyberpunk-ui.mjs",
-    "exports": {
-        ".": {
-            "import": "./lib/cyberpunk-ui.mjs",
-            "require": "./lib/cyberpunk-ui.umd.js"
-        },
-        "./lib/style.css": "./lib/style.css"
-    },
-    "engines": {
-        "node": ">=18.18.2"
-    }
+    "./lib/style.css": "./lib/style.css"
+  },
+  "engines": {
+    "node": ">=18.18.2"
+  }
 }
