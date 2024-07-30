@@ -1,15 +1,15 @@
 ## button 按钮
 
 <!-- <script setup lang="ts">
-import { CPButton } from 'cyberpunk-ui'
-</script>
+import { CpButton } from 'cyberpunk-ui'
+</script> -->
 
-<c-p-button>CyberPunkUI</c-p-button> -->
+<cp-button>CyberPunkUI</cp-button>
 
 ```vue
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { CpButton } from 'cyberpunk-ui'
-</script>
+</script> -->
 <template>
     <cp-button>CyberPunkUI</cp-button>
 </template>
