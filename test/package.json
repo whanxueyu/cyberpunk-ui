@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cyberpunk-ui": "^1.0.4",
     "vue": "^3.4.31"
   },
   "devDependencies": {
