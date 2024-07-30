@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import CyberpunkUi from '../package/index'
+import CyberpunkUi from '../package/cyberpunk-ui'
 // import CyberpunkUi from '../cyberpunk-ui'
 console.log(CyberpunkUi);
 // import "cyberpunk-ui/style.css";

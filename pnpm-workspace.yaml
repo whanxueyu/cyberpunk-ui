@@ -1,0 +1,4 @@
+packages:
+  - test # 存放我们组件测试的时候的代码
+  - docs # 存放我们组件文档的
+  - "packages/**"

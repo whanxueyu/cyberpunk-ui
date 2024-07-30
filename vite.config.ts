@@ -4,12 +4,18 @@ import path from 'path'
 
 module.exports = defineConfig({
   plugins: [vue()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+      "@cyberpunk-ui": path.resolve(__dirname, "./package"),
+    },
+  },
   build: {
-    outDir: 'cyberpunk-ui',
+    outDir: 'lib',
     lib: {
-      entry: path.resolve(__dirname, './package/index.ts'),
-      name: 'cyberpunk-ui',
-      fileName: (format) => `cyberpunk-ui.${format}.js`
+      entry: path.resolve(__dirname, './package/cyberpunk-ui/index.ts'),
+      name: 'cyberpunkUI',
+      fileName: 'cyberpunk-ui'
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
