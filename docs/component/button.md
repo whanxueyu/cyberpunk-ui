@@ -1,8 +1,5 @@
 ## button 按钮
 
-<!-- <script setup lang="ts">
-import { CpButton } from 'cyberpunk-ui'
-</script> -->
 
 <cp-button>CyberPunkUI</cp-button>
 

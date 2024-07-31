@@ -21,7 +21,8 @@ export default defineComponent({
     background-color: transparent;
     color: #fff;
     user-select: none;
-    width: 100%;
+    display: inline-block;
+    cursor: pointer;
 }
 
 @keyframes glitch {
