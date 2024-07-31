@@ -1,28 +1,53 @@
 <template>
-    <div class="black">
-        <div class="button">
+    <div class="cp-button">
+        <div :class="['button', buttonType]">
             <slot></slot>
         </div>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
+<script setup lang="ts">
+import { computed } from 'vue';
+defineOptions({
     name: 'CpButton',
-    // 组件选项
-});
+})
+
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'primary',
+        validator: (value: string) => {
+            return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1
+        }
+    },
+})
+const buttonType = computed(() => {
+    switch (props.type) {
+        case 'primary':
+            return 'primary-style';
+        case 'success':
+            return 'success-style';
+        case 'warning':
+            return 'warning-style';
+        case 'danger':
+            return 'danger-style';
+        default:
+            return 'primary-style'; // 默认样式
+    }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.black {
+.cp-button {
     background-color: transparent;
     color: #fff;
     user-select: none;
     display: inline-block;
     cursor: pointer;
+}
+.cp-button+.cp-button {
+    margin-left: 20px;
 }
 
 @keyframes glitch {
@@ -85,14 +110,10 @@ export default defineComponent({
 .button,
 .button::after {
     position: relative;
-    max-width: 380px;
-    width: 100%;
-    padding: 0 20px;
-    height: 74px;
-    line-height: 74px;
+    padding: 12px 16px;
     font-size: 24px;
     /* cursive 为通用字体族名——草书 */
-    font-family: "Bebas Neue", cursive;
+    /* font-family: "Bebas Neue", cursive; */
     background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
     border: 0;
     color: #fff;
@@ -128,5 +149,24 @@ export default defineComponent({
 .button:hover::after {
     animation: glitch 1s;
     animation-timing-function: steps(2, end);
+}
+.primary-style {
+    /* primary样式定义 */
+    background: linear-gradient(45deg, transparent 5%, #01b7ff 5%);
+}
+
+.success-style {
+    /* success样式定义 */
+    background: linear-gradient(45deg, transparent 5%, #02c54d 5%);
+}
+
+.warning-style {
+    /* warning样式定义 */
+    background: linear-gradient(45deg, transparent 5%, #ff9900 5%);
+}
+
+.danger-style {
+    /* danger样式定义 */
+    background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
 }
 </style>
