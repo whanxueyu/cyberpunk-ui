@@ -2,6 +2,14 @@
 export default {
   title: 'CyberPunk-UI',
   description: 'cyberpunk-ui',
+  /* prettier-ignore */
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
+    ['meta', { property: 'og:title', content: 'CyberPunk-UI | Vite & Vue3 & TS Powered A library of future components' }],
+    ['meta', { property: 'og:site_name', content: 'CyberPunk-UI' }],
+  ],
   themeConfig: {
     appearance: true,
     lastUpdate: '最后更新时间',
@@ -10,26 +18,29 @@ export default {
     editLinkText: '编辑网站',
     logo: '/logo.svg',
     repo: 'https://gitee.com/login',
+    search: {
+      provider: 'local'
+    },
     footer: {
       message: 'Relcased under the Mit Lincense.',
       copyright: 'CopyRight 2024-anxueyu',
     },
     nav: [
-      { text: "指南", link: "/guild/installation", activeMatch: '/guide/' },
+      { text: "指南", link: "/guide/installation", activeMatch: '/guide/' },
       { text: "组件", link: "/component/button/", activeMatch: '/component/' },
     ],
     sidebar: {
-      "/guild/": [
+      "/guide/": [
         {
           text: "基础",
           items: [
             {
               text: "安装",
-              link: "/guild/installation",
+              link: "/guide/installation",
             },
             {
               text: "快速开始",
-              link: "/guild/quickstart",
+              link: "/guide/quickstart",
             },
           ],
         },

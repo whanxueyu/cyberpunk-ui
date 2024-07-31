@@ -1,12 +1,8 @@
 ## button 按钮
-
-
+这是一个最基础的按钮，也是最具代表性的
 <cp-button>CyberPunkUI</cp-button>
 
 ```vue
-<!-- <script setup lang="ts">
-import { CpButton } from 'cyberpunk-ui'
-</script> -->
 <template>
     <cp-button>CyberPunkUI</cp-button>
 </template>
