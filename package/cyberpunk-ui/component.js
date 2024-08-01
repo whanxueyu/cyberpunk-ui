@@ -1,4 +1,4 @@
-import { CpButton } from '../components/button/index';
+import { CpButton } from '../components/button';
 export default [
     CpButton
 ];

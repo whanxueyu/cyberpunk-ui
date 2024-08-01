@@ -1,7 +1,7 @@
 {
   "name": "cyberpunk-ui",
   "private": false,
-  "version": "1.0.4",
+  "version": "1.0.41",
   "scripts": {
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",

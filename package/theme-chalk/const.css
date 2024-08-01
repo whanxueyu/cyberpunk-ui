@@ -1,0 +1,34 @@
+:root {
+    /*  */
+    --cp-primary-color: #4EAFFA;
+    --cp-success-color: #EAA3D2;
+    --cp-warning-color: #CC54D1;
+    --cp-danger-color: #B74F69;
+    --cp-default-color: #4A41AF;
+    /*  */
+    --cp-primary-color2: #47F2C6;
+    --cp-success-color2: #00D1A8;
+    --cp-warning-color2: #0F717F;
+    --cp-danger-color2: #3F8B9F;
+    --cp-default-color2: #2F4F79;
+    /* */
+    --cp-primary-color3: #97E3FE;
+    --cp-success-color3: #F294F8;
+    --cp-warning-color3: #818CE1;
+    --cp-danger-color3: #9A54D0;
+    --cp-default-color3: #2743AE;
+    /* */
+    --cp-primary-color4: #F7DA66;
+    --cp-success-color4: #3DB3CF;
+    --cp-warning-color4: #C14347;
+    --cp-danger-color4: #AB599B;
+    --cp-default-color4: #1A133A;
+    /* */
+    --cp-primary-color5: #C2F132;
+    --cp-success-color5: #61FAF8;
+    --cp-warning-color5: #3DE1C3;
+    --cp-danger-color5: #3D8155;
+    --cp-default-color5: #396976;
+}
+/* 蓝绿红黄紫 */
+    
