@@ -6,7 +6,8 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "dev:test": "pnpm -C test dev",
-    "dev:doc": "pnpm -C docs dev"
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build"
   },
   "dependencies": {
     "vue": "^3.4.31"
