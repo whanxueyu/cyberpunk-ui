@@ -5,7 +5,7 @@ hero:
     name: cyberpunk-ui 组件库
     text: 基于vue3的组件库
     tagline: Master the art of building Vue 3 components.
-    image: /city.png
+    image: /logo.svg
     actions:
       - theme: brand
         text: 快速开始
