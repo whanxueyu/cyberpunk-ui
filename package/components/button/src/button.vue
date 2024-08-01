@@ -1,17 +1,18 @@
 <template>
-    <div class="cp-button">
-        <div :class="['button', buttonType]">
-            <slot></slot>
+    <div :class="['cp-button', buttonSize]">
+        <div :class="['button', buttonType]" :data-content="props.content">
+            <slot v-if="slots"></slot>
+            <span v-else>{{ props.content }}</span>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 defineOptions({
     name: 'CpButton',
 })
-
+const slots = useSlots()
 const props = defineProps({
     type: {
         type: String,
@@ -20,7 +21,19 @@ const props = defineProps({
             return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1
         }
     },
+    size: {
+        type: String,
+        default: 'default',
+        validator: (value: string) => {
+            return ['large', 'default', 'small'].indexOf(value) !== -1
+        }
+    },
+    content: {
+        type: String,
+        default: 'CyberPunk-UI'
+    }
 })
+const emits = defineEmits(["onMouseEnter", "onMouseLeave"])
 const buttonType = computed(() => {
     switch (props.type) {
         case 'primary':
@@ -35,6 +48,19 @@ const buttonType = computed(() => {
             return 'primary-style'; // 默认样式
     }
 })
+const buttonSize = computed(() => {
+    switch (props.size) {
+        case 'large':
+            return 'large-size';
+        case 'default':
+            return 'default-size';
+        case 'small':
+            return 'small-size';
+        default:
+            return 'default-size'; // 默认大小
+        
+    }
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -46,8 +72,9 @@ const buttonType = computed(() => {
     display: inline-block;
     cursor: pointer;
 }
+
 .cp-button+.cp-button {
-    margin-left: 20px;
+    margin-left: 60px;
 }
 
 @keyframes glitch {
@@ -106,12 +133,32 @@ const buttonType = computed(() => {
         transform: translate(0);
     }
 }
+.large-size .button,
+.large-size .button::after {
+  padding: 16px 32px;
+  font-size: 32px;
+  line-height:32px;
+}
 
+.default-size .button,
+.default-size .button::after {
+  padding: 12px 24px;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.small-size .button,
+.small-size .button::after {
+  padding: 8px 16px;
+  font-size: 12px;
+  line-height: 12px;
+}
 .button,
 .button::after {
     position: relative;
-    padding: 12px 16px;
+    /* padding: 12px 20px;
     font-size: 24px;
+    line-height: 1; */
     /* cursive 为通用字体族名——草书 */
     /* font-family: "Bebas Neue", cursive; */
     background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
@@ -129,8 +176,8 @@ const buttonType = computed(() => {
     --slice-3: inset(10% -6px 85% 0);
     --slice-4: inset(40% -6px 43% 0);
     --slice-5: inset(80% -6px 5% 0);
-
-    content: "AVAILABLE NOW";
+    content: attr(data-content);
+    /* content: "AVAILABLE NOW"; */
     display: block;
     position: absolute;
     top: 0;
@@ -150,19 +197,48 @@ const buttonType = computed(() => {
     animation: glitch 1s;
     animation-timing-function: steps(2, end);
 }
+
 .primary-style {
     /* primary样式定义 */
-    background: linear-gradient(45deg, transparent 5%, #01b7ff 5%);
+    background: linear-gradient(45deg, transparent 5%, #00a6dc 5%);
+
+    &::after {
+        background: linear-gradient(45deg,
+                transparent 3%,
+                #9280ed 3%,
+                #9280ed 5%,
+                #00a6dc 5%);
+        box-shadow: 6px 0 0 #9280ed;
+        text-shadow: -3px -3px 0px #69f569, 3px 3px 0px #9280ed;
+    }
 }
 
 .success-style {
     /* success样式定义 */
     background: linear-gradient(45deg, transparent 5%, #02c54d 5%);
+
+    &::after {
+        background: linear-gradient(45deg,
+                transparent 3%,
+                #ffce6c 3%,
+                #ffce6c 5%,
+                #02c54d 5%);
+        box-shadow: 6px 0 0 #ffce6c;
+        text-shadow: -3px -3px 0px #00a7d5, 3px 3px 0px #ffce6c;
+    }
 }
 
 .warning-style {
     /* warning样式定义 */
     background: linear-gradient(45deg, transparent 5%, #ff9900 5%);
+
+    &::after {
+        background: linear-gradient(45deg,
+                transparent 3%,
+                #00e6f6 3%,
+                #00e6f6 5%,
+                #ff9900 5%);
+    }
 }
 
 .danger-style {
