@@ -4,7 +4,7 @@ export default {
   description: 'cyberpunk-ui',
   /* prettier-ignore */
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: './logo.svg' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
     ['meta', { property: 'og:title', content: 'CyberPunk-UI | Vite & Vue3 & TS Powered A library of future components' }],
@@ -16,7 +16,7 @@ export default {
     docsDir: 'docs',
     editLinks: true,
     editLinkText: '编辑网站',
-    logo: '/logo.svg',
+    logo: './logo.svg',
     repo: 'https://gitee.com/login',
     search: {
       provider: 'local'
