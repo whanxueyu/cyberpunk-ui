@@ -64,7 +64,7 @@ const buttonSize = computed(() => {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .cp-button {
     background-color: transparent;
     color: #fff;
@@ -74,7 +74,7 @@ const buttonSize = computed(() => {
 }
 
 .cp-button+.cp-button {
-    margin-left: 60px;
+    margin-left: 20px;
 }
 
 @keyframes glitch {
@@ -139,6 +139,9 @@ const buttonSize = computed(() => {
   font-size: 32px;
   line-height:32px;
 }
+.large-size.cp-button+.cp-button {
+    margin-left: 40px;
+}
 
 .default-size .button,
 .default-size .button::after {
@@ -152,6 +155,9 @@ const buttonSize = computed(() => {
   padding: 8px 16px;
   font-size: 12px;
   line-height: 12px;
+}
+.small-size.cp-button+.cp-button {
+    margin-left: 15px;
 }
 .button,
 .button::after {

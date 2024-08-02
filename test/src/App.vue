@@ -64,6 +64,7 @@
 .content {
   border-left: 1px solid #ccc;
   padding: 20px;
+  text-align: left;
 }
 .panel{
   margin-bottom: 20px;
