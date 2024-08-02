@@ -1,8 +1,18 @@
 <script setup lang="ts">
+import { useDark, useToggle } from '@vueuse/core'
+const isDark = useDark({
+  storageKey: 'useDarkKEY',
+  // 暗黑class名字
+  valueDark: 'dark',
+  // 高亮class名字
+  valueLight: 'light',
+})
+const toggleDark = useToggle(isDark)
 </script>
 
 <template>
   <div class="main">
+  <cp-nenobutton type="danger" bg size="small" @click="toggleDark()">切换</cp-nenobutton>
     <div class="section">
       <div class="title">按钮样式</div>
       <div class="content">
@@ -35,6 +45,32 @@
           <cp-button type="success" size="small" content="SUCCESS">SUCCESS</cp-button>
           <cp-button type="warning" size="small" content="WARNING">WARNING</cp-button>
           <cp-button type="danger" size="small" content="DANGER">DANGER</cp-button>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="title">按钮大小</div>
+      <div class="content">
+        <div class="panel">
+          <span class="subtitle">large</span>
+          <cp-nenobutton type="primary" size="large" bg>PRIMARY</cp-nenobutton>
+          <cp-nenobutton type="success" size="large" bg>SUCCESS</cp-nenobutton>
+          <cp-nenobutton type="warning" size="large" bg>WARNING</cp-nenobutton>
+          <cp-nenobutton type="danger" size="large" bg>DANGER</cp-nenobutton>
+        </div>
+        <div class="panel">
+          <span class="subtitle">default</span>
+          <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
+          <cp-nenobutton type="success" size="default">SUCCESS</cp-nenobutton>
+          <cp-nenobutton type="warning" size="default">WARNING</cp-nenobutton>
+          <cp-nenobutton type="danger" size="default">DANGER</cp-nenobutton>
+        </div>
+        <div class="panel">
+          <span class="subtitle">small</span>
+          <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
+          <cp-nenobutton type="success" size="small">SUCCESS</cp-nenobutton>
+          <cp-nenobutton type="warning" size="small">WARNING</cp-nenobutton>
+          <cp-nenobutton type="danger" size="small">DANGER</cp-nenobutton>
         </div>
       </div>
     </div>
