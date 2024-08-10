@@ -1,10 +1,6 @@
 <template>
     <div :class="['cp-button-neno', buttonSize]">
         <div :class="['button', buttonType, props.bg ? 'show-bg' : '']">
-            <div class="border"></div>
-            <div class="border"></div>
-            <div class="border"></div>
-            <div class="border"></div>
             <slot></slot>
         </div>
     </div>
@@ -13,7 +9,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 defineOptions({
-    name: 'CpNenobutton',
+    name: 'CpReflectbutton',
 })
 const slots = useSlots()
 const props = defineProps({
@@ -105,120 +101,82 @@ const buttonSize = computed(() => {
     margin-left: 15px;
 }
 
+@keyframes rotate {
+    100% {
+        transform: translate(-50%, -50%) rotate(1turn);
+    }
+}
+
 .button {
     --base-color: #03e9f4;
-    position: relative;
-    padding: 25px 30px;
     color: var(--base-color);
+    position: relative;
+    z-index: 0;
+    // width: 160px;
+    // height: 60px;
+    line-height: 60px;
     font-size: 24px;
-    text-transform: uppercase;
-    transition: 0.5s;
-    letter-spacing: 4px;
-    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+    margin: auto;
     overflow: hidden;
-}
+    cursor: pointer;
+    transition: .3s;
+    -webkit-box-reflect: below 10px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
 
-.button:hover {
-    background-color: var(--base-color);
-    color: #fff;
-    box-shadow: 0 0 5px var(--base-color),
-        0 0 25px var(--base-color),
-        0 0 50px var(--base-color),
-        0 0 200px var(--base-color);
-}
+    &:hover {
+        color: #fff;
+        box-shadow: 0 0 5px var(--base-color),
+            0 0 25px var(--base-color);
+        ;
 
-.button .border {
-    position: absolute;
-}
-
-.button .border:nth-child(1) {
-    width: 100%;
-    height: 2px;
-    top: 0;
-    left: -100%;
-    background: linear-gradient(to right, transparent, var(--base-color));
-    animation: animate1 1s linear infinite;
-}
-
-.button .border:nth-child(2) {
-    width: 2px;
-    height: 100%;
-    top: -100%;
-    right: 0;
-    background: linear-gradient(to bottom, transparent, var(--base-color));
-    animation: animate2 1s linear infinite;
-    animation-delay: 0.25s;
-}
-
-.button .border:nth-child(3) {
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    right: -100%;
-    background: linear-gradient(to left, transparent, var(--base-color));
-    animation: animate3 1s linear infinite;
-    animation-delay: 0.5s;
-}
-
-.button .border:nth-child(4) {
-    width: 2px;
-    height: 100%;
-    bottom: -100%;
-    left: 0;
-    background: linear-gradient(to top, transparent, var(--base-color));
-    animation: animate4 1s linear infinite;
-    animation-delay: 0.75s;
-}
-
-@keyframes animate1 {
-    0% {
-        left: -100%;
+        &::after,
+        &::before {
+            transition: .3s;
+            background: var(--base-color);
+        }
     }
 
-    50%,
-    100% {
-        left: 100%;
-    }
-}
-
-@keyframes animate2 {
-    0% {
-        top: -100%;
-    }
-
-    50%,
-    100% {
-        top: 100%;
-    }
-}
-
-@keyframes animate3 {
-    0% {
-        right: -100%;
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -2;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 150%;
+        height: 300%;
+        background-repeat: no-repeat;
+        background-size: 50% 50%;
+        background-position: 0 0;
+        background-image: conic-gradient(var(--base-color), var(--base-color));
+        animation: rotate 2s linear infinite;
     }
 
-    50%,
-    100% {
-        right: 100%;
-    }
-}
-
-@keyframes animate4 {
-    0% {
-        bottom: -100%;
-    }
-
-    50%,
-    100% {
-        bottom: 100%;
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: 2px;
+        top: 2px;
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        background: #000000;
+        border-radius: 10px;
     }
 }
 
 .primary-style {
     &.show-bg {
-        background: #014961;
         color: #fff;
-        &:hover{
+        &::after {
+            background: #014961;
+        }
+        &::before {
+            background-color: transparent;
+        }
+
+        &:hover {
             background: #00a6dc;
         }
     }
@@ -230,10 +188,15 @@ const buttonSize = computed(() => {
 
 .success-style {
     &.show-bg {
-        background: #015722;
         color: #fff;
+        &::after {
+            background: #015722;
+        }
+        &::before {
+            background-color: transparent;
+        }
 
-        &:hover{
+        &:hover {
             background: #02c54d;
         }
     }
@@ -245,10 +208,15 @@ const buttonSize = computed(() => {
 
 .warning-style {
     &.show-bg {
-        background: #613a01;
         color: #fff;
+        &::after {
+            background: #613a01;
+        }
+        &::before {
+            background-color: transparent;
+        }
 
-        &:hover{
+        &:hover {
             background: #ff9900;
         }
     }
@@ -260,10 +228,16 @@ const buttonSize = computed(() => {
 
 .danger-style {
     &.show-bg {
-        background: #5c0116;
         color: #fff;
 
-        &:hover{
+        &::after {
+            background: #5c0116;
+        }
+        &::before {
+            background-color: transparent;
+        }
+
+        &:hover {
             background: #ff013c;
         }
     }

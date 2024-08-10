@@ -1,7 +1,7 @@
 import { computed, useSlots } from 'vue';
 const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpNenobutton',
+    name: 'CpReflectbutton',
 });
 const slots = useSlots();
 const props = defineProps({
@@ -88,17 +88,9 @@ function __VLS_template() {
     __VLS_styleScopedClasses = (['cp-button-neno', buttonSize]);
     __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ((['button', __VLS_ctx.buttonType, props.bg ? 'show-bg' : ''])) }));
     __VLS_styleScopedClasses = (['button', buttonType, props.bg ? 'show-bg' : '']);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("border") }));
-    [buttonSize, buttonType,];
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("border") }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("border") }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("border") }));
     var __VLS_0 = {};
+    [buttonSize, buttonType,];
     if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['border'];
-        __VLS_styleScopedClasses['border'];
-        __VLS_styleScopedClasses['border'];
-        __VLS_styleScopedClasses['border'];
     }
     var __VLS_slots;
     return __VLS_slots;
@@ -163,4 +155,4 @@ const __VLS_component = (await import('vue')).defineComponent({
 });
 export default {};
 ;
-//# sourceMappingURL=nenobutton.vue.js.map
+//# sourceMappingURL=reflectbutton.vue.js.map
