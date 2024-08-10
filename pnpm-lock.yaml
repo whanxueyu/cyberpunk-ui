@@ -49,6 +49,9 @@ importers:
 
   test:
     dependencies:
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.0(vue@3.4.34(typescript@5.5.4))
       cyberpunk-ui:
         specifier: ^1.0.4
         version: 1.0.41(typescript@5.5.4)
