@@ -40,8 +40,8 @@ importers:
   docs:
     dependencies:
       cyberpunk-ui:
-        specifier: ^1.0.41
-        version: 1.0.41(typescript@5.5.4)
+        specifier: ^1.0.42
+        version: 1.0.42(typescript@5.5.4)
     devDependencies:
       vitepress:
         specifier: ^1.3.1
@@ -601,6 +601,10 @@ packages:
 
   cyberpunk-ui@1.0.41:
     resolution: {integrity: sha512-wqSE7qsQHchBxgqnAplVyp5B3DtYlyD5W4LHdJ5I3m15GFNCyBmRxPmpeYyIhP2q4YFAWU8jBLqxRo4rjDAdwA==}
+    engines: {node: '>=18.18.2'}
+
+  cyberpunk-ui@1.0.42:
+    resolution: {integrity: sha512-PW+6e+29C33l6bBfCdM6k/dD3ZveucdFvzTV53Eey9icW4GuXZG+Dy8HXppPnsRQhlAqS9j+CI0WNN9LZeITVg==}
     engines: {node: '>=18.18.2'}
 
   de-indent@1.0.2:
@@ -1334,6 +1338,13 @@ snapshots:
 
   cyberpunk-ui@1.0.41(typescript@5.5.4):
     dependencies:
+      vue: 3.4.34(typescript@5.5.4)
+    transitivePeerDependencies:
+      - typescript
+
+  cyberpunk-ui@1.0.42(typescript@5.5.4):
+    dependencies:
+      sass: 1.77.8
       vue: 3.4.34(typescript@5.5.4)
     transitivePeerDependencies:
       - typescript

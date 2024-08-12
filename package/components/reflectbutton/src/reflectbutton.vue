@@ -128,12 +128,12 @@ const buttonSize = computed(() => {
         color: #fff;
         box-shadow: 0 0 5px var(--base-color),
             0 0 25px var(--base-color);
-        ;
 
         &::after,
         &::before {
             transition: .3s;
-            background: var(--base-color);
+            background-color: transparent;
+            background-color: var(--base-color);
         }
     }
 
@@ -144,13 +144,14 @@ const buttonSize = computed(() => {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 150%;
-        height: 300%;
+        width: 200%;
+        height: 400%;
         background-repeat: no-repeat;
         background-size: 50% 50%;
         background-position: 0 0;
         background-image: conic-gradient(var(--base-color), var(--base-color));
         animation: rotate 2s linear infinite;
+        background-color: transparent;
     }
 
     &::after {
