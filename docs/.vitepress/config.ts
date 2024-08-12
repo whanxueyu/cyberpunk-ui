@@ -48,8 +48,8 @@ export default {
           text: "进阶",
           items: [
             {
-              text: "xx",
-              link: "/xx",
+              text: "自定义主题颜色",
+              link: "/advanced/themeColor",
             },
           ],
         },
