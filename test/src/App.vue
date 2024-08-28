@@ -8,106 +8,127 @@ const isDark = useDark({
   valueLight: 'light',
 })
 const toggleDark = useToggle(isDark)
+const sectionList = [
+  {
+    title: '按钮样式'
+  },
+  {
+    title: '按钮大小'
+  },
+  {
+    title: '霓虹按钮'
+  },
+  {
+    title: '按钮样式'
+  },
+]
 </script>
 
 <template>
   <div class="main">
-    <div class="header">
-      <cp-reflectbutton type="primary" bg size="small" @click="toggleDark()">切换</cp-reflectbutton>
-    </div>
-    <div class="section">
-      <div class="title">按钮样式</div>
-      <div class="content">
-        <cp-button type="primary" content="PRIMARY">PRIMARY</cp-button>
-        <cp-button type="success" content="SUCCESS">SUCCESS</cp-button>
-        <cp-button type="warning" content="WARNING">WARNING</cp-button>
-        <cp-button type="danger" content="DANGER">DANGER</cp-button>
-      </div>
-    </div>
-    <div class="section">
-      <div class="title">按钮大小</div>
-      <div class="content">
-        <div class="panel">
-          <span class="subtitle">large</span>
-          <cp-button type="primary" size="large" content="PRIMARY">PRIMARY</cp-button>
-          <cp-button type="success" size="large" content="SUCCESS">SUCCESS</cp-button>
-          <cp-button type="warning" size="large" content="WARNING">WARNING</cp-button>
-          <cp-button type="danger" size="large" content="DANGER">DANGER</cp-button>
+    <cp-full-page :sectionList="sectionList">
+      <div class="section">
+        <div class="header">
+          <cp-reflectbutton type="primary" bg size="small" @click="toggleDark()">切换</cp-reflectbutton>
         </div>
-        <div class="panel">
-          <span class="subtitle">default</span>
-          <cp-button type="primary" size="default" content="PRIMARY">PRIMARY</cp-button>
-          <cp-button type="success" size="default" content="SUCCESS">SUCCESS</cp-button>
-          <cp-button type="warning" size="default" content="WARNING">WARNING</cp-button>
-          <cp-button type="danger" size="default" content="DANGER">DANGER</cp-button>
-        </div>
-        <div class="panel">
-          <span class="subtitle">small</span>
-          <cp-button type="primary" size="small" content="PRIMARY">PRIMARY</cp-button>
-          <cp-button type="success" size="small" content="SUCCESS">SUCCESS</cp-button>
-          <cp-button type="warning" size="small" content="WARNING">WARNING</cp-button>
-          <cp-button type="danger" size="small" content="DANGER">DANGER</cp-button>
+        <div class="title">按钮样式</div>
+        <div class="content">
+          <cp-text content="cp-text"></cp-text>
+          <cp-shadow-text shadowColor="#33f8ff" type="left">cp-shadow-text-left</cp-shadow-text>
+          <cp-shadow-text shadowColor="#ff5588" type="right">cp-shadow-text-right</cp-shadow-text>
+          <cp-glow-text color="#ff5588">cp-glow-text</cp-glow-text>
+          <cp-typing>CpTyping</cp-typing>
+          <cp-button type="primary" content="PRIMARY">PRIMARY</cp-button>
+          <cp-button type="success" content="SUCCESS">SUCCESS</cp-button>
+          <cp-button type="warning" content="WARNING">WARNING</cp-button>
+          <cp-button type="danger" content="DANGER">DANGER</cp-button>
         </div>
       </div>
-    </div>
-    <div class="section">
-      <div class="title">霓虹按钮</div>
-      <div class="content">
-        <div class="panel">
-          <span class="subtitle">大小</span>
-          <cp-nenobutton type="primary" size="large">PRIMARY</cp-nenobutton>
-          <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
-          <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
-        </div>
-        <div class="panel">
-          <span class="subtitle">类型</span>
-          <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
-          <cp-nenobutton type="success" size="default">SUCCESS</cp-nenobutton>
-          <cp-nenobutton type="warning" size="default">WARNING</cp-nenobutton>
-          <cp-nenobutton type="danger" size="default">DANGER</cp-nenobutton>
-        </div>
-        <div class="panel">
-          <span class="subtitle">有无背景</span>
-          <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
-          <cp-nenobutton type="primary" size="small" bg>PRIMARY</cp-nenobutton>
-          <cp-nenobutton type="success" size="small">SUCCESS</cp-nenobutton>
-          <cp-nenobutton type="success" size="small" bg>SUCCESS</cp-nenobutton>
-          <cp-nenobutton type="warning" size="small">WARNING</cp-nenobutton>
-          <cp-nenobutton type="warning" size="small" bg>WARNING</cp-nenobutton>
-          <cp-nenobutton type="danger" size="small">DANGER</cp-nenobutton>
-          <cp-nenobutton type="danger" size="small" bg>DANGER</cp-nenobutton>
+      <div class="section">
+        <div class="title">按钮大小</div>
+        <div class="content">
+          <div class="panel">
+            <span class="subtitle">large</span>
+            <cp-button type="primary" size="large" content="PRIMARY">PRIMARY</cp-button>
+            <cp-button type="success" size="large" content="SUCCESS">SUCCESS</cp-button>
+            <cp-button type="warning" size="large" content="WARNING">WARNING</cp-button>
+            <cp-button type="danger" size="large" content="DANGER">DANGER</cp-button>
+          </div>
+          <div class="panel">
+            <span class="subtitle">default</span>
+            <cp-button type="primary" size="default" content="PRIMARY">PRIMARY</cp-button>
+            <cp-button type="success" size="default" content="SUCCESS">SUCCESS</cp-button>
+            <cp-button type="warning" size="default" content="WARNING">WARNING</cp-button>
+            <cp-button type="danger" size="default" content="DANGER">DANGER</cp-button>
+          </div>
+          <div class="panel">
+            <span class="subtitle">small</span>
+            <cp-button type="primary" size="small" content="PRIMARY">PRIMARY</cp-button>
+            <cp-button type="success" size="small" content="SUCCESS">SUCCESS</cp-button>
+            <cp-button type="warning" size="small" content="WARNING">WARNING</cp-button>
+            <cp-button type="danger" size="small" content="DANGER">DANGER</cp-button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="section">
-      <div class="title">反光按钮</div>
-      <div class="content">
-        <div class="panel reflect1">
-          <span class="subtitle">大小</span>
-          <cp-reflectbutton type="primary" size="large">PRIMARY</cp-reflectbutton>
-          <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
-          <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
-        </div>
-        <div class="panel reflect2">
-          <span class="subtitle">类型</span>
-          <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
-          <cp-reflectbutton type="success" size="default">SUCCESS</cp-reflectbutton>
-          <cp-reflectbutton type="warning" size="default">WARNING</cp-reflectbutton>
-          <cp-reflectbutton type="danger" size="default">DANGER</cp-reflectbutton>
-        </div>
-        <div class="panel reflect3">
-          <span class="subtitle">有无背景</span>
-          <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
-          <cp-reflectbutton type="primary" size="small" bg>PRIMARY</cp-reflectbutton>
-          <cp-reflectbutton type="success" size="small">SUCCESS</cp-reflectbutton>
-          <cp-reflectbutton type="success" size="small" bg>SUCCESS</cp-reflectbutton>
-          <cp-reflectbutton type="warning" size="small">WARNING</cp-reflectbutton>
-          <cp-reflectbutton type="warning" size="small" bg>WARNING</cp-reflectbutton>
-          <cp-reflectbutton type="danger" size="small">DANGER</cp-reflectbutton>
-          <cp-reflectbutton type="danger" size="small" bg>DANGER</cp-reflectbutton>
+      <div class="section">
+        <div class="title">霓虹按钮</div>
+        <div class="content">
+          <div class="panel">
+            <span class="subtitle">大小</span>
+            <cp-nenobutton type="primary" size="large">PRIMARY</cp-nenobutton>
+            <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
+            <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
+          </div>
+          <div class="panel">
+            <span class="subtitle">类型</span>
+            <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
+            <cp-nenobutton type="success" size="default">SUCCESS</cp-nenobutton>
+            <cp-nenobutton type="warning" size="default">WARNING</cp-nenobutton>
+            <cp-nenobutton type="danger" size="default">DANGER</cp-nenobutton>
+          </div>
+          <div class="panel">
+            <span class="subtitle">有无背景</span>
+            <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
+            <cp-nenobutton type="primary" size="small" bg>PRIMARY</cp-nenobutton>
+            <cp-nenobutton type="success" size="small">SUCCESS</cp-nenobutton>
+            <cp-nenobutton type="success" size="small" bg>SUCCESS</cp-nenobutton>
+            <cp-nenobutton type="warning" size="small">WARNING</cp-nenobutton>
+            <cp-nenobutton type="warning" size="small" bg>WARNING</cp-nenobutton>
+            <cp-nenobutton type="danger" size="small">DANGER</cp-nenobutton>
+            <cp-nenobutton type="danger" size="small" bg>DANGER</cp-nenobutton>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="section">
+        <div class="title">反光按钮</div>
+        <div class="content">
+          <div class="panel reflect1">
+            <span class="subtitle">大小</span>
+            <cp-reflectbutton type="primary" size="large">PRIMARY</cp-reflectbutton>
+            <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
+            <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
+          </div>
+          <div class="panel reflect2">
+            <span class="subtitle">类型</span>
+            <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
+            <cp-reflectbutton type="success" size="default">SUCCESS</cp-reflectbutton>
+            <cp-reflectbutton type="warning" size="default">WARNING</cp-reflectbutton>
+            <cp-reflectbutton type="danger" size="default">DANGER</cp-reflectbutton>
+          </div>
+          <div class="panel reflect3">
+            <span class="subtitle">有无背景</span>
+            <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
+            <cp-reflectbutton type="primary" size="small" bg>PRIMARY</cp-reflectbutton>
+            <cp-reflectbutton type="success" size="small">SUCCESS</cp-reflectbutton>
+            <cp-reflectbutton type="success" size="small" bg>SUCCESS</cp-reflectbutton>
+            <cp-reflectbutton type="warning" size="small">WARNING</cp-reflectbutton>
+            <cp-reflectbutton type="warning" size="small" bg>WARNING</cp-reflectbutton>
+            <cp-reflectbutton type="danger" size="small">DANGER</cp-reflectbutton>
+            <cp-reflectbutton type="danger" size="small" bg>DANGER</cp-reflectbutton>
+          </div>
+        </div>
+      </div>
+    </cp-full-page>
   </div>
 </template>
 
@@ -124,7 +145,8 @@ const toggleDark = useToggle(isDark)
 
 .section {
   display: flex;
-  margin: 20px 0px;
+  width: 100vw;
+  height: 100vh;
   border: 1px solid #ccc;
 }
 
@@ -144,13 +166,16 @@ const toggleDark = useToggle(isDark)
 
 .panel {
   margin-bottom: 20px;
-  &.reflect1{
+
+  &.reflect1 {
     height: 150px;
   }
-  &.reflect2{
+
+  &.reflect2 {
     height: 100px;
   }
-  &.reflect3{
+
+  &.reflect3 {
     height: 60px;
   }
 }

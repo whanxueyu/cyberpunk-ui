@@ -1,10 +1,11 @@
 <template>
-    <div :class="['shadow-text', props.type]" :data-color="props.shadowColor">
+    <div :class="['shadow-text', props.type]">
         <slot></slot>
     </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 defineOptions({
     name: 'CpShadowText',
 })
@@ -21,6 +22,9 @@ const props = defineProps({
         default: '#ae0ed68c',
     },
 })
+// onMounted(()=>{
+  document.documentElement.style.setProperty('--shadow-color', props.shadowColor)
+// })
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -28,7 +32,7 @@ const props = defineProps({
 @function makelongleftshadow($color) {
     $val: 0px 0px $color;
 
-    @for $i from 1 through 25 {
+    @for $i from 1 through 20 {
         $color: fade-out(desaturate($color, 1%), .06);
         $val: #{$val}, -#{$i}px #{$i}px #{$color};
     }
@@ -39,7 +43,7 @@ const props = defineProps({
 @function makelongrightshadow($color) {
     $val: 0px 0px $color;
 
-    @for $i from 1 through 10 {
+    @for $i from 1 through 20 {
         $color: fade-out(desaturate($color, 1%), .1);
         $val: #{$val}, #{$i}px #{$i}px #{$color};
     }
@@ -48,14 +52,15 @@ const props = defineProps({
 }
 
 .right {
-    text-shadow: makelongrightshadow(attr(data-color));
+    text-shadow: makelongrightshadow(var(--shadow-color));
 }
 
 .shadow-text {
     text-align: center;
+    color: var(--shadow-color);
 }
 
 .left {
-    text-shadow: makelongleftshadow(attr(data-color));
+    text-shadow: makelongleftshadow(var(--shadow-color));
 }
 </style>
