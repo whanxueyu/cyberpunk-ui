@@ -49,7 +49,7 @@ export default {
           items: [
             {
               text: "自定义主题颜色",
-              link: "/advanced/themeColor",
+              link: "/advance/themeColor",
             },
           ],
         },
@@ -57,7 +57,11 @@ export default {
       "/component/": [
         {
           text: "基础组件",
-          items: [{ text: "button", link: "/component/button" }]
+          items: [
+            { text: "button 按钮", link: "/component/button" },
+            { text: "text 文字", link: "/component/text" },
+            { text: "fullpage 全屏滚动", link: "/component/fullpage" },
+          ]
         }
       ]
     },
