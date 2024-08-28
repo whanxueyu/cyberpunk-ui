@@ -44,9 +44,9 @@ const props = defineProps({
 
 .cp-text-line {
     position: absolute;
-    left: -10px;
+    left: 8px;
     width: 100%;
-    height: 3px;
+    height: 1px;
     z-index: 4;
     animation: whiteMove 3s ease-out infinite;
 }
@@ -57,7 +57,7 @@ const props = defineProps({
     top: 0;
     left: 0.5px;
     // height: 0px;
-    color: rgba(255, 255, 255, 0.9);
+    // color: rgba(255, 255, 255, 0.9);
     overflow: hidden;
     z-index: 2;
     animation: redShadow 1s ease-in infinite;
@@ -71,10 +71,10 @@ const props = defineProps({
     top: 0;
     left: -3px;
     // height: 36px;
-    color: rgba(255, 255, 255, 0.8);
+    // color: rgba(255, 255, 255, 0.8);
     overflow: hidden;
     z-index: 3;
-    background: rgba(0, 0, 0, 0.8);
+    // background: rgba(0, 0, 0, 0.8);
     animation: redHeight 1.5s ease-out infinite;
     filter: contrast(200%);
     text-shadow: -2px 0 0 rgb(0, 195, 255);

@@ -1,5 +1,5 @@
 <template>
-    <div class="cp-full-page" ref="fullPage">
+    <div class="cp-full-page">
         <div ref="element" :class="{ activeTranstion: isCloseTranstion }" class="inner-box" @mousewheel="mousewheel"
             @touchstart="handleTouchStart" @touchend="handleTouchEnd" @touchmove="handleTouchMove">
             <slot></slot>
@@ -34,7 +34,8 @@ const asideData = ref([
 // ELEMENT
 const element = ref()
 watchEffect(() => {
-    if (element.value.style) {
+    console.log(element)
+    if (element.value?.style) {
         // element.value.style.transform = transformScroll.value
         element.value.style.top = transformScroll.value
     }
@@ -87,7 +88,7 @@ function handleTouchEnd(e) {
     moveDistance.value = endY.value - startY.value
     // 这里我做了一个最小值 大于50才翻页
     if (Math.abs(moveDistance.value) >= 60) {
-        if ($index.value < props.sectionList.value.length - 1 && moveDistance.value < 0) {
+        if ($index.value < props.sectionList.length - 1 && moveDistance.value < 0) {
             $index.value++
         }
         if ($index.value > 0 && moveDistance.value > 0) {
@@ -111,7 +112,7 @@ function handleTouchMove(e) {
     moveDistance.value = (e.changedTouches[0].pageY || e.touches[0].pageY) - startY.value // 计算移动距离\
     //判断临界点
     const isCriticalPoint =
-        ($index.value === props.sectionList.value.length - 1 && moveDistance.value < 0) ||
+        ($index.value === props.sectionList.length - 1 && moveDistance.value < 0) ||
         ($index.value === 0 && moveDistance.value > 0)
     // 如果是临界点就直接返回
     if (isCriticalPoint) {
@@ -150,7 +151,7 @@ function goScroll(e) {
 const $index = ref(0) //索引控制第几个显示
 // 下一个
 function next() {
-    if ($index.value < props.sectionList.value.length - 1) {
+    if ($index.value < props.sectionList.length - 1) {
         $index.value++
     }
 }
@@ -235,7 +236,7 @@ function changeBac(index) {
                 padding: 1px;
                 display: flex;
                 flex-direction: row-reverse;
-                color: #fff;
+                // color: #fff;
                 transition: all linear 0.1s;
                 font-size: 12px;
 
@@ -244,7 +245,7 @@ function changeBac(index) {
                     content: "";
                     width: 40px;
                     height: 1px;
-                    background-color: #fff;
+                    background-color: #666;
                     margin-top: 6px;
                     margin-left: 4px;
                     transition: all ease-in-out .2s;
@@ -257,14 +258,16 @@ function changeBac(index) {
                 width: 4px;
                 height: 4px;
                 display: inline-block;
-                background-color: #fff;
+                // background-color: #fff;
+                box-shadow: 0 0 5px 0 #999;
                 transition: all ease-in-out 0.2s;
             }
 
             &:hover span {
                 width: 10px;
                 height: 10px;
-                background-color: #fff;
+                // background-color: #fff;
+                box-shadow: 0 0 5px 0 #999;
                 cursor: pointer;
                 transition: all ease-in-out .2s;
             }
