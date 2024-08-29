@@ -33,7 +33,7 @@ const props = defineProps({
     $val: 0px 0px $color;
 
     @for $i from 1 through 20 {
-        $color: fade-out(desaturate($color, 1%), .06);
+        $color: fade-out(desaturate($color, 1%), .05);
         $val: #{$val}, -#{$i}px #{$i}px #{$color};
     }
 
@@ -44,7 +44,7 @@ const props = defineProps({
     $val: 0px 0px $color;
 
     @for $i from 1 through 20 {
-        $color: fade-out(desaturate($color, 1%), .1);
+        $color: fade-out(desaturate($color, 1%), .05);
         $val: #{$val}, #{$i}px #{$i}px #{$color};
     }
 
@@ -52,15 +52,15 @@ const props = defineProps({
 }
 
 .right {
-    text-shadow: makelongrightshadow(var(--shadow-color));
+    text-shadow: makelongrightshadow(#008286);
 }
 
 .shadow-text {
     text-align: center;
-    color: var(--shadow-color);
+    display: inline-block;
 }
 
 .left {
-    text-shadow: makelongleftshadow(var(--shadow-color));
+    text-shadow: makelongleftshadow(#008286);
 }
 </style>

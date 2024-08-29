@@ -24,7 +24,7 @@ onMounted(() => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .glow-text {
-  display: inline;
+  display: inline-block;
   font-family: 'Lobster';
   text-align: center;
   font-size: 26px;

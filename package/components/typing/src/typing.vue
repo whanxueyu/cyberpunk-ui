@@ -16,7 +16,7 @@ defineOptions({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .cp-typing {
-  display: block;
+  display: inline-block;
 }
 
 .content {
@@ -25,8 +25,7 @@ defineOptions({
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
-  animation: typing 8s steps(26, end),
-    cursor-blink 0.5s step-end infinite alternate;
+  animation: typing 8s steps(26, end), cursor-blink 0.5s step-end infinite alternate;
   animation-delay: 3s;
   font-family: Consolas, Monaco, monospace;
 }

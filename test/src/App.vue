@@ -33,19 +33,24 @@ const sectionList = [
         </div>
         <div class="title">按钮样式</div>
         <div class="content">
-          <cp-text content="cp-text"></cp-text>
-          <cp-shadow-text shadowColor="#33f8ff" type="left">cp-shadow-text-left</cp-shadow-text>
-          <cp-shadow-text shadowColor="#ff5588" type="right">cp-shadow-text-right</cp-shadow-text>
-          <cp-glow-text color="#ff5588">cp-glow-text</cp-glow-text>
-          <cp-typing>CpTyping</cp-typing>
-          <cp-button type="primary" content="PRIMARY">PRIMARY</cp-button>
-          <cp-button type="success" content="SUCCESS">SUCCESS</cp-button>
-          <cp-button type="warning" content="WARNING">WARNING</cp-button>
-          <cp-button type="danger" content="DANGER">DANGER</cp-button>
+          <div>
+            <cp-text content="cp-text"></cp-text>
+          </div>
+          <div style="font-size: 48px;font-weight: bold;color:#33f8ff;">
+            <!-- 设置颜色不生效 -->
+            <cp-shadow-text shadowColor="#33f8ff" type="left">shadowleft</cp-shadow-text>
+            <cp-shadow-text shadowColor="#ff5588" type="right">shadow-right</cp-shadow-text>
+          </div>
+          <div>
+            <cp-glow-text color="#3355ff">cp-glow-text</cp-glow-text>
+          </div>
+          <div>
+            <cp-typing>CpTyping 1239945646 这是一段打字效果</cp-typing>
+          </div>
         </div>
       </div>
       <div class="section">
-        <div class="title">按钮大小</div>
+        <div class="title">故障按钮</div>
         <div class="content">
           <div class="panel">
             <span class="subtitle">large</span>
