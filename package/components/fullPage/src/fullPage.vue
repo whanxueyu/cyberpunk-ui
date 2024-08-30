@@ -4,12 +4,12 @@
             @touchstart="handleTouchStart" @touchend="handleTouchEnd" @touchmove="handleTouchMove">
             <slot></slot>
         </div>
-        <ul :class="['cp-full-dot', props.position]">
-            <li v-for="(item, index) in props.sectionList" @click="changeBac(index)">
-                <span :class="{ active: index === $index }"></span>
-                <div v-show="index === $index" class="show-dec">{{ item.title }}</div>
-            </li>
-        </ul>
+        <div :class="['cp-full-dot', props.position]">
+            <div v-for="i, index in props.pageNum" @click="changeBac(index)" class="cp-full-dot-item">
+                <div class="cp-full-dot-item-bg" :class="{ active: index === $index }"></div>
+                <slot></slot>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -18,7 +18,7 @@ import { computed, ref, watchEffect } from 'vue';
 defineOptions({
     name: 'CpFullPage',
 })
-const props = defineProps(['sectionList', "position"])
+const props = defineProps(['pageNum', "position"])
 const emits = defineEmits(['toNext', 'toLast', 'change'])
 // ELEMENT
 const element = ref()
@@ -76,7 +76,7 @@ function handleTouchEnd(e) {
     moveDistance.value = endY.value - startY.value
     // 这里我做了一个最小值 大于50才翻页
     if (Math.abs(moveDistance.value) >= 60) {
-        if ($index.value < props.sectionList.length - 1 && moveDistance.value < 0) {
+        if ($index.value < props.pageNum - 1 && moveDistance.value < 0) {
             $index.value++
         }
         if ($index.value > 0 && moveDistance.value > 0) {
@@ -100,7 +100,7 @@ function handleTouchMove(e) {
     moveDistance.value = (e.changedTouches[0].pageY || e.touches[0].pageY) - startY.value // 计算移动距离\
     //判断临界点
     const isCriticalPoint =
-        ($index.value === props.sectionList.length - 1 && moveDistance.value < 0) ||
+        ($index.value === props.pageNum - 1 && moveDistance.value < 0) ||
         ($index.value === 0 && moveDistance.value > 0)
     // 如果是临界点就直接返回
     if (isCriticalPoint) {
@@ -140,16 +140,16 @@ function goScroll(e) {
 const $index = ref(0) //索引控制第几个显示
 // 下一个
 function next() {
-    if ($index.value < props.sectionList.length - 1) {
+    if ($index.value < props.pageNum - 1) {
         $index.value++
-        emits('toNext', props.sectionList[$index.value], $index.value)
+        emits('toNext', $index.value)
     }
 }
 // 上一个
 function last() {
     if ($index.value > 1 || $index.value === 1) {
         $index.value--
-        emits('toLast', props.sectionList[$index.value], $index.value)
+        emits('toLast', $index.value)
 
     }
 }
@@ -157,6 +157,7 @@ function last() {
 // 点击切换
 function changeBac(index) {
     // 点击切换时需要开启动画
+    console.log(index)
     isCloseTranstion.value = false
     $index.value = index
 }
@@ -215,18 +216,25 @@ function changeBac(index) {
             top: 50%;
             transform: translateY(-50%);
         }
+
         &.top {
             left: 50%;
             top: 20px;
             transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
         }
+
         &.bottom {
             left: 50%;
             bottom: 20px;
+            top: auto;
             transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
         }
 
-        li {
+        .cp-full-dot-item {
             height: 14px;
             width: 14px;
             margin: 7px;
@@ -236,46 +244,22 @@ function changeBac(index) {
             position: relative;
             transition: all ease-in-out .2s;
 
-            .show-dec {
-                text-align: right;
-                position: absolute;
-                width: 100px;
-                right: 20px;
-                padding: 1px;
-                display: flex;
-                flex-direction: row-reverse;
-                // color: #fff;
-                transition: all linear 0.1s;
-                font-size: 12px;
-
-                &::before {
-                    display: inline-block;
-                    content: "";
-                    width: 40px;
-                    height: 1px;
-                    background-color: #666;
-                    margin-top: 6px;
-                    margin-left: 4px;
-                    transition: all ease-in-out .2s;
-                }
-            }
-
-            span {
+            .cp-full-dot-item-bg {
                 border-radius: 100%;
                 border: #fff solid 1px;
                 width: 4px;
                 height: 4px;
                 display: inline-block;
                 // background-color: #fff;
-                box-shadow: 0 0 5px 0 #999;
+                box-shadow: 0 0 5px 1px #666;
                 transition: all ease-in-out 0.2s;
             }
 
-            &:hover span {
+            &:hover .cp-full-dot-item-bg {
                 width: 10px;
                 height: 10px;
                 // background-color: #fff;
-                box-shadow: 0 0 5px 0 #999;
+                box-shadow: 0 0 5px 1px #666;
                 cursor: pointer;
                 transition: all ease-in-out .2s;
             }
