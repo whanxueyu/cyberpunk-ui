@@ -4,7 +4,7 @@
             @touchstart="handleTouchStart" @touchend="handleTouchEnd" @touchmove="handleTouchMove">
             <slot></slot>
         </div>
-        <ul class="cp-full-dot">
+        <ul :class="['cp-full-dot', props.position]">
             <li v-for="(item, index) in props.sectionList" @click="changeBac(index)">
                 <span :class="{ active: index === $index }"></span>
                 <div v-show="index === $index" class="show-dec">{{ item.title }}</div>
@@ -18,23 +18,11 @@ import { computed, ref, watchEffect } from 'vue';
 defineOptions({
     name: 'CpFullPage',
 })
-const props = defineProps(['sectionList'])
-
-const asideData = ref([
-    {
-        title: 'section1',
-    },
-    {
-        title: 'section2',
-    },
-    {
-        title: 'section3',
-    }
-])
+const props = defineProps(['sectionList', "position"])
+const emits = defineEmits(['toNext', 'toLast', 'change'])
 // ELEMENT
 const element = ref()
 watchEffect(() => {
-    console.log(element)
     if (element.value?.style) {
         // element.value.style.transform = transformScroll.value
         element.value.style.top = transformScroll.value
@@ -140,6 +128,7 @@ function handleTouchMove(e) {
 
 function goScroll(e) {
     //e.wheelDelta 用来判断上一个下一个 <0 下一个 >0上一个
+    emits('change', e.wheelDelta)
     if (e.wheelDelta < 0) {
         next()
     } else {
@@ -153,12 +142,15 @@ const $index = ref(0) //索引控制第几个显示
 function next() {
     if ($index.value < props.sectionList.length - 1) {
         $index.value++
+        emits('toNext', props.sectionList[$index.value], $index.value)
     }
 }
 // 上一个
 function last() {
     if ($index.value > 1 || $index.value === 1) {
         $index.value--
+        emits('toLast', props.sectionList[$index.value], $index.value)
+
     }
 }
 
@@ -217,6 +209,22 @@ function changeBac(index) {
         top: 50%;
         transform: translateY(-50%);
         transition: all ease-in-out .2s;
+
+        &.left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        &.top {
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+        }
+        &.bottom {
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+        }
 
         li {
             height: 14px;
