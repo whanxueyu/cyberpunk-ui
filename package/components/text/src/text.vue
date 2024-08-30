@@ -1,29 +1,24 @@
 <template>
-    <div class="cp-text" :data-word="props.content">
-        {{ props.content }}
-        <div class="cp-text-line" :style="'background: ' + props.bgColor"></div>
+    <div class="cp-text" :data-word="content">
+        <slot></slot>
+        <div class="cp-text-line" :style="'background: ' + props.lineColor"></div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { ref, useSlots } from 'vue';
 defineOptions({
     name: 'CpText',
 })
-const slots = useSlots()
+const content = ref('')
+
+const slots = useSlots();
+if (slots && slots.default) {
+    let tep = slots.default();
+    content.value = tep[0].children as string
+}
 const props = defineProps({
-    type: {
-        type: String,
-        default: 'primary',
-        validator: (value: string) => {
-            return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1
-        }
-    },
-    content: {
-        type: String,
-        default: 'TEXT'
-    },
-    bgColor: {
+    lineColor: {
         type: String,
         default: '#fff'
     },
@@ -88,10 +83,12 @@ const props = defineProps({
     clip-path: var(--slice-0);
 
 }
+
 .cp-text:hover::after {
     animation: glitch 1s;
     animation-timing-function: steps(2, end);
 }
+
 @keyframes glitch {
     0% {
         clip-path: var(--slice-1);
@@ -148,6 +145,7 @@ const props = defineProps({
         transform: translate(0);
     }
 }
+
 @keyframes redShadow {
     20% {
         height: 32px;
