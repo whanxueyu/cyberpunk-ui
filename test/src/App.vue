@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useDark, useToggle } from '@vueuse/core'
 const isDark = useDark({
   storageKey: 'useDarkKEY',
@@ -8,38 +9,46 @@ const isDark = useDark({
   valueLight: 'light',
 })
 const toggleDark = useToggle(isDark)
-const sectionList = [
-  {
-    title: '按钮样式'
-  },
-  {
-    title: '按钮大小'
-  },
-  {
-    title: '霓虹按钮'
-  },
-  {
-    title: '按钮样式'
-  },
-]
+const toNext = (index: number) => {
+  console.log(index)
+}
+const toLast = (index: number) => {
+  console.log(index)
+}
+const changePage = (scroll: number) => {
+  console.log(scroll)
+}
+const dotPosition = ref('right')
+const changePosition = (position: string) => {
+  dotPosition.value = position
+}
 </script>
 
 <template>
   <div class="main">
-    <cp-full-page :sectionList="sectionList">
+    <cp-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition">
       <div class="section">
         <div class="header">
           <cp-reflectbutton type="primary" bg size="small" @click="toggleDark()">切换</cp-reflectbutton>
         </div>
         <div class="title">按钮样式</div>
         <div class="content">
-          <div>
-            <cp-text content="cp-text"></cp-text>
+          <div style="padding: 60px;">
+            全屏指示点位置
+            <cp-reflectbutton type="primary" @click="changePosition('top')"> 上 ↑</cp-reflectbutton>
+            <cp-reflectbutton type="success" @click="changePosition('bottom')"> 下 ↓</cp-reflectbutton>
+            <cp-reflectbutton type="danger" @click="changePosition('left')"> 左 ←</cp-reflectbutton>
+            <cp-reflectbutton type="warning"  @click="changePosition('right')"> 右 →</cp-reflectbutton>
           </div>
-          <div style="font-size: 48px;font-weight: bold;color:#33f8ff;">
+          <div>
+            <cp-text lineColor="#99f8ff">drfghsrthrtjety6</cp-text>
+          </div>
+          <div style="font-size: 48px;font-weight: bold;color:#99f8ff;">
             <!-- 设置颜色不生效 -->
-            <cp-shadow-text shadowColor="#33f8ff" type="left">shadowleft</cp-shadow-text>
-            <cp-shadow-text shadowColor="#ff5588" type="right">shadow-right</cp-shadow-text>
+            <cp-shadow-text shadowColor="#33a6f9" direction="left" :long="20">shadow-left-long20</cp-shadow-text>
+            <cp-shadow-text shadowColor="#33a89f" direction="left" :long="10">shadow-left-long10</cp-shadow-text>
+            <cp-shadow-text shadowColor="#ff5555" direction="right" :long="10">shadow-right-long10</cp-shadow-text>
+            <cp-shadow-text shadowColor="#ff5588" direction="right" :long="20">shadow-right-long20</cp-shadow-text>
           </div>
           <div>
             <cp-glow-text color="#3355ff">cp-glow-text</cp-glow-text>

@@ -7,7 +7,7 @@
         <div :class="['cp-full-dot', props.position]">
             <div v-for="i, index in props.pageNum" @click="changeBac(index)" class="cp-full-dot-item">
                 <div class="cp-full-dot-item-bg" :class="{ active: index === $index }"></div>
-                <slot></slot>
+                <slot name="dot"></slot>
             </div>
         </div>
     </div>
