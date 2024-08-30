@@ -33,37 +33,38 @@ const makeLongShadow = (color,direction): string => {
     return val;
 };
 const adjustColor = (color: string, step: number): string => {
-    // 这里简化了颜色调整逻辑，实际可能需要更复杂的算法来模拟fade-out和desaturate效果
-    return color;
+    // 解析颜色字符串
+    const hexMatch = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(color);
+    const rgbMatch = /^rgba?\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})(,\s*([\d.]+))?\)$/i.exec(color);
+
+    if (hexMatch) {
+        const r = parseInt(hexMatch[1], 16);
+        const g = parseInt(hexMatch[2], 16);
+        const b = parseInt(hexMatch[3], 16);
+        const a = hexMatch[4] ? parseInt(hexMatch[4], 16) / 255 : 1;
+
+        // 调整透明度
+        const newAlpha = Math.max(0, a - step * 0.05);
+
+        return `rgba(${r}, ${g}, ${b}, ${newAlpha})`;
+    } else if (rgbMatch) {
+        const r = parseInt(rgbMatch[1], 10);
+        const g = parseInt(rgbMatch[2], 10);
+        const b = parseInt(rgbMatch[3], 10);
+        const a = rgbMatch[5] ? parseFloat(rgbMatch[5]) : 1;
+
+        // 调整透明度
+        const newAlpha = Math.max(0, a - step * 0.05);
+
+        return `rgba(${r}, ${g}, ${b}, ${newAlpha})`;
+    } else {
+        throw new Error(`Unsupported color format: ${color}`);
+    }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-
-
-@function makelongleftshadow($color) {
-    $val: 0px 0px $color;
-
-    @for $i from 1 through 20 {
-        $color: fade-out(desaturate($color, 1%), .05);
-        $val: #{$val}, -#{$i}px #{$i}px #{$color};
-    }
-
-    @return $val;
-}
-
-@function makelongrightshadow($color) {
-    $val: 0px 0px $color;
-
-    @for $i from 1 through 20 {
-        $color: fade-out(desaturate($color, 1%), .05);
-        $val: #{$val}, #{$i}px #{$i}px #{$color};
-    }
-
-    @return $val;
-}
-
 .shadow-text {
     text-align: center;
     display: inline-block;
