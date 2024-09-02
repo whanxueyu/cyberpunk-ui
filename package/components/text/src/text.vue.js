@@ -1,40 +1,23 @@
-import { useSlots } from 'vue';
+import { ref, useSlots } from 'vue';
 const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
     name: 'CpText',
 });
+const content = ref('');
 const slots = useSlots();
+if (slots && slots.default) {
+    let tep = slots.default();
+    content.value = tep[0].children;
+}
 const props = defineProps({
-    type: {
-        type: String,
-        default: 'primary',
-        validator: (value) => {
-            return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1;
-        }
-    },
-    content: {
-        type: String,
-        default: 'TEXT'
-    },
-    bgColor: {
+    lineColor: {
         type: String,
         default: '#fff'
     },
 });
 const __VLS_fnComponent = (await import('vue')).defineComponent({
     props: {
-        type: {
-            type: String,
-            default: 'primary',
-            validator: (value) => {
-                return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1;
-            }
-        },
-        content: {
-            type: String,
-            default: 'TEXT'
-        },
-        bgColor: {
+        lineColor: {
             type: String,
             default: '#fff'
         },
@@ -50,9 +33,10 @@ function __VLS_template() {
     let __VLS_components;
     let __VLS_styleScopedClasses;
     let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-text") }, { "data-word": ((props.content)) }));
-    (props.content);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-text-line") }, { style: (('background: ' + props.bgColor)) }));
+    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-text") }, { "data-word": ((__VLS_ctx.content)) }));
+    var __VLS_0 = {};
+    [content,];
+    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-text-line") }, { style: (('background: ' + props.lineColor)) }));
     if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
         __VLS_styleScopedClasses['cp-text'];
         __VLS_styleScopedClasses['cp-text-line'];
@@ -64,48 +48,29 @@ function __VLS_template() {
     let __VLS_defineComponent;
     const __VLS_internalComponent = __VLS_defineComponent({
         setup() {
-            return {};
+            return {
+                content: content,
+            };
         },
         props: {
-            type: {
-                type: String,
-                default: 'primary',
-                validator: (value) => {
-                    return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1;
-                }
-            },
-            content: {
-                type: String,
-                default: 'TEXT'
-            },
-            bgColor: {
+            lineColor: {
                 type: String,
                 default: '#fff'
             },
         },
     });
 }
-export default (await import('vue')).defineComponent({
+const __VLS_component = (await import('vue')).defineComponent({
     setup() {
         return {};
     },
     props: {
-        type: {
-            type: String,
-            default: 'primary',
-            validator: (value) => {
-                return ['primary', 'success', 'warning', 'danger'].indexOf(value) !== -1;
-            }
-        },
-        content: {
-            type: String,
-            default: 'TEXT'
-        },
-        bgColor: {
+        lineColor: {
             type: String,
             default: '#fff'
         },
     },
 });
+export default {};
 ;
 //# sourceMappingURL=text.vue.js.map
