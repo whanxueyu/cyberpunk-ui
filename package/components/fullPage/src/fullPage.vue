@@ -1,5 +1,13 @@
+<!--
+ * @Author: anxueyu
+ * @Date: 2024-08-28 13:29:35
+ * @LastEditors: anxueyu 1358042645@qq.com
+ * @LastEditTime: 2024-09-02 18:53:51
+ * @FilePath: \cyberpunk-ui\package\components\fullPage\src\fullPage.vue
+ * @Description: 
+-->
 <template>
-    <div class="cp-full-page">
+    <div class="cp-full-page" id="page-scroll">
         <div ref="element" :class="{ activeTranstion: isCloseTranstion }" class="inner-box" @mousewheel="mousewheel"
             @touchstart="handleTouchStart" @touchend="handleTouchEnd" @touchmove="handleTouchMove">
             <slot></slot>
@@ -31,6 +39,7 @@ watchEffect(() => {
 
 //HEIGHT
 const height = ref(window.innerHeight)
+height.value = document.getElementById('page-scroll')?.offsetHeight||window.innerHeight
 const windowHeight = computed(() => {
     // 高度变化时需要关闭动画
     isCloseTranstion.value = true
@@ -205,7 +214,7 @@ function changeBac(index) {
 
     .cp-full-dot {
         list-style: none;
-        position: fixed;
+        position: absolute;
         right: 20px;
         top: 50%;
         transform: translateY(-50%);
