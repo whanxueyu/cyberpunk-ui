@@ -39,20 +39,20 @@ watchEffect(() => {
 })
 
 //HEIGHT
-const height = ref(window.innerHeight)
-height.value = document.getElementById('page-scroll')?.clientHeight || 0
 const windowHeight = computed(() => {
     // 高度变化时需要关闭动画
     isCloseTranstion.value = true
-    if(document.getElementById('page-scroll')?.clientHeight){
-        return document.getElementById('page-scroll')?.clientHeight
-    }else{
-        return height.value
+
+    let sheight = 0
+    if (document.getElementById('page-scroll')?.clientHeight) {
+        sheight = document.getElementById('page-scroll')?.clientHeight ?? 0
+    } else {
+        sheight = window.innerHeight
     }
-    
+    return sheight
 })
 const transformScroll = computed(() => {
-    console.log($index.value,windowHeight.value)
+    console.log($index.value, windowHeight.value)
     return `translateY(-${$index.value * windowHeight.value}px)`
     // return `-${$index.value * windowHeight.value}px`
 })
