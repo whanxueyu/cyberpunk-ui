@@ -32,22 +32,29 @@ const emits = defineEmits(['toNext', 'toLast', 'change'])
 const element = ref()
 watchEffect(() => {
     if (element.value?.style) {
-        // element.value.style.transform = transformScroll.value
-        element.value.style.top = transformScroll.value
+        console.log("watch", transformScroll.value)
+        element.value.style.transform = transformScroll.value
+        // element.value.style.top = transformScroll.value
     }
 })
 
 //HEIGHT
 const height = ref(window.innerHeight)
-height.value = document.getElementById('page-scroll')?.offsetHeight||window.innerHeight
+height.value = document.getElementById('page-scroll')?.clientHeight || 0
 const windowHeight = computed(() => {
     // 高度变化时需要关闭动画
     isCloseTranstion.value = true
-    return height.value
+    if(document.getElementById('page-scroll')?.clientHeight){
+        return document.getElementById('page-scroll')?.clientHeight
+    }else{
+        return height.value
+    }
+    
 })
 const transformScroll = computed(() => {
-    // return `translateY(-${$index.value * windowHeight.value}px)`
-    return `-${$index.value * windowHeight.value}px`
+    console.log($index.value,windowHeight.value)
+    return `translateY(-${$index.value * windowHeight.value}px)`
+    // return `-${$index.value * windowHeight.value}px`
 })
 
 const isCloseTranstion = ref(false) //控制是否显示动画效果
@@ -93,8 +100,9 @@ function handleTouchEnd(e) {
         }
     } else {
         // 当临界值小于60意味着不需要翻页 就恢复原来的位置即可
-        // element.value.style.transform = `translateY(-${$index.value * windowHeight.value}px)`
-        element.value.style.top = `-${$index.value * windowHeight.value}px`
+        console.log("else", -$index.value * windowHeight.value)
+        element.value.style.transform = `translateY(-${$index.value * windowHeight.value}px)`
+        // element.value.style.top = `-${$index.value * windowHeight.value}px`
     }
 }
 
@@ -116,8 +124,10 @@ function handleTouchMove(e) {
         return
     }
     // 否则直接对内层容器应用 随之移动
-    // element.value.style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`
-    element.value.style.top = `-${$index.value * windowHeight.value + moveDistance.value * -1}px`
+    console.log("else", -$index.value * windowHeight.value + moveDistance.value * -1)
+
+    element.value.style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`
+    // element.value.style.top = `-${$index.value * windowHeight.value + moveDistance.value * -1}px`
 }
 //#endregion
 
@@ -192,24 +202,9 @@ function changeBac(index) {
     position: relative;
 
     .inner-box {
-        position: absolute;
+        position: relative;
         width: 100%;
         transition: all ease-in-out 0.3s;
-
-        .scroll-element {
-            // height: 100%;
-            background-size: cover !important;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: all ease-in-out .2s;
-        }
-    }
-
-    .section {
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        transition: all ease-in-out .2s;
     }
 
     .cp-full-dot {
