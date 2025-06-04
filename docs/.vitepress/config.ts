@@ -27,7 +27,7 @@ export default {
     },
     nav: [
       { text: "指南", link: "/guide/installation", activeMatch: '/guide/' },
-      { text: "组件", link: "/component/button/", activeMatch: '/component/' },
+      { text: "组件", link: "/components/button/", activeMatch: '/components/' },
     ],
     sidebar: {
       "/guide/": [
@@ -54,13 +54,22 @@ export default {
           ],
         },
       ],
-      "/component/": [
+      "/components/": [
         {
           text: "基础组件",
           items: [
-            { text: "button 按钮", link: "/component/button" },
-            { text: "text 文字", link: "/component/text" },
-            { text: "fullpage 全屏滚动", link: "/component/fullpage" },
+            { text: "button 按钮", link: "/components/button" },
+            { text: "text 文字", link: "/components/text" },
+            { text: "全屏滚动", link: "/components/fullpage" },
+            { text: "消息提示组件", link: "/components/cyber-notification" },
+            { text: "Tooltip 提示组件", link: "/components/cyber-tooltip" },
+            { text: "数字翻滚", link: "/components/digital-counter" },
+            { text: "故障风格图片", link: "/components/glitch-image" },
+            { text: "故障进度条", link: "/components/glitch-progress" },
+            { text: "全息卡片", link: "/components/holo-card" },
+            { text: "全息加载器", link: "/components/holo-loader" },
+            { text: "无限滚动表格", link: "/components/infinite-table" },
+            { text: "霓虹开关", link: "/components/neon-toggle" },
           ]
         }
       ]
