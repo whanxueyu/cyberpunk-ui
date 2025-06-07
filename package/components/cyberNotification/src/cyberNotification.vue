@@ -53,7 +53,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
 defineOptions({
-  name: 'CpCyberNotification',
+  name: 'CyberNotification',
 })
 
 // 通知类型

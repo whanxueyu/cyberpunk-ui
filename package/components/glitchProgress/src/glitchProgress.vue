@@ -20,7 +20,7 @@
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
 
 defineOptions({
-  name: 'CpGlitchProgress',
+  name: 'CyberGlitchProgress',
 })
 
 const props = defineProps({

@@ -1,7 +1,6 @@
 import { computed, ref, watchEffect } from 'vue';
-const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpFullPage',
+    name: 'CyberFullPage',
 });
 const props = defineProps(['pageNum', "position"]);
 const emits = defineEmits(['toNext', 'toLast', 'change']);
@@ -104,72 +103,54 @@ function changeBac(index) {
     isCloseTranstion.value = false;
     $index.value = index;
 }
-const __VLS_fnComponent = (await import('vue')).defineComponent({
-    props: ['pageNum', "position"],
-    emits: {},
-});
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
 ;
-let __VLS_functionalComponentProps;
-function __VLS_template() {
-    let __VLS_ctx;
-    let __VLS_otherComponents;
-    let __VLS_own;
-    let __VLS_localComponents;
-    let __VLS_components;
-    let __VLS_styleScopedClasses;
-    let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-full-page") }, { id: ("page-scroll") }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMousewheel: (__VLS_ctx.mousewheel) }, { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { onTouchmove: (__VLS_ctx.handleTouchMove) }), { ref: ("element") }), { class: (({ activeTranstion: __VLS_ctx.isCloseTranstion })) }), { class: ("inner-box") }));
-    (__VLS_ctx.element);
-    __VLS_styleScopedClasses = ({ activeTranstion: isCloseTranstion });
-    var __VLS_0 = {};
-    [mousewheel, handleTouchStart, handleTouchEnd, handleTouchMove, isCloseTranstion, element,];
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ((['cp-full-dot', props.position])) }));
-    __VLS_styleScopedClasses = (['cp-full-dot', props.position]);
-    for (const [i, index] of __VLS_getVForSourceType((props.pageNum))) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ onClick: (...[$event]) => {
-                __VLS_ctx.changeBac(index);
-                [changeBac,];
-            } }, { class: ("cp-full-dot-item") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-full-dot-item-bg") }, { class: (({ active: index === __VLS_ctx.$index })) }));
-        __VLS_styleScopedClasses = ({ active: index === $index });
-        [$index,];
-        var __VLS_1 = {};
-    }
-    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['cp-full-page'];
-        __VLS_styleScopedClasses['inner-box'];
-        __VLS_styleScopedClasses['cp-full-dot-item'];
-        __VLS_styleScopedClasses['cp-full-dot-item-bg'];
-    }
-    var __VLS_slots;
-    return __VLS_slots;
-    const __VLS_componentsOption = {};
-    let __VLS_name;
-    let __VLS_defineComponent;
-    const __VLS_internalComponent = __VLS_defineComponent({
-        setup() {
-            return {
-                element: element,
-                isCloseTranstion: isCloseTranstion,
-                mousewheel: mousewheel,
-                handleTouchStart: handleTouchStart,
-                handleTouchEnd: handleTouchEnd,
-                handleTouchMove: handleTouchMove,
-                $index: $index,
-                changeBac: changeBac,
-            };
-        },
-        props: ['pageNum', "position"],
-        emits: {},
-    });
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cp-full-page" }, { id: "page-scroll" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMousewheel: (__VLS_ctx.mousewheel) }, { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { onTouchmove: (__VLS_ctx.handleTouchMove) }), { ref: "element" }), { class: ({ activeTranstion: __VLS_ctx.isCloseTranstion }) }), { class: "inner-box" }));
+;
+var __VLS_0 = {};
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-full-dot', props.position]) }));
+for (const [i, index] of __VLS_getVForSourceType((props.pageNum))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ onClick: (...[$event]) => {
+            __VLS_ctx.changeBac(index);
+        } }, { class: "cp-full-dot-item" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cp-full-dot-item-bg" }, { class: ({ active: index === __VLS_ctx.$index }) }));
+    var __VLS_2 = {};
 }
+;
+;
+;
+;
+;
+;
+;
+var __VLS_1 = __VLS_0, __VLS_3 = __VLS_2;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {
+            element: element,
+            isCloseTranstion: isCloseTranstion,
+            mousewheel: mousewheel,
+            handleTouchStart: handleTouchStart,
+            handleTouchEnd: handleTouchEnd,
+            handleTouchMove: handleTouchMove,
+            $index: $index,
+            changeBac: changeBac,
+        };
+    },
+    emits: {},
+    props: ['pageNum', "position"],
+});
 const __VLS_component = (await import('vue')).defineComponent({
     setup() {
         return {};
     },
-    props: ['pageNum', "position"],
     emits: {},
+    props: ['pageNum', "position"],
 });
 export default {};
 ;

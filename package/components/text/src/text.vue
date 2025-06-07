@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
 defineOptions({
-    name: 'CpText',
+    name: 'CyberText',
 })
 const content = ref('')
 

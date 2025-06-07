@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 defineOptions({
-    name: 'CpButton',
+    name: 'CyberButton',
 })
 const slots = useSlots()
 const props = defineProps({

@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 defineOptions({
-    name: 'CpNenobutton',
+    name: 'CyberNenobutton',
 })
 const slots = useSlots()
 const props = defineProps({

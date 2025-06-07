@@ -34,7 +34,7 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 
 defineOptions({
-  name: 'CpCyberTooltip',
+  name: 'CyberTooltip',
 })
 
 const props = defineProps({

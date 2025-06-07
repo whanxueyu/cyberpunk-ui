@@ -1,7 +1,6 @@
 import { computed, ref, useSlots } from 'vue';
-const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpHoloCard',
+    name: 'CyberHoloCard',
 });
 const slots = useSlots();
 const props = defineProps({
@@ -85,7 +84,35 @@ const glowStyle = computed(() => {
         opacity: isHovering.value ? intensity : intensity * 0.5
     };
 });
-const __VLS_fnComponent = (await import('vue')).defineComponent({
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+;
+;
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign({ onMousemove: (__VLS_ctx.handleMouseMove) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { class: (['cp-holo-card', `depth-${__VLS_ctx.depth}`, __VLS_ctx.cardType]) }), { style: (__VLS_ctx.cardStyle) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "holo-card-content" }));
+var __VLS_0 = {};
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "holo-card-hologram-effect" }, { style: (__VLS_ctx.hologramStyle) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "holo-card-glow" }, { style: (__VLS_ctx.glowStyle) }));
+;
+;
+;
+;
+var __VLS_1 = __VLS_0;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {
+            handleMouseMove: handleMouseMove,
+            handleMouseLeave: handleMouseLeave,
+            cardType: cardType,
+            cardStyle: cardStyle,
+            hologramStyle: hologramStyle,
+            glowStyle: glowStyle,
+        };
+    },
     props: {
         type: {
             type: String,
@@ -114,75 +141,6 @@ const __VLS_fnComponent = (await import('vue')).defineComponent({
         }
     },
 });
-;
-let __VLS_functionalComponentProps;
-function __VLS_template() {
-    let __VLS_ctx;
-    let __VLS_otherComponents;
-    let __VLS_own;
-    let __VLS_localComponents;
-    let __VLS_components;
-    let __VLS_styleScopedClasses;
-    let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign({ onMousemove: (__VLS_ctx.handleMouseMove) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { class: ((['cp-holo-card', `depth-${__VLS_ctx.depth}`, __VLS_ctx.cardType])) }), { style: ((__VLS_ctx.cardStyle)) }));
-    __VLS_styleScopedClasses = (['cp-holo-card', `depth-${depth}`, cardType]);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("holo-card-content") }));
-    var __VLS_0 = {};
-    [handleMouseMove, handleMouseLeave, depth, cardType, cardStyle,];
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("holo-card-hologram-effect") }, { style: ((__VLS_ctx.hologramStyle)) }));
-    [hologramStyle,];
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("holo-card-glow") }, { style: ((__VLS_ctx.glowStyle)) }));
-    [glowStyle,];
-    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['holo-card-content'];
-        __VLS_styleScopedClasses['holo-card-hologram-effect'];
-        __VLS_styleScopedClasses['holo-card-glow'];
-    }
-    var __VLS_slots;
-    return __VLS_slots;
-    const __VLS_componentsOption = {};
-    let __VLS_name;
-    let __VLS_defineComponent;
-    const __VLS_internalComponent = __VLS_defineComponent({
-        setup() {
-            return {
-                handleMouseMove: handleMouseMove,
-                handleMouseLeave: handleMouseLeave,
-                cardType: cardType,
-                cardStyle: cardStyle,
-                hologramStyle: hologramStyle,
-                glowStyle: glowStyle,
-            };
-        },
-        props: {
-            type: {
-                type: String,
-                default: 'basic',
-                validator: (value) => {
-                    return ['basic', 'media', 'action'].indexOf(value) !== -1;
-                }
-            },
-            glowIntensity: {
-                type: Number,
-                default: 50,
-                validator: (value) => {
-                    return value >= 0 && value <= 100;
-                }
-            },
-            hologramColor: {
-                type: String,
-                default: '#00e6f6'
-            },
-            depth: {
-                type: Number,
-                default: 3,
-                validator: (value) => {
-                    return value >= 1 && value <= 5;
-                }
-            }
-        },
-    });
-}
 const __VLS_component = (await import('vue')).defineComponent({
     setup() {
         return {};

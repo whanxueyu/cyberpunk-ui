@@ -1,7 +1,6 @@
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
-const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpGlitchImage',
+    name: 'CyberGlitchImage',
 });
 const props = defineProps({
     src: {
@@ -297,7 +296,44 @@ onUnmounted(() => {
         clearInterval(glitchInterval.value);
     }
 });
-const __VLS_fnComponent = (await import('vue')).defineComponent({
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign({ onMouseenter: (__VLS_ctx.handleMouseEnter) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { onClick: (__VLS_ctx.handleClick) }), { class: (['cp-glitch-image', { 'animated': __VLS_ctx.animated }]) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "image-container" }, { ref: "imageContainerRef" }));
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.img)(Object.assign(Object.assign({ onLoad: (__VLS_ctx.handleImageLoaded) }, { src: (__VLS_ctx.src), alt: (__VLS_ctx.alt) }), { class: "original-image" }));
+if (__VLS_ctx.isLoaded) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.canvas, __VLS_intrinsicElements.canvas)(Object.assign({ ref: "glitchCanvasRef" }, { class: "glitch-canvas" }));
+    ;
+}
+if (!__VLS_ctx.isLoaded) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "loading-placeholder" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "loading-text" }));
+}
+;
+;
+;
+;
+;
+;
+;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {
+            imageContainerRef: imageContainerRef,
+            glitchCanvasRef: glitchCanvasRef,
+            isLoaded: isLoaded,
+            handleImageLoaded: handleImageLoaded,
+            handleMouseEnter: handleMouseEnter,
+            handleMouseLeave: handleMouseLeave,
+            handleClick: handleClick,
+        };
+    },
+    emits: {},
     props: {
         src: {
             type: String,
@@ -337,104 +373,12 @@ const __VLS_fnComponent = (await import('vue')).defineComponent({
             default: 1000
         }
     },
-    emits: {},
 });
-;
-let __VLS_functionalComponentProps;
-function __VLS_template() {
-    let __VLS_ctx;
-    let __VLS_otherComponents;
-    let __VLS_own;
-    let __VLS_localComponents;
-    let __VLS_components;
-    let __VLS_styleScopedClasses;
-    let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign({ onMouseenter: (__VLS_ctx.handleMouseEnter) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { onClick: (__VLS_ctx.handleClick) }), { class: ((['cp-glitch-image', { 'animated': __VLS_ctx.animated }])) }));
-    __VLS_styleScopedClasses = (['cp-glitch-image', { 'animated': animated }]);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("image-container") }, { ref: ("imageContainerRef") }));
-    (__VLS_ctx.imageContainerRef);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.img)(Object.assign(Object.assign({ onLoad: (__VLS_ctx.handleImageLoaded) }, { src: ((__VLS_ctx.src)), alt: ((__VLS_ctx.alt)) }), { class: ("original-image") }));
-    [handleMouseEnter, handleMouseLeave, handleClick, animated, imageContainerRef, handleImageLoaded, src, alt,];
-    if (__VLS_ctx.isLoaded) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.canvas, __VLS_intrinsicElements.canvas)(Object.assign({ ref: ("glitchCanvasRef") }, { class: ("glitch-canvas") }));
-        (__VLS_ctx.glitchCanvasRef);
-        [isLoaded, glitchCanvasRef,];
-    }
-    if (!__VLS_ctx.isLoaded) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("loading-placeholder") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("loading-text") }));
-        [isLoaded,];
-    }
-    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['image-container'];
-        __VLS_styleScopedClasses['original-image'];
-        __VLS_styleScopedClasses['glitch-canvas'];
-        __VLS_styleScopedClasses['loading-placeholder'];
-        __VLS_styleScopedClasses['loading-text'];
-    }
-    var __VLS_slots;
-    return __VLS_slots;
-    const __VLS_componentsOption = {};
-    let __VLS_name;
-    let __VLS_defineComponent;
-    const __VLS_internalComponent = __VLS_defineComponent({
-        setup() {
-            return {
-                imageContainerRef: imageContainerRef,
-                glitchCanvasRef: glitchCanvasRef,
-                isLoaded: isLoaded,
-                handleImageLoaded: handleImageLoaded,
-                handleMouseEnter: handleMouseEnter,
-                handleMouseLeave: handleMouseLeave,
-                handleClick: handleClick,
-            };
-        },
-        props: {
-            src: {
-                type: String,
-                required: true
-            },
-            alt: {
-                type: String,
-                default: 'Glitch image'
-            },
-            glitchType: {
-                type: String,
-                default: 'rgb-shift',
-                validator: (value) => {
-                    return ['rgb-shift', 'scanline', 'pixelate', 'noise', 'combined'].indexOf(value) !== -1;
-                }
-            },
-            intensity: {
-                type: Number,
-                default: 5,
-                validator: (value) => {
-                    return value >= 1 && value <= 10;
-                }
-            },
-            animated: {
-                type: Boolean,
-                default: false
-            },
-            triggerMode: {
-                type: String,
-                default: 'hover',
-                validator: (value) => {
-                    return ['hover', 'click', 'auto', 'random'].indexOf(value) !== -1;
-                }
-            },
-            interval: {
-                type: Number,
-                default: 1000
-            }
-        },
-        emits: {},
-    });
-}
 export default (await import('vue')).defineComponent({
     setup() {
         return {};
     },
+    emits: {},
     props: {
         src: {
             type: String,
@@ -474,7 +418,6 @@ export default (await import('vue')).defineComponent({
             default: 1000
         }
     },
-    emits: {},
 });
 ;
 //# sourceMappingURL=glitchImage.vue.js.map

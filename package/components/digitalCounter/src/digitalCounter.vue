@@ -28,7 +28,7 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 defineOptions({
-  name: 'CpDigitalCounter',
+  name: 'CyberDigitalCounter',
 })
 
 const props = defineProps({

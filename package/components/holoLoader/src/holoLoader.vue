@@ -54,7 +54,7 @@
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue';
 
 defineOptions({
-  name: 'CpHoloLoader',
+  name: 'CyberHoloLoader',
 })
 
 const props = defineProps({

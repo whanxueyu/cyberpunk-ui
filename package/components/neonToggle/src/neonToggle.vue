@@ -19,7 +19,7 @@
 import { computed } from 'vue';
 
 defineOptions({
-  name: 'CpNeonToggle',
+  name: 'CyberNeonToggle',
 })
 
 const props = defineProps({

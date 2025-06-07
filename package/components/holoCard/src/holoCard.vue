@@ -16,7 +16,7 @@
 import { computed, ref, useSlots } from 'vue';
 
 defineOptions({
-  name: 'CpHoloCard',
+  name: 'CyberHoloCard',
 })
 
 const slots = useSlots();

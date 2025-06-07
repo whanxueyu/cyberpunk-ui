@@ -94,7 +94,7 @@
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
 
 defineOptions({
-  name: 'CpInfiniteTable',
+  name: 'CyberInfiniteTable',
 })
 
 // 列定义接口

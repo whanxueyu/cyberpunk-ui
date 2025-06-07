@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 defineOptions({
-    name: 'CpTyping',
+    name: 'CyberTyping',
 })
 
 </script>

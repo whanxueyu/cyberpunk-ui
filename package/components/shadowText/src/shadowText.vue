@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 defineOptions({
-    name: 'CpShadowText',
+    name: 'CyberShadowText',
 })
 const props = defineProps({
     direction: {

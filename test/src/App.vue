@@ -32,34 +32,34 @@ const changePosition = (position: string) => {
 <template>
   <div class="main">
     <div class="header">
-      <cp-nenobutton type="primary" bg size="small" @click="toggleDark()">切换</cp-nenobutton>
-      <cp-nenobutton type="primary" @click="changePosition('top')"> 上 ↑</cp-nenobutton>
-      <cp-nenobutton type="success" @click="changePosition('bottom')"> 下 ↓</cp-nenobutton>
-      <cp-nenobutton type="danger" @click="changePosition('left')"> 左 ←</cp-nenobutton>
-      <cp-nenobutton type="warning" @click="changePosition('right')"> 右 →</cp-nenobutton>
+      <cyber-nenobutton type="primary" bg size="small" @click="toggleDark()">切换</cyber-nenobutton>
+      <cyber-nenobutton type="primary" @click="changePosition('top')"> 上 ↑</cyber-nenobutton>
+      <cyber-nenobutton type="success" @click="changePosition('bottom')"> 下 ↓</cyber-nenobutton>
+      <cyber-nenobutton type="danger" @click="changePosition('left')"> 左 ←</cyber-nenobutton>
+      <cyber-nenobutton type="warning" @click="changePosition('right')"> 右 →</cyber-nenobutton>
     </div>
     <div class="page">
       <div class="page-aside"></div>
       <div class="page-content">
-        <cp-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition" :offset="60">
+        <CyberFullPage :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition" :offset="60">
           <div class="section">
             <div class="title">文字样式</div>
             <div class="content">
               <div>
-                <cp-text lineColor="#000">drfghsrthrtjety6</cp-text>
+                <cyber-text lineColor="#000">drfghsrthrtjety6</cyber-text>
               </div>
               <div style="font-size: 48px;font-weight: bold;color:#99f8ff;">
                 <!-- 设置颜色不生效 -->
-                <cp-shadow-text shadowColor="#33a6f9" direction="left" :long="20">shadow-left-long20</cp-shadow-text>
-                <cp-shadow-text shadowColor="#33a89f" direction="left" :long="10">shadow-left-long10</cp-shadow-text>
-                <cp-shadow-text shadowColor="#ff5555" direction="right" :long="10">shadow-right-long10</cp-shadow-text>
-                <cp-shadow-text shadowColor="#ff5588" direction="right" :long="20">shadow-right-long20</cp-shadow-text>
+                <cyber-shadow-text shadowColor="#33a6f9" direction="left" :long="20">shadow-left-long20</cyber-shadow-text>
+                <cyber-shadow-text shadowColor="#33a89f" direction="left" :long="10">shadow-left-long10</cyber-shadow-text>
+                <cyber-shadow-text shadowColor="#ff5555" direction="right" :long="10">shadow-right-long10</cyber-shadow-text>
+                <cyber-shadow-text shadowColor="#ff5588" direction="right" :long="20">shadow-right-long20</cyber-shadow-text>
               </div>
               <div>
-                <cp-glow-text color="#3355ff">cp-glow-text</cp-glow-text>
+                <cyber-glow-text color="#3355ff">cp-glow-text</cyber-glow-text>
               </div>
               <div>
-                <cp-typing>CpTyping 1239945646 这是一段打字效果</cp-typing>
+                <cyber-typing>CpTyping 1239945646 这是一段打字效果</cyber-typing>
               </div>
             </div>
           </div>
@@ -68,24 +68,24 @@ const changePosition = (position: string) => {
             <div class="content">
               <div class="panel">
                 <span class="subtitle">large</span>
-                <cp-button type="primary" size="large" content="PRIMARY">PRIMARY</cp-button>
-                <cp-button type="success" size="large" content="SUCCESS">SUCCESS</cp-button>
-                <cp-button type="warning" size="large" content="WARNING">WARNING</cp-button>
-                <cp-button type="danger" size="large" content="DANGER">DANGER</cp-button>
+                <cyber-button type="primary" size="large" content="PRIMARY">PRIMARY</cyber-button>
+                <cyber-button type="success" size="large" content="SUCCESS">SUCCESS</cyber-button>
+                <cyber-button type="warning" size="large" content="WARNING">WARNING</cyber-button>
+                <cyber-button type="danger" size="large" content="DANGER">DANGER</cyber-button>
               </div>
               <div class="panel">
                 <span class="subtitle">default</span>
-                <cp-button type="primary" size="default" content="PRIMARY">PRIMARY</cp-button>
-                <cp-button type="success" size="default" content="SUCCESS">SUCCESS</cp-button>
-                <cp-button type="warning" size="default" content="WARNING">WARNING</cp-button>
-                <cp-button type="danger" size="default" content="DANGER">DANGER</cp-button>
+                <cyber-button type="primary" size="default" content="PRIMARY">PRIMARY</cyber-button>
+                <cyber-button type="success" size="default" content="SUCCESS">SUCCESS</cyber-button>
+                <cyber-button type="warning" size="default" content="WARNING">WARNING</cyber-button>
+                <cyber-button type="danger" size="default" content="DANGER">DANGER</cyber-button>
               </div>
               <div class="panel">
                 <span class="subtitle">small</span>
-                <cp-button type="primary" size="small" content="PRIMARY">PRIMARY</cp-button>
-                <cp-button type="success" size="small" content="SUCCESS">SUCCESS</cp-button>
-                <cp-button type="warning" size="small" content="WARNING">WARNING</cp-button>
-                <cp-button type="danger" size="small" content="DANGER">DANGER</cp-button>
+                <cyber-button type="primary" size="small" content="PRIMARY">PRIMARY</cyber-button>
+                <cyber-button type="success" size="small" content="SUCCESS">SUCCESS</cyber-button>
+                <cyber-button type="warning" size="small" content="WARNING">WARNING</cyber-button>
+                <cyber-button type="danger" size="small" content="DANGER">DANGER</cyber-button>
               </div>
             </div>
           </div>
@@ -94,27 +94,27 @@ const changePosition = (position: string) => {
             <div class="content">
               <div class="panel">
                 <span class="subtitle">大小</span>
-                <cp-nenobutton type="primary" size="large">PRIMARY</cp-nenobutton>
-                <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
-                <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
+                <cyber-nenobutton type="primary" size="large">PRIMARY</cyber-nenobutton>
+                <cyber-nenobutton type="primary" size="default">PRIMARY</cyber-nenobutton>
+                <cyber-nenobutton type="primary" size="small">PRIMARY</cyber-nenobutton>
               </div>
               <div class="panel">
                 <span class="subtitle">类型</span>
-                <cp-nenobutton type="primary" size="default">PRIMARY</cp-nenobutton>
-                <cp-nenobutton type="success" size="default">SUCCESS</cp-nenobutton>
-                <cp-nenobutton type="warning" size="default">WARNING</cp-nenobutton>
-                <cp-nenobutton type="danger" size="default">DANGER</cp-nenobutton>
+                <cyber-nenobutton type="primary" size="default">PRIMARY</cyber-nenobutton>
+                <cyber-nenobutton type="success" size="default">SUCCESS</cyber-nenobutton>
+                <cyber-nenobutton type="warning" size="default">WARNING</cyber-nenobutton>
+                <cyber-nenobutton type="danger" size="default">DANGER</cyber-nenobutton>
               </div>
               <div class="panel">
                 <span class="subtitle">有无背景</span>
-                <cp-nenobutton type="primary" size="small">PRIMARY</cp-nenobutton>
-                <cp-nenobutton type="primary" size="small" bg>PRIMARY</cp-nenobutton>
-                <cp-nenobutton type="success" size="small">SUCCESS</cp-nenobutton>
-                <cp-nenobutton type="success" size="small" bg>SUCCESS</cp-nenobutton>
-                <cp-nenobutton type="warning" size="small">WARNING</cp-nenobutton>
-                <cp-nenobutton type="warning" size="small" bg>WARNING</cp-nenobutton>
-                <cp-nenobutton type="danger" size="small">DANGER</cp-nenobutton>
-                <cp-nenobutton type="danger" size="small" bg>DANGER</cp-nenobutton>
+                <cyber-nenobutton type="primary" size="small">PRIMARY</cyber-nenobutton>
+                <cyber-nenobutton type="primary" size="small" bg>PRIMARY</cyber-nenobutton>
+                <cyber-nenobutton type="success" size="small">SUCCESS</cyber-nenobutton>
+                <cyber-nenobutton type="success" size="small" bg>SUCCESS</cyber-nenobutton>
+                <cyber-nenobutton type="warning" size="small">WARNING</cyber-nenobutton>
+                <cyber-nenobutton type="warning" size="small" bg>WARNING</cyber-nenobutton>
+                <cyber-nenobutton type="danger" size="small">DANGER</cyber-nenobutton>
+                <cyber-nenobutton type="danger" size="small" bg>DANGER</cyber-nenobutton>
               </div>
             </div>
           </div>
@@ -123,31 +123,31 @@ const changePosition = (position: string) => {
             <div class="content">
               <div class="panel reflect1">
                 <span class="subtitle">大小</span>
-                <cp-reflectbutton type="primary" size="large">PRIMARY</cp-reflectbutton>
-                <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
-                <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
+                <cyber-reflectbutton type="primary" size="large">PRIMARY</cyber-reflectbutton>
+                <cyber-reflectbutton type="primary" size="default">PRIMARY</cyber-reflectbutton>
+                <cyber-reflectbutton type="primary" size="small">PRIMARY</cyber-reflectbutton>
               </div>
               <div class="panel reflect2">
                 <span class="subtitle">类型</span>
-                <cp-reflectbutton type="primary" size="default">PRIMARY</cp-reflectbutton>
-                <cp-reflectbutton type="success" size="default">SUCCESS</cp-reflectbutton>
-                <cp-reflectbutton type="warning" size="default">WARNING</cp-reflectbutton>
-                <cp-reflectbutton type="danger" size="default">DANGER</cp-reflectbutton>
+                <cyber-reflectbutton type="primary" size="default">PRIMARY</cyber-reflectbutton>
+                <cyber-reflectbutton type="success" size="default">SUCCESS</cyber-reflectbutton>
+                <cyber-reflectbutton type="warning" size="default">WARNING</cyber-reflectbutton>
+                <cyber-reflectbutton type="danger" size="default">DANGER</cyber-reflectbutton>
               </div>
               <div class="panel reflect3">
                 <span class="subtitle">有无背景</span>
-                <cp-reflectbutton type="primary" size="small">PRIMARY</cp-reflectbutton>
-                <cp-reflectbutton type="primary" size="small" bg>PRIMARY</cp-reflectbutton>
-                <cp-reflectbutton type="success" size="small">SUCCESS</cp-reflectbutton>
-                <cp-reflectbutton type="success" size="small" bg>SUCCESS</cp-reflectbutton>
-                <cp-reflectbutton type="warning" size="small">WARNING</cp-reflectbutton>
-                <cp-reflectbutton type="warning" size="small" bg>WARNING</cp-reflectbutton>
-                <cp-reflectbutton type="danger" size="small">DANGER</cp-reflectbutton>
-                <cp-reflectbutton type="danger" size="small" bg>DANGER</cp-reflectbutton>
+                <cyber-reflectbutton type="primary" size="small">PRIMARY</cyber-reflectbutton>
+                <cyber-reflectbutton type="primary" size="small" bg>PRIMARY</cyber-reflectbutton>
+                <cyber-reflectbutton type="success" size="small">SUCCESS</cyber-reflectbutton>
+                <cyber-reflectbutton type="success" size="small" bg>SUCCESS</cyber-reflectbutton>
+                <cyber-reflectbutton type="warning" size="small">WARNING</cyber-reflectbutton>
+                <cyber-reflectbutton type="warning" size="small" bg>WARNING</cyber-reflectbutton>
+                <cyber-reflectbutton type="danger" size="small">DANGER</cyber-reflectbutton>
+                <cyber-reflectbutton type="danger" size="small" bg>DANGER</cyber-reflectbutton>
               </div>
             </div>
           </div>
-        </cp-full-page>
+        </CyberFullPage>
       </div>
     </div>
 

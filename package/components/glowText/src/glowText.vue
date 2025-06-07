@@ -8,7 +8,7 @@
 import { onMounted } from 'vue';
 
 defineOptions({
-  name: 'CpGlowText',
+  name: 'CyberGlowText',
 })
 const props = defineProps({
   color: {

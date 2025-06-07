@@ -27,7 +27,7 @@
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue';
 
 defineOptions({
-  name: 'CpGlitchImage',
+  name: 'CyberGlitchImage',
 })
 
 const props = defineProps({

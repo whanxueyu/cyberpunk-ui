@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 defineOptions({
-    name: 'CpReflectbutton',
+    name: 'CyberReflectbutton',
 })
 const slots = useSlots()
 const props = defineProps({

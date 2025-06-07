@@ -1,7 +1,6 @@
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue';
-const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpGlitchProgress',
+    name: 'CyberGlitchProgress',
 });
 const props = defineProps({
     progress: {
@@ -112,7 +111,41 @@ onUnmounted(() => {
         clearInterval(glitchInterval.value);
     }
 });
-const __VLS_fnComponent = (await import('vue')).defineComponent({
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+;
+;
+;
+;
+;
+;
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-glitch-progress', __VLS_ctx.directionClass, { 'indeterminate': __VLS_ctx.indeterminate }]) }, { 'data-progress': (__VLS_ctx.progress) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "progress-container" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "progress-bar" }, { style: (__VLS_ctx.progressStyle) }), { ref: "progressBarRef" }));
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glitch-effect" }));
+if (__VLS_ctx.showText && !__VLS_ctx.indeterminate) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "progress-text" }));
+    (__VLS_ctx.progress);
+}
+;
+;
+;
+;
+;
+;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {
+            progressBarRef: progressBarRef,
+            directionClass: directionClass,
+            progressStyle: progressStyle,
+        };
+    },
     props: {
         progress: {
             type: Number,
@@ -149,84 +182,6 @@ const __VLS_fnComponent = (await import('vue')).defineComponent({
         }
     },
 });
-;
-let __VLS_functionalComponentProps;
-function __VLS_template() {
-    let __VLS_ctx;
-    let __VLS_otherComponents;
-    let __VLS_own;
-    let __VLS_localComponents;
-    let __VLS_components;
-    let __VLS_styleScopedClasses;
-    let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ((['cp-glitch-progress', __VLS_ctx.directionClass, { 'indeterminate': __VLS_ctx.indeterminate }])) }, { "data-progress": ((__VLS_ctx.progress)) }));
-    __VLS_styleScopedClasses = (['cp-glitch-progress', directionClass, { 'indeterminate': indeterminate }]);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("progress-container") }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: ("progress-bar") }, { style: ((__VLS_ctx.progressStyle)) }), { ref: ("progressBarRef") }));
-    (__VLS_ctx.progressBarRef);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("glitch-effect") }));
-    [directionClass, indeterminate, progress, progressStyle, progressBarRef,];
-    if (__VLS_ctx.showText && !__VLS_ctx.indeterminate) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("progress-text") }));
-        (__VLS_ctx.progress);
-        [indeterminate, progress, showText,];
-    }
-    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['progress-container'];
-        __VLS_styleScopedClasses['progress-bar'];
-        __VLS_styleScopedClasses['glitch-effect'];
-        __VLS_styleScopedClasses['progress-text'];
-    }
-    var __VLS_slots;
-    return __VLS_slots;
-    const __VLS_componentsOption = {};
-    let __VLS_name;
-    let __VLS_defineComponent;
-    const __VLS_internalComponent = __VLS_defineComponent({
-        setup() {
-            return {
-                progressBarRef: progressBarRef,
-                directionClass: directionClass,
-                progressStyle: progressStyle,
-            };
-        },
-        props: {
-            progress: {
-                type: Number,
-                default: 0,
-                validator: (value) => {
-                    return value >= 0 && value <= 100;
-                }
-            },
-            direction: {
-                type: String,
-                default: 'horizontal',
-                validator: (value) => {
-                    return ['horizontal', 'vertical'].indexOf(value) !== -1;
-                }
-            },
-            glitchIntensity: {
-                type: Number,
-                default: 5,
-                validator: (value) => {
-                    return value >= 1 && value <= 10;
-                }
-            },
-            indeterminate: {
-                type: Boolean,
-                default: false
-            },
-            color: {
-                type: String,
-                default: '#00e6f6'
-            },
-            showText: {
-                type: Boolean,
-                default: true
-            }
-        },
-    });
-}
 export default (await import('vue')).defineComponent({
     setup() {
         return {};

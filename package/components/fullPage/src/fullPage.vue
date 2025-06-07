@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
 defineOptions({
-    name: 'CpFullPage',
+    name: 'CyberFullPage',
 })
 const props = defineProps(['pageNum', "position"])
 const emits = defineEmits(['toNext', 'toLast', 'change'])

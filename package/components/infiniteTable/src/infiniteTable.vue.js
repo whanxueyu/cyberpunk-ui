@@ -1,8 +1,7 @@
 var _a, _b;
 import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
-const { defineProps, defineSlots, defineEmits, defineExpose, defineModel, defineOptions, withDefaults, } = await import('vue');
 defineOptions({
-    name: 'CpInfiniteTable',
+    name: 'CyberInfiniteTable',
 });
 const props = defineProps({
     data: {
@@ -175,7 +174,125 @@ onUnmounted(() => {
     }
     window.removeEventListener('resize', updateVisibleCount);
 });
-const __VLS_fnComponent = (await import('vue')).defineComponent({
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-infinite-table', { 'loading': __VLS_ctx.loading }]) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-header" }, { ref: "headerRef" }));
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.colgroup, __VLS_intrinsicElements.colgroup)({});
+for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.col, __VLS_intrinsicElements.col)(Object.assign({ key: (`col-${index}`) }, { style: (__VLS_ctx.getColumnStyle(column)) }));
+}
+__VLS_asFunctionalElement(__VLS_intrinsicElements.thead, __VLS_intrinsicElements.thead)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)({});
+for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.th, __VLS_intrinsicElements.th)(Object.assign(Object.assign({ onClick: (...[$event]) => {
+            __VLS_ctx.handleSort(column);
+        } }, { key: (`header-${index}`) }), { class: ({ 'sortable': column.sortable }) }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "th-content" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    (column.title);
+    if (column.sortable) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "sort-icon" }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "sort-up" }, { class: ({ 'active': __VLS_ctx.sortState.key === column.key && __VLS_ctx.sortState.order === 'asc' }) }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "sort-down" }, { class: ({ 'active': __VLS_ctx.sortState.key === column.key && __VLS_ctx.sortState.order === 'desc' }) }));
+    }
+}
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onScroll: (__VLS_ctx.handleScroll) }, { class: "table-body" }), { ref: "bodyRef" }));
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "scroll-container" }, { style: ({ height: `${__VLS_ctx.totalHeight}px` }) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)(Object.assign({ style: ({ transform: `translateY(${__VLS_ctx.offsetY}px)` }) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.colgroup, __VLS_intrinsicElements.colgroup)({});
+for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.col, __VLS_intrinsicElements.col)(Object.assign({ key: (`col-${index}`) }, { style: (__VLS_ctx.getColumnStyle(column)) }));
+}
+__VLS_asFunctionalElement(__VLS_intrinsicElements.tbody, __VLS_intrinsicElements.tbody)({});
+for (const [row, rowIndex] of __VLS_getVForSourceType((__VLS_ctx.visibleData))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign({ onClick: (...[$event]) => {
+            __VLS_ctx.handleRowClick(row);
+        } }, { key: (__VLS_ctx.getRowKey(row, rowIndex)) }), { class: ({ 'selected': __VLS_ctx.isRowSelected(row) }) }));
+    for (const [column, colIndex] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.td, __VLS_intrinsicElements.td)({
+            key: (`cell-${rowIndex}-${colIndex}`),
+        });
+        var __VLS_0 = {
+            row: (row),
+            column: (column),
+            index: (__VLS_ctx.startIndex + rowIndex),
+        };
+        var __VLS_1 = __VLS_tryAsConstant(`cell-${column.key}`);
+        (__VLS_ctx.getCellValue(row, column));
+    }
+}
+if (__VLS_ctx.loading) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "loading-overlay" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "loading-spinner" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "spinner-circle" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "spinner-text" }));
+}
+if (!__VLS_ctx.loading && (!__VLS_ctx.data || __VLS_ctx.data.length === 0)) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-data" }));
+    var __VLS_4 = {};
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-content" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-icon" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-text" }));
+}
+if (__VLS_ctx.$slots.footer) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-footer" }));
+    var __VLS_6 = {};
+}
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-scanline" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-glitch-effect" }));
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+var __VLS_2 = __VLS_1, __VLS_3 = __VLS_0, __VLS_5 = __VLS_4, __VLS_7 = __VLS_6;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {
+            headerRef: headerRef,
+            bodyRef: bodyRef,
+            startIndex: startIndex,
+            offsetY: offsetY,
+            sortState: sortState,
+            totalHeight: totalHeight,
+            visibleData: visibleData,
+            getRowKey: getRowKey,
+            getCellValue: getCellValue,
+            getColumnStyle: getColumnStyle,
+            isRowSelected: isRowSelected,
+            handleRowClick: handleRowClick,
+            handleSort: handleSort,
+            handleScroll: handleScroll,
+        };
+    },
+    emits: {},
     props: {
         data: {
             type: Array,
@@ -210,183 +327,12 @@ const __VLS_fnComponent = (await import('vue')).defineComponent({
             default: 5
         }
     },
-    emits: {},
 });
-;
-let __VLS_functionalComponentProps;
-function __VLS_template() {
-    let __VLS_ctx;
-    let __VLS_otherComponents;
-    let __VLS_own;
-    let __VLS_localComponents;
-    let __VLS_components;
-    let __VLS_styleScopedClasses;
-    let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ((['cp-infinite-table', { 'loading': __VLS_ctx.loading }])) }));
-    __VLS_styleScopedClasses = (['cp-infinite-table', { 'loading': loading }]);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("table-header") }, { ref: ("headerRef") }));
-    (__VLS_ctx.headerRef);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)({});
-    __VLS_elementAsFunction(__VLS_intrinsicElements.colgroup, __VLS_intrinsicElements.colgroup)({});
-    for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.col, __VLS_intrinsicElements.col)(Object.assign({ key: ((`col-${index}`)) }, { style: ((__VLS_ctx.getColumnStyle(column))) }));
-        [loading, headerRef, columns, getColumnStyle,];
-    }
-    __VLS_elementAsFunction(__VLS_intrinsicElements.thead, __VLS_intrinsicElements.thead)({});
-    __VLS_elementAsFunction(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)({});
-    for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.th, __VLS_intrinsicElements.th)(Object.assign(Object.assign({ onClick: (...[$event]) => {
-                __VLS_ctx.handleSort(column);
-                [columns, handleSort,];
-            } }, { key: ((`header-${index}`)) }), { class: (({ 'sortable': column.sortable })) }));
-        __VLS_styleScopedClasses = ({ 'sortable': column.sortable });
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("th-content") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-        (column.title);
-        if (column.sortable) {
-            __VLS_elementAsFunction(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: ("sort-icon") }));
-            __VLS_elementAsFunction(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: ("sort-up") }, { class: (({ 'active': __VLS_ctx.sortState.key === column.key && __VLS_ctx.sortState.order === 'asc' })) }));
-            __VLS_styleScopedClasses = ({ 'active': sortState.key === column.key && sortState.order === 'asc' });
-            [sortState, sortState,];
-            __VLS_elementAsFunction(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: ("sort-down") }, { class: (({ 'active': __VLS_ctx.sortState.key === column.key && __VLS_ctx.sortState.order === 'desc' })) }));
-            __VLS_styleScopedClasses = ({ 'active': sortState.key === column.key && sortState.order === 'desc' });
-            [sortState, sortState,];
-        }
-    }
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onScroll: (__VLS_ctx.handleScroll) }, { class: ("table-body") }), { ref: ("bodyRef") }));
-    (__VLS_ctx.bodyRef);
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("scroll-container") }, { style: (({ height: `${__VLS_ctx.totalHeight}px` })) }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)(Object.assign({ style: (({ transform: `translateY(${__VLS_ctx.offsetY}px)` })) }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.colgroup, __VLS_intrinsicElements.colgroup)({});
-    for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.col, __VLS_intrinsicElements.col)(Object.assign({ key: ((`col-${index}`)) }, { style: ((__VLS_ctx.getColumnStyle(column))) }));
-        [columns, getColumnStyle, handleScroll, bodyRef, totalHeight, offsetY,];
-    }
-    __VLS_elementAsFunction(__VLS_intrinsicElements.tbody, __VLS_intrinsicElements.tbody)({});
-    for (const [row, rowIndex] of __VLS_getVForSourceType((__VLS_ctx.visibleData))) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign({ onClick: (...[$event]) => {
-                __VLS_ctx.handleRowClick(row);
-                [visibleData, handleRowClick,];
-            } }, { key: ((__VLS_ctx.getRowKey(row, rowIndex))) }), { class: (({ 'selected': __VLS_ctx.isRowSelected(row) })) }));
-        __VLS_styleScopedClasses = ({ 'selected': isRowSelected(row) });
-        for (const [column, colIndex] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
-            __VLS_elementAsFunction(__VLS_intrinsicElements.td, __VLS_intrinsicElements.td)({ key: ((`cell-${rowIndex}-${colIndex}`)), });
-            var __VLS_0 = {
-                row: ((row)), column: ((column)), index: ((__VLS_ctx.startIndex + rowIndex)),
-            };
-            var __VLS_1 = (`cell-${column.key}`);
-            [columns, getRowKey, isRowSelected, startIndex,];
-            (__VLS_ctx.getCellValue(row, column));
-            [getCellValue,];
-        }
-    }
-    if (__VLS_ctx.loading) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("loading-overlay") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("loading-spinner") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("spinner-circle") }));
-        [loading,];
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("spinner-text") }));
-    }
-    if (!__VLS_ctx.loading && (!__VLS_ctx.data || __VLS_ctx.data.length === 0)) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("empty-data") }));
-        var __VLS_2 = {};
-        [loading, data, data,];
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("empty-content") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("empty-icon") }));
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("empty-text") }));
-    }
-    if (__VLS_ctx.$slots.footer) {
-        __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("table-footer") }));
-        var __VLS_3 = {};
-        [$slots,];
-    }
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("table-scanline") }));
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("table-glitch-effect") }));
-    if (typeof __VLS_styleScopedClasses === 'object' && !Array.isArray(__VLS_styleScopedClasses)) {
-        __VLS_styleScopedClasses['table-header'];
-        __VLS_styleScopedClasses['th-content'];
-        __VLS_styleScopedClasses['sort-icon'];
-        __VLS_styleScopedClasses['sort-up'];
-        __VLS_styleScopedClasses['sort-down'];
-        __VLS_styleScopedClasses['table-body'];
-        __VLS_styleScopedClasses['scroll-container'];
-        __VLS_styleScopedClasses['loading-overlay'];
-        __VLS_styleScopedClasses['loading-spinner'];
-        __VLS_styleScopedClasses['spinner-circle'];
-        __VLS_styleScopedClasses['spinner-text'];
-        __VLS_styleScopedClasses['empty-data'];
-        __VLS_styleScopedClasses['empty-content'];
-        __VLS_styleScopedClasses['empty-icon'];
-        __VLS_styleScopedClasses['empty-text'];
-        __VLS_styleScopedClasses['table-footer'];
-        __VLS_styleScopedClasses['table-scanline'];
-        __VLS_styleScopedClasses['table-glitch-effect'];
-    }
-    var __VLS_slots;
-    return __VLS_slots;
-    const __VLS_componentsOption = {};
-    let __VLS_name;
-    let __VLS_defineComponent;
-    const __VLS_internalComponent = __VLS_defineComponent({
-        setup() {
-            return {
-                headerRef: headerRef,
-                bodyRef: bodyRef,
-                startIndex: startIndex,
-                offsetY: offsetY,
-                sortState: sortState,
-                totalHeight: totalHeight,
-                visibleData: visibleData,
-                getRowKey: getRowKey,
-                getCellValue: getCellValue,
-                getColumnStyle: getColumnStyle,
-                isRowSelected: isRowSelected,
-                handleRowClick: handleRowClick,
-                handleSort: handleSort,
-                handleScroll: handleScroll,
-            };
-        },
-        props: {
-            data: {
-                type: Array,
-                default: () => []
-            },
-            columns: {
-                type: Array,
-                required: true
-            },
-            rowKey: {
-                type: [String, Function],
-                default: 'id'
-            },
-            rowHeight: {
-                type: Number,
-                default: 40
-            },
-            loading: {
-                type: Boolean,
-                default: false
-            },
-            selectedRows: {
-                type: Array,
-                default: () => []
-            },
-            defaultSort: {
-                type: Object,
-                default: () => ({ key: '', order: 'asc' })
-            },
-            bufferSize: {
-                type: Number,
-                default: 5
-            }
-        },
-        emits: {},
-    });
-}
 const __VLS_component = (await import('vue')).defineComponent({
     setup() {
         return {};
     },
+    emits: {},
     props: {
         data: {
             type: Array,
@@ -421,7 +367,6 @@ const __VLS_component = (await import('vue')).defineComponent({
             default: 5
         }
     },
-    emits: {},
 });
 export default {};
 ;
