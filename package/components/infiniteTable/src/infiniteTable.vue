@@ -114,7 +114,7 @@ interface SortState {
 
 const props = defineProps({
   data: {
-    type: Array,
+    type: Array as () => any[],
     default: () => []
   },
   columns: {

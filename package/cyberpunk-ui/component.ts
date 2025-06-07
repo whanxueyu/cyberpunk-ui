@@ -1,38 +1,38 @@
-import { CpButton } from '../components/button';
+import { CyberButton } from '../components/button';
 import { CyberNotification } from '../components/cyberNotification';
 import { CyberTooltip } from '../components/cyberTooltip';
-import { DigitalCounter } from '../components/digitalCounter';
-import { CpFullPage } from '../components/fullPage'
-import { GlitchImage } from '../components/glitchImage';
-import { GlitchProgress } from '../components/glitchProgress';
-import { CpGlowText } from '../components/glowText'
-import { HoloCard } from '../components/holoCard';
-import { HoloLoader } from '../components/holoLoader';
-import { InfiniteTable } from '../components/infiniteTable';
-import { CpNenobutton } from '../components/nenoButton';
-import { NeonToggle } from '../components/neonToggle';
-import { CpReflectbutton } from '../components/reflectButton';
-import { CpText } from '../components/text'
-import { CpShadowText } from '../components/shadowText'
-import { CpTyping } from '../components/typing'
+import { CyberDigitalCounter } from '../components/digitalCounter';
+import { CyberFullPage } from '../components/fullPage'
+import { CyberGlitchImage } from '../components/glitchImage';
+import { CyberGlitchProgress } from '../components/glitchProgress';
+import { CyberGlowText } from '../components/glowText'
+import { CyberHoloCard } from '../components/holoCard';
+import { CyberHoloLoader } from '../components/holoLoader';
+import { CyberInfiniteTable } from '../components/infiniteTable';
+import { CyberNenobutton } from '../components/nenoButton';
+import { CyberNeonToggle } from '../components/neonToggle';
+import { CyberReflectbutton } from '../components/reflectButton';
+import { CyberText } from '../components/text'
+import { CyberShadowText } from '../components/shadowText'
+import { CyberTyping } from '../components/typing'
 export default [
-    CpButton,
+    CyberButton,
     CyberNotification,
     CyberTooltip,
-    DigitalCounter,
-    GlitchImage,
-    GlitchProgress,
-    HoloCard,
-    HoloLoader,
-    InfiniteTable,
-    NeonToggle,
-    CpNenobutton,
-    CpReflectbutton,
-    CpText,
-    CpShadowText,
-    CpGlowText,
-    CpTyping,
-    CpFullPage
+    CyberDigitalCounter,
+    CyberGlitchImage,
+    CyberGlitchProgress,
+    CyberHoloCard,
+    CyberHoloLoader,
+    CyberInfiniteTable,
+    CyberNeonToggle,
+    CyberNenobutton,
+    CyberReflectbutton,
+    CyberText,
+    CyberShadowText,
+    CyberGlowText,
+    CyberTyping,
+    CyberFullPage
 ]
 
 

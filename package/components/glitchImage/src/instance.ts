@@ -1,9 +1,2 @@
-import type { App } from 'vue'
-import GlitchImage from './glitchImage.vue'
-
-export { GlitchImage }
-export default {
-  install(app: App) {
-    app.component(GlitchImage.name, GlitchImage)
-  }
-}
+import type GlitchImage from './glitchImage.vue'
+export type GlitchImageInstance = InstanceType<typeof GlitchImage>

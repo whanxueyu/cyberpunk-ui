@@ -1,4 +1,5 @@
-import { GlitchProgress } from './src/instance'
-
-export * from './src/instance'
-export default GlitchProgress
+import { withInstall } from '../../utils/index'
+import glitchProgress from './src/glitchProgress.vue'
+export const CyberGlitchProgress = withInstall(glitchProgress)
+export default CyberGlitchProgress
+export type { GlitchProgressInstance } from './src/instance.ts'

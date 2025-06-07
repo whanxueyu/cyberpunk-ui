@@ -1,5 +1,5 @@
 import { withInstall } from '../../utils/index';
 import ShadowText from './src/shadowText.vue';
-export const CpShadowText = withInstall(ShadowText);
-export default CpShadowText;
+export const CyberShadowText = withInstall(ShadowText);
+export default CyberShadowText;
 //# sourceMappingURL=index.js.map

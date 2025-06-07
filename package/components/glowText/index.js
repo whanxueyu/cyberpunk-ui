@@ -1,5 +1,5 @@
 import { withInstall } from '../../utils/index';
 import GlowText from './src/glowText.vue';
-export const CpGlowText = withInstall(GlowText);
-export default CpGlowText;
+export const CyberGlowText = withInstall(GlowText);
+export default CyberGlowText;
 //# sourceMappingURL=index.js.map

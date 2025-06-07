@@ -9,16 +9,25 @@ const element = ref();
 watchEffect(() => {
     var _a;
     if ((_a = element.value) === null || _a === void 0 ? void 0 : _a.style) {
-        element.value.style.top = transformScroll.value;
+        console.log("watch", transformScroll.value);
+        element.value.style.transform = transformScroll.value;
     }
 });
-const height = ref(window.innerHeight);
 const windowHeight = computed(() => {
+    var _a, _b, _c;
     isCloseTranstion.value = true;
-    return height.value;
+    let sheight = 0;
+    if ((_a = document.getElementById('page-scroll')) === null || _a === void 0 ? void 0 : _a.clientHeight) {
+        sheight = (_c = (_b = document.getElementById('page-scroll')) === null || _b === void 0 ? void 0 : _b.clientHeight) !== null && _c !== void 0 ? _c : 0;
+    }
+    else {
+        sheight = window.innerHeight;
+    }
+    return sheight;
 });
 const transformScroll = computed(() => {
-    return `-${$index.value * windowHeight.value}px`;
+    console.log($index.value, windowHeight.value);
+    return `translateY(-${$index.value * windowHeight.value}px)`;
 });
 const isCloseTranstion = ref(false);
 const canRun = ref(true);
@@ -52,7 +61,8 @@ function handleTouchEnd(e) {
         }
     }
     else {
-        element.value.style.top = `-${$index.value * windowHeight.value}px`;
+        console.log("else", -$index.value * windowHeight.value);
+        element.value.style.transform = `translateY(-${$index.value * windowHeight.value}px)`;
     }
 }
 function handleTouchMove(e) {
@@ -64,7 +74,8 @@ function handleTouchMove(e) {
     if (isCriticalPoint) {
         return;
     }
-    element.value.style.top = `-${$index.value * windowHeight.value + moveDistance.value * -1}px`;
+    console.log("else", -$index.value * windowHeight.value + moveDistance.value * -1);
+    element.value.style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`;
 }
 function goScroll(e) {
     emits('change', e.wheelDelta);
@@ -107,7 +118,7 @@ function __VLS_template() {
     let __VLS_components;
     let __VLS_styleScopedClasses;
     let __VLS_resolvedLocalAndGlobalComponents;
-    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-full-page") }));
+    __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ("cp-full-page") }, { id: ("page-scroll") }));
     __VLS_elementAsFunction(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMousewheel: (__VLS_ctx.mousewheel) }, { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { onTouchmove: (__VLS_ctx.handleTouchMove) }), { ref: ("element") }), { class: (({ activeTranstion: __VLS_ctx.isCloseTranstion })) }), { class: ("inner-box") }));
     (__VLS_ctx.element);
     __VLS_styleScopedClasses = ({ activeTranstion: isCloseTranstion });

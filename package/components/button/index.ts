@@ -1,7 +1,7 @@
 import { withInstall } from '../../utils/index'
 import Button from './src/button.vue'
 
-export const CpButton = withInstall(Button)
-export default CpButton
+export const CyberButton = withInstall(Button)
+export default CyberButton
 
 export type { ButtonInstance } from './src/instance'
