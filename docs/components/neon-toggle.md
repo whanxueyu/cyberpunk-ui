@@ -3,10 +3,12 @@
 霓虹开关组件提供了带有电流流动视觉效果的开关控件，适合用于赛博朋克风格界面中的状态切换。
 
 ## 基本用法
+let value = true;
+<cyber-neon-toggle v-model="value" />
 
 ```vue
 <template>
-  <cp-neon-toggle v-model="value" />
+  <cyber-neon-toggle v-model="value" />
 </template>
 
 <script setup>
@@ -17,38 +19,71 @@ const value = ref(false);
 ```
 
 ## 不同形状
+let value = true;
+<cyber-neon-toggle v-model="value" shape="circle" />
+  <cyber-neon-toggle v-model="value" shape="square" />
+  <cyber-neon-toggle v-model="value" shape="hex" />
 
 ```vue
 <template>
-  <cp-neon-toggle v-model="value" shape="circle" />
-  <cp-neon-toggle v-model="value" shape="square" />
-  <cp-neon-toggle v-model="value" shape="hex" />
+  <cyber-neon-toggle v-model="value" shape="circle" />
+  <cyber-neon-toggle v-model="value" shape="square" />
+  <cyber-neon-toggle v-model="value" shape="hex" />
 </template>
+<script setup>
+import { ref } from 'vue';
+
+const value = ref(false);
+</script>
 ```
 
 ## 自定义颜色
 
+  <cyber-neon-toggle v-model="value" active-color="#ff00ff" />
+
+
 ```vue
 <template>
-  <cp-neon-toggle v-model="value" active-color="#ff00ff" />
+  <cyber-neon-toggle v-model="value" active-color="#ff00ff" />
 </template>
+<script setup>
+import { ref } from 'vue';
+
+const value = ref(false);
+</script>
 ```
 
 ## 禁用状态
 
+  <cyber-neon-toggle v-model="value" disabled />
+
+
 ```vue
 <template>
-  <cp-neon-toggle v-model="value" disabled />
+  <cyber-neon-toggle v-model="value" disabled />
 </template>
+<script setup>
+import { ref } from 'vue';
+
+const value = ref(false);
+</script>
 ```
 
 ## 脉冲效果
 
+<cyber-neon-toggle v-model="value" :pulse-effect="true" />
+  <cyber-neon-toggle v-model="value" :pulse-effect="false" />
+
 ```vue
 <template>
-  <cp-neon-toggle v-model="value" :pulse-effect="true" />
-  <cp-neon-toggle v-model="value" :pulse-effect="false" />
+  <cyber-neon-toggle v-model="value" :pulse-effect="true" />
+  <cyber-neon-toggle v-model="value" :pulse-effect="false" />
 </template>
+<script setup>
+import { ref } from 'vue';
+
+const value = ref(false);
+</script>
 ```
 
 ## 属性

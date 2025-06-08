@@ -4,9 +4,11 @@
 
 ## 基本用法
 
+  <cyber-digital-counter :value="99" />
+
 ```vue
 <template>
-  <cp-digital-counter :value="value" />
+  <cyber-digital-counter :value="value" />
 </template>
 
 <script setup>
@@ -18,39 +20,53 @@ const value = ref(1234);
 
 ## 动画效果
 
+<cyber-digital-counter :from="0" :to="1000" :duration="2000" />
+
 ```vue
 <template>
-  <cp-digital-counter :from="0" :to="1000" :duration="2000" />
+  <cyber-digital-counter :from="0" :to="1000" :duration="2000" />
 </template>
 ```
 
 ## 不同主题
 
+<cyber-digital-counter :value="1234" theme="neon" />
+  <cyber-digital-counter :value="1234" theme="digital" />
+  <cyber-digital-counter :value="1234" theme="hologram" />
+
 ```vue
 <template>
-  <cp-digital-counter :value="1234" theme="neon" />
-  <cp-digital-counter :value="1234" theme="digital" />
-  <cp-digital-counter :value="1234" theme="hologram" />
+  <cyber-digital-counter :value="1234" theme="neon" />
+  <cyber-digital-counter :value="1234" theme="digital" />
+  <cyber-digital-counter :value="1234" theme="hologram" />
 </template>
 ```
 
 ## 前缀和后缀
 
+  <cyber-digital-counter :value="1234" prefix="$" />
+  <cyber-digital-counter :value="75" suffix="%" />
+  <cyber-digital-counter :value="42" prefix="Level " suffix=" Achieved" />
+
 ```vue
 <template>
-  <cp-digital-counter :value="1234" prefix="$" />
-  <cp-digital-counter :value="75" suffix="%" />
-  <cp-digital-counter :value="42" prefix="Level " suffix=" Achieved" />
+  <cyber-digital-counter :value="1234" prefix="$" />
+  <cyber-digital-counter :value="75" suffix="%" />
+  <cyber-digital-counter :value="42" prefix="Level " suffix=" Achieved" />
 </template>
 ```
 
 ## 小数和分隔符
 
+<cyber-digital-counter :value="1234.56" :decimal="2" />
+  <cyber-digital-counter :value="1234567" separator="," />
+  <cyber-digital-counter :value="1234.56" :decimal="2" separator=" " />
+
 ```vue
 <template>
-  <cp-digital-counter :value="1234.56" :decimal="2" />
-  <cp-digital-counter :value="1234567" separator="," />
-  <cp-digital-counter :value="1234.56" :decimal="2" separator=" " />
+  <cyber-digital-counter :value="1234.56" :decimal="2" />
+  <cyber-digital-counter :value="1234567" separator="," />
+  <cyber-digital-counter :value="1234.56" :decimal="2" separator=" " />
 </template>
 ```
 

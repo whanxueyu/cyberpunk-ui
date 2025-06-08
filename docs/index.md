@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-    name: cyberpunk-ui 组件库
+    name: CyberPunk-UI
     text: 基于vue3的组件库
     tagline: 建议黑暗模式使用.
     image: /logo.svg

@@ -4,9 +4,10 @@
 
 ## 基本用法
 
+
 ```vue
 <template>
-  <cp-infinite-table
+  <cyber-infinite-table
     :data="tableData"
     :columns="columns"
     row-key="id"
@@ -41,7 +42,7 @@ const handleRowClick = (row) => {
 
 ```vue
 <template>
-  <cp-infinite-table
+  <cyber-infinite-table
     :data="tableData"
     :columns="columns"
     :default-sort="{ key: 'age', order: 'asc' }"
@@ -69,7 +70,7 @@ const handleSortChange = (sort) => {
 
 ```vue
 <template>
-  <cp-infinite-table
+  <cyber-infinite-table
     :data="tableData"
     :columns="columns"
   >
@@ -112,7 +113,7 @@ const deleteRow = (row) => {
 
 ```vue
 <template>
-  <cp-infinite-table
+  <cyber-infinite-table
     :data="tableData"
     :columns="columns"
     :loading="loading"
@@ -135,7 +136,7 @@ setTimeout(() => {
 
 ```vue
 <template>
-  <cp-infinite-table
+  <cyber-infinite-table
     :data="tableData"
     :columns="columns"
     :loading="loading"

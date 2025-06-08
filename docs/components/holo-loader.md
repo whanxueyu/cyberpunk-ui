@@ -4,58 +4,79 @@
 
 ## 基本用法
 
+<cyber-holo-loader />
+
 ```vue
 <template>
-  <cp-holo-loader />
+  <cyber-holo-loader />
 </template>
 ```
 
 ## 不同类型
 
+<cyber-holo-loader type="cube" />
+  <cyber-holo-loader type="sphere" />
+  <cyber-holo-loader type="datastream" />
+  <cyber-holo-loader type="circuit" />
+
 ```vue
 <template>
-  <cp-holo-loader type="cube" />
-  <cp-holo-loader type="sphere" />
-  <cp-holo-loader type="datastream" />
-  <cp-holo-loader type="circuit" />
+  <cyber-holo-loader type="cube" />
+  <cyber-holo-loader type="sphere" />
+  <cyber-holo-loader type="datastream" />
+  <cyber-holo-loader type="circuit" />
 </template>
 ```
 
 ## 不同尺寸
 
+<cyber-holo-loader size="small" />
+  <cyber-holo-loader size="default" />
+  <cyber-holo-loader size="large" />
+
 ```vue
 <template>
-  <cp-holo-loader size="small" />
-  <cp-holo-loader size="default" />
-  <cp-holo-loader size="large" />
+  <cyber-holo-loader size="small" />
+  <cyber-holo-loader size="default" />
+  <cyber-holo-loader size="large" />
 </template>
 ```
 
 ## 自定义文本
 
+<cyber-holo-loader text="加载中..." />
+  <cyber-holo-loader text="正在处理数据..." />
+  <cyber-holo-loader text="" /> <!-- 不显示文本 -->
+
 ```vue
 <template>
-  <cp-holo-loader text="加载中..." />
-  <cp-holo-loader text="正在处理数据..." />
-  <cp-holo-loader text="" /> <!-- 不显示文本 -->
+  <cyber-holo-loader text="加载中..." />
+  <cyber-holo-loader text="正在处理数据..." />
+  <cyber-holo-loader text="" /> <!-- 不显示文本 -->
 </template>
 ```
 
 ## 动画速度
 
+<cyber-holo-loader :speed="0.5" />
+  <cyber-holo-loader :speed="1" />
+  <cyber-holo-loader :speed="2" />
+
 ```vue
 <template>
-  <cp-holo-loader :speed="0.5" />
-  <cp-holo-loader :speed="1" />
-  <cp-holo-loader :speed="2" />
+  <cyber-holo-loader :speed="0.5" />
+  <cyber-holo-loader :speed="1" />
+  <cyber-holo-loader :speed="2" />
 </template>
 ```
 
 ## 透明背景
 
+<cyber-holo-loader :transparent="true" />
+
 ```vue
 <template>
-  <cp-holo-loader :transparent="true" />
+  <cyber-holo-loader :transparent="true" />
 </template>
 ```
 

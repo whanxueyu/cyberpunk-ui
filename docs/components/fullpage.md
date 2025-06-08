@@ -5,7 +5,7 @@ lang: en-US
 # FullPage 全屏滚动
 不依赖任何第三方插件，滚动不会修改页面路由，可设置滚动时间，延迟时间
     <div style="width: 100%; height: 500px;">
-        <cp-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition">
+        <cyber-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition">
             <div class="section" style="width: 100%; height: 500px;background: #9ff;">
             section1
             </div>
@@ -18,14 +18,14 @@ lang: en-US
             <div class="section" style="width: 100%; height: 500px;background: #9f9;">
             section4
             </div>
-        </cp-full-page>
+        </cyber-full-page>
     </div>
     <div style="padding: 20px;">
         <div>全屏指示点位置</div>
-        <cp-nenobutton bg type="primary" @click="changePosition('top')"> 上 ↑</cp-nenobutton>
-        <cp-nenobutton bg type="success" @click="changePosition('bottom')"> 下 ↓</cp-nenobutton>
-        <cp-nenobutton bg type="danger" @click="changePosition('left')"> 左 ←</cp-nenobutton>
-        <cp-nenobutton bg type="warning"  @click="changePosition('right')"> 右 →</cp-nenobutton>
+        <cyber-nenobutton bg type="primary" @click="changePosition('top')"> 上 ↑</cyber-nenobutton>
+        <cyber-nenobutton bg type="success" @click="changePosition('bottom')"> 下 ↓</cyber-nenobutton>
+        <cyber-nenobutton bg type="danger" @click="changePosition('left')"> 左 ←</cyber-nenobutton>
+        <cyber-nenobutton bg type="warning"  @click="changePosition('right')"> 右 →</cyber-nenobutton>
     </div>
     <div style="padding: 60px;">
         <div>滚动距离:{{scrollDistance}}</div>
@@ -65,7 +65,7 @@ const changePosition = (position: string) => {
 ```vue
 <template>
     <div style="width: 100%; height: 500px;">
-        <cp-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition">
+        <cyber-full-page :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition">
             <div class="section" style="width: 100%; height: 500px;background: #9ff;">
             section1
             </div>
@@ -78,14 +78,14 @@ const changePosition = (position: string) => {
             <div class="section" style="width: 100%; height: 500px;background: #9f9;">
             section4
             </div>
-        </cp-full-page>
+        </cyber-full-page>
     </div>
     <div style="padding: 20px;">
         <div>全屏指示点位置</div>
-        <cp-nenobutton bg type="primary" @click="changePosition('top')"> 上 ↑</cp-nenobutton>
-        <cp-nenobutton bg type="success" @click="changePosition('bottom')"> 下 ↓</cp-nenobutton>
-        <cp-nenobutton bg type="danger" @click="changePosition('left')"> 左 ←</cp-nenobutton>
-        <cp-nenobutton bg type="warning"  @click="changePosition('right')"> 右 →</cp-nenobutton>
+        <cyber-nenobutton bg type="primary" @click="changePosition('top')"> 上 ↑</cyber-nenobutton>
+        <cyber-nenobutton bg type="success" @click="changePosition('bottom')"> 下 ↓</cyber-nenobutton>
+        <cyber-nenobutton bg type="danger" @click="changePosition('left')"> 左 ←</cyber-nenobutton>
+        <cyber-nenobutton bg type="warning"  @click="changePosition('right')"> 右 →</cyber-nenobutton>
     </div>
     <div style="padding: 60px;">
         <div>滚动距离:{{scrollDistance}}</div>

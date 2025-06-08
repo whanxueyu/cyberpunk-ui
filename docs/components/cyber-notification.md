@@ -4,6 +4,8 @@
 
 ## 基本用法
 
+<button @click="showNotification">显示通知</button>
+
 ```vue
 <template>
   <button @click="showNotification">显示通知</button>
@@ -16,7 +18,7 @@ const notificationRef = ref(null);
 
 onMounted(() => {
   // 获取组件实例
-  notificationRef.value = document.querySelector('.cp-cyber-notification-container').__vueParentComponent.ctx;
+  notificationRef.value = document.querySelector('.cyber-notification-container').__vueParentComponent.ctx;
 });
 
 const showNotification = () => {
@@ -61,13 +63,19 @@ notificationRef.value.error({
 
 ## 不同位置
 
+  <cyber-notification position="top-right" />
+  <cyber-notification position="top-left" />
+  <cyber-notification position="bottom-right" />
+  <cyber-notification position="bottom-left" />
+  <cyber-notification position="center" />
+
 ```vue
 <template>
-  <cp-cyber-notification position="top-right" />
-  <cp-cyber-notification position="top-left" />
-  <cp-cyber-notification position="bottom-right" />
-  <cp-cyber-notification position="bottom-left" />
-  <cp-cyber-notification position="center" />
+  <cyber-notification position="top-right" />
+  <cyber-notification position="top-left" />
+  <cyber-notification position="bottom-right" />
+  <cyber-notification position="bottom-left" />
+  <cyber-notification position="center" />
 </template>
 ```
 

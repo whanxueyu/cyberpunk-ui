@@ -4,44 +4,58 @@
 
 ## 基本用法
 
+<cyber-glitch-progress :progress="50" />
+
 ```vue
 <template>
-  <cp-glitch-progress :progress="50" />
+  <cyber-glitch-progress :progress="50" />
 </template>
 ```
 
 ## 不同方向
 
+<cyber-glitch-progress :progress="50" direction="horizontal" />
+<p><br /></p>
+  <cyber-glitch-progress :progress="50" direction="vertical" />
+
 ```vue
 <template>
-  <cp-glitch-progress :progress="50" direction="horizontal" />
-  <cp-glitch-progress :progress="50" direction="vertical" />
+  <cyber-glitch-progress :progress="50" direction="horizontal" />
+  <cyber-glitch-progress :progress="50" direction="vertical" />
 </template>
 ```
 
 ## 不确定状态
 
+<cyber-glitch-progress indeterminate />
+
 ```vue
 <template>
-  <cp-glitch-progress indeterminate />
+  <cyber-glitch-progress indeterminate />
 </template>
 ```
 
 ## 自定义颜色
 
+<cyber-glitch-progress :progress="50" color="#ff00ff" />
+
 ```vue
 <template>
-  <cp-glitch-progress :progress="50" color="#ff00ff" />
+  <cyber-glitch-progress :progress="50" color="#ff00ff" />
 </template>
 ```
 
 ## 故障强度
 
+<cyber-glitch-progress :progress="50" :glitch-intensity="2" />
+  <cyber-glitch-progress :progress="50" :glitch-intensity="5" />
+  <cyber-glitch-progress :progress="50" :glitch-intensity="8" />
+
 ```vue
 <template>
-  <cp-glitch-progress :progress="50" :glitch-intensity="2" />
-  <cp-glitch-progress :progress="50" :glitch-intensity="5" />
-  <cp-glitch-progress :progress="50" :glitch-intensity="8" />
+  <cyber-glitch-progress :progress="50" :glitch-intensity="2" />
+  <cyber-glitch-progress :progress="50" :glitch-intensity="5" />
+  <cyber-glitch-progress :progress="50" :glitch-intensity="8" />
 </template>
 ```
 
