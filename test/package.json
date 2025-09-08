@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
-    "cyberpunk-ui": "^1.0.44",
+    "cyberpunk-ui": "^1.0.45",
     "vue": "^3.4.31"
   },
   "devDependencies": {
