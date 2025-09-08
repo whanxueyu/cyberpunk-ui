@@ -1,12 +1,7 @@
 <template>
-  <div 
-    :class="['cp-glitch-progress', directionClass, { 'indeterminate': indeterminate }]"
-    :data-progress="progress">
+  <div :class="['cp-glitch-progress', directionClass, { 'indeterminate': indeterminate }]" :data-progress="progress">
     <div class="progress-container">
-      <div 
-        class="progress-bar" 
-        :style="progressStyle"
-        ref="progressBarRef">
+      <div class="progress-bar" :style="progressStyle" ref="progressBarRef">
         <div class="glitch-effect"></div>
       </div>
       <div class="progress-text" v-if="showText && !indeterminate">
@@ -51,7 +46,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '#00e6f6'
+    default: '#00e6f6cc'
   },
   showText: {
     type: Boolean,
@@ -69,7 +64,7 @@ const directionClass = computed(() => {
 const progressStyle = computed(() => {
   const dimension = props.direction === 'vertical' ? 'height' : 'width';
   const value = props.indeterminate ? '100%' : `${props.progress}%`;
-  
+
   return {
     [dimension]: value,
     backgroundColor: props.color,
@@ -80,30 +75,30 @@ const progressStyle = computed(() => {
 // 创建故障效果
 const createGlitchEffect = () => {
   if (!progressBarRef.value) return;
-  
+
   const glitchEffect = progressBarRef.value.querySelector('.glitch-effect') as HTMLElement;
   if (!glitchEffect) return;
-  
+
   // 随机生成故障效果
   const applyGlitchEffect = () => {
     if (!glitchEffect) return;
-    
+
     // 随机决定是否应用故障效果
     const shouldGlitch = Math.random() < props.glitchIntensity / 20;
-    
+
     if (shouldGlitch) {
       // 随机RGB偏移
       const rgbShiftX = Math.random() * props.glitchIntensity - props.glitchIntensity / 2;
       const rgbShiftY = Math.random() * props.glitchIntensity - props.glitchIntensity / 2;
-      
+
       // 随机扭曲和模糊
       const skew = Math.random() * props.glitchIntensity - props.glitchIntensity / 2;
       const blur = Math.random() * props.glitchIntensity / 2;
-      
+
       glitchEffect.style.transform = `translate(${rgbShiftX}px, ${rgbShiftY}px) skew(${skew}deg)`;
       glitchEffect.style.filter = `blur(${blur}px)`;
       glitchEffect.style.opacity = '1';
-      
+
       // 短暂显示故障效果后恢复
       setTimeout(() => {
         if (glitchEffect) {
@@ -114,7 +109,7 @@ const createGlitchEffect = () => {
       }, 150);
     }
   };
-  
+
   // 设置定时器，随机应用故障效果
   glitchInterval.value = window.setInterval(() => {
     applyGlitchEffect();
@@ -131,10 +126,10 @@ watch(() => props.progress, (newVal) => {
         // 进度变化时立即触发一次故障效果
         const rgbShiftX = Math.random() * props.glitchIntensity * 2 - props.glitchIntensity;
         const rgbShiftY = Math.random() * props.glitchIntensity - props.glitchIntensity / 2;
-        
+
         glitchEffect.style.transform = `translate(${rgbShiftX}px, ${rgbShiftY}px)`;
         glitchEffect.style.opacity = '1';
-        
+
         setTimeout(() => {
           if (glitchEffect) {
             glitchEffect.style.transform = 'translate(0, 0)';
@@ -166,7 +161,9 @@ onUnmounted(() => {
   background-color: rgba(20, 20, 30, 0.7);
   border-radius: 4px;
   overflow: hidden;
-  
+  margin: 4px;
+  border: 1px solid;
+
   &::before {
     content: attr(data-progress) '%';
     position: absolute;
@@ -182,13 +179,14 @@ onUnmounted(() => {
     font-size: 12px;
     z-index: 3;
   }
-  
+
   .progress-container {
     position: relative;
     width: 100%;
     height: 100%;
+    display: contents;
   }
-  
+
   .progress-bar {
     position: absolute;
     top: 0;
@@ -198,7 +196,7 @@ onUnmounted(() => {
     background-color: #00e6f6;
     transition: width 0.3s ease, height 0.3s ease;
     z-index: 1;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -210,7 +208,7 @@ onUnmounted(() => {
       animation: scanline 2s linear infinite;
     }
   }
-  
+
   .glitch-effect {
     position: absolute;
     top: 0;
@@ -223,7 +221,7 @@ onUnmounted(() => {
     transition: transform 0.1s ease, filter 0.1s ease, opacity 0.1s ease;
     mix-blend-mode: screen;
   }
-  
+
   .progress-text {
     position: absolute;
     top: 0;
@@ -233,41 +231,40 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
     font-family: monospace;
     font-size: 12px;
     z-index: 3;
     text-shadow: 0 0 5px rgba(0, 230, 246, 0.8);
   }
-  
+
   &.vertical {
     width: 20px;
     height: 100%;
     min-height: 100px;
-    
+
     .progress-bar {
       width: 100%;
       height: 0;
       bottom: 0;
       top: auto;
-      
+
       &::after {
         background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.2), transparent);
       }
     }
-    
+
     .progress-text {
       writing-mode: vertical-rl;
       text-orientation: mixed;
     }
   }
-  
+
   &.indeterminate {
     .progress-bar {
       animation: indeterminate-horizontal 2s linear infinite;
       width: 50% !important;
     }
-    
+
     &.vertical .progress-bar {
       animation: indeterminate-vertical 2s linear infinite;
       height: 50% !important;
@@ -280,6 +277,7 @@ onUnmounted(() => {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -289,6 +287,7 @@ onUnmounted(() => {
   0% {
     left: -50%;
   }
+
   100% {
     left: 100%;
   }
@@ -298,6 +297,7 @@ onUnmounted(() => {
   0% {
     top: -50%;
   }
+
   100% {
     top: 100%;
   }
@@ -311,12 +311,17 @@ onUnmounted(() => {
 }
 
 @keyframes progress-complete {
-  0%, 50% {
+
+  0%,
+  50% {
     filter: brightness(1.5) hue-rotate(0deg);
   }
-  25%, 75% {
+
+  25%,
+  75% {
     filter: brightness(2) hue-rotate(45deg);
   }
+
   100% {
     filter: brightness(1.2) hue-rotate(0deg);
   }
