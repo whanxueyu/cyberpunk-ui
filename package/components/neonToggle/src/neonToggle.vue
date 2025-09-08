@@ -36,7 +36,11 @@ const props = defineProps({
   },
   activeColor: {
     type: String,
-    default: '#00e6f6'
+    default: '#00e6f6cc'
+  },
+  inActiveColor: {
+    type: String,
+    default: '#ffffff99'
   },
   pulseEffect: {
     type: Boolean,
@@ -80,6 +84,7 @@ const toggleSwitch = () => {
   height: 30px;
   cursor: pointer;
   user-select: none;
+  margin: auto 3px;
   
   .toggle-track {
     position: absolute;
@@ -87,7 +92,8 @@ const toggleSwitch = () => {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(20, 20, 30, 0.7);
+    background-color: rgba(50,80,80, 0.6);
+    border: 1px solid #666;
     transition: all 0.3s ease;
     overflow: hidden;
     
@@ -139,7 +145,7 @@ const toggleSwitch = () => {
     left: 3px;
     width: 24px;
     height: 24px;
-    background-color: #fff;
+    background-color: v-bind('props.inActiveColor');
     transition: all 0.3s ease;
     z-index: 2;
     
@@ -159,7 +165,8 @@ const toggleSwitch = () => {
   
   &.active {
     .toggle-track {
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid v-bind('props.activeColor');
       box-shadow: 0 0 10px v-bind('props.activeColor'), inset 0 0 5px v-bind('props.activeColor');
       
       &::before {
@@ -243,7 +250,7 @@ const toggleSwitch = () => {
     opacity: 0.1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.6;
   }
   100% {
     opacity: 0.1;
