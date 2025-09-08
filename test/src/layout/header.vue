@@ -8,6 +8,7 @@ const isDark = useDark({
     // 高亮class名字
     valueLight: 'light',
 })
+const value = ref(false)
 const emits = defineEmits(["changePosition"])
 const toggleDark = useToggle(isDark)
 const dotPosition = ref('right')
@@ -24,7 +25,7 @@ const changePosition = (position: string) => {
         <cyber-button type="warning" content="right →" @click="changePosition('right')">right →</cyber-button>
     </div>
     <div>
-        <cyber-nenobutton type="primary" bg size="small" @click="toggleDark()">切换</cyber-nenobutton>
+        <cyber-neon-toggle v-model="value" @change="toggleDark()" active-color="#ffff00" inActiveColor="#669999" />
     </div>
 </template>
 
