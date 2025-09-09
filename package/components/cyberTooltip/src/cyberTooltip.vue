@@ -123,8 +123,7 @@ const hide = () => {
     emit('hide');
   }, 100) as unknown as number;
 };
-
-// 更新提示框位置
+// 更新提示框位置 - 优化版本
 const updatePosition = () => {
   if (!triggerRef.value || !tooltipRef.value) return;
   
@@ -133,29 +132,58 @@ const updatePosition = () => {
   const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
   const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
   
-  // 计算可用空间
+  // 计算可用空间 (增加边距)
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
+  const MARGIN = 10; // 边距
   
   // 自动计算最佳位置
   if (props.position === 'auto') {
-    // 检查各个方向的可用空间
-    const spaceTop = triggerRect.top;
-    const spaceBottom = viewportHeight - triggerRect.bottom;
-    const spaceLeft = triggerRect.left;
-    const spaceRight = viewportWidth - triggerRect.right;
+    // 检查各个方向的可用空间 (考虑边距)
+    const spaceTop = triggerRect.top - MARGIN;
+    const spaceBottom = viewportHeight - triggerRect.bottom - MARGIN;
+    const spaceLeft = triggerRect.left - MARGIN;
+    const spaceRight = viewportWidth - triggerRect.right - MARGIN;
     
-    // 找出最大空间方向
-    const maxSpace = Math.max(spaceTop, spaceRight, spaceBottom, spaceLeft);
+    // 优先选择空间足够且符合用户习惯的方向
+    const tooltipHeight = tooltipRect.height;
+    const tooltipWidth = tooltipRect.width;
     
-    if (maxSpace === spaceTop) {
-      computedPosition.value = 'top';
-    } else if (maxSpace === spaceRight) {
-      computedPosition.value = 'right';
-    } else if (maxSpace === spaceBottom) {
-      computedPosition.value = 'bottom';
+    // 按优先级排序: bottom > top > right > left
+    var positions:{ pos: string; space: number; }[] = [];
+    
+    if (spaceBottom > tooltipHeight) {
+      positions.push({ pos: 'bottom', space: spaceBottom });
+    }
+    
+    if (spaceTop > tooltipHeight) {
+      positions.push({ pos: 'top', space: spaceTop });
+    }
+    
+    if (spaceRight > tooltipWidth) {
+      positions.push({ pos: 'right', space: spaceRight });
+    }
+    
+    if (spaceLeft > tooltipWidth) {
+      positions.push({ pos: 'left', space: spaceLeft });
+    }
+    
+    // 如果有可用位置，选择空间最大的；否则选择原始计算结果
+    if (positions.length > 0) {
+      positions.sort((a, b) => b.space - a.space);
+      computedPosition.value = positions[0].pos;
     } else {
-      computedPosition.value = 'left';
+      // 原始逻辑作为备选
+      const maxSpace = Math.max(spaceTop, spaceRight, spaceBottom, spaceLeft);
+      if (maxSpace === spaceTop) {
+        computedPosition.value = 'top';
+      } else if (maxSpace === spaceRight) {
+        computedPosition.value = 'right';
+      } else if (maxSpace === spaceBottom) {
+        computedPosition.value = 'bottom';
+      } else {
+        computedPosition.value = 'left';
+      }
     }
   } else {
     computedPosition.value = props.position;
@@ -164,37 +192,50 @@ const updatePosition = () => {
   // 根据位置计算坐标
   let left = 0;
   let top = 0;
+  const GAP = 10; // 元素与提示框之间的间距
   
   switch (computedPosition.value) {
     case 'top':
       left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-      top = triggerRect.top - tooltipRect.height - 10 + scrollTop;
+      top = triggerRect.top - tooltipRect.height - GAP + scrollTop;
       break;
     case 'right':
-      left = triggerRect.right + 10 + scrollLeft;
+      left = triggerRect.right + GAP + scrollLeft;
       top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
       break;
     case 'bottom':
       left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-      top = triggerRect.bottom + 10 + scrollTop;
+      top = triggerRect.bottom + GAP + scrollTop;
       break;
     case 'left':
-      left = triggerRect.left - tooltipRect.width - 10 + scrollLeft;
+      left = triggerRect.left - tooltipRect.width - GAP + scrollLeft;
       top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
       break;
   }
   
-  // 防止提示框超出视口
-  if (left < 0) {
-    left = 10;
-  } else if (left + tooltipRect.width > viewportWidth) {
-    left = viewportWidth - tooltipRect.width - 10;
-  }
+  // 防止提示框超出视口并进行智能调整
+  const adjustPosition = () => {
+    // 水平方向调整
+    if (left < MARGIN) {
+      left = MARGIN;
+    } else if (left + tooltipRect.width > viewportWidth - MARGIN) {
+      left = viewportWidth - tooltipRect.width - MARGIN;
+    }
+    
+    // 垂直方向调整
+    if (top < MARGIN) {
+      top = MARGIN;
+    } else if (top + tooltipRect.height > viewportHeight + scrollTop - MARGIN) {
+      top = viewportHeight + scrollTop - tooltipRect.height - MARGIN;
+    }
+  };
   
-  if (top < 0) {
-    top = 10;
-  } else if (top + tooltipRect.height > viewportHeight + scrollTop) {
-    top = viewportHeight + scrollTop - tooltipRect.height - 10;
+  // 如果在自动模式下位置不合适，尝试调整位置
+  if (props.position === 'auto') {
+    adjustPosition();
+  } else {
+    // 对于固定位置，如果超出边界，则进行微调
+    adjustPosition();
   }
   
   // 更新样式
