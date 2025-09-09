@@ -20,12 +20,10 @@ const value = ref(1234);
 
 ## 动画效果
 
-<cyber-digital-counter :from="0" :to="1000" :duration="2000" />
+<cyber-digital-counter :from="0" :value="1000" :duration="2000" />
 
 ```vue
-<template>
-  <cyber-digital-counter :from="0" :to="1000" :duration="2000" />
-</template>
+  <cyber-digital-counter :from="0" :value="1000" :duration="2000" />
 ```
 
 ## 不同主题

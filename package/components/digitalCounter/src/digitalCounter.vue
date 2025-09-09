@@ -15,7 +15,8 @@
           :class="{ 'animate': shouldAnimate(index) }">
           <div class="digit-top">{{ digit }}</div>
           <div class="digit-bottom">{{ digit }}</div>
-          <div class="digit-top flip-top">{{ getPreviousDigit(index) }}</div>
+          <div class="digit-top flip-top">{{ digit }}</div>
+          <!-- <div class="digit-top flip-top">{{ getPreviousDigit(index) }}</div> -->
           <div class="digit-bottom flip-bottom">{{ digit }}</div>
         </div>
       </div>
@@ -25,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import { error } from 'console';
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 
 defineOptions({
@@ -81,6 +83,10 @@ const props = defineProps({
     validator: (value: string) => {
       return ['neon', 'digital', 'hologram'].indexOf(value) !== -1
     }
+  },
+  error: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -126,10 +132,15 @@ const isDigitSeparator = (digit: string): boolean => {
 
 // 获取前一个数字
 const getPreviousDigit = (index: number): string => {
+  if (props.error) {
   if (!previousFormattedValue.value || index >= previousFormattedValue.value.length) {
     return formattedDigits.value[index];
   }
   return previousFormattedValue.value[index];
+  }else {
+  return previousFormattedValue.value[index+1];
+  }
+
 };
 
 // 判断是否应该动画
