@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import layout from './layout/layout.vue';
 import buttonPanel from './conponents/button.vue'
 import textPanel from './conponents/text.vue'
+import switchPanel from './conponents/switch.vue'
+import tooltipPanel from './conponents/tooltip.vue'
 console.log(
   '%c %s',
   'border: 1px solid #97E3FE;border-radius: 3px;padding: 2px 5px;color: white;font-weight:bolder;background: linear-gradient(to right, #fF717F,#CC54D1,#4EAFFA,#3DE1C3, #F7DA66)',
@@ -40,16 +42,15 @@ const changePosition = (position: string) => {
         <buttonPanel></buttonPanel>
       </div>
       <div class="section">
-        <div class="title">霓虹按钮</div>
-        <div class="content">
-
+        <div class="title">
+          <div class="title_text">霓虹开关</div>
+          <div class="title_text">进度条</div>
         </div>
+        <switchPanel></switchPanel>
       </div>
       <div class="section">
         <div class="title">反光按钮</div>
-        <div class="content">
-
-        </div>
+        <tooltipPanel></tooltipPanel>
       </div>
     </CyberFullPage>
   </layout>
