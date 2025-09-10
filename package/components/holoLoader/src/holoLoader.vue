@@ -86,9 +86,13 @@ const props = defineProps({
   transparent: {
     type: Boolean,
     default: false
+  },
+  color: {
+    type: String,
+    default: '#00e6f6'
   }
 });
-
+const speedStr = (6/props.speed).toString()+'s';
 const sizeClass = computed(() => {
   switch (props.size) {
     case 'small':
@@ -181,7 +185,7 @@ onUnmounted(() => {
   }
   
   .loader-text {
-    color: #00e6f6;
+    color: v-bind('$props.color');
     font-family: monospace;
     margin-top: 20px;
     text-align: center;
@@ -211,7 +215,7 @@ onUnmounted(() => {
       left: 0;
       right: 0;
       height: 20px;
-      background: radial-gradient(ellipse at center, #00e6f6 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, v-bind('$props.color') 0%, transparent 70%);
       opacity: 0.5;
       animation: pulse 2s ease-in-out infinite;
     }
@@ -228,14 +232,14 @@ onUnmounted(() => {
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      animation: rotate 3s linear infinite;
+      animation: rotate v-bind(speedStr) linear infinite;
       
       .cube-face {
         position: absolute;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 230, 246, 0.2);
-        border: 1px solid #00e6f6;
+        border: 1px solid v-bind('$props.color');
         box-shadow: 0 0 10px rgba(0, 230, 246, 0.5);
       }
       
@@ -266,7 +270,7 @@ onUnmounted(() => {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        border: 1px solid #00e6f6;
+        border: 1px solid v-bind('$props.color');
         box-shadow: 0 0 10px rgba(0, 230, 246, 0.5);
         
         &:nth-child(1) {
@@ -296,7 +300,7 @@ onUnmounted(() => {
       left: 50%;
       width: 1px;
       height: 100%;
-      background-color: #00e6f6;
+      background-color: v-bind('$props.color');
       transform-origin: top;
       
       @for $i from 1 through 10 {
@@ -323,7 +327,7 @@ onUnmounted(() => {
       
       .circuit-path {
         position: absolute;
-        background-color: #00e6f6;
+        background-color: v-bind('$props.color');
         
         @for $i from 1 through 5 {
           &:nth-child(#{$i}) {
@@ -342,8 +346,8 @@ onUnmounted(() => {
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: #00e6f6;
-        box-shadow: 0 0 5px #00e6f6;
+        background-color: v-bind('$props.color');
+        box-shadow: 0 0 5px v-bind('$props.color');
         
         @for $i from 1 through 6 {
           &:nth-child(#{$i + 10}) {
@@ -367,9 +371,15 @@ onUnmounted(() => {
     }
     
     .cube .cube-face {
-      &.front, &.back, &.right, &.left, &.top, &.bottom {
-        transform: translateZ(20px) rotateY(0deg);
-      }
+      // &.front, &.back, &.right, &.left, &.top, &.bottom {
+      //   transform: translateZ(20px) rotateY(0deg);
+      // }
+      &.front  { transform: rotateY(0deg) translateZ(20px); }
+      &.back   { transform: rotateY(180deg) translateZ(20px); }
+      &.right  { transform: rotateY(90deg) translateZ(20px); }
+      &.left   { transform: rotateY(-90deg) translateZ(20px); }
+      &.top    { transform: rotateX(90deg) translateZ(20px); }
+      &.bottom { transform: rotateX(-90deg) translateZ(20px); }
     }
     
     .holo-base {
@@ -390,9 +400,16 @@ onUnmounted(() => {
     }
     
     .cube .cube-face {
-      &.front, &.back, &.right, &.left, &.top, &.bottom {
-        transform: translateZ(40px) rotateY(0deg);
-      }
+      // 六个面分离的盒子
+      // &.front, &.back, &.right, &.left, &.top, &.bottom {
+      //   transform: translateZ(40px) rotateY(0deg);
+      // }
+      &.front  { transform: rotateY(0deg) translateZ(40px); }
+      &.back   { transform: rotateY(180deg) translateZ(40px); }
+      &.right  { transform: rotateY(90deg) translateZ(40px); }
+      &.left   { transform: rotateY(-90deg) translateZ(40px); }
+      &.top    { transform: rotateX(90deg) translateZ(40px); }
+      &.bottom { transform: rotateX(-90deg) translateZ(40px); }
     }
     
     .holo-base {
@@ -457,11 +474,11 @@ onUnmounted(() => {
 @keyframes circuit-glow {
   0%, 100% { 
     opacity: 0.3;
-    box-shadow: 0 0 2px #00e6f6;
+    box-shadow: 0 0 2px v-bind('$props.color');
   }
   50% { 
     opacity: 1;
-    box-shadow: 0 0 8px #00e6f6;
+    box-shadow: 0 0 8px v-bind('$props.color');
   }
 }
 
