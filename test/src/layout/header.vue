@@ -19,10 +19,10 @@ const changePosition = (position: string) => {
 </script>
 <template>
     <div>
-        <cyber-button type="primary" content="top ↑" @click="changePosition('top')">top ↑</cyber-button>
-        <cyber-button type="success" content="bottom ↓" @click="changePosition('bottom')">bottom ↓</cyber-button>
-        <cyber-button type="danger" content="left ←" @click="changePosition('left')">left ←</cyber-button>
-        <cyber-button type="warning" content="right →" @click="changePosition('right')">right →</cyber-button>
+        <cyber-button type="primary" content="top ↑" size="small" @click="changePosition('top')">top ↑</cyber-button>
+        <cyber-button type="success" content="bottom ↓" size="small" @click="changePosition('bottom')">bottom ↓</cyber-button>
+        <cyber-button type="danger" content="left ←" size="small" @click="changePosition('left')">left ←</cyber-button>
+        <cyber-button type="warning" content="right →" size="small" @click="changePosition('right')">right →</cyber-button>
     </div>
     <div>
         <cyber-neon-toggle v-model="value" @change="toggleDark()" active-color="#ffff00" inActiveColor="#669999" />
