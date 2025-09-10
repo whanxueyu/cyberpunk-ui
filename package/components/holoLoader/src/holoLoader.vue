@@ -238,6 +238,7 @@ onUnmounted(() => {
         position: absolute;
         width: 100%;
         height: 100%;
+        // 根据传入的颜色计算带透明度的颜色
         background-color: rgba(0, 230, 246, 0.2);
         border: 1px solid v-bind('$props.color');
         box-shadow: 0 0 10px rgba(0, 230, 246, 0.5);
