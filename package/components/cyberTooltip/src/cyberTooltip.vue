@@ -551,7 +551,7 @@ onUnmounted(() => {
   }
   
   &.effect-glitch {
-    animation: glitch-appear 0.3s ease-out;
+    animation: glitch-appear 1s ease-out;
     
     .tooltip-glitch {
       animation: glitch-effect 3s linear infinite;
@@ -618,18 +618,31 @@ onUnmounted(() => {
     transform: translateX(-10px);
     clip-path: inset(0 0 0 100%);
   }
-  20% {
+  10% {
     clip-path: inset(20% 0 20% 0);
   }
-  40% {
+  20% {
     clip-path: inset(40% 0 40% 0);
     transform: translateX(10px);
   }
-  60% {
+  30% {
     clip-path: inset(60% 0 60% 0);
     transform: translateX(-10px);
   }
+  40% {
+    clip-path: inset(80% 0 80% 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
   80% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translateX(10px);
+  }
+  90% {
+    opacity: 0;
     clip-path: inset(80% 0 80% 0);
   }
   100% {
