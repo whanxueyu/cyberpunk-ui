@@ -6,6 +6,7 @@
             <cyber-holo-loader color="#ff00ff" type="sphere" />
             <cyber-holo-loader color="#ffff00" type="datastream" />
             <cyber-holo-loader color="#00ff66" type="circuit" />
+            <cyber-holo-loader type="split" />
         </div>
         <div>不同尺寸、文本</div>
         <div class="flex">
@@ -18,6 +19,8 @@
             <cyber-holo-loader size="large" type="datastream" />
             <cyber-holo-loader size="small" type="circuit"/>
             <cyber-holo-loader size="large" type="circuit" />
+            <cyber-holo-loader size="small" type="split" />
+            <cyber-holo-loader size="large" type="split" />
         </div>
         <div>动画速度、透明背景</div>
         <div class="flex">
