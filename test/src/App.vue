@@ -5,6 +5,9 @@ import buttonPanel from './conponents/button.vue'
 import textPanel from './conponents/text.vue'
 import switchPanel from './conponents/switch.vue'
 import tooltipPanel from './conponents/tooltip.vue'
+import imagesPanel from './conponents/images.vue'
+import cardPanel from './conponents/card.vue';
+import loadingPanel from './conponents/loading.vue';
 console.log(
   '%c %s',
   'border: 1px solid #97E3FE;border-radius: 3px;padding: 2px 5px;color: white;font-weight:bolder;background: linear-gradient(to right, #fF717F,#CC54D1,#4EAFFA,#3DE1C3, #F7DA66)',
@@ -27,11 +30,19 @@ const changePosition = (position: string) => {
 
 <template>
   <layout @changePosition="changePosition">
-    <CyberFullPage :pageNum="4" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
+    <CyberFullPage :pageNum="7" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
       :offset="60">
       <div class="section">
+        <div class="title">
+          <div class="title_text">图片</div>
+        </div>
+        <imagesPanel></imagesPanel>
+      </div>
+      <div class="section">
         <div class="title">文字样式</div>
-        <textPanel></textPanel>
+        <div class="content-box">
+          <textPanel></textPanel>
+        </div>
       </div>
       <div class="section">
         <div class="title">
@@ -39,7 +50,9 @@ const changePosition = (position: string) => {
           <div class="title_text">霓虹按钮</div>
           <div class="title_text">反光按钮</div>
         </div>
-        <buttonPanel></buttonPanel>
+        <div class="content-box">
+          <buttonPanel></buttonPanel>
+        </div>
       </div>
       <div class="section">
         <div class="title">
@@ -49,8 +62,28 @@ const changePosition = (position: string) => {
         <switchPanel></switchPanel>
       </div>
       <div class="section">
-        <div class="title">反光按钮</div>
-        <tooltipPanel></tooltipPanel>
+        <div class="title">
+          <div class="title_text">鼠标提示</div>
+          <div class="title_text">数字翻牌器</div>
+        </div>
+        <div class="content-box">
+          <tooltipPanel></tooltipPanel>
+        </div>
+      </div>
+      <div class="section">
+        <div class="title">
+          <div class="title_text">loading</div>
+        </div>
+        <div class="content-box">
+          <loadingPanel></loadingPanel>
+        </div>
+      </div>
+      
+      <div class="section">
+        <div class="title">
+          <div class="title_text">卡片</div>
+        </div>
+        <cardPanel></cardPanel>
       </div>
     </CyberFullPage>
   </layout>
@@ -82,6 +115,13 @@ const changePosition = (position: string) => {
   border-left: 1px solid #ccc;
   padding: 20px;
   text-align: left;
+  height: calc(100% - 40px);
+}
+
+.content-box {
+  height: 100%;
+  width: calc(100% - 240px);
+  overflow-y: auto;
 }
 
 .panel {
