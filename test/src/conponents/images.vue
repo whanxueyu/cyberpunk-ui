@@ -23,11 +23,12 @@
                 :intensity="7" />
             <cyber-glitch-image class="pic" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
                 :intensity="10" />
-        </div>
-        <div>动画效果</div>
+                <div>动画效果</div>
 
         <cyber-glitch-image class="pic" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
             :animated="true" />
+        </div>
+        
 
         <div>触发模式</div>
         <div class="flex">
