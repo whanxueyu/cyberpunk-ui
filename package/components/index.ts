@@ -15,5 +15,6 @@ export * from './reflectButton'
 export * from './shadowText'
 export * from './text'
 export * from './typing'
-
-
+export * from './magicText'
+export * from './image'
+export * from './banner'
