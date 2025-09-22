@@ -7,7 +7,8 @@ module.exports = defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@cyberpunk-ui": path.resolve(__dirname, "./package"),
+      // "@cyberpunk-ui": path.resolve(__dirname, "./package"),
+      'package': path.resolve(__dirname, 'package')
     },
   },
   build: {

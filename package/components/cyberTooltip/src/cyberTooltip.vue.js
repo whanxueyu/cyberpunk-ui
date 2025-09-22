@@ -87,23 +87,45 @@ const updatePosition = () => {
     const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
+    const MARGIN = 10;
     if (props.position === 'auto') {
-        const spaceTop = triggerRect.top;
-        const spaceBottom = viewportHeight - triggerRect.bottom;
-        const spaceLeft = triggerRect.left;
-        const spaceRight = viewportWidth - triggerRect.right;
-        const maxSpace = Math.max(spaceTop, spaceRight, spaceBottom, spaceLeft);
-        if (maxSpace === spaceTop) {
-            computedPosition.value = 'top';
+        const spaceTop = triggerRect.top - MARGIN;
+        const spaceBottom = viewportHeight - triggerRect.bottom - MARGIN;
+        const spaceLeft = triggerRect.left - MARGIN;
+        const spaceRight = viewportWidth - triggerRect.right - MARGIN;
+        const tooltipHeight = tooltipRect.height;
+        const tooltipWidth = tooltipRect.width;
+        var positions = [];
+        if (spaceBottom > tooltipHeight) {
+            positions.push({ pos: 'bottom', space: spaceBottom });
         }
-        else if (maxSpace === spaceRight) {
-            computedPosition.value = 'right';
+        if (spaceTop > tooltipHeight) {
+            positions.push({ pos: 'top', space: spaceTop });
         }
-        else if (maxSpace === spaceBottom) {
-            computedPosition.value = 'bottom';
+        if (spaceRight > tooltipWidth) {
+            positions.push({ pos: 'right', space: spaceRight });
+        }
+        if (spaceLeft > tooltipWidth) {
+            positions.push({ pos: 'left', space: spaceLeft });
+        }
+        if (positions.length > 0) {
+            positions.sort((a, b) => b.space - a.space);
+            computedPosition.value = positions[0].pos;
         }
         else {
-            computedPosition.value = 'left';
+            const maxSpace = Math.max(spaceTop, spaceRight, spaceBottom, spaceLeft);
+            if (maxSpace === spaceTop) {
+                computedPosition.value = 'top';
+            }
+            else if (maxSpace === spaceRight) {
+                computedPosition.value = 'right';
+            }
+            else if (maxSpace === spaceBottom) {
+                computedPosition.value = 'bottom';
+            }
+            else {
+                computedPosition.value = 'left';
+            }
         }
     }
     else {
@@ -111,35 +133,44 @@ const updatePosition = () => {
     }
     let left = 0;
     let top = 0;
+    const GAP = 10;
     switch (computedPosition.value) {
         case 'top':
             left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-            top = triggerRect.top - tooltipRect.height - 10 + scrollTop;
+            top = triggerRect.top - tooltipRect.height - GAP + scrollTop;
             break;
         case 'right':
-            left = triggerRect.right + 10 + scrollLeft;
+            left = triggerRect.right + GAP + scrollLeft;
             top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
             break;
         case 'bottom':
             left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-            top = triggerRect.bottom + 10 + scrollTop;
+            top = triggerRect.bottom + GAP + scrollTop;
             break;
         case 'left':
-            left = triggerRect.left - tooltipRect.width - 10 + scrollLeft;
+            left = triggerRect.left - tooltipRect.width - GAP + scrollLeft;
             top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
             break;
     }
-    if (left < 0) {
-        left = 10;
+    const adjustPosition = () => {
+        if (left < MARGIN) {
+            left = MARGIN;
+        }
+        else if (left + tooltipRect.width > viewportWidth - MARGIN) {
+            left = viewportWidth - tooltipRect.width - MARGIN;
+        }
+        if (top < MARGIN) {
+            top = MARGIN;
+        }
+        else if (top + tooltipRect.height > viewportHeight + scrollTop - MARGIN) {
+            top = viewportHeight + scrollTop - tooltipRect.height - MARGIN;
+        }
+    };
+    if (props.position === 'auto') {
+        adjustPosition();
     }
-    else if (left + tooltipRect.width > viewportWidth) {
-        left = viewportWidth - tooltipRect.width - 10;
-    }
-    if (top < 0) {
-        top = 10;
-    }
-    else if (top + tooltipRect.height > viewportHeight + scrollTop) {
-        top = viewportHeight + scrollTop - tooltipRect.height - 10;
+    else {
+        adjustPosition();
     }
     tooltipStyle.value = {
         left: `${left}px`,

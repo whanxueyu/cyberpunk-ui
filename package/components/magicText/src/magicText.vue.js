@@ -1,0 +1,83 @@
+<template>
+    <div class="g-container">
+        <p>
+            <slot></slot>
+        </p>
+    </div>
+</template>
+
+<script setup lang="ts">
+defineOptions({
+    name: 'CyberMagicText',
+})
+</script>
+<style lang="scss" scoped>
+.g-container {
+    margin: auto;
+}
+
+p {
+    position: relative;
+    line-height: 1.5;
+    // color: #9a9acc;
+    overflow: hidden;
+    -webkit-text-stroke: 3px #7272a5;
+
+    &::before {
+        content: " ";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-image: linear-gradient(45deg, #ff269b, #2ab5f5, #ffbf00);
+        mix-blend-mode: multiply;
+    }
+
+    &::after {
+        content: "";
+        background: radial-gradient(circle, #fff, #000 50%);
+        background-size: 25% 25%;
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        right: 0;
+        bottom: 0;
+        mix-blend-mode: color-dodge;
+        animation: mix 8s linear infinite;
+    }
+}
+
+@keyframes mix {
+    to {
+        transform: translate(50%, 50%);
+    }
+}
+</style>/// <reference types="../../../../node_modules/.vue-global-types/vue_3.5_0_0_0.d.ts" />
+
+defineOptions({
+    name: 'CyberMagicText',
+});
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "g-container" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({});
+var __VLS_0 = {};
+;
+var __VLS_1 = __VLS_0;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {};
+    },
+});
+const __VLS_component = (await import('vue')).defineComponent({
+    setup() {
+        return {};
+    },
+});
+export default {};
+;
+//# sourceMappingURL=magicText.vue.js.map

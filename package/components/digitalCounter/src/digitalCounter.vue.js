@@ -52,6 +52,10 @@ const props = defineProps({
         validator: (value) => {
             return ['neon', 'digital', 'hologram'].indexOf(value) !== -1;
         }
+    },
+    error: {
+        type: Boolean,
+        default: false
     }
 });
 const currentValue = ref(Number(props.from));
@@ -80,10 +84,15 @@ const isDigitSeparator = (digit) => {
     return digit === props.separator || digit === '.';
 };
 const getPreviousDigit = (index) => {
-    if (!previousFormattedValue.value || index >= previousFormattedValue.value.length) {
-        return formattedDigits.value[index];
+    if (props.error) {
+        if (!previousFormattedValue.value || index >= previousFormattedValue.value.length) {
+            return formattedDigits.value[index];
+        }
+        return previousFormattedValue.value[index];
     }
-    return previousFormattedValue.value[index];
+    else {
+        return previousFormattedValue.value[index + 1];
+    }
 };
 const shouldAnimate = (index) => {
     if (!previousFormattedValue.value || index >= previousFormattedValue.value.length) {
@@ -176,7 +185,7 @@ for (const [digit, index] of __VLS_getVForSourceType((__VLS_ctx.formattedDigits)
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "digit-bottom" }));
         (digit);
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "digit-top flip-top" }));
-        (__VLS_ctx.getPreviousDigit(index));
+        (digit);
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "digit-bottom flip-bottom" }));
         (digit);
     }
@@ -205,7 +214,6 @@ const __VLS_self = (await import('vue')).defineComponent({
         return {
             formattedDigits: formattedDigits,
             isDigitSeparator: isDigitSeparator,
-            getPreviousDigit: getPreviousDigit,
             shouldAnimate: shouldAnimate,
         };
     },
@@ -259,6 +267,10 @@ const __VLS_self = (await import('vue')).defineComponent({
             validator: (value) => {
                 return ['neon', 'digital', 'hologram'].indexOf(value) !== -1;
             }
+        },
+        error: {
+            type: Boolean,
+            default: false
         }
     },
 });
@@ -316,6 +328,10 @@ export default (await import('vue')).defineComponent({
             validator: (value) => {
                 return ['neon', 'digital', 'hologram'].indexOf(value) !== -1;
             }
+        },
+        error: {
+            type: Boolean,
+            default: false
         }
     },
 });

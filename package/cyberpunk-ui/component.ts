@@ -17,7 +17,7 @@ import { CyberShadowText } from '../components/shadowText'
 import { CyberTyping } from '../components/typing'
 import { CyberImage } from '../components/image';
 import { CyberMagicText } from '../components/magicText';
-import { CyberBanner } from 'package/components';
+import { CyberBanner } from '../components/banner';
 export default [
     CyberButton,
     CyberNotification,

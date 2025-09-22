@@ -2,7 +2,20 @@ import { computed, ref, watchEffect } from 'vue';
 defineOptions({
     name: 'CyberFullPage',
 });
-const props = defineProps(['pageNum', "position"]);
+const props = defineProps({
+    items: {
+        type: Array,
+        default: [{ title: '标题1' }]
+    },
+    position: {
+        type: String,
+        default: 'right'
+    },
+    showTitle: {
+        type: Boolean,
+        default: true
+    }
+});
 const emits = defineEmits(['toNext', 'toLast', 'change']);
 const element = ref();
 watchEffect(() => {
@@ -52,7 +65,7 @@ function handleTouchEnd(e) {
     endY.value = e.changedTouches[0].pageY || e.touches[0].pageY;
     moveDistance.value = endY.value - startY.value;
     if (Math.abs(moveDistance.value) >= 60) {
-        if ($index.value < props.pageNum - 1 && moveDistance.value < 0) {
+        if ($index.value < props.items.length - 1 && moveDistance.value < 0) {
             $index.value++;
         }
         if ($index.value > 0 && moveDistance.value > 0) {
@@ -68,7 +81,7 @@ function handleTouchMove(e) {
     isCloseTranstion.value = true;
     e.preventDefault();
     moveDistance.value = (e.changedTouches[0].pageY || e.touches[0].pageY) - startY.value;
-    const isCriticalPoint = ($index.value === props.pageNum - 1 && moveDistance.value < 0) ||
+    const isCriticalPoint = ($index.value === props.items.length - 1 && moveDistance.value < 0) ||
         ($index.value === 0 && moveDistance.value > 0);
     if (isCriticalPoint) {
         return;
@@ -87,7 +100,7 @@ function goScroll(e) {
 }
 const $index = ref(0);
 function next() {
-    if ($index.value < props.pageNum - 1) {
+    if ($index.value < props.items.length - 1) {
         $index.value++;
         emits('toNext', $index.value);
     }
@@ -108,17 +121,27 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 ;
+;
+;
+;
+;
+;
+;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cp-full-page" }, { id: "page-scroll" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMousewheel: (__VLS_ctx.mousewheel) }, { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { onTouchmove: (__VLS_ctx.handleTouchMove) }), { ref: "element" }), { class: ({ activeTranstion: __VLS_ctx.isCloseTranstion }) }), { class: "inner-box" }));
 ;
 var __VLS_0 = {};
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-full-dot', props.position]) }));
-for (const [i, index] of __VLS_getVForSourceType((props.pageNum))) {
+for (const [item, index] of __VLS_getVForSourceType((props.items))) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ onClick: (...[$event]) => {
             __VLS_ctx.changeBac(index);
         } }, { class: "cp-full-dot-item" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cp-full-dot-item-bg" }, { class: ({ active: index === __VLS_ctx.$index }) }));
-    var __VLS_2 = {};
+    if (props.showTitle) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "show-dec" }));
+        __VLS_asFunctionalDirective(__VLS_directives.vShow)(null, Object.assign(Object.assign({}, __VLS_directiveBindingRestFields), { value: (index === __VLS_ctx.$index) }), null, null);
+        (item.title);
+    }
 }
 ;
 ;
@@ -127,7 +150,8 @@ for (const [i, index] of __VLS_getVForSourceType((props.pageNum))) {
 ;
 ;
 ;
-var __VLS_1 = __VLS_0, __VLS_3 = __VLS_2;
+;
+var __VLS_1 = __VLS_0;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
@@ -143,14 +167,40 @@ const __VLS_self = (await import('vue')).defineComponent({
         };
     },
     emits: {},
-    props: ['pageNum', "position"],
+    props: {
+        items: {
+            type: Array,
+            default: [{ title: '标题1' }]
+        },
+        position: {
+            type: String,
+            default: 'right'
+        },
+        showTitle: {
+            type: Boolean,
+            default: true
+        }
+    },
 });
 const __VLS_component = (await import('vue')).defineComponent({
     setup() {
         return {};
     },
     emits: {},
-    props: ['pageNum', "position"],
+    props: {
+        items: {
+            type: Array,
+            default: [{ title: '标题1' }]
+        },
+        position: {
+            type: String,
+            default: 'right'
+        },
+        showTitle: {
+            type: Boolean,
+            default: true
+        }
+    },
 });
 export default {};
 ;

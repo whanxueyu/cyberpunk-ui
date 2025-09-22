@@ -7,7 +7,7 @@ const props = defineProps({
         type: String,
         default: 'cube',
         validator: (value) => {
-            return ['cube', 'sphere', 'datastream', 'circuit'].indexOf(value) !== -1;
+            return ['cube', 'sphere', 'datastream', 'circuit', 'split'].indexOf(value) !== -1;
         }
     },
     size: {
@@ -31,8 +31,13 @@ const props = defineProps({
     transparent: {
         type: Boolean,
         default: false
+    },
+    color: {
+        type: String,
+        default: '#00e6f6'
     }
 });
+const speedStr = (6 / props.speed).toString() + 's';
 const sizeClass = computed(() => {
     switch (props.size) {
         case 'small':
@@ -114,10 +119,49 @@ let __VLS_directives;
 ;
 ;
 ;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.speedStr;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
+__VLS_ctx.$props.color;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-holo-loader', __VLS_ctx.sizeClass, { 'transparent-bg': __VLS_ctx.transparent }]) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "loader-container" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['holo-projection', `type-${__VLS_ctx.type}`]) }));
-if (__VLS_ctx.type === 'cube') {
+if (__VLS_ctx.type === 'cube' || __VLS_ctx.type === 'split') {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cube-loader" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cube" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cube-face front" }));
@@ -194,6 +238,7 @@ var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
+            speedStr: speedStr,
             sizeClass: sizeClass,
             displayText: displayText,
         };
@@ -203,7 +248,7 @@ const __VLS_self = (await import('vue')).defineComponent({
             type: String,
             default: 'cube',
             validator: (value) => {
-                return ['cube', 'sphere', 'datastream', 'circuit'].indexOf(value) !== -1;
+                return ['cube', 'sphere', 'datastream', 'circuit', 'split'].indexOf(value) !== -1;
             }
         },
         size: {
@@ -227,6 +272,10 @@ const __VLS_self = (await import('vue')).defineComponent({
         transparent: {
             type: Boolean,
             default: false
+        },
+        color: {
+            type: String,
+            default: '#00e6f6'
         }
     },
 });
@@ -239,7 +288,7 @@ export default (await import('vue')).defineComponent({
             type: String,
             default: 'cube',
             validator: (value) => {
-                return ['cube', 'sphere', 'datastream', 'circuit'].indexOf(value) !== -1;
+                return ['cube', 'sphere', 'datastream', 'circuit', 'split'].indexOf(value) !== -1;
             }
         },
         size: {
@@ -263,6 +312,10 @@ export default (await import('vue')).defineComponent({
         transparent: {
             type: Boolean,
             default: false
+        },
+        color: {
+            type: String,
+            default: '#00e6f6'
         }
     },
 });

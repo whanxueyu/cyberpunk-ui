@@ -16,7 +16,11 @@ const props = defineProps({
     },
     activeColor: {
         type: String,
-        default: '#00e6f6'
+        default: '#00e6f6cc'
+    },
+    inActiveColor: {
+        type: String,
+        default: '#ffffff99'
     },
     pulseEffect: {
         type: Boolean,
@@ -62,6 +66,8 @@ let __VLS_directives;
 ;
 ;
 ;
+__VLS_ctx.props.inActiveColor;
+__VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
@@ -108,7 +114,11 @@ const __VLS_self = (await import('vue')).defineComponent({
         },
         activeColor: {
             type: String,
-            default: '#00e6f6'
+            default: '#00e6f6cc'
+        },
+        inActiveColor: {
+            type: String,
+            default: '#ffffff99'
         },
         pulseEffect: {
             type: Boolean,
@@ -139,7 +149,11 @@ export default (await import('vue')).defineComponent({
         },
         activeColor: {
             type: String,
-            default: '#00e6f6'
+            default: '#00e6f6cc'
+        },
+        inActiveColor: {
+            type: String,
+            default: '#ffffff99'
         },
         pulseEffect: {
             type: Boolean,

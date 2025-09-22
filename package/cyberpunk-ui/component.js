@@ -15,6 +15,9 @@ import { CyberReflectbutton } from '../components/reflectButton';
 import { CyberText } from '../components/text';
 import { CyberShadowText } from '../components/shadowText';
 import { CyberTyping } from '../components/typing';
+import { CyberImage } from '../components/image';
+import { CyberMagicText } from '../components/magicText';
+import { CyberBanner } from '../components/banner';
 export default [
     CyberButton,
     CyberNotification,
@@ -32,6 +35,9 @@ export default [
     CyberShadowText,
     CyberGlowText,
     CyberTyping,
-    CyberFullPage
+    CyberFullPage,
+    CyberImage,
+    CyberMagicText,
+    CyberBanner
 ];
 //# sourceMappingURL=component.js.map

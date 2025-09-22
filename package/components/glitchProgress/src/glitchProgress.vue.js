@@ -30,7 +30,7 @@ const props = defineProps({
     },
     color: {
         type: String,
-        default: '#00e6f6'
+        default: '#00e6f6cc'
     },
     showText: {
         type: Boolean,
@@ -174,7 +174,7 @@ const __VLS_self = (await import('vue')).defineComponent({
         },
         color: {
             type: String,
-            default: '#00e6f6'
+            default: '#00e6f6cc'
         },
         showText: {
             type: Boolean,
@@ -214,7 +214,7 @@ export default (await import('vue')).defineComponent({
         },
         color: {
             type: String,
-            default: '#00e6f6'
+            default: '#00e6f6cc'
         },
         showText: {
             type: Boolean,
