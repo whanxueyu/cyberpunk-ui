@@ -1,11 +1,3 @@
-<!--
- * @Author: anxueyu
- * @Date: 2024-08-28 13:29:35
- * @LastEditors: anxueyu 1358042645@qq.com
- * @LastEditTime: 2024-09-02 18:53:51
- * @FilePath: \cyberpunk-ui\package\components\fullPage\src\fullPage.vue
- * @Description: 
--->
 <template>
     <div class="cp-full-page" id="page-scroll">
         <div ref="element" :class="{ activeTranstion: isCloseTranstion }" class="inner-box" @mousewheel="mousewheel"
@@ -13,9 +5,9 @@
             <slot></slot>
         </div>
         <div :class="['cp-full-dot', props.position]">
-            <div v-for="i, index in props.pageNum" @click="changeBac(index)" class="cp-full-dot-item">
+            <div v-for="item, index in props.items" @click="changeBac(index)" class="cp-full-dot-item">
                 <div class="cp-full-dot-item-bg" :class="{ active: index === $index }"></div>
-                <slot name="dot"></slot>
+                <div v-if="props.showTitle" v-show="index === $index" class="show-dec">{{ item.title }}</div>
             </div>
         </div>
     </div>
@@ -26,7 +18,24 @@ import { computed, ref, watchEffect } from 'vue';
 defineOptions({
     name: 'CyberFullPage',
 })
-const props = defineProps(['pageNum', "position"])
+type Item = {
+    title: string;
+    content?: string;
+}
+const props = defineProps({
+    items: {
+        type: Array as () => Array<Item>,
+        default: [{ title: '标题1' }]
+    },
+    position: {
+        type: String,
+        default: 'right'
+    },
+    showTitle: {
+        type: Boolean,
+        default: true
+    }
+})
 const emits = defineEmits(['toNext', 'toLast', 'change'])
 // ELEMENT
 const element = ref()
@@ -92,7 +101,7 @@ function handleTouchEnd(e) {
     moveDistance.value = endY.value - startY.value
     // 这里我做了一个最小值 大于50才翻页
     if (Math.abs(moveDistance.value) >= 60) {
-        if ($index.value < props.pageNum - 1 && moveDistance.value < 0) {
+        if ($index.value < props.items.length - 1 && moveDistance.value < 0) {
             $index.value++
         }
         if ($index.value > 0 && moveDistance.value > 0) {
@@ -117,7 +126,7 @@ function handleTouchMove(e) {
     moveDistance.value = (e.changedTouches[0].pageY || e.touches[0].pageY) - startY.value // 计算移动距离\
     //判断临界点
     const isCriticalPoint =
-        ($index.value === props.pageNum - 1 && moveDistance.value < 0) ||
+        ($index.value === props.items.length - 1 && moveDistance.value < 0) ||
         ($index.value === 0 && moveDistance.value > 0)
     // 如果是临界点就直接返回
     if (isCriticalPoint) {
@@ -159,7 +168,7 @@ function goScroll(e) {
 const $index = ref(0) //索引控制第几个显示
 // 下一个
 function next() {
-    if ($index.value < props.pageNum - 1) {
+    if ($index.value < props.items.length - 1) {
         $index.value++
         emits('toNext', $index.value)
     }
@@ -210,32 +219,78 @@ function changeBac(index) {
     .cp-full-dot {
         list-style: none;
         position: absolute;
-        right: 20px;
+        right: 0px;
         top: 50%;
         transform: translateY(-50%);
         transition: all ease-in-out .2s;
 
         &.left {
-            left: 20px;
+            left: 0px;
             top: 50%;
             transform: translateY(-50%);
+            width: 28px;
+
+            .cp-full-dot-item {
+                .show-dec {
+                    text-align: left;
+                    left: 20px;
+                    flex-direction: row;
+
+                    &::before {
+                        width: 40px;
+                        height: 1px;
+                    }
+                }
+            }
         }
 
         &.top {
             left: 50%;
-            top: 20px;
+            top: 0px;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
+            height: 28px;
+
+            .cp-full-dot-item {
+                .show-dec {
+                    text-align: center;
+                    top: 20px;
+                    flex-direction: column;
+                    align-items: center;
+                    transform: translateX(60px);
+
+                    &::before {
+                        width: 1px;
+                        height: 40px;
+                    }
+                }
+            }
         }
 
         &.bottom {
             left: 50%;
-            bottom: 20px;
+            bottom: 0px;
             top: auto;
             transform: translateX(-50%);
             display: flex;
             justify-content: center;
+            height: 28px;
+
+            .cp-full-dot-item {
+                .show-dec {
+                    text-align: center;
+                    bottom: 20px;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    transform: translateX(60px);
+
+                    &::before {
+                        width: 1px;
+                        height: 40px;
+                    }
+                }
+            }
         }
 
         .cp-full-dot-item {
@@ -266,6 +321,30 @@ function changeBac(index) {
                 box-shadow: 0 0 5px 1px #666;
                 cursor: pointer;
                 transition: all ease-in-out .2s;
+            }
+
+            .show-dec {
+                text-align: right;
+                position: absolute;
+                width: 100px;
+                right: 20px;
+                padding: 1px;
+                display: flex;
+                flex-direction: row-reverse;
+                color: #fff;
+                transition: all linear 0.1s;
+                font-size: 12px;
+
+                &::before {
+                    display: inline-block;
+                    content: "";
+                    width: 40px;
+                    height: 1px;
+                    background-color: #666;
+                    margin-top: 6px;
+                    margin-left: 4px;
+                    transition: all ease-in-out .2s;
+                }
             }
         }
     }
