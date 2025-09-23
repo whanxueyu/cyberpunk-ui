@@ -18,6 +18,13 @@
         <div>
             <cyber-typing>CpTyping 1239945646 这是一段打字效果</cyber-typing>
         </div>
+        <cyber-image style="width: 300px;height: 200px;"
+            src="https://mzz-files.oss-cn-shenzhen.aliyuncs.com///uploads/U1002433/0cb5e044a1f0f7fc15f61264ee97ac1f.png"></cyber-image>
+        <div style="display: flex;">
+            <cyber-magic-text>CyberMagicText</cyber-magic-text>
+            <cyber-magic-text>CyberMagicText</cyber-magic-text>
+        </div>
+        <!-- <cyber-banner></cyber-banner> -->
     </div>
 </template>
 <script setup lang="ts">

@@ -1,3 +1,11 @@
+<!--
+ * @Author: anxueyu
+ * @Date: 2024-09-03 14:08:04
+ * @LastEditors: anxueyu 1358042645@qq.com
+ * @LastEditTime: 2024-09-04 18:34:56
+ * @FilePath: \demo-collection\src\components\text\shineText.vue
+ * @Description: 
+-->
 <template>
     <div class="g-container">
         <p>

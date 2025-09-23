@@ -145,7 +145,7 @@ onMounted(loadImage);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f0f0f026;
+    background-color: #93939333;
 }
 
 .cyberimg {
