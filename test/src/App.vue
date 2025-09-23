@@ -6,6 +6,7 @@ import textPanel from './conponents/text.vue'
 import switchPanel from './conponents/switch.vue'
 import tooltipPanel from './conponents/tooltip.vue'
 import imagesPanel from './conponents/images.vue'
+import cyberImagePanel from './conponents/cyberimage.vue'
 import cardPanel from './conponents/card.vue';
 import loadingPanel from './conponents/loading.vue';
 console.log(
@@ -26,15 +27,60 @@ const dotPosition = ref('right')
 const changePosition = (position: string) => {
   dotPosition.value = position
 }
+const sectionItems = [
+  {
+    title: '赛博图片',
+    component: imagesPanel
+  },
+  {
+    title: '故障图片',
+    component: imagesPanel
+  },
+  {
+    title: '文字样式',
+    component: textPanel
+  },
+  {
+    title: '故障按钮',
+    component: buttonPanel
+  },
+  {
+    title: '进度条',
+    component: switchPanel
+  },
+  {
+    title: '数字翻牌',
+    component: tooltipPanel
+  },
+  {
+    title: '加载器',
+    component: loadingPanel
+  },
+  {
+    title: '卡片',
+    component: cardPanel
+  }
+]
+const showTitle = ref(true)
 </script>
 
 <template>
   <layout @changePosition="changePosition">
-    <CyberFullPage :pageNum="7" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
-      :offset="60">
+    <CyberFullPage :items="sectionItems" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
+      :offset="60" :showTitle="showTitle">
       <div class="section">
         <div class="title">
-          <div class="title_text">图片</div>
+          <div class="title_text">赛博图片
+          <cyber-neon-toggle v-model="showTitle" shape="square" />
+          </div>
+        </div>
+        <cyberImagePanel></cyberImagePanel>
+      </div>
+      <div class="section">
+        <div class="title">
+          <div class="title_text">故障图片
+          <cyber-neon-toggle v-model="showTitle" shape="square" />
+          </div>
         </div>
         <imagesPanel></imagesPanel>
       </div>
