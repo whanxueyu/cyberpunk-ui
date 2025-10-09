@@ -27,6 +27,10 @@ const dotPosition = ref('right')
 const changePosition = (position: string) => {
   dotPosition.value = position
 }
+const changeShow = (show: boolean) => {
+  console.log(show)
+  showTitle.value = show;
+}
 const sectionItems = [
   {
     title: '赛博图片',
@@ -65,13 +69,12 @@ const showTitle = ref(true)
 </script>
 
 <template>
-  <layout @changePosition="changePosition">
+  <layout @changePosition="changePosition" @changeShow="changeShow">
     <CyberFullPage :items="sectionItems" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
       :offset="60" :showTitle="showTitle">
       <div class="section">
         <div class="title">
           <div class="title_text">赛博图片
-          <cyber-neon-toggle v-model="showTitle" shape="square" />
           </div>
         </div>
         <cyberImagePanel></cyberImagePanel>
@@ -79,7 +82,6 @@ const showTitle = ref(true)
       <div class="section">
         <div class="title">
           <div class="title_text">故障图片
-          <cyber-neon-toggle v-model="showTitle" shape="square" />
           </div>
         </div>
         <imagesPanel></imagesPanel>

@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div class="header">
-            <head-vue @changePosition="changePosition"></head-vue>
+            <head-vue @changePosition="changePosition" @changeShow="changeShow"></head-vue>
         </div>
         <div class="page">
             <div class="page-content">
@@ -12,9 +12,12 @@
 </template>
 <script lang="ts" setup>
 import headVue from './header.vue';
-const emits = defineEmits(["changePosition"])
+const emits = defineEmits(["changePosition","changeShow"])
 const changePosition = (position: string) => {
     emits("changePosition",position)
+}
+const changeShow = (value: boolean) => {
+    emits("changeShow",value)
 }
 </script>
 <style scoped lang="scss">
