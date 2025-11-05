@@ -7,6 +7,7 @@ import switchPanel from './conponents/switch.vue'
 import tooltipPanel from './conponents/tooltip.vue'
 import imagesPanel from './conponents/images.vue'
 import cyberImagePanel from './conponents/cyberimage.vue'
+import bannerPanel from './conponents/banner.vue'
 import cardPanel from './conponents/card.vue';
 import loadingPanel from './conponents/loading.vue';
 console.log(
@@ -32,6 +33,10 @@ const changeShow = (show: boolean) => {
   showTitle.value = show;
 }
 const sectionItems = [
+  {
+    title: '轮播图片',
+    component: imagesPanel
+  },
   {
     title: '赛博图片',
     component: imagesPanel
@@ -72,6 +77,13 @@ const showTitle = ref(true)
   <layout @changePosition="changePosition" @changeShow="changeShow">
     <CyberFullPage :items="sectionItems" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
       :offset="60" :showTitle="showTitle">
+      <div class="section">
+        <div class="title">
+          <div class="title_text">轮播图片
+          </div>
+        </div>
+        <bannerPanel></bannerPanel>
+      </div>
       <div class="section">
         <div class="title">
           <div class="title_text">赛博图片

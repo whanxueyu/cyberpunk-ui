@@ -18,13 +18,16 @@
         <div>
             <cyber-typing>CpTyping 1239945646 这是一段打字效果</cyber-typing>
         </div>
-        <cyber-image style="width: 300px;height: 200px;"
-            src="https://mzz-files.oss-cn-shenzhen.aliyuncs.com///uploads/U1002433/0cb5e044a1f0f7fc15f61264ee97ac1f.png"></cyber-image>
-        <div style="display: flex;">
+        <div style="display: flex;color: #fff;font-size: 48px;">
             <cyber-magic-text>CyberMagicText</cyber-magic-text>
-            <cyber-magic-text>CyberMagicText</cyber-magic-text>
+            <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
         </div>
-        <!-- <cyber-banner></cyber-banner> -->
+        <div style="display: flex;color: #fff;font-size: 22px;">
+            <cyber-magic-text>CyberMagicText</cyber-magic-text>
+            <cyber-magic-text>1234567890</cyber-magic-text>
+            <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
+            <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -36,3 +39,4 @@
     text-align: left;
 }
 </style>
+
