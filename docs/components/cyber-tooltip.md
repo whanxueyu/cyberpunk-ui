@@ -66,20 +66,20 @@
 
 ## 不同效果
 
-<cyber-tooltip content="全息效果">
-  <button>全息</button>
+<cyber-tooltip content="全息效果" effect="hologram">
+    <button>全息</button>
 </cyber-tooltip>
 
 <cyber-tooltip content="故障效果" effect="glitch">
-  <button>故障</button>
+    <button>故障</button>
 </cyber-tooltip>
 
 <cyber-tooltip content="扫描效果" effect="scan">
-  <button>扫描</button>
+    <button>扫描</button>
 </cyber-tooltip>
 
 <cyber-tooltip content="淡入效果" effect="fade">
-  <button>淡入</button>
+    <button>淡入</button>
 </cyber-tooltip>
 
 ```vue

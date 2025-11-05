@@ -19,9 +19,9 @@
 ## 不同效果
 
 <cyber-holo-card title="默认效果" />
-  <cyber-holo-card title="扫描效果" effect="scan" />
-  <cyber-holo-card title="故障效果" effect="glitch" />
-  <cyber-holo-card title="脉冲效果" effect="pulse" />
+<cyber-holo-card title="扫描效果" effect="scan" />
+<cyber-holo-card title="故障效果" effect="glitch" />
+<cyber-holo-card title="脉冲效果" effect="pulse" />
 
 ```vue
 <template>
@@ -35,8 +35,8 @@
 ## 不同主题
 
 <cyber-holo-card title="霓虹主题" theme="neon" />
-  <cyber-holo-card title="全息主题" theme="hologram" />
-  <cyber-holo-card title="终端主题" theme="terminal" />
+<cyber-holo-card title="全息主题" theme="hologram" />
+<cyber-holo-card title="终端主题" theme="terminal" />
 
 ```vue
 <template>

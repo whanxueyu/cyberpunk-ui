@@ -5,6 +5,24 @@
 ## 基本用法
 
 <button @click="showNotification">显示通知</button>
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const notificationRef = ref(null);
+
+onMounted(() => {
+  // 获取组件实例
+  notificationRef.value = document.querySelector('.cyber-notification-container').__vueParentComponent.ctx;
+});
+
+const showNotification = () => {
+  notificationRef.value.info({
+    title: '信息通知',
+    message: '这是一条信息通知',
+    duration: 3000
+  });
+};
+</script>
 
 ```vue
 <template>

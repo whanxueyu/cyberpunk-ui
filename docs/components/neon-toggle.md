@@ -3,7 +3,11 @@
 霓虹开关组件提供了带有电流流动视觉效果的开关控件，适合用于赛博朋克风格界面中的状态切换。
 
 ## 基本用法
-let value = true;
+<script setup>
+import { ref } from 'vue';
+
+const value = ref(true);
+</script>
 <cyber-neon-toggle v-model="value" />
 
 ```vue
@@ -14,12 +18,11 @@ let value = true;
 <script setup>
 import { ref } from 'vue';
 
-const value = ref(false);
+const value = ref(true);
 </script>
 ```
 
 ## 不同形状
-let value = true;
 <cyber-neon-toggle v-model="value" shape="circle" />
   <cyber-neon-toggle v-model="value" shape="square" />
   <cyber-neon-toggle v-model="value" shape="hex" />
@@ -33,7 +36,7 @@ let value = true;
 <script setup>
 import { ref } from 'vue';
 
-const value = ref(false);
+const value = ref(true);
 </script>
 ```
 
@@ -49,7 +52,7 @@ const value = ref(false);
 <script setup>
 import { ref } from 'vue';
 
-const value = ref(false);
+const value = ref(true);
 </script>
 ```
 
@@ -65,7 +68,7 @@ const value = ref(false);
 <script setup>
 import { ref } from 'vue';
 
-const value = ref(false);
+const value = ref(true);
 </script>
 ```
 
