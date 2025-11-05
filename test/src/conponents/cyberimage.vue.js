@@ -1,0 +1,124 @@
+debugger;
+const __VLS_ctx = {};
+let __VLS_components;
+let __VLS_directives;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
+const __VLS_0 = {}.CyberImage;
+;
+const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0(Object.assign({ class: "pic" }, { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_2 = __VLS_1(Object.assign({ class: "pic" }, { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_1));
+const __VLS_4 = {}.CyberImage;
+;
+const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4(Object.assign({ class: "pic" }, { width: "100px", height: "70px", src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_6 = __VLS_5(Object.assign({ class: "pic" }, { width: "100px", height: "70px", src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_5));
+const __VLS_8 = {}.CyberImage;
+;
+const __VLS_9 = __VLS_asFunctionalComponent(__VLS_8, new __VLS_8(Object.assign({ class: "pic" }, { fit: "contain", width: "200px", height: "50px", src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_10 = __VLS_9(Object.assign({ class: "pic" }, { fit: "contain", width: "200px", height: "50px", src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_9));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
+const __VLS_12 = {}.CyberImage;
+;
+const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12(Object.assign({ class: "pic" }, { src: "555.png" })));
+const __VLS_14 = __VLS_13(Object.assign({ class: "pic" }, { src: "555.png" }), ...__VLS_functionalComponentArgsRest(__VLS_13));
+const __VLS_16 = {}.CyberImage;
+;
+const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16(Object.assign({ class: "pic" }, { src: "555.png", errorContent: "我尽力了，加载失败" })));
+const __VLS_18 = __VLS_17(Object.assign({ class: "pic" }, { src: "555.png", errorContent: "我尽力了，加载失败" }), ...__VLS_functionalComponentArgsRest(__VLS_17));
+const __VLS_20 = {}.CyberImage;
+;
+const __VLS_21 = __VLS_asFunctionalComponent(__VLS_20, new __VLS_20(Object.assign({ class: "pic" }, { src: "555.png", errorSrc: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_22 = __VLS_21(Object.assign({ class: "pic" }, { src: "555.png", errorSrc: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_21));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
+const __VLS_24 = {}.CyberImage;
+;
+const __VLS_25 = __VLS_asFunctionalComponent(__VLS_24, new __VLS_24(Object.assign(Object.assign({ fit: "cover" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_26 = __VLS_25(Object.assign(Object.assign({ fit: "cover" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_25));
+const __VLS_28 = {}.CyberImage;
+;
+const __VLS_29 = __VLS_asFunctionalComponent(__VLS_28, new __VLS_28(Object.assign(Object.assign({ fit: "contain" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_30 = __VLS_29(Object.assign(Object.assign({ fit: "contain" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_29));
+const __VLS_32 = {}.CyberImage;
+;
+const __VLS_33 = __VLS_asFunctionalComponent(__VLS_32, new __VLS_32(Object.assign(Object.assign({ fit: "fill" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_34 = __VLS_33(Object.assign(Object.assign({ fit: "fill" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_33));
+const __VLS_36 = {}.CyberImage;
+;
+const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36(Object.assign(Object.assign({ fit: "none" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_38 = __VLS_37(Object.assign(Object.assign({ fit: "none" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_37));
+const __VLS_40 = {}.CyberImage;
+;
+const __VLS_41 = __VLS_asFunctionalComponent(__VLS_40, new __VLS_40(Object.assign(Object.assign({ fit: "scale-down" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_42 = __VLS_41(Object.assign(Object.assign({ fit: "scale-down" }, { class: "picfit" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_41));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
+const __VLS_44 = {}.CyberImage;
+;
+const __VLS_45 = __VLS_asFunctionalComponent(__VLS_44, new __VLS_44(Object.assign(Object.assign({ loading: "lazy" }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_46 = __VLS_45(Object.assign(Object.assign({ loading: "lazy" }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_45));
+const __VLS_48 = {}.CyberImage;
+;
+const __VLS_49 = __VLS_asFunctionalComponent(__VLS_48, new __VLS_48(Object.assign(Object.assign({ loading: "eager" }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_50 = __VLS_49(Object.assign(Object.assign({ loading: "eager" }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_49));
+const __VLS_52 = {}.CyberImage;
+;
+const __VLS_53 = __VLS_asFunctionalComponent(__VLS_52, new __VLS_52(Object.assign(Object.assign({ disableGlitch: true }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_54 = __VLS_53(Object.assign(Object.assign({ disableGlitch: true }, { class: "pic" }), { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_53));
+const __VLS_56 = {}.CyberImage;
+;
+const __VLS_57 = __VLS_asFunctionalComponent(__VLS_56, new __VLS_56(Object.assign({ class: "pic" }, { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" })));
+const __VLS_58 = __VLS_57(Object.assign({ class: "pic" }, { src: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" }), ...__VLS_functionalComponentArgsRest(__VLS_57));
+__VLS_59.slots.default;
+{
+    const { placeholder: __VLS_thisSlot } = __VLS_59.slots;
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ style: {} }));
+}
+var __VLS_59;
+const __VLS_60 = {}.CyberImage;
+;
+const __VLS_61 = __VLS_asFunctionalComponent(__VLS_60, new __VLS_60(Object.assign({ class: "pic" }, { src: "555.png" })));
+const __VLS_62 = __VLS_61(Object.assign({ class: "pic" }, { src: "555.png" }), ...__VLS_functionalComponentArgsRest(__VLS_61));
+__VLS_63.slots.default;
+{
+    const { error: __VLS_thisSlot } = __VLS_63.slots;
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ style: {} }));
+}
+var __VLS_63;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+var __VLS_dollars;
+const __VLS_self = (await import('vue')).defineComponent({
+    setup() {
+        return {};
+    },
+});
+export default (await import('vue')).defineComponent({
+    setup() {
+        return {};
+    },
+});
+;
+//# sourceMappingURL=cyberimage.vue.js.map
