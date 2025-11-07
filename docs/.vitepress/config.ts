@@ -65,6 +65,7 @@ export default {
             { text: "Tooltip 提示组件", link: "/components/cyber-tooltip" },
             { text: "数字翻滚", link: "/components/digital-counter" },
             { text: "故障风格图片", link: "/components/glitch-image" },
+            { text: "赛博风格图片", link: "/components/cyber-image" },
             { text: "故障进度条", link: "/components/glitch-progress" },
             { text: "全息卡片", link: "/components/holo-card" },
             { text: "全息加载器", link: "/components/holo-loader" },
