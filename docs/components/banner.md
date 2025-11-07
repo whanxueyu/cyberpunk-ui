@@ -50,7 +50,7 @@ const imgList = [
 ]
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .content {
     border-left: 1px solid #ccc;
     padding: 20px;

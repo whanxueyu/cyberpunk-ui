@@ -170,7 +170,7 @@
 |--------|------|
 | placeholder	| 图片加载时显示的内容|
 | error	| 图片加载失败时显示的内容|
-<style>
+<style scoped>
 .content {
     border-left: 1px solid #ccc;
     padding: 20px;
