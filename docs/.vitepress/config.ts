@@ -60,6 +60,7 @@ export default {
           items: [
             { text: "button 按钮", link: "/components/button" },
             { text: "text 文字", link: "/components/text" },
+            { text: "banner 3D轮播", link: "/components/banner" },
             { text: "霓虹开关", link: "/components/neon-toggle" },
             { text: "故障风格图片", link: "/components/glitch-image" },
             { text: "赛博风格图片", link: "/components/cyber-image" },

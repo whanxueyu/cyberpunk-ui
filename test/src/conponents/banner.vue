@@ -22,12 +22,6 @@ const imgList1 = [
     'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
     'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
 ]
-// shadow: boolean;
-// animationDuration: number;
-// imageWidth: number;
-// imageRatio: number;
-// depthFactor: number;
-// aspectRatio: number;
 </script>
 <style scoped lang="scss">
 .content {
