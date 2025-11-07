@@ -24,8 +24,8 @@ const value = ref(true);
 
 ## 不同形状
 <cyber-neon-toggle v-model="value" shape="circle" />
-  <cyber-neon-toggle v-model="value" shape="square" />
-  <cyber-neon-toggle v-model="value" shape="hex" />
+<cyber-neon-toggle v-model="value" shape="square" />
+<cyber-neon-toggle v-model="value" shape="hex" />
 
 ```vue
 <template>
@@ -42,12 +42,20 @@ const value = ref(true);
 
 ## 自定义颜色
 
-  <cyber-neon-toggle v-model="value" active-color="#ff00ff" />
+<cyber-neon-toggle v-model="value" active-color="#ff0000cc" inActiveColor="#99ffff" />
+<cyber-neon-toggle v-model="value" active-color="#ff9900cc" />
+<cyber-neon-toggle v-model="value" shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+<cyber-neon-toggle v-model="value" active-color="#0066ffcc" />
+<cyber-neon-toggle v-model="value" active-color="#00ff00cc" />
 
 
 ```vue
 <template>
-  <cyber-neon-toggle v-model="value" active-color="#ff00ff" />
+  <cyber-neon-toggle v-model="value" active-color="#ff0000cc" inActiveColor="#99ffff" />
+  <cyber-neon-toggle v-model="value" active-color="#ff9900cc" />
+  <cyber-neon-toggle v-model="value" shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+  <cyber-neon-toggle v-model="value" active-color="#0066ffcc" />
+  <cyber-neon-toggle v-model="value" active-color="#00ff00cc" />
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -58,12 +66,22 @@ const value = ref(true);
 
 ## 禁用状态
 
-  <cyber-neon-toggle v-model="value" disabled />
+<cyber-neon-toggle v-model="value" disabled />
+<cyber-neon-toggle v-model="value" disabled active-color="#ff0000cc" inActiveColor="#99ffff" />
+<cyber-neon-toggle v-model="value" disabled active-color="#ff9900cc" />
+<cyber-neon-toggle v-model="value" disabled shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+<cyber-neon-toggle v-model="value" disabled active-color="#0066ffcc" />
+<cyber-neon-toggle v-model="value" disabled active-color="#00ff00cc" />
 
 
 ```vue
 <template>
   <cyber-neon-toggle v-model="value" disabled />
+  <cyber-neon-toggle v-model="value" disabled active-color="#ff0000cc" inActiveColor="#99ffff" />
+  <cyber-neon-toggle v-model="value" disabled active-color="#ff9900cc" />
+  <cyber-neon-toggle v-model="value" disabled shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+  <cyber-neon-toggle v-model="value" disabled active-color="#0066ffcc" />
+  <cyber-neon-toggle v-model="value" disabled active-color="#00ff00cc" />
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -72,10 +90,10 @@ const value = ref(true);
 </script>
 ```
 
-## 脉冲效果
+## 有无脉冲效果
 
 <cyber-neon-toggle v-model="value" :pulse-effect="true" />
-  <cyber-neon-toggle v-model="value" :pulse-effect="false" />
+<cyber-neon-toggle v-model="value" :pulse-effect="false" />
 
 ```vue
 <template>

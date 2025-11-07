@@ -12,61 +12,99 @@
 </template>
 ```
 
-## 不同类型
+## 不同类型、颜色
 
-<cyber-holo-loader type="cube" />
-  <cyber-holo-loader type="sphere" />
-  <cyber-holo-loader type="datastream" />
-  <cyber-holo-loader type="circuit" />
+<div style="display: flex;">
+  <cyber-holo-loader type="cube" />
+  <cyber-holo-loader color="#ff00ff" type="sphere" />
+  <cyber-holo-loader color="#ffff00" type="datastream" />
+  <cyber-holo-loader color="#00ff66" type="circuit" />
+  <cyber-holo-loader type="split" />
+</div>
 
 ```vue
 <template>
-  <cyber-holo-loader type="cube" />
-  <cyber-holo-loader type="sphere" />
-  <cyber-holo-loader type="datastream" />
-  <cyber-holo-loader type="circuit" />
+  <div style="display: flex;">
+    <cyber-holo-loader type="cube" />
+    <cyber-holo-loader color="#ff00ff" type="sphere" />
+    <cyber-holo-loader color="#ffff00" type="datastream" />
+    <cyber-holo-loader color="#00ff66" type="circuit" />
+    <cyber-holo-loader type="split" />
+  </div>
 </template>
 ```
 
-## 不同尺寸
+## 不同尺寸、文本
 
-<cyber-holo-loader size="small" />
-  <cyber-holo-loader size="default" />
-  <cyber-holo-loader size="large" />
+<div style="display: flex; align-items: center;">
+  <cyber-holo-loader size="small" type="sphere"/>
+  <cyber-holo-loader size="small" type="datastream"/>
+  <cyber-holo-loader size="small" type="circuit"/>
+  <cyber-holo-loader size="small" type="split" />
+</div>
+<div style="display: flex; align-items: center; margin-top: 20px;">
+  <cyber-holo-loader type="sphere"/>
+  <cyber-holo-loader type="datastream"/>
+  <cyber-holo-loader type="circuit"/>
+  <cyber-holo-loader type="split" />
+</div>
+<div style="display: flex; align-items: center; margin-top: 20px;">
+  <cyber-holo-loader size="large" type="sphere" />
+  <cyber-holo-loader size="large" type="datastream" />
+  <cyber-holo-loader size="large" type="circuit" />
+  <cyber-holo-loader size="large" type="split" />
+</div>
 
 ```vue
 <template>
-  <cyber-holo-loader size="small" />
-  <cyber-holo-loader size="default" />
-  <cyber-holo-loader size="large" />
+  <div style="display: flex; align-items: center;">
+    <cyber-holo-loader size="small" type="sphere"/>
+    <cyber-holo-loader size="small" type="datastream"/>
+    <cyber-holo-loader size="small" type="circuit"/>
+    <cyber-holo-loader size="small" type="split" />
+  </div>
+  <div style="display: flex; align-items: center; margin-top: 20px;">
+    <cyber-holo-loader type="sphere"/>
+    <cyber-holo-loader type="datastream"/>
+    <cyber-holo-loader type="circuit"/>
+    <cyber-holo-loader type="split" />
+  </div>
+  <div style="display: flex; align-items: center; margin-top: 20px;">
+    <cyber-holo-loader size="large" type="sphere" />
+    <cyber-holo-loader size="large" type="datastream" />
+    <cyber-holo-loader size="large" type="circuit" />
+    <cyber-holo-loader size="large" type="split" />
+  </div>
 </template>
 ```
 
 ## 自定义文本
 
-<cyber-holo-loader text="加载中..." />
-  <cyber-holo-loader text="正在处理数据..." />
-  <cyber-holo-loader text="" /> <!-- 不显示文本 -->
+<cyber-holo-loader size="small" text="加载中..."/>
+<cyber-holo-loader size="default" text="正在处理数据..." />
+<cyber-holo-loader size="large" text="" />
 
 ```vue
-<template>
-  <cyber-holo-loader text="加载中..." />
-  <cyber-holo-loader text="正在处理数据..." />
-  <cyber-holo-loader text="" /> <!-- 不显示文本 -->
-</template>
+<cyber-holo-loader size="small" text="加载中..."/>
+<cyber-holo-loader size="default" text="正在处理数据..." />
+<cyber-holo-loader size="large" text="" />
 ```
 
 ## 动画速度
 
-<cyber-holo-loader :speed="0.5" />
-  <cyber-holo-loader :speed="1" />
-  <cyber-holo-loader :speed="2" />
-
-```vue
-<template>
+<div class="flex">
   <cyber-holo-loader :speed="0.5" />
   <cyber-holo-loader :speed="1" />
   <cyber-holo-loader :speed="2" />
+</div>
+
+```vue
+<template>
+  <div class="flex">
+    <cyber-holo-loader :speed="0.5" />
+    <cyber-holo-loader :speed="1"/>
+    <cyber-holo-loader :speed="2" />
+  </div>
 </template>
 ```
 
