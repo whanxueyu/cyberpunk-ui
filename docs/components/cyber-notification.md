@@ -1,10 +1,11 @@
-# CyberNotification 消息提示组件
+# CyberNotification 消息提示（待完善修复问题）
 
 消息提示组件提供了具有未来感的通知系统，适合在赛博朋克风格界面中展示各类通知信息。
 
 ## 基本用法
 
 <button @click="showNotification">显示通知</button>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -12,10 +13,13 @@ const notificationRef = ref(null);
 
 onMounted(() => {
   // 获取组件实例
-  notificationRef.value = document.querySelector('.cyber-notification-container').__vueParentComponent.ctx;
+  notificationRef.value = document.querySelector('#app').__vueParentComponent.ctx;
+  console.log(notificationRef.value);
 });
 
 const showNotification = () => {
+  console.log(notificationRef.value);
+
   notificationRef.value.info({
     title: '信息通知',
     message: '这是一条信息通知',

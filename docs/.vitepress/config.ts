@@ -60,22 +60,22 @@ export default {
           items: [
             { text: "button 按钮", link: "/components/button" },
             { text: "text 文字", link: "/components/text" },
-            { text: "全屏滚动", link: "/components/fullpage" },
-            { text: "消息提示组件", link: "/components/cyber-notification" },
-            { text: "Tooltip 提示组件", link: "/components/cyber-tooltip" },
-            { text: "数字翻滚", link: "/components/digital-counter" },
+            { text: "霓虹开关", link: "/components/neon-toggle" },
             { text: "故障风格图片", link: "/components/glitch-image" },
             { text: "赛博风格图片", link: "/components/cyber-image" },
+            { text: "数字翻滚", link: "/components/digital-counter" },
             { text: "故障进度条", link: "/components/glitch-progress" },
+            { text: "Tooltip 提示组件", link: "/components/cyber-tooltip" },
+            { text: "全屏滚动", link: "/components/fullpage" },
             { text: "全息卡片", link: "/components/holo-card" },
             { text: "全息加载器", link: "/components/holo-loader" },
-            { text: "无限滚动表格", link: "/components/infinite-table" },
-            { text: "霓虹开关", link: "/components/neon-toggle" },
+            { text: "消息提示组件", link: "/components/cyber-notification" },
+            // { text: "无限滚动表格", link: "/components/infinite-table" },
           ]
         }
       ]
     },
   },
 }
-
+// 新增banner  文字增加样式  card修复问题
 // 更多配置 https://process1024.github.io/vitepress/

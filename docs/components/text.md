@@ -7,7 +7,11 @@ lang: en-US
 ## 故障文字
 这是一个最基础的按钮，也是最具代表性的，可以设置扫描线的颜色 `lineColor`
 <cyber-text>CyberPunkUI </cyber-text>
+<br />
+<cyber-text lineColor="#111">这段文字的lineColor为黑色 </cyber-text>
+<br />
 <cyber-text lineColor="#f30"> 这段文字的lineColor为红色“#ff3300”</cyber-text>
+
 ```vue
 <template>
     <cyber-text>CyberPunkUI</cyber-text>
@@ -37,9 +41,59 @@ lang: en-US
 
 ## 霓虹文字
 这是一个鼠标悬浮后有霓虹发光效果的文字，可以设置发光颜色 `color`
-<cyber-glow-text color="#ff5588">cp-glow-text</cyber-glow-text>
+<cyber-glow-text color="#ff5588">cyber-glow-text</cyber-glow-text>
+
 ```vue
 <template>
-    <cyber-glow-text color="#ff5588">cp-glow-text</cyber-glow-text>
+    <cyber-glow-text color="#ff5588">cyber-glow-text</cyber-glow-text>
+</template>
+```
+
+## 打字效果
+这是一个打字效果的文字
+<cyber-typing>这是一个打字效果的文字</cyber-typing>
+<br />
+<cyber-typing>1234567890</cyber-typing>
+
+```vue
+<template>
+    <cyber-typing>这是一个打字效果的文字</cyber-typing>
+    <cyber-typing>1234567890</cyber-typing>
+</template>
+```
+
+## 魔术文字
+这是一个非常炫酷的魔术文字效果
+<div style="display: flex;font-size: 48px;line-height: 60px;">
+    <cyber-magic-text>CyberMagicText</cyber-magic-text>
+</div>
+<div style="display: flex;font-size: 48px;line-height: 60px;">
+    <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
+</div>
+<div style="display: flex;font-size: 22px;line-height: 40px;">
+    <cyber-magic-text>CyberMagicText</cyber-magic-text>
+    <cyber-magic-text>1234567890</cyber-magic-text>
+</div>
+<div style="display: flex;font-size: 22px;line-height: 40px;">
+    <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
+    <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
+</div>
+
+```vue
+<template>
+    <div style="display: flex;font-size: 48px;line-height: 60px;">
+        <cyber-magic-text>CyberMagicText</cyber-magic-text>
+    </div>
+    <div style="display: flex;font-size: 48px;line-height: 60px;">
+        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
+    </div>
+    <div style="display: flex;font-size: 22px;line-height: 40px;">
+        <cyber-magic-text>CyberMagicText</cyber-magic-text>
+        <cyber-magic-text>1234567890</cyber-magic-text>
+    </div>
+    <div style="display: flex;font-size: 22px;line-height: 40px;">
+        <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
+        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
+    </div>
 </template>
 ```
