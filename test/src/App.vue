@@ -10,6 +10,7 @@ import cyberImagePanel from './conponents/cyberimage.vue'
 import bannerPanel from './conponents/banner.vue'
 import cardPanel from './conponents/card.vue';
 import loadingPanel from './conponents/loading.vue';
+import tablePanel from './conponents/table.vue'
 console.log(
   '%c %s',
   'border: 1px solid #97E3FE;border-radius: 3px;padding: 2px 5px;color: white;font-weight:bolder;background: linear-gradient(to right, #fF717F,#CC54D1,#4EAFFA,#3DE1C3, #F7DA66)',
@@ -44,6 +45,10 @@ const sectionItems = [
   {
     title: '故障图片',
     content: 'cyberImagePanel'
+  },
+  {
+    title: '滚动表格',
+    content: 'tablePanel'
   },
   {
     title: '文字样式',
@@ -97,6 +102,12 @@ const showTitle = ref(true)
           </div>
         </div>
         <imagesPanel></imagesPanel>
+      </div>
+      <div class="section">
+        <div class="title">滚动表格</div>
+        <div class="content-box">
+          <tablePanel></tablePanel>
+        </div>
       </div>
       <div class="section">
         <div class="title">文字样式</div>

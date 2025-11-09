@@ -195,11 +195,11 @@ const glowStyle = computed(() => {
 onMounted(() => {
   nextTick(() => {
     // 强制重绘以确保动画正确初始化
-    const card = document.querySelector('.cp-holo-card.effect-scan');
-    if (card) {
-      // 触发重排
-      const forceRepaint = card.offsetHeight;
-    }
+    // const card = document.querySelector('.cp-holo-card.effect-scan');
+    // if (card) {
+    //   // 触发重排
+    //   const forceRepaint = card.offsetHeight;
+    // }
   });
 });
 </script>
