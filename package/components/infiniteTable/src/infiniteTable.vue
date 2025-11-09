@@ -30,17 +30,34 @@
     <div 
       class="table-body" 
       ref="bodyRef"
-      @scroll="handleScroll">
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
+      @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd">
       <div class="scroll-container" :style="{ height: `${totalHeight}px` }">
-        <table :style="{ transform: `translateY(${offsetY}px)` }">
+        <table :style="{ transform: `translateY(${offsetY}px)`, transition: isScrolling ? 'transform 0.3s ease-out' : 'none' }">
           <colgroup>
             <col v-for="(column, index) in columns" :key="`col-${index}`" :style="getColumnStyle(column)">
           </colgroup>
           <tbody>
+            <!-- 前置克隆行（仅第一行） -->
             <tr 
-              v-for="(row, rowIndex) in visibleData" 
-              :key="getRowKey(row, rowIndex)"
+              v-if="loop && data.length > 0" 
+              :key="'clone-first'"
+              class="clone-row"
+              :style="{ height: `${rowHeight}px` }">
+              <td v-for="(column, colIndex) in columns" :key="colIndex">
+                {{ getCellValue(data[data.length - 1], column) }}
+              </td>
+            </tr>
+            
+            <!-- 实际数据 - 虚拟滚动实现 -->
+            <tr 
+              v-for="(row, rowIndex) in visibleRows" 
+              :key="`row-${getRowIndex(rowIndex)}`"
+              v-memo="[row, sortState]"
               :class="{ 'selected': isRowSelected(row) }"
+              :style="{ height: `${rowHeight}px` }"
               @click="handleRowClick(row)">
               <td 
                 v-for="(column, colIndex) in columns" 
@@ -49,9 +66,20 @@
                   :name="`cell-${column.key}`" 
                   :row="row" 
                   :column="column" 
-                  :index="startIndex + rowIndex">
+                  :index="getRowIndex(rowIndex)">
                   {{ getCellValue(row, column) }}
                 </slot>
+              </td>
+            </tr>
+            
+            <!-- 后置克隆行（仅第一行） -->
+            <tr 
+              v-if="loop && data.length > 0" 
+              :key="'clone-last'"
+              class="clone-row"
+              :style="{ height: `${rowHeight}px` }">
+              <td v-for="(column, colIndex) in columns" :key="colIndex">
+                {{ getCellValue(data[0], column) }}
               </td>
             </tr>
           </tbody>
@@ -74,6 +102,24 @@
             <div class="empty-text">暂无数据</div>
           </div>
         </slot>
+      </div>
+    </div>
+    
+    <!-- 表格控制栏 -->
+    <div class="table-controls" v-if="showControls">
+      <div class="control-button" @click="togglePause">
+        <span v-if="isPaused">▶</span>
+        <span v-else>⏸</span>
+      </div>
+      <div class="control-speed">
+        <span>速度:</span>
+        <input 
+          type="range" 
+          min="0.5" 
+          max="5" 
+          step="0.5" 
+          v-model="currentSpeed" 
+          @input="handleSpeedChange">
       </div>
     </div>
     
@@ -141,6 +187,28 @@ const props = defineProps({
     type: Object as () => { key: string, order: 'asc' | 'desc' },
     default: () => ({ key: '', order: 'asc' })
   },
+  // 自动滚动相关配置
+  autoScroll: {
+    type: Boolean,
+    default: true
+  },
+  speed: {
+    type: Number,
+    default: 1,
+    validator: (value: number) => value >= 0.5 && value <= 5
+  },
+  loop: {
+    type: Boolean,
+    default: true
+  },
+  pauseOnHover: {
+    type: Boolean,
+    default: true
+  },
+  showControls: {
+    type: Boolean,
+    default: true
+  },
   // 虚拟滚动相关
   bufferSize: {
     type: Number,
@@ -148,17 +216,20 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['row-click', 'sort-change', 'load-more']);
+const emit = defineEmits(['row-click', 'sort-change', 'load-more', 'scroll-pause', 'scroll-resume']);
 
 // 引用
 const headerRef = ref<HTMLElement | null>(null);
 const bodyRef = ref<HTMLElement | null>(null);
 
-// 虚拟滚动状态
-const startIndex = ref(0);
-const endIndex = ref(0);
-const offsetY = ref(0);
-const visibleCount = ref(0);
+// 滚动控制状态
+const isScrolling = ref(false);
+const isPaused = ref(false);
+const pausedByTouch = ref(false);
+const currentSpeed = ref(props.speed);
+const scrollRequestId = ref<number | null>(null);
+const currentIndex = ref(0);
+const isAdjusting = ref(false);
 
 // 排序状态
 const sortState = ref<SortState>({
@@ -166,42 +237,25 @@ const sortState = ref<SortState>({
   order: props.defaultSort?.order || ''
 });
 
-// 计算总高度
+// 计算总高度（包含克隆行）
 const totalHeight = computed(() => {
-  return (props.data?.length || 0) * props.rowHeight;
-});
-
-// 计算可见数据
-const visibleData = computed(() => {
-  if (!props.data || props.data.length === 0) return [];
-  
-  // 应用排序
-  let sortedData = [...props.data];
-  if (sortState.value.key && sortState.value.order) {
-    sortedData.sort((a, b) => {
-      const aValue = a[sortState.value.key];
-      const bValue = b[sortState.value.key];
-      
-      if (sortState.value.order === 'asc') {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
-    });
-  }
-  
-  // 应用虚拟滚动
-  return sortedData.slice(startIndex.value, endIndex.value);
+  const rowCount = props.data.length + (props.loop ? 2 : 0);
+  return rowCount * props.rowHeight;
 });
 
 // 获取行的唯一键
-const getRowKey = (row: any, index: number): string => {
+const getRowKey = (row: any): string => {
   if (typeof props.rowKey === 'function') {
     return props.rowKey(row);
   } else if (typeof props.rowKey === 'string') {
     return row[props.rowKey];
   }
-  return `row-${index}`;
+  return String(row.id ?? row._id ?? Math.random().toString(36).substr(2, 9));
+};
+
+// 获取行索引（用于虚拟滚动）
+const getRowIndex = (index: number): number => {
+  return visibleStartIndex.value + index;
 };
 
 // 获取单元格值
@@ -220,15 +274,28 @@ const getColumnStyle = (column: TableColumn): any => {
   return {};
 };
 
+// 虚拟滚动计算
+const visibleStartIndex = computed(() => {
+  return Math.max(0, currentIndex.value - props.bufferSize);
+});
+
+const visibleEndIndex = computed(() => {
+  return Math.min(props.data.length, currentIndex.value + props.bufferSize + 1);
+});
+
+const visibleRows = computed(() => {
+  if (props.data.length === 0) return [];
+  return props.data.slice(visibleStartIndex.value, visibleEndIndex.value);
+});
+
 // 判断行是否被选中
 const isRowSelected = (row: any): boolean => {
   if (!props.selectedRows || props.selectedRows.length === 0) return false;
   
-  const rowKey = getRowKey(row, props.data.indexOf(row));
-  return props.selectedRows.some((selectedRow: any) => {
-    const selectedRowKey = getRowKey(selectedRow, props.data.indexOf(selectedRow));
-    return rowKey === selectedRowKey;
-  });
+  const rowKey = getRowKey(row);
+  return props.selectedRows.some(selectedRow => 
+    getRowKey(selectedRow) === rowKey
+  );
 };
 
 // 处理行点击
@@ -260,90 +327,171 @@ const handleSort = (column: TableColumn) => {
   emit('sort-change', { ...sortState.value });
 };
 
-// 处理滚动
-const handleScroll = () => {
-  if (!bodyRef.value) return;
+// 计算当前偏移量
+const offsetY = computed(() => {
+  // 考虑前置克隆行
+  const adjustedIndex = props.loop ? currentIndex.value + 1 : currentIndex.value;
+  return -adjustedIndex * props.rowHeight;
+});
+
+// 逐帧滚动逻辑
+const scrollFrame = () => {
+  if (isPaused.value || isAdjusting.value || props.data.length === 0) {
+    return;
+  }
+
+  isScrolling.value = true;
   
-  const scrollTop = bodyRef.value.scrollTop;
-  const clientHeight = bodyRef.value.clientHeight;
+  // 计算下一个索引
+  let nextIndex = currentIndex.value + 1;
   
-  // 计算开始索引
-  const newStartIndex = Math.max(0, Math.floor(scrollTop / props.rowHeight) - props.bufferSize);
+  // 处理循环逻辑
+  if (props.loop) {
+    if (nextIndex > props.data.length) {
+      // 到达克隆行后，瞬间跳转到开始位置
+      isAdjusting.value = true;
+      currentIndex.value = 0;
+      setTimeout(() => {
+        isAdjusting.value = false;
+      }, 50); // 与CSS过渡时间匹配
+    } else {
+      currentIndex.value = nextIndex;
+    }
+  } else {
+    // 非循环模式
+    if (nextIndex < props.data.length) {
+      currentIndex.value = nextIndex;
+    } else {
+      // 到达底部后停止
+      stopAutoScroll();
+      return;
+    }
+  }
   
-  // 计算结束索引
-  const newEndIndex = Math.min(
-    props.data.length,
-    Math.ceil((scrollTop + clientHeight) / props.rowHeight) + props.bufferSize
-  );
+  // 计算下一帧时间
+  const frameTime = 1000 / (60 * currentSpeed.value);
+  scrollRequestId.value = window.setTimeout(() => {
+    window.requestAnimationFrame(scrollFrame);
+  }, frameTime);
+};
+
+// 启动自动滚动
+const startAutoScroll = () => {
+  if (scrollRequestId.value || props.data.length === 0) return;
   
-  // 计算偏移量
-  const newOffsetY = newStartIndex * props.rowHeight;
+  scrollFrame();
+};
+
+// 停止自动滚动
+const stopAutoScroll = () => {
+  if (scrollRequestId.value) {
+    clearTimeout(scrollRequestId.value);
+    scrollRequestId.value = null;
+  }
+  isScrolling.value = false;
+};
+
+// 暂停/继续滚动
+const togglePause = () => {
+  isPaused.value = !isPaused.value;
   
-  // 更新状态
-  startIndex.value = newStartIndex;
-  endIndex.value = newEndIndex;
-  offsetY.value = newOffsetY;
-  
-  // 检查是否需要加载更多
-  if (newEndIndex >= props.data.length - 10 && !props.loading) {
-    emit('load-more');
+  if (isPaused.value) {
+    stopAutoScroll();
+    emit('scroll-pause');
+  } else {
+    startAutoScroll();
+    emit('scroll-resume');
   }
 };
 
-// 更新可见行数
-const updateVisibleCount = () => {
-  if (!bodyRef.value) return;
+// 处理速度变化
+const handleSpeedChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  currentSpeed.value = parseFloat(target.value);
   
-  const clientHeight = bodyRef.value.clientHeight;
-  visibleCount.value = Math.ceil(clientHeight / props.rowHeight) + 2 * props.bufferSize;
-  
-  // 初始化结束索引
-  endIndex.value = Math.min(props.data.length, visibleCount.value);
+  // 重新设置滚动
+  if (!isPaused.value) {
+    stopAutoScroll();
+    startAutoScroll();
+  }
 };
 
-// 同步表头和表体的滚动
-const syncHeaderScroll = () => {
-  if (!headerRef.value || !bodyRef.value) return;
-  
-  headerRef.value.scrollLeft = bodyRef.value.scrollLeft;
+// 鼠标事件处理
+const handleMouseEnter = () => {
+  if (props.pauseOnHover && !isPaused.value) {
+    isPaused.value = true;
+    stopAutoScroll();
+  }
+};
+
+const handleMouseLeave = () => {
+  if (props.pauseOnHover && isPaused.value && props.autoScroll) {
+    isPaused.value = false;
+    startAutoScroll();
+  }
+};
+
+// 触摸事件处理
+const handleTouchStart = () => {
+  if (!isPaused.value) {
+    isPaused.value = true;
+    pausedByTouch.value = true;
+    stopAutoScroll();
+  }
+};
+
+const handleTouchEnd = () => {
+  if (pausedByTouch.value) {
+    isPaused.value = false;
+    pausedByTouch.value = false;
+    if (props.autoScroll) startAutoScroll();
+  }
 };
 
 // 监听数据变化
-watch(() => props.data, () => {
-  // 重新计算可见区域
-  nextTick(() => {
-    handleScroll();
-  });
-}, { deep: true });
-
-// 监听默认排序变化
-watch(() => props.defaultSort, (newVal) => {
-  if (newVal && newVal.key) {
-    sortState.value = { ...newVal };
+watch(() => props.data.length, (newLen, oldLen) => {
+  if (newLen !== oldLen) {
+    // 数据变化后重置滚动位置
+    currentIndex.value = 0;
+    
+    // 重新启动自动滚动
+    if (props.autoScroll && !isPaused.value) {
+      stopAutoScroll();
+      startAutoScroll();
+    }
   }
-}, { deep: true });
+});
 
 // 组件挂载
 onMounted(() => {
-  updateVisibleCount();
-  
-  // 添加滚动事件监听
-  if (bodyRef.value) {
-    bodyRef.value.addEventListener('scroll', syncHeaderScroll);
-  }
-  
   // 添加窗口大小变化监听
-  window.addEventListener('resize', updateVisibleCount);
+  const resizeHandler = () => {
+    // 保持当前滚动位置
+    currentIndex.value = Math.min(currentIndex.value, props.data.length - 1);
+  };
+  
+  window.addEventListener('resize', resizeHandler);
+  
+  // 存储resize处理函数以便卸载时移除
+  (window as any).__cyberInfiniteTableResizeHandler = resizeHandler;
+  
+  // 初始化自动滚动
+  if (props.autoScroll) {
+    startAutoScroll();
+  }
 });
 
 // 组件卸载
 onUnmounted(() => {
-  // 移除事件监听
-  if (bodyRef.value) {
-    bodyRef.value.removeEventListener('scroll', syncHeaderScroll);
-  }
+  // 清理自动滚动
+  stopAutoScroll();
   
-  window.removeEventListener('resize', updateVisibleCount);
+  // 移除事件监听
+  const resizeHandler = (window as any).__cyberInfiniteTableResizeHandler;
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler);
+    delete (window as any).__cyberInfiniteTableResizeHandler;
+  }
 });
 </script>
 
@@ -445,7 +593,7 @@ onUnmounted(() => {
   
   .table-body {
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
     position: relative;
     
     .scroll-container {
@@ -462,10 +610,75 @@ onUnmounted(() => {
       &.selected {
         background-color: rgba(0, 230, 246, 0.2);
       }
+      
+      &.clone-row {
+        opacity: 0.7;
+        font-style: italic;
+      }
     }
     
     td {
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  }
+  
+  .table-controls {
+    flex: none;
+    padding: 6px 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(0, 230, 246, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .control-button {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: rgba(0, 230, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      
+      &:hover {
+        background-color: rgba(0, 230, 246, 0.4);
+        transform: scale(1.1);
+      }
+    }
+    
+    .control-speed {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      
+      input[type="range"] {
+        width: 100px;
+        appearance: none;
+        -webkit-appearance: none;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        outline: none;
+        
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #00e6f6;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        
+        &::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
+          background: #00a8b3;
+        }
+      }
     }
   }
   
@@ -567,6 +780,17 @@ onUnmounted(() => {
   &.loading {
     .table-glitch-effect {
       animation: glitch-effect 5s infinite;
+    }
+  }
+  
+  /* 减少动画 - 可访问性优化 */
+  @media (prefers-reduced-motion: reduce) {
+    .table-scanline, .table-glitch-effect {
+      animation: none;
+    }
+    
+    table {
+      transition: none !important;
     }
   }
 }
