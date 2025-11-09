@@ -1,21 +1,12 @@
 <template>
-  <div 
-    :class="[
-      'cp-holo-card', 
-      `depth-${depth}`, 
-      cardType,
-      `theme-${theme}`,
-      `effect-${effect}`
-    ]" 
-    :style="cardStyle"
-    @mousemove="throttledHandleMouseMove"
-    @mouseleave="handleMouseLeave"
-    @focus="handleFocus"
-    @blur="handleMouseLeave"
-    :tabindex="disabled ? -1 : 0"
-    role="button"
-    :aria-disabled="disabled"
-    :aria-label="title">
+  <div :class="[
+    'cp-holo-card',
+    `depth-${depth}`,
+    cardType,
+    `theme-${theme}`,
+    `effect-${effect}`
+  ]" :style="cardStyle" @mousemove="throttledHandleMouseMove" @mouseleave="handleMouseLeave" @focus="handleFocus"
+    @blur="handleMouseLeave" :tabindex="disabled ? -1 : 0" role="button" :aria-disabled="disabled" :aria-label="title">
     <div class="holo-card-content">
       <div v-if="title && !slots.title" class="card-title">{{ title }}</div>
       <slot name="title"></slot>
@@ -28,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue';
+import { computed, ref, useSlots, onMounted, nextTick } from 'vue';
 import { getCurrentInstance } from 'vue';
 
 const instance = getCurrentInstance();
@@ -98,7 +89,7 @@ const isHovering = ref(false);
 // 节流函数
 const throttle = (func: Function, limit: number) => {
   let inThrottle: boolean;
-  return function() {
+  return function () {
     const args = arguments;
     const context = instance;
     if (!inThrottle) {
@@ -111,7 +102,7 @@ const throttle = (func: Function, limit: number) => {
 
 const handleMouseMove = (event: MouseEvent) => {
   if (props.disabled) return;
-  
+
   const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
   mousePosition.value = {
     x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -149,28 +140,28 @@ const cardType = computed(() => {
         return 'basic-type';
     }
   })();
-  
+
   return [baseType];
 });
 
 const cardStyle = computed(() => {
   const baseStyle: Record<string, string> = {};
-  
+
   if (!props.rounded) {
     baseStyle.borderRadius = '0';
   }
-  
+
   if (props.disabled) {
     baseStyle.cursor = 'not-allowed';
     baseStyle.opacity = '0.6';
   }
-  
+
   if (!isHovering.value || props.disabled) return baseStyle;
-  
+
   // 根据鼠标位置计算卡片的旋转角度
   const tiltX = mousePosition.value.y * 10; // 垂直方向的倾斜
   const tiltY = -mousePosition.value.x * 10; // 水平方向的倾斜
-  
+
   return {
     ...baseStyle,
     transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`,
@@ -180,11 +171,11 @@ const cardStyle = computed(() => {
 
 const hologramStyle = computed(() => {
   if (!isHovering.value || props.disabled) return {};
-  
+
   // 根据鼠标位置计算全息效果的位置
   const moveX = Math.max(-50, Math.min(50, mousePosition.value.x * 10));
   const moveY = Math.max(-50, Math.min(50, mousePosition.value.y * 10));
-  
+
   return {
     background: `radial-gradient(circle at ${50 + moveX}% ${50 + moveY}%, ${props.hologramColor}33, transparent 70%)`,
     opacity: 0.8,
@@ -194,11 +185,23 @@ const hologramStyle = computed(() => {
 
 const glowStyle = computed(() => {
   const intensity = props.glowIntensity / 100;
-  
+
   return {
     boxShadow: `0 0 ${10 + props.glowIntensity / 5}px ${props.hologramColor}${Math.floor(intensity * 99).toString(16).padStart(2, '0')}`,
     opacity: (isHovering.value && !props.disabled) ? intensity : intensity * 0.5
   };
+});
+
+onMounted(() => {
+  nextTick(() => {
+    // 强制重绘以确保动画正确初始化
+    const card = document.querySelector('.cp-holo-card.effect-scan');
+    if (card) {
+      // 触发重排
+      const forceRepaint = card.offsetHeight;
+      console.log('Forced repaint for scan effect', forceRepaint);
+    }
+  });
 });
 </script>
 
@@ -214,7 +217,7 @@ const glowStyle = computed(() => {
   color: #fff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  
+
   // 玻璃态效果
   &::before {
     content: '';
@@ -228,18 +231,18 @@ const glowStyle = computed(() => {
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .holo-card-content {
     position: relative;
     z-index: 3;
-    
+
     .card-title {
       font-size: 1.2em;
       font-weight: bold;
       margin-bottom: 10px;
     }
   }
-  
+
   .holo-card-hologram-effect {
     position: absolute;
     top: 0;
@@ -251,7 +254,7 @@ const glowStyle = computed(() => {
     opacity: 0;
     transition: opacity 0.2s ease-out;
   }
-  
+
   .holo-card-glow {
     position: absolute;
     top: 0;
@@ -264,79 +267,81 @@ const glowStyle = computed(() => {
     opacity: 0;
     transition: opacity 0.2s ease-out;
   }
-  
+
   &:hover,
   &:focus {
     outline: none;
-    
+
     .holo-card-hologram-effect {
       opacity: 1;
     }
-    
+
     .holo-card-glow {
       opacity: 1;
     }
   }
-  
+
   // 焦点可见性样式（提升可访问性）
   &:focus-visible {
     outline: 2px solid v-bind('props.hologramColor');
     outline-offset: 2px;
   }
-  
+
   // 禁用状态样式优化
   &[aria-disabled="true"] {
     cursor: not-allowed;
     filter: grayscale(50%);
     opacity: 0.6;
-    
+
     &:hover {
       transform: none !important;
     }
   }
-  
+
   // 主题样式
   &.theme-neon {
     background: rgba(10, 10, 20, 0.8);
     border: 1px solid rgba(0, 230, 246, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &::before {
       background: linear-gradient(135deg, rgba(0, 230, 246, 0.2) 0%, rgba(0, 230, 246, 0.1) 50%, transparent 100%);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
-  
+
   &.theme-hologram {
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(148, 0, 211, 0.4);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &::before {
       background: linear-gradient(135deg, rgba(148, 0, 211, 0.3) 0%, rgba(255, 0, 255, 0.2) 50%, transparent 100%);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
-  
+
   &.theme-terminal {
     background: rgba(0, 15, 0, 0.7);
     border: 1px solid rgba(0, 255, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &::before {
       background: linear-gradient(135deg, rgba(0, 255, 0, 0.2) 0%, rgba(0, 100, 0, 0.1) 50%, transparent 100%);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .holo-card-content {
       font-family: 'Courier New', monospace;
     }
   }
-  
+
   // 效果样式
   &.effect-scan {
     overflow: hidden;
-    
+    position: relative;
+    /* 确保定位上下文 */
+
     &::after {
       content: '';
       position: absolute;
@@ -347,11 +352,23 @@ const glowStyle = computed(() => {
       background: linear-gradient(to right, transparent, v-bind('props.hologramColor'), transparent);
       box-shadow: 0 0 10px v-bind('props.hologramColor');
       animation: scan 3s linear infinite;
-      z-index: 4;
+      z-index: 5;
+      /* 提高 z-index 避免被覆盖 */
       pointer-events: none;
+      transform: translateZ(0);
+      /* 启用硬件加速 */
+      will-change: top, opacity;
+      /* 优化动画性能 */
+    }
+
+    &[aria-disabled="true"] {
+      &::after {
+        display: none !important;
+        /* 确保禁用状态下不显示 */
+      }
     }
   }
-  
+
   &.effect-glitch {
     &::after {
       content: '';
@@ -360,86 +377,113 @@ const glowStyle = computed(() => {
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1) 0px,
-        rgba(0, 0, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      animation: glitch 0.5s infinite;
+      /* 优化前：rgba(0, 0, 0, 0.1) */
+      background: repeating-linear-gradient(0deg,
+          rgba(0, 0, 0, 0.35) 0px,
+          /* 提高对比度 */
+          rgba(0, 0, 0, 0.35) 3px,
+          /* 加宽条纹 */
+          transparent 3px,
+          transparent 10px
+          /* 增大间隔 */
+        );
+      animation: glitch 0.2s infinite;
+      /* 加快动画速度 */
       z-index: 4;
       pointer-events: none;
-      opacity: 0.8;
+      opacity: 1;
+      /* 完全不透明 */
+      mix-blend-mode: overlay;
+      /* 添加混合模式增强效果 */
+      /* 新增：硬件加速 */
+      transform: translateZ(0);
+      will-change: transform, opacity;
     }
-    
-    // 添加文字故障效果
-    .holo-card-content {
-      animation: textGlitch 5s infinite;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* 添加彩色光斑效果 */
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.15) 0%, transparent 15%),
+        radial-gradient(circle at 80% 70%, rgba(0, 255, 0, 0.15) 0%, transparent 15%),
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 255, 0.1) 0%, transparent 25%);
+      animation: glitch-extra 1.2s infinite;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0.6;
+      mix-blend-mode: color-dodge;
+      /* 增强发光效果 */
+      transform: translateZ(0);
+      will-change: opacity, transform;
     }
   }
-  
+
   &.effect-pulse {
     animation: pulse 2s infinite;
   }
-  
+
   // 响应式设计
   @media (max-width: 768px) {
     padding: 15px;
-    
+
     .basic-type {
       min-height: 80px !important;
     }
-    
+
     .media-type {
       min-height: 150px !important;
     }
-    
+
     .action-type {
       min-height: 120px !important;
     }
-    
+
     // 移动端降低动画效果以提高性能
     &.effect-scan::after {
       animation-duration: 4s;
     }
-    
+
     &.effect-pulse {
       animation-duration: 3s;
     }
   }
-  
+
   @media (max-width: 480px) {
     padding: 10px;
     border-radius: 6px;
-    
+
     .basic-type {
       min-height: 60px !important;
     }
-    
+
     .media-type {
       min-height: 120px !important;
     }
-    
+
     .action-type {
       min-height: 100px !important;
     }
-    
+
     // 进一步降低动画效果
     &.effect-scan::after {
       animation-duration: 5s;
     }
-    
+
     &.effect-pulse {
       animation-duration: 4s;
     }
-    
+
     // 减少复杂效果以提高移动端性能
     &.effect-glitch {
       &::after {
         display: none;
       }
-      
+
       .holo-card-content {
         animation: none;
       }
@@ -480,8 +524,9 @@ const glowStyle = computed(() => {
 
 .media-type {
   min-height: 200px;
-  
-  img, video {
+
+  img,
+  video {
     width: 100%;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -493,11 +538,94 @@ const glowStyle = computed(() => {
   flex-direction: column;
   justify-content: space-between;
   min-height: 150px;
-  
+
   .action-buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 15px;
+  }
+}
+
+@keyframes glitch-extra {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  10% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+
+  60% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0.5;
+    transform: scale(1.25);
+  }
+}
+
+// 在组件样式中添加
+.cp-holo-card.effect-glitch {
+  animation: glitch-burst 8s infinite;
+}
+
+@keyframes glitch-burst {
+
+  0%,
+  100% {
+    filter: none;
+  }
+
+  95% {
+    filter: none;
+  }
+
+  96% {
+    filter: brightness(1.5) contrast(1.2);
+  }
+
+  97% {
+    filter: brightness(0.5) contrast(2);
+  }
+
+  98% {
+    filter: brightness(1.8) contrast(0.8) hue-rotate(180deg);
+  }
+
+  99% {
+    filter: brightness(0.2) contrast(3);
   }
 }
 
@@ -506,9 +634,11 @@ const glowStyle = computed(() => {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -538,44 +668,135 @@ const glowStyle = computed(() => {
 @keyframes scan {
   0% {
     top: 0;
-    opacity: 0;
+    opacity: 1;
+    /* 修复：初始状态设为可见 */
+    transform: scaleX(0.1);
+    /* 添加缩放效果 */
   }
+
   10% {
-    opacity: 1;
+    transform: scaleX(1);
   }
+
   90% {
-    opacity: 1;
+    transform: scaleX(1);
   }
+
   100% {
     top: 100%;
-    opacity: 0;
+    opacity: 1;
+    /* 修复：结束状态保持可见 */
+    transform: scaleX(0.1);
   }
 }
 
 @keyframes glitch {
   0% {
     transform: translate(0);
+    opacity: 0.7;
+  }
+
+  /* 添加更多关键帧，增大位移范围 */
+  5% {
+    transform: translate(-12px, 0);
+    opacity: 1;
+  }
+
+  10% {
+    transform: translate(12px, 0);
+    opacity: 0.9;
+  }
+
+  15% {
+    transform: translate(-8px, 3px);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translate(8px, -3px);
     opacity: 0.8;
   }
-  20% {
-    transform: translate(-2px, 2px);
+
+  25% {
+    transform: translate(-6px, 2px);
+    opacity: 1;
+  }
+
+  /* 添加"崩溃"效果 */
+  30% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
+  35% {
+    transform: translate(15px, 0);
     opacity: 0.9;
   }
+
   40% {
-    transform: translate(-2px, -2px);
-    opacity: 0.85;
+    transform: translate(-15px, 0);
+    opacity: 1;
   }
+
+  45% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
+  /* 添加随机大位移 */
+  50% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
+  55% {
+    transform: translate(-18px, 0);
+    opacity: 0.8;
+  }
+
   60% {
-    transform: translate(2px, 2px);
-    opacity: 0.95;
+    transform: translate(18px, 0);
+    opacity: 1;
   }
+
+  65% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
+  70% {
+    transform: translate(-20px, 0);
+    opacity: 0.7;
+  }
+
+  75% {
+    transform: translate(20px, 0);
+    opacity: 1;
+  }
+
   80% {
-    transform: translate(2px, -2px);
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
+  85% {
+    transform: translate(-7px, 0);
     opacity: 0.9;
   }
+
+  90% {
+    transform: translate(7px, 0);
+    opacity: 1;
+  }
+
+  95% {
+    transform: translate(0);
+    opacity: 0.7;
+  }
+
   100% {
     transform: translate(0);
-    opacity: 0.8;
+    opacity: 0.7;
   }
 }
 
@@ -584,12 +805,15 @@ const glowStyle = computed(() => {
     box-shadow: 0 0 0 0 rgba(0, 230, 246, 0.7);
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.02);
   }
+
   70% {
     box-shadow: 0 0 0 10px rgba(0, 230, 246, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(0, 230, 246, 0);
     transform: scale(1);
@@ -598,21 +822,93 @@ const glowStyle = computed(() => {
 
 // 文字故障动画
 @keyframes textGlitch {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0);
     text-shadow: none;
   }
+
+  /* 优化前：位移仅 ±2px */
+  3% {
+    transform: translate(-8px, 0);
+    /* 添加颜色通道分离效果 */
+    text-shadow:
+      8px 0 red,
+      4px 0 white;
+  }
+
   5% {
-    transform: translate(-2px, 1px);
-    text-shadow: -1px 0 red;
+    transform: translate(8px, 0);
+    text-shadow:
+      -8px 0 blue,
+      -4px 0 white;
   }
+
+  8% {
+    transform: translate(-5px, 3px);
+    text-shadow:
+      5px -3px green,
+      -5px 3px red;
+  }
+
   10% {
-    transform: translate(1px, -2px);
-    text-shadow: 1px 0 blue;
+    transform: translate(5px, -3px);
+    text-shadow:
+      -5px 3px cyan,
+      5px -3px magenta;
   }
-  15% {
-    transform: translate(-1px, 1px);
-    text-shadow: 1px 0 red;
+
+  /* 添加倾斜效果 */
+  13% {
+    transform: translate(-6px, 2px) skew(-5deg);
+    text-shadow:
+      6px -2px yellow,
+      -6px 2px purple;
+  }
+
+  16% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  /* 添加随机"崩溃"效果 */
+  18% {
+    transform: translate(-10px, 0);
+    text-shadow:
+      10px 0 red,
+      5px 0 white;
+  }
+
+  20% {
+    transform: translate(10px, 0);
+    text-shadow:
+      -10px 0 blue,
+      -5px 0 white;
+  }
+
+  23% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  /* 添加闪烁效果 */
+  25% {
+    transform: translate(-12px, 0);
+    text-shadow: 12px 0 cyan;
+    opacity: 0.9;
+  }
+
+  27% {
+    transform: translate(12px, 0);
+    text-shadow: -12px 0 magenta;
+    opacity: 1;
+  }
+
+  30% {
+    transform: translate(0);
+    text-shadow: none;
+    opacity: 1;
   }
 }
 </style>
