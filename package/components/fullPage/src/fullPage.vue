@@ -41,7 +41,6 @@ const emits = defineEmits(['toNext', 'toLast', 'change'])
 const element = ref()
 watchEffect(() => {
     if (element.value?.style) {
-        console.log("watch", transformScroll.value)
         element.value.style.transform = transformScroll.value
         // element.value.style.top = transformScroll.value
     }
@@ -61,7 +60,6 @@ const windowHeight = computed(() => {
     return sheight
 })
 const transformScroll = computed(() => {
-    console.log($index.value, windowHeight.value)
     return `translateY(-${$index.value * windowHeight.value}px)`
     // return `-${$index.value * windowHeight.value}px`
 })
@@ -156,11 +154,12 @@ function handleTouchMove(e) {
 
 function goScroll(e) {
     //e.wheelDelta 用来判断上一个下一个 <0 下一个 >0上一个
-    emits('change', e.wheelDelta)
     if (e.wheelDelta < 0) {
         next()
+        emits('change', { from: props.items[$index.value - 1], to: props.items[$index.value], type: 'next' })
     } else {
         last()
+        emits('change', { from: props.items[$index.value + 1], to: props.items[$index.value], type: 'last' })
     }
 }
 
@@ -184,8 +183,6 @@ function last() {
 
 // 点击切换
 function changeBac(index) {
-    // 点击切换时需要开启动画
-    console.log(index)
     isCloseTranstion.value = false
     $index.value = index
 }
@@ -331,7 +328,7 @@ function changeBac(index) {
                 padding: 1px;
                 display: flex;
                 flex-direction: row-reverse;
-                color: #fff;
+                // color: #fff;
                 transition: all linear 0.1s;
                 font-size: 12px;
 
@@ -341,7 +338,7 @@ function changeBac(index) {
                     width: 40px;
                     height: 1px;
                     background-color: #666;
-                    margin-top: 6px;
+                    margin-top: 9px;
                     margin-left: 4px;
                     transition: all ease-in-out .2s;
                 }
