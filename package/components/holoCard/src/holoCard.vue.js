@@ -1,4 +1,4 @@
-import { computed, ref, useSlots } from 'vue';
+import { computed, ref, useSlots, onMounted, nextTick } from 'vue';
 import { getCurrentInstance } from 'vue';
 const instance = getCurrentInstance();
 defineOptions({
@@ -141,10 +141,15 @@ const glowStyle = computed(() => {
         opacity: (isHovering.value && !props.disabled) ? intensity : intensity * 0.5
     };
 });
+onMounted(() => {
+    nextTick(() => {
+    });
+});
 debugger;
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
+;
 ;
 ;
 ;

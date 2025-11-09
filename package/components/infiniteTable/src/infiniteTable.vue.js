@@ -32,18 +32,45 @@ const props = defineProps({
         type: Object,
         default: () => ({ key: '', order: 'asc' })
     },
+    autoScroll: {
+        type: Boolean,
+        default: true
+    },
+    speed: {
+        type: Number,
+        default: 1.5,
+        validator: (value) => value >= 0.1 && value <= 5
+    },
+    loop: {
+        type: Boolean,
+        default: true
+    },
+    pauseOnHover: {
+        type: Boolean,
+        default: true
+    },
+    showControls: {
+        type: Boolean,
+        default: true
+    },
     bufferSize: {
         type: Number,
         default: 5
     }
 });
-const emit = defineEmits(['row-click', 'sort-change', 'load-more']);
+const emit = defineEmits(['row-click', 'sort-change', 'load-more', 'scroll-pause', 'scroll-resume']);
 const headerRef = ref(null);
 const bodyRef = ref(null);
 const startIndex = ref(0);
 const endIndex = ref(0);
 const offsetY = ref(0);
 const visibleCount = ref(0);
+const isScrolling = ref(false);
+const isPaused = ref(false);
+const currentSpeed = ref(props.speed);
+const autoScrollFrame = ref(null);
+const lastScrollTime = ref(0);
+const isTouching = ref(false);
 const sortState = ref({
     key: ((_a = props.defaultSort) === null || _a === void 0 ? void 0 : _a.key) || '',
     order: ((_b = props.defaultSort) === null || _b === void 0 ? void 0 : _b.order) || ''
@@ -151,9 +178,109 @@ const syncHeaderScroll = () => {
         return;
     headerRef.value.scrollLeft = bodyRef.value.scrollLeft;
 };
+const autoScroll = () => {
+    if (!bodyRef.value || isPaused.value || isTouching.value) {
+        return;
+    }
+    const now = Date.now();
+    const deltaTime = now - lastScrollTime.value;
+    lastScrollTime.value = now;
+    const scrollAmount = (currentSpeed.value * deltaTime) / 16;
+    bodyRef.value.scrollTop += scrollAmount;
+    if (bodyRef.value.scrollTop + bodyRef.value.clientHeight >= bodyRef.value.scrollHeight) {
+        if (props.loop) {
+            smoothScrollTo(0, 300);
+        }
+        else {
+            isScrolling.value = false;
+            return;
+        }
+    }
+    autoScrollFrame.value = requestAnimationFrame(autoScroll);
+};
+const smoothScrollTo = (target, duration = 300) => {
+    if (!bodyRef.value)
+        return;
+    const start = bodyRef.value.scrollTop;
+    const startTime = performance.now();
+    const animateScroll = (currentTime) => {
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const easeProgress = progress * (2 - progress);
+        if (bodyRef.value)
+            bodyRef.value.scrollTop = start + (target - start) * easeProgress;
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animateScroll);
+        }
+        else {
+            if (bodyRef.value)
+                bodyRef.value.scrollTop = target;
+            lastScrollTime.value = Date.now();
+            if (props.autoScroll && !isPaused.value) {
+                autoScrollFrame.value = requestAnimationFrame(autoScroll);
+            }
+        }
+    };
+    if (autoScrollFrame.value) {
+        cancelAnimationFrame(autoScrollFrame.value);
+        autoScrollFrame.value = null;
+    }
+    requestAnimationFrame(animateScroll);
+};
+const togglePause = () => {
+    isPaused.value = !isPaused.value;
+    if (isPaused.value) {
+        if (autoScrollFrame.value) {
+            cancelAnimationFrame(autoScrollFrame.value);
+            autoScrollFrame.value = null;
+        }
+        emit('scroll-pause');
+    }
+    else {
+        lastScrollTime.value = Date.now();
+        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+        emit('scroll-resume');
+    }
+};
+const handleSpeedChange = (event) => {
+    const target = event.target;
+    currentSpeed.value = parseFloat(target.value);
+};
+const handleMouseEnter = () => {
+    if (props.pauseOnHover && !isTouching.value) {
+        isPaused.value = true;
+    }
+};
+const handleMouseLeave = () => {
+    if (props.pauseOnHover && !isTouching.value && !isPaused.value) {
+        lastScrollTime.value = Date.now();
+        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    }
+};
+const handleTouchStart = () => {
+    isTouching.value = true;
+    if (!isPaused.value) {
+        isPaused.value = true;
+        if (autoScrollFrame.value) {
+            cancelAnimationFrame(autoScrollFrame.value);
+            autoScrollFrame.value = null;
+        }
+    }
+};
+const handleTouchEnd = () => {
+    isTouching.value = false;
+    if (!isPaused.value && props.autoScroll) {
+        lastScrollTime.value = Date.now();
+        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    }
+};
 watch(() => props.data, () => {
     nextTick(() => {
         handleScroll();
+        if (props.autoScroll && !isPaused.value && !isTouching.value) {
+            lastScrollTime.value = Date.now();
+            autoScrollFrame.value = requestAnimationFrame(autoScroll);
+        }
     });
 }, { deep: true });
 watch(() => props.defaultSort, (newVal) => {
@@ -161,15 +288,38 @@ watch(() => props.defaultSort, (newVal) => {
         sortState.value = Object.assign({}, newVal);
     }
 }, { deep: true });
+watch(() => props.autoScroll, (newVal) => {
+    if (newVal && !isPaused.value && !isTouching.value) {
+        lastScrollTime.value = Date.now();
+        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    }
+    else {
+        if (autoScrollFrame.value) {
+            cancelAnimationFrame(autoScrollFrame.value);
+            autoScrollFrame.value = null;
+        }
+    }
+});
 onMounted(() => {
     updateVisibleCount();
     if (bodyRef.value) {
+        bodyRef.value.addEventListener('scroll', handleScroll);
         bodyRef.value.addEventListener('scroll', syncHeaderScroll);
     }
     window.addEventListener('resize', updateVisibleCount);
+    if (props.autoScroll) {
+        isScrolling.value = true;
+        lastScrollTime.value = Date.now();
+        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    }
 });
 onUnmounted(() => {
+    if (autoScrollFrame.value) {
+        cancelAnimationFrame(autoScrollFrame.value);
+        autoScrollFrame.value = null;
+    }
     if (bodyRef.value) {
+        bodyRef.value.removeEventListener('scroll', handleScroll);
         bodyRef.value.removeEventListener('scroll', syncHeaderScroll);
     }
     window.removeEventListener('resize', updateVisibleCount);
@@ -179,7 +329,12 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 ;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-infinite-table', { 'loading': __VLS_ctx.loading }]) }));
+;
+;
+;
+;
+;
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-auto-scroll-table', { 'scrolling': __VLS_ctx.isScrolling, 'paused': __VLS_ctx.isPaused, 'loading': __VLS_ctx.loading }]) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-header" }, { ref: "headerRef" }));
 ;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)({});
@@ -202,7 +357,7 @@ for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "sort-down" }, { class: ({ 'active': __VLS_ctx.sortState.key === column.key && __VLS_ctx.sortState.order === 'desc' }) }));
     }
 }
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onScroll: (__VLS_ctx.handleScroll) }, { class: "table-body" }), { ref: "bodyRef" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMouseenter: (__VLS_ctx.handleMouseEnter) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { class: "table-body" }), { ref: "bodyRef" }));
 ;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "scroll-container" }, { style: ({ height: `${__VLS_ctx.totalHeight}px` }) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)(Object.assign({ style: ({ transform: `translateY(${__VLS_ctx.offsetY}px)` }) }));
@@ -241,12 +396,31 @@ if (!__VLS_ctx.loading && (!__VLS_ctx.data || __VLS_ctx.data.length === 0)) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-icon" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "empty-text" }));
 }
+if (__VLS_ctx.showControls) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-controls" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ onClick: (__VLS_ctx.togglePause) }, { class: "control-button" }));
+    if (__VLS_ctx.isPaused) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    }
+    else {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    }
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "control-speed" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.input, __VLS_intrinsicElements.input)(Object.assign({ onInput: (__VLS_ctx.handleSpeedChange) }, { type: "range", min: "0.1", max: "5", step: "0.1" }));
+    (__VLS_ctx.currentSpeed);
+}
 if (__VLS_ctx.$slots.footer) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-footer" }));
     var __VLS_6 = {};
 }
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-scanline" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-glitch-effect" }));
+;
+;
+;
+;
+;
 ;
 ;
 ;
@@ -280,6 +454,9 @@ const __VLS_self = (await import('vue')).defineComponent({
             bodyRef: bodyRef,
             startIndex: startIndex,
             offsetY: offsetY,
+            isScrolling: isScrolling,
+            isPaused: isPaused,
+            currentSpeed: currentSpeed,
             sortState: sortState,
             totalHeight: totalHeight,
             visibleData: visibleData,
@@ -289,7 +466,12 @@ const __VLS_self = (await import('vue')).defineComponent({
             isRowSelected: isRowSelected,
             handleRowClick: handleRowClick,
             handleSort: handleSort,
-            handleScroll: handleScroll,
+            togglePause: togglePause,
+            handleSpeedChange: handleSpeedChange,
+            handleMouseEnter: handleMouseEnter,
+            handleMouseLeave: handleMouseLeave,
+            handleTouchStart: handleTouchStart,
+            handleTouchEnd: handleTouchEnd,
         };
     },
     emits: {},
@@ -321,6 +503,27 @@ const __VLS_self = (await import('vue')).defineComponent({
         defaultSort: {
             type: Object,
             default: () => ({ key: '', order: 'asc' })
+        },
+        autoScroll: {
+            type: Boolean,
+            default: true
+        },
+        speed: {
+            type: Number,
+            default: 1.5,
+            validator: (value) => value >= 0.1 && value <= 5
+        },
+        loop: {
+            type: Boolean,
+            default: true
+        },
+        pauseOnHover: {
+            type: Boolean,
+            default: true
+        },
+        showControls: {
+            type: Boolean,
+            default: true
         },
         bufferSize: {
             type: Number,
@@ -361,6 +564,27 @@ const __VLS_component = (await import('vue')).defineComponent({
         defaultSort: {
             type: Object,
             default: () => ({ key: '', order: 'asc' })
+        },
+        autoScroll: {
+            type: Boolean,
+            default: true
+        },
+        speed: {
+            type: Number,
+            default: 1.5,
+            validator: (value) => value >= 0.1 && value <= 5
+        },
+        loop: {
+            type: Boolean,
+            default: true
+        },
+        pauseOnHover: {
+            type: Boolean,
+            default: true
+        },
+        showControls: {
+            type: Boolean,
+            default: true
         },
         bufferSize: {
             type: Number,

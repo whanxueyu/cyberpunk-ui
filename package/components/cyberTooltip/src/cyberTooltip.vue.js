@@ -83,76 +83,31 @@ const updatePosition = () => {
         return;
     const triggerRect = triggerRef.value.getBoundingClientRect();
     const tooltipRect = tooltipRef.value.getBoundingClientRect();
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    const MARGIN = 10;
-    if (props.position === 'auto') {
-        const spaceTop = triggerRect.top - MARGIN;
-        const spaceBottom = viewportHeight - triggerRect.bottom - MARGIN;
-        const spaceLeft = triggerRect.left - MARGIN;
-        const spaceRight = viewportWidth - triggerRect.right - MARGIN;
-        const tooltipHeight = tooltipRect.height;
-        const tooltipWidth = tooltipRect.width;
-        var positions = [];
-        if (spaceBottom > tooltipHeight) {
-            positions.push({ pos: 'bottom', space: spaceBottom });
-        }
-        if (spaceTop > tooltipHeight) {
-            positions.push({ pos: 'top', space: spaceTop });
-        }
-        if (spaceRight > tooltipWidth) {
-            positions.push({ pos: 'right', space: spaceRight });
-        }
-        if (spaceLeft > tooltipWidth) {
-            positions.push({ pos: 'left', space: spaceLeft });
-        }
-        if (positions.length > 0) {
-            positions.sort((a, b) => b.space - a.space);
-            computedPosition.value = positions[0].pos;
-        }
-        else {
-            const maxSpace = Math.max(spaceTop, spaceRight, spaceBottom, spaceLeft);
-            if (maxSpace === spaceTop) {
-                computedPosition.value = 'top';
-            }
-            else if (maxSpace === spaceRight) {
-                computedPosition.value = 'right';
-            }
-            else if (maxSpace === spaceBottom) {
-                computedPosition.value = 'bottom';
-            }
-            else {
-                computedPosition.value = 'left';
-            }
-        }
-    }
-    else {
-        computedPosition.value = props.position;
-    }
     let left = 0;
     let top = 0;
     const GAP = 10;
     switch (computedPosition.value) {
         case 'top':
-            left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-            top = triggerRect.top - tooltipRect.height - GAP + scrollTop;
+            left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2);
+            top = triggerRect.top - tooltipRect.height - GAP;
             break;
         case 'right':
-            left = triggerRect.right + GAP + scrollLeft;
-            top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
+            left = triggerRect.right + GAP;
+            top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2);
             break;
         case 'bottom':
-            left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2) + scrollLeft;
-            top = triggerRect.bottom + GAP + scrollTop;
+            left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2);
+            top = triggerRect.bottom + GAP;
             break;
         case 'left':
-            left = triggerRect.left - tooltipRect.width - GAP + scrollLeft;
-            top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2) + scrollTop;
+            left = triggerRect.left - tooltipRect.width - GAP;
+            top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2);
             break;
     }
     const adjustPosition = () => {
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        const MARGIN = 10;
         if (left < MARGIN) {
             left = MARGIN;
         }
@@ -162,16 +117,11 @@ const updatePosition = () => {
         if (top < MARGIN) {
             top = MARGIN;
         }
-        else if (top + tooltipRect.height > viewportHeight + scrollTop - MARGIN) {
-            top = viewportHeight + scrollTop - tooltipRect.height - MARGIN;
+        else if (top + tooltipRect.height > viewportHeight - MARGIN) {
+            top = viewportHeight - tooltipRect.height - MARGIN;
         }
     };
-    if (props.position === 'auto') {
-        adjustPosition();
-    }
-    else {
-        adjustPosition();
-    }
+    adjustPosition();
     tooltipStyle.value = {
         left: `${left}px`,
         top: `${top}px`,
@@ -223,6 +173,21 @@ watch(() => props.position, () => {
         nextTick(updatePosition);
     }
 });
+let scrollParents = [];
+const findScrollParents = (element) => {
+    let parents = [];
+    let parent = element.parentElement;
+    while (parent) {
+        const style = window.getComputedStyle(parent);
+        const overflowRegex = /(auto|scroll)/;
+        if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+            parents.push(parent);
+        }
+        parent = parent.parentElement;
+    }
+    parents.push(document.documentElement);
+    return parents;
+};
 onMounted(() => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
@@ -235,10 +200,28 @@ onMounted(() => {
             }
         }
     });
+    if (triggerRef.value) {
+        scrollParents = findScrollParents(triggerRef.value);
+        const throttledHandleScroll = () => {
+            if (scrollTimer)
+                clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                if (visible.value)
+                    updatePosition();
+            }, 16);
+        };
+        scrollParents.forEach(parent => {
+            parent.addEventListener('scroll', throttledHandleScroll);
+        });
+    }
 });
+let scrollTimer = null;
 onUnmounted(() => {
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('scroll', handleScroll);
+    scrollParents.forEach(parent => {
+        parent.removeEventListener('scroll', handleScroll);
+    });
     if (timeout.value) {
         clearTimeout(timeout.value);
     }

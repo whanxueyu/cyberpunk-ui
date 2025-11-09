@@ -11,13 +11,13 @@ import cardPanel from './conponents/card.vue';
 import loadingPanel from './conponents/loading.vue';
 console.log('%c %s', 'border: 1px solid #97E3FE;border-radius: 3px;padding: 2px 5px;color: white;font-weight:bolder;background: linear-gradient(to right, #fF717F,#CC54D1,#4EAFFA,#3DE1C3, #F7DA66)', 'CyberPunk-UI');
 const toNext = (index) => {
-    console.log(index);
+    console.log("toNext", index);
 };
 const toLast = (index) => {
-    console.log(index);
+    console.log("toLast", index);
 };
-const changePage = (scroll) => {
-    console.log(scroll);
+const changePage = (content) => {
+    console.log("changePage", content);
 };
 const dotPosition = ref('right');
 const changePosition = (position) => {
@@ -30,39 +30,43 @@ const changeShow = (show) => {
 const sectionItems = [
     {
         title: '轮播图片',
-        component: imagesPanel
+        content: 'buttonPanel'
     },
     {
         title: '赛博图片',
-        component: imagesPanel
+        content: 'imagesPanel'
     },
     {
         title: '故障图片',
-        component: imagesPanel
+        content: 'cyberImagePanel'
+    },
+    {
+        title: '滚动表格',
+        content: 'tablePanel'
     },
     {
         title: '文字样式',
-        component: textPanel
+        content: 'textPanel'
     },
     {
         title: '故障按钮',
-        component: buttonPanel
+        content: 'buttonPanel'
     },
     {
         title: '进度条',
-        component: switchPanel
+        content: 'switchPanel'
     },
     {
         title: '数字翻牌',
-        component: tooltipPanel
+        content: 'tooltipPanel'
     },
     {
         title: '加载器',
-        component: loadingPanel
+        content: 'loadingPanel'
     },
     {
         title: '卡片',
-        component: cardPanel
+        content: 'cardPanel'
     }
 ];
 const showTitle = ref(true);
@@ -122,9 +126,16 @@ const __VLS_26 = __VLS_25({}, ...__VLS_functionalComponentArgsRest(__VLS_25));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content-box" }));
+const __VLS_28 = {}.tablePanel;
 ;
-const __VLS_28 = __VLS_asFunctionalComponent(textPanel, new textPanel({}));
-const __VLS_29 = __VLS_28({}, ...__VLS_functionalComponentArgsRest(__VLS_28));
+const __VLS_29 = __VLS_asFunctionalComponent(__VLS_28, new __VLS_28({}));
+const __VLS_30 = __VLS_29({}, ...__VLS_functionalComponentArgsRest(__VLS_29));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content-box" }));
+;
+const __VLS_32 = __VLS_asFunctionalComponent(textPanel, new textPanel({}));
+const __VLS_33 = __VLS_32({}, ...__VLS_functionalComponentArgsRest(__VLS_32));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
@@ -132,38 +143,41 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content-box" }));
 ;
-const __VLS_31 = __VLS_asFunctionalComponent(buttonPanel, new buttonPanel({}));
-const __VLS_32 = __VLS_31({}, ...__VLS_functionalComponentArgsRest(__VLS_31));
+const __VLS_35 = __VLS_asFunctionalComponent(buttonPanel, new buttonPanel({}));
+const __VLS_36 = __VLS_35({}, ...__VLS_functionalComponentArgsRest(__VLS_35));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 ;
-const __VLS_34 = __VLS_asFunctionalComponent(switchPanel, new switchPanel({}));
-const __VLS_35 = __VLS_34({}, ...__VLS_functionalComponentArgsRest(__VLS_34));
+const __VLS_38 = __VLS_asFunctionalComponent(switchPanel, new switchPanel({}));
+const __VLS_39 = __VLS_38({}, ...__VLS_functionalComponentArgsRest(__VLS_38));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content-box" }));
 ;
-const __VLS_37 = __VLS_asFunctionalComponent(tooltipPanel, new tooltipPanel({}));
-const __VLS_38 = __VLS_37({}, ...__VLS_functionalComponentArgsRest(__VLS_37));
+const __VLS_41 = __VLS_asFunctionalComponent(tooltipPanel, new tooltipPanel({}));
+const __VLS_42 = __VLS_41({}, ...__VLS_functionalComponentArgsRest(__VLS_41));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content-box" }));
 ;
-const __VLS_40 = __VLS_asFunctionalComponent(loadingPanel, new loadingPanel({}));
-const __VLS_41 = __VLS_40({}, ...__VLS_functionalComponentArgsRest(__VLS_40));
+const __VLS_44 = __VLS_asFunctionalComponent(loadingPanel, new loadingPanel({}));
+const __VLS_45 = __VLS_44({}, ...__VLS_functionalComponentArgsRest(__VLS_44));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "title_text" }));
 ;
-const __VLS_43 = __VLS_asFunctionalComponent(cardPanel, new cardPanel({}));
-const __VLS_44 = __VLS_43({}, ...__VLS_functionalComponentArgsRest(__VLS_43));
+const __VLS_47 = __VLS_asFunctionalComponent(cardPanel, new cardPanel({}));
+const __VLS_48 = __VLS_47({}, ...__VLS_functionalComponentArgsRest(__VLS_47));
 var __VLS_12;
 var __VLS_2;
+;
+;
+;
 ;
 ;
 ;

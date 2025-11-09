@@ -21,7 +21,6 @@ const element = ref();
 watchEffect(() => {
     var _a;
     if ((_a = element.value) === null || _a === void 0 ? void 0 : _a.style) {
-        console.log("watch", transformScroll.value);
         element.value.style.transform = transformScroll.value;
     }
 });
@@ -38,7 +37,6 @@ const windowHeight = computed(() => {
     return sheight;
 });
 const transformScroll = computed(() => {
-    console.log($index.value, windowHeight.value);
     return `translateY(-${$index.value * windowHeight.value}px)`;
 });
 const isCloseTranstion = ref(false);
@@ -90,12 +88,13 @@ function handleTouchMove(e) {
     element.value.style.transform = `translateY(-${$index.value * windowHeight.value + moveDistance.value * -1}px)`;
 }
 function goScroll(e) {
-    emits('change', e.wheelDelta);
     if (e.wheelDelta < 0) {
         next();
+        emits('change', { from: props.items[$index.value - 1], to: props.items[$index.value], type: 'next' });
     }
     else {
         last();
+        emits('change', { from: props.items[$index.value + 1], to: props.items[$index.value], type: 'last' });
     }
 }
 const $index = ref(0);
@@ -112,7 +111,6 @@ function last() {
     }
 }
 function changeBac(index) {
-    console.log(index);
     isCloseTranstion.value = false;
     $index.value = index;
 }

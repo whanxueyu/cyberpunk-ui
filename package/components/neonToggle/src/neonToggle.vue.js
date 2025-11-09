@@ -29,9 +29,28 @@ const props = defineProps({
     disabled: {
         type: Boolean,
         default: false
-    }
+    },
+    size: {
+        type: String,
+        default: 'default',
+        validator: (value) => {
+            return ['large', 'default', 'small'].indexOf(value) !== -1;
+        }
+    },
 });
 const emit = defineEmits(['update:modelValue', 'change']);
+const shapeSize = computed(() => {
+    switch (props.size) {
+        case 'large':
+            return 'large-size';
+        case 'default':
+            return 'default-size';
+        case 'small':
+            return 'small-size';
+        default:
+            return 'default-size';
+    }
+});
 const shapeClass = computed(() => {
     switch (props.shape) {
         case 'circle':
@@ -66,6 +85,41 @@ let __VLS_directives;
 ;
 ;
 ;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 __VLS_ctx.props.inActiveColor;
 __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
@@ -74,7 +128,7 @@ __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
 __VLS_ctx.props.activeColor;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onClick: (__VLS_ctx.toggleSwitch) }, { class: (['cp-neon-toggle', __VLS_ctx.shapeClass, { 'active': __VLS_ctx.modelValue, 'disabled': __VLS_ctx.disabled }]) }), { 'aria-checked': (__VLS_ctx.modelValue), role: "switch", 'aria-disabled': (__VLS_ctx.disabled) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onClick: (__VLS_ctx.toggleSwitch) }, { class: (['cp-neon-toggle', __VLS_ctx.shapeClass, __VLS_ctx.shapeSize, { 'active': __VLS_ctx.modelValue, 'disabled': __VLS_ctx.disabled }]) }), { 'aria-checked': (__VLS_ctx.modelValue), role: "switch", 'aria-disabled': (__VLS_ctx.disabled) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "toggle-track" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "toggle-track-inner" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "circuit-lines" }));
@@ -95,6 +149,7 @@ const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             props: props,
+            shapeSize: shapeSize,
             shapeClass: shapeClass,
             toggleSwitch: toggleSwitch,
         };
@@ -127,7 +182,14 @@ const __VLS_self = (await import('vue')).defineComponent({
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
+        size: {
+            type: String,
+            default: 'default',
+            validator: (value) => {
+                return ['large', 'default', 'small'].indexOf(value) !== -1;
+            }
+        },
     },
 });
 export default (await import('vue')).defineComponent({
@@ -162,7 +224,14 @@ export default (await import('vue')).defineComponent({
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
+        size: {
+            type: String,
+            default: 'default',
+            validator: (value) => {
+                return ['large', 'default', 'small'].indexOf(value) !== -1;
+            }
+        },
     },
 });
 ;
