@@ -16,13 +16,13 @@ console.log(
   'CyberPunk-UI'
 );
 const toNext = (index: number) => {
-  console.log(index)
+  console.log("toNext", index)
 }
 const toLast = (index: number) => {
-  console.log(index)
+  console.log("toLast", index)
 }
-const changePage = (scroll: number) => {
-  console.log(scroll)
+const changePage = (content: any) => {
+  console.log("changePage", content)
 }
 const dotPosition = ref('right')
 const changePosition = (position: string) => {
@@ -35,39 +35,39 @@ const changeShow = (show: boolean) => {
 const sectionItems = [
   {
     title: '轮播图片',
-    component: imagesPanel
+    content: 'buttonPanel'
   },
   {
     title: '赛博图片',
-    component: imagesPanel
+    content: 'imagesPanel'
   },
   {
     title: '故障图片',
-    component: imagesPanel
+    content: 'cyberImagePanel'
   },
   {
     title: '文字样式',
-    component: textPanel
+    content: 'textPanel'
   },
   {
     title: '故障按钮',
-    component: buttonPanel
+    content: 'buttonPanel'
   },
   {
     title: '进度条',
-    component: switchPanel
+    content: 'switchPanel'
   },
   {
     title: '数字翻牌',
-    component: tooltipPanel
+    content: 'tooltipPanel'
   },
   {
     title: '加载器',
-    component: loadingPanel
+    content: 'loadingPanel'
   },
   {
     title: '卡片',
-    component: cardPanel
+    content: 'cardPanel'
   }
 ]
 const showTitle = ref(true)
@@ -138,7 +138,7 @@ const showTitle = ref(true)
           <loadingPanel></loadingPanel>
         </div>
       </div>
-      
+
       <div class="section">
         <div class="title">
           <div class="title_text">卡片</div>

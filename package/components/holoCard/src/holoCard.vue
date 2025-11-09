@@ -199,7 +199,6 @@ onMounted(() => {
     if (card) {
       // 触发重排
       const forceRepaint = card.offsetHeight;
-      console.log('Forced repaint for scan effect', forceRepaint);
     }
   });
 });
