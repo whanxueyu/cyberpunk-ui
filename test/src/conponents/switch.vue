@@ -11,10 +11,19 @@
             <cyber-neon-toggle v-model="value" shape="hex" />
         </div>
         <div>
+            <div>不同大小</div>
+            <cyber-neon-toggle size="small" v-model="value" shape="circle" />
+            <cyber-neon-toggle size="small" v-model="value" shape="square" />
+            <cyber-neon-toggle size="small" v-model="value" shape="hex" />
+            <cyber-neon-toggle size="large" v-model="value" shape="circle" />
+            <cyber-neon-toggle size="large" v-model="value" shape="square" />
+            <cyber-neon-toggle size="large" v-model="value" shape="hex" />
+        </div>
+        <div>
             <div>自定义颜色</div>
             <cyber-neon-toggle v-model="value" active-color="#ff0000cc" inActiveColor="#99ffff" />
             <cyber-neon-toggle v-model="value" active-color="#ff9900cc" />
-            <cyber-neon-toggle v-model="value" shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+            <cyber-neon-toggle v-model="value" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
             <cyber-neon-toggle v-model="value" active-color="#0066ffcc" />
             <cyber-neon-toggle v-model="value" active-color="#00ff00cc" />
         </div>
@@ -23,7 +32,7 @@
             <cyber-neon-toggle v-model="value" disabled />
             <cyber-neon-toggle v-model="value" disabled active-color="#ff0000cc" inActiveColor="#99ffff" />
             <cyber-neon-toggle v-model="value" disabled active-color="#ff9900cc" />
-            <cyber-neon-toggle v-model="value" disabled shape="hex" active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
+            <cyber-neon-toggle v-model="value" disabled active-color="#ff00ffcc" inActiveColor="#00ff00cc" />
             <cyber-neon-toggle v-model="value" disabled active-color="#0066ffcc" />
             <cyber-neon-toggle v-model="value" disabled active-color="#00ff00cc" />
         </div>
