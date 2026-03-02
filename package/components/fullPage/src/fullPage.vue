@@ -232,11 +232,6 @@ function changeBac(index) {
                     text-align: left;
                     left: 20px;
                     flex-direction: row;
-
-                    &::before {
-                        width: 40px;
-                        height: 1px;
-                    }
                 }
             }
         }
@@ -255,12 +250,7 @@ function changeBac(index) {
                     top: 20px;
                     flex-direction: column;
                     align-items: center;
-                    transform: translateX(60px);
-
-                    &::before {
-                        width: 1px;
-                        height: 40px;
-                    }
+                    transform: translateX(62px);
                 }
             }
         }
@@ -280,12 +270,7 @@ function changeBac(index) {
                     bottom: 20px;
                     flex-direction: column-reverse;
                     align-items: center;
-                    transform: translateX(60px);
-
-                    &::before {
-                        width: 1px;
-                        height: 40px;
-                    }
+                    transform: translateX(62px);
                 }
             }
         }
@@ -331,17 +316,6 @@ function changeBac(index) {
                 // color: #fff;
                 transition: all linear 0.1s;
                 font-size: 12px;
-
-                &::before {
-                    display: inline-block;
-                    content: "";
-                    width: 40px;
-                    height: 1px;
-                    background-color: #666;
-                    margin-top: 9px;
-                    margin-left: 4px;
-                    transition: all ease-in-out .2s;
-                }
             }
         }
     }
