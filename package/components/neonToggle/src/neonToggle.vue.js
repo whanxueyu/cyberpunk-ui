@@ -141,9 +141,6 @@ if (__VLS_ctx.pulseEffect && __VLS_ctx.modelValue) {
 ;
 ;
 ;
-;
-;
-;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

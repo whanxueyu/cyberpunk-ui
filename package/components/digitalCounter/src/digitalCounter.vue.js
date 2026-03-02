@@ -206,8 +206,6 @@ if (__VLS_ctx.suffix) {
 ;
 ;
 ;
-;
-;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

@@ -191,7 +191,6 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 ;
 ;
 ;
-;
 var __VLS_1 = __VLS_0, __VLS_3 = __VLS_2, __VLS_5 = __VLS_4;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({

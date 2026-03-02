@@ -18,4 +18,6 @@ export * from './typing';
 export * from './magicText';
 export * from './image';
 export * from './banner';
+export * from './select';
+export * from './tree';
 //# sourceMappingURL=index.js.map

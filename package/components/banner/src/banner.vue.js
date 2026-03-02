@@ -64,7 +64,6 @@ for (const [img, index] of __VLS_getVForSourceType((props.imgList))) {
 ;
 ;
 ;
-;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

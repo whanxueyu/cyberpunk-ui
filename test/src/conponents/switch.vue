@@ -1,10 +1,6 @@
 <template>
     <div class="content">
         <div>
-            <div>默认样式</div>
-            <cyber-neon-toggle v-model="value"></cyber-neon-toggle>
-        </div>
-        <div>
             <div>不同形状</div>
             <cyber-neon-toggle v-model="value" shape="circle" />
             <cyber-neon-toggle v-model="value" shape="square" />

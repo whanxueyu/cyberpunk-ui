@@ -1,5 +1,5 @@
 var _a, _b;
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 defineOptions({
     name: 'CyberInfiniteTable',
 });
@@ -38,8 +38,8 @@ const props = defineProps({
     },
     speed: {
         type: Number,
-        default: 1.5,
-        validator: (value) => value >= 0.1 && value <= 5
+        default: 1,
+        validator: (value) => value >= 0.5 && value <= 5
     },
     loop: {
         type: Boolean,
@@ -61,50 +61,33 @@ const props = defineProps({
 const emit = defineEmits(['row-click', 'sort-change', 'load-more', 'scroll-pause', 'scroll-resume']);
 const headerRef = ref(null);
 const bodyRef = ref(null);
-const startIndex = ref(0);
-const endIndex = ref(0);
-const offsetY = ref(0);
-const visibleCount = ref(0);
 const isScrolling = ref(false);
 const isPaused = ref(false);
+const pausedByTouch = ref(false);
 const currentSpeed = ref(props.speed);
-const autoScrollFrame = ref(null);
-const lastScrollTime = ref(0);
-const isTouching = ref(false);
+const scrollRequestId = ref(null);
+const currentIndex = ref(0);
+const isAdjusting = ref(false);
 const sortState = ref({
     key: ((_a = props.defaultSort) === null || _a === void 0 ? void 0 : _a.key) || '',
     order: ((_b = props.defaultSort) === null || _b === void 0 ? void 0 : _b.order) || ''
 });
 const totalHeight = computed(() => {
-    var _a;
-    return (((_a = props.data) === null || _a === void 0 ? void 0 : _a.length) || 0) * props.rowHeight;
+    const rowCount = props.data.length + (props.loop ? 2 : 0);
+    return rowCount * props.rowHeight;
 });
-const visibleData = computed(() => {
-    if (!props.data || props.data.length === 0)
-        return [];
-    let sortedData = [...props.data];
-    if (sortState.value.key && sortState.value.order) {
-        sortedData.sort((a, b) => {
-            const aValue = a[sortState.value.key];
-            const bValue = b[sortState.value.key];
-            if (sortState.value.order === 'asc') {
-                return aValue > bValue ? 1 : -1;
-            }
-            else {
-                return aValue < bValue ? 1 : -1;
-            }
-        });
-    }
-    return sortedData.slice(startIndex.value, endIndex.value);
-});
-const getRowKey = (row, index) => {
+const getRowKey = (row) => {
+    var _a, _b;
     if (typeof props.rowKey === 'function') {
         return props.rowKey(row);
     }
     else if (typeof props.rowKey === 'string') {
         return row[props.rowKey];
     }
-    return `row-${index}`;
+    return String((_b = (_a = row.id) !== null && _a !== void 0 ? _a : row._id) !== null && _b !== void 0 ? _b : Math.random().toString(36).substr(2, 9));
+};
+const getRowIndex = (index) => {
+    return visibleStartIndex.value + index;
 };
 const getCellValue = (row, column) => {
     if (column.formatter) {
@@ -118,14 +101,22 @@ const getColumnStyle = (column) => {
     }
     return {};
 };
+const visibleStartIndex = computed(() => {
+    return Math.max(0, currentIndex.value - props.bufferSize);
+});
+const visibleEndIndex = computed(() => {
+    return Math.min(props.data.length, currentIndex.value + props.bufferSize + 1);
+});
+const visibleRows = computed(() => {
+    if (props.data.length === 0)
+        return [];
+    return props.data.slice(visibleStartIndex.value, visibleEndIndex.value);
+});
 const isRowSelected = (row) => {
     if (!props.selectedRows || props.selectedRows.length === 0)
         return false;
-    const rowKey = getRowKey(row, props.data.indexOf(row));
-    return props.selectedRows.some((selectedRow) => {
-        const selectedRowKey = getRowKey(selectedRow, props.data.indexOf(selectedRow));
-        return rowKey === selectedRowKey;
-    });
+    const rowKey = getRowKey(row);
+    return props.selectedRows.some(selectedRow => getRowKey(selectedRow) === rowKey);
 };
 const handleRowClick = (row) => {
     emit('row-click', row);
@@ -151,178 +142,126 @@ const handleSort = (column) => {
     };
     emit('sort-change', Object.assign({}, sortState.value));
 };
-const handleScroll = () => {
-    if (!bodyRef.value)
-        return;
-    const scrollTop = bodyRef.value.scrollTop;
-    const clientHeight = bodyRef.value.clientHeight;
-    const newStartIndex = Math.max(0, Math.floor(scrollTop / props.rowHeight) - props.bufferSize);
-    const newEndIndex = Math.min(props.data.length, Math.ceil((scrollTop + clientHeight) / props.rowHeight) + props.bufferSize);
-    const newOffsetY = newStartIndex * props.rowHeight;
-    startIndex.value = newStartIndex;
-    endIndex.value = newEndIndex;
-    offsetY.value = newOffsetY;
-    if (newEndIndex >= props.data.length - 10 && !props.loading) {
-        emit('load-more');
-    }
-};
-const updateVisibleCount = () => {
-    if (!bodyRef.value)
-        return;
-    const clientHeight = bodyRef.value.clientHeight;
-    visibleCount.value = Math.ceil(clientHeight / props.rowHeight) + 2 * props.bufferSize;
-    endIndex.value = Math.min(props.data.length, visibleCount.value);
-};
-const syncHeaderScroll = () => {
-    if (!headerRef.value || !bodyRef.value)
-        return;
-    headerRef.value.scrollLeft = bodyRef.value.scrollLeft;
-};
-const autoScroll = () => {
-    if (!bodyRef.value || isPaused.value || isTouching.value) {
+const offsetY = computed(() => {
+    const adjustedIndex = props.loop ? currentIndex.value + 1 : currentIndex.value;
+    return -adjustedIndex * props.rowHeight;
+});
+const scrollFrame = () => {
+    if (isPaused.value || isAdjusting.value || props.data.length === 0) {
         return;
     }
-    const now = Date.now();
-    const deltaTime = now - lastScrollTime.value;
-    lastScrollTime.value = now;
-    const scrollAmount = (currentSpeed.value * deltaTime) / 16;
-    bodyRef.value.scrollTop += scrollAmount;
-    if (bodyRef.value.scrollTop + bodyRef.value.clientHeight >= bodyRef.value.scrollHeight) {
-        if (props.loop) {
-            smoothScrollTo(0, 300);
+    isScrolling.value = true;
+    let nextIndex = currentIndex.value + 1;
+    if (props.loop) {
+        if (nextIndex > props.data.length) {
+            isAdjusting.value = true;
+            currentIndex.value = 0;
+            setTimeout(() => {
+                isAdjusting.value = false;
+            }, 50);
         }
         else {
-            isScrolling.value = false;
+            currentIndex.value = nextIndex;
+        }
+    }
+    else {
+        if (nextIndex < props.data.length) {
+            currentIndex.value = nextIndex;
+        }
+        else {
+            stopAutoScroll();
             return;
         }
     }
-    autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    const frameTime = 1000 / (60 * currentSpeed.value);
+    scrollRequestId.value = window.setTimeout(() => {
+        window.requestAnimationFrame(scrollFrame);
+    }, frameTime);
 };
-const smoothScrollTo = (target, duration = 300) => {
-    if (!bodyRef.value)
+const startAutoScroll = () => {
+    if (scrollRequestId.value || props.data.length === 0)
         return;
-    const start = bodyRef.value.scrollTop;
-    const startTime = performance.now();
-    const animateScroll = (currentTime) => {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        const easeProgress = progress * (2 - progress);
-        if (bodyRef.value)
-            bodyRef.value.scrollTop = start + (target - start) * easeProgress;
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animateScroll);
-        }
-        else {
-            if (bodyRef.value)
-                bodyRef.value.scrollTop = target;
-            lastScrollTime.value = Date.now();
-            if (props.autoScroll && !isPaused.value) {
-                autoScrollFrame.value = requestAnimationFrame(autoScroll);
-            }
-        }
-    };
-    if (autoScrollFrame.value) {
-        cancelAnimationFrame(autoScrollFrame.value);
-        autoScrollFrame.value = null;
+    scrollFrame();
+};
+const stopAutoScroll = () => {
+    if (scrollRequestId.value) {
+        clearTimeout(scrollRequestId.value);
+        scrollRequestId.value = null;
     }
-    requestAnimationFrame(animateScroll);
+    isScrolling.value = false;
 };
 const togglePause = () => {
     isPaused.value = !isPaused.value;
     if (isPaused.value) {
-        if (autoScrollFrame.value) {
-            cancelAnimationFrame(autoScrollFrame.value);
-            autoScrollFrame.value = null;
-        }
+        stopAutoScroll();
         emit('scroll-pause');
     }
     else {
-        lastScrollTime.value = Date.now();
-        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+        startAutoScroll();
         emit('scroll-resume');
     }
 };
 const handleSpeedChange = (event) => {
     const target = event.target;
     currentSpeed.value = parseFloat(target.value);
+    if (!isPaused.value) {
+        stopAutoScroll();
+        startAutoScroll();
+    }
 };
 const handleMouseEnter = () => {
-    if (props.pauseOnHover && !isTouching.value) {
+    if (props.pauseOnHover && !isPaused.value) {
         isPaused.value = true;
+        stopAutoScroll();
     }
 };
 const handleMouseLeave = () => {
-    if (props.pauseOnHover && !isTouching.value && !isPaused.value) {
-        lastScrollTime.value = Date.now();
-        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    if (props.pauseOnHover && isPaused.value && props.autoScroll) {
+        isPaused.value = false;
+        startAutoScroll();
     }
 };
 const handleTouchStart = () => {
-    isTouching.value = true;
     if (!isPaused.value) {
         isPaused.value = true;
-        if (autoScrollFrame.value) {
-            cancelAnimationFrame(autoScrollFrame.value);
-            autoScrollFrame.value = null;
-        }
+        pausedByTouch.value = true;
+        stopAutoScroll();
     }
 };
 const handleTouchEnd = () => {
-    isTouching.value = false;
-    if (!isPaused.value && props.autoScroll) {
-        lastScrollTime.value = Date.now();
-        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+    if (pausedByTouch.value) {
+        isPaused.value = false;
+        pausedByTouch.value = false;
+        if (props.autoScroll)
+            startAutoScroll();
     }
 };
-watch(() => props.data, () => {
-    nextTick(() => {
-        handleScroll();
-        if (props.autoScroll && !isPaused.value && !isTouching.value) {
-            lastScrollTime.value = Date.now();
-            autoScrollFrame.value = requestAnimationFrame(autoScroll);
-        }
-    });
-}, { deep: true });
-watch(() => props.defaultSort, (newVal) => {
-    if (newVal && newVal.key) {
-        sortState.value = Object.assign({}, newVal);
-    }
-}, { deep: true });
-watch(() => props.autoScroll, (newVal) => {
-    if (newVal && !isPaused.value && !isTouching.value) {
-        lastScrollTime.value = Date.now();
-        autoScrollFrame.value = requestAnimationFrame(autoScroll);
-    }
-    else {
-        if (autoScrollFrame.value) {
-            cancelAnimationFrame(autoScrollFrame.value);
-            autoScrollFrame.value = null;
+watch(() => props.data.length, (newLen, oldLen) => {
+    if (newLen !== oldLen) {
+        currentIndex.value = 0;
+        if (props.autoScroll && !isPaused.value) {
+            stopAutoScroll();
+            startAutoScroll();
         }
     }
 });
 onMounted(() => {
-    updateVisibleCount();
-    if (bodyRef.value) {
-        bodyRef.value.addEventListener('scroll', handleScroll);
-        bodyRef.value.addEventListener('scroll', syncHeaderScroll);
-    }
-    window.addEventListener('resize', updateVisibleCount);
+    const resizeHandler = () => {
+        currentIndex.value = Math.min(currentIndex.value, props.data.length - 1);
+    };
+    window.addEventListener('resize', resizeHandler);
+    window.__cyberInfiniteTableResizeHandler = resizeHandler;
     if (props.autoScroll) {
-        isScrolling.value = true;
-        lastScrollTime.value = Date.now();
-        autoScrollFrame.value = requestAnimationFrame(autoScroll);
+        startAutoScroll();
     }
 });
 onUnmounted(() => {
-    if (autoScrollFrame.value) {
-        cancelAnimationFrame(autoScrollFrame.value);
-        autoScrollFrame.value = null;
+    stopAutoScroll();
+    const resizeHandler = window.__cyberInfiniteTableResizeHandler;
+    if (resizeHandler) {
+        window.removeEventListener('resize', resizeHandler);
+        delete window.__cyberInfiniteTableResizeHandler;
     }
-    if (bodyRef.value) {
-        bodyRef.value.removeEventListener('scroll', handleScroll);
-        bodyRef.value.removeEventListener('scroll', syncHeaderScroll);
-    }
-    window.removeEventListener('resize', updateVisibleCount);
 });
 debugger;
 const __VLS_ctx = {};
@@ -331,10 +270,7 @@ let __VLS_directives;
 ;
 ;
 ;
-;
-;
-;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-auto-scroll-table', { 'scrolling': __VLS_ctx.isScrolling, 'paused': __VLS_ctx.isPaused, 'loading': __VLS_ctx.loading }]) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: (['cp-infinite-table', { 'loading': __VLS_ctx.loading }]) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "table-header" }, { ref: "headerRef" }));
 ;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)({});
@@ -360,16 +296,26 @@ for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onMouseenter: (__VLS_ctx.handleMouseEnter) }, { onMouseleave: (__VLS_ctx.handleMouseLeave) }), { onTouchstart: (__VLS_ctx.handleTouchStart) }), { onTouchend: (__VLS_ctx.handleTouchEnd) }), { class: "table-body" }), { ref: "bodyRef" }));
 ;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "scroll-container" }, { style: ({ height: `${__VLS_ctx.totalHeight}px` }) }));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)(Object.assign({ style: ({ transform: `translateY(${__VLS_ctx.offsetY}px)` }) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.table, __VLS_intrinsicElements.table)(Object.assign({ style: ({ transform: `translateY(${__VLS_ctx.offsetY}px)`, transition: __VLS_ctx.isScrolling ? 'transform 0.3s ease-out' : 'none' }) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.colgroup, __VLS_intrinsicElements.colgroup)({});
 for (const [column, index] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.col, __VLS_intrinsicElements.col)(Object.assign({ key: (`col-${index}`) }, { style: (__VLS_ctx.getColumnStyle(column)) }));
 }
 __VLS_asFunctionalElement(__VLS_intrinsicElements.tbody, __VLS_intrinsicElements.tbody)({});
-for (const [row, rowIndex] of __VLS_getVForSourceType((__VLS_ctx.visibleData))) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign({ onClick: (...[$event]) => {
+if (__VLS_ctx.loop && __VLS_ctx.data.length > 0) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign({ key: ('clone-first') }, { class: "clone-row" }), { style: ({ height: `${__VLS_ctx.rowHeight}px` }) }));
+    for (const [column, colIndex] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.td, __VLS_intrinsicElements.td)({
+            key: (colIndex),
+        });
+        (__VLS_ctx.getCellValue(__VLS_ctx.data[__VLS_ctx.data.length - 1], column));
+    }
+}
+for (const [row, rowIndex] of __VLS_getVForSourceType((__VLS_ctx.visibleRows))) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign(Object.assign({ onClick: (...[$event]) => {
             __VLS_ctx.handleRowClick(row);
-        } }, { key: (__VLS_ctx.getRowKey(row, rowIndex)) }), { class: ({ 'selected': __VLS_ctx.isRowSelected(row) }) }));
+        } }, { key: (`row-${__VLS_ctx.getRowIndex(rowIndex)}`) }), { class: ({ 'selected': __VLS_ctx.isRowSelected(row) }) }), { style: ({ height: `${__VLS_ctx.rowHeight}px` }) }));
+    __VLS_asFunctionalDirective(__VLS_directives.vMemo)(null, Object.assign(Object.assign({}, __VLS_directiveBindingRestFields), { value: ([row, __VLS_ctx.sortState]) }), null, null);
     for (const [column, colIndex] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.td, __VLS_intrinsicElements.td)({
             key: (`cell-${rowIndex}-${colIndex}`),
@@ -377,10 +323,19 @@ for (const [row, rowIndex] of __VLS_getVForSourceType((__VLS_ctx.visibleData))) 
         var __VLS_0 = {
             row: (row),
             column: (column),
-            index: (__VLS_ctx.startIndex + rowIndex),
+            index: (__VLS_ctx.getRowIndex(rowIndex)),
         };
         var __VLS_1 = __VLS_tryAsConstant(`cell-${column.key}`);
         (__VLS_ctx.getCellValue(row, column));
+    }
+}
+if (__VLS_ctx.loop && __VLS_ctx.data.length > 0) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.tr, __VLS_intrinsicElements.tr)(Object.assign(Object.assign({ key: ('clone-last') }, { class: "clone-row" }), { style: ({ height: `${__VLS_ctx.rowHeight}px` }) }));
+    for (const [column, colIndex] of __VLS_getVForSourceType((__VLS_ctx.columns))) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.td, __VLS_intrinsicElements.td)({
+            key: (colIndex),
+        });
+        (__VLS_ctx.getCellValue(__VLS_ctx.data[0], column));
     }
 }
 if (__VLS_ctx.loading) {
@@ -407,7 +362,7 @@ if (__VLS_ctx.showControls) {
     }
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "control-speed" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.input, __VLS_intrinsicElements.input)(Object.assign({ onInput: (__VLS_ctx.handleSpeedChange) }, { type: "range", min: "0.1", max: "5", step: "0.1" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.input, __VLS_intrinsicElements.input)(Object.assign({ onInput: (__VLS_ctx.handleSpeedChange) }, { type: "range", min: "0.5", max: "5", step: "0.5" }));
     (__VLS_ctx.currentSpeed);
 }
 if (__VLS_ctx.$slots.footer) {
@@ -439,12 +394,6 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 ;
 ;
 ;
-;
-;
-;
-;
-;
-;
 var __VLS_2 = __VLS_1, __VLS_3 = __VLS_0, __VLS_5 = __VLS_4, __VLS_7 = __VLS_6;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
@@ -452,20 +401,19 @@ const __VLS_self = (await import('vue')).defineComponent({
         return {
             headerRef: headerRef,
             bodyRef: bodyRef,
-            startIndex: startIndex,
-            offsetY: offsetY,
             isScrolling: isScrolling,
             isPaused: isPaused,
             currentSpeed: currentSpeed,
             sortState: sortState,
             totalHeight: totalHeight,
-            visibleData: visibleData,
-            getRowKey: getRowKey,
+            getRowIndex: getRowIndex,
             getCellValue: getCellValue,
             getColumnStyle: getColumnStyle,
+            visibleRows: visibleRows,
             isRowSelected: isRowSelected,
             handleRowClick: handleRowClick,
             handleSort: handleSort,
+            offsetY: offsetY,
             togglePause: togglePause,
             handleSpeedChange: handleSpeedChange,
             handleMouseEnter: handleMouseEnter,
@@ -510,8 +458,8 @@ const __VLS_self = (await import('vue')).defineComponent({
         },
         speed: {
             type: Number,
-            default: 1.5,
-            validator: (value) => value >= 0.1 && value <= 5
+            default: 1,
+            validator: (value) => value >= 0.5 && value <= 5
         },
         loop: {
             type: Boolean,
@@ -571,8 +519,8 @@ const __VLS_component = (await import('vue')).defineComponent({
         },
         speed: {
             type: Number,
-            default: 1.5,
-            validator: (value) => value >= 0.1 && value <= 5
+            default: 1,
+            validator: (value) => value >= 0.5 && value <= 5
         },
         loop: {
             type: Boolean,

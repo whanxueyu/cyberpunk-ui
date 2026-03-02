@@ -17,19 +17,10 @@ const generateData = () => {
         timestamp: new Date().toLocaleTimeString()
     };
 };
-const loadMoreData = () => {
-    for (let i = 0; i < 20; i++) {
-        realTimeData.value.push(generateData());
-    }
-};
 onMounted(() => {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
         realTimeData.value.push(generateData());
     }
-    setInterval(() => {
-        realTimeData.value.shift();
-        realTimeData.value.push(generateData());
-    }, 2000);
 });
 debugger;
 const __VLS_ctx = {};
@@ -38,19 +29,27 @@ let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "dashboard" }));
 const __VLS_0 = {}.CyberInfiniteTable;
 ;
-const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0(Object.assign({ 'onLoadMore': {} }, { data: (__VLS_ctx.realTimeData), columns: (__VLS_ctx.columns), rowHeight: "45", autoScroll: (true), speed: (2), loop: (true), pauseOnHover: (true), showControls: (true) })));
-const __VLS_2 = __VLS_1(Object.assign({ 'onLoadMore': {} }, { data: (__VLS_ctx.realTimeData), columns: (__VLS_ctx.columns), rowHeight: "45", autoScroll: (true), speed: (2), loop: (true), pauseOnHover: (true), showControls: (true) }), ...__VLS_functionalComponentArgsRest(__VLS_1));
-let __VLS_4;
-let __VLS_5;
-let __VLS_6;
-const __VLS_7 = {
-    onLoadMore: (__VLS_ctx.loadMoreData)
-};
+const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
+    data: (__VLS_ctx.realTimeData),
+    columns: (__VLS_ctx.columns),
+    speed: (0.1),
+    loop: (true),
+    pauseOnHover: (true),
+    theme: "neon",
+}));
+const __VLS_2 = __VLS_1({
+    data: (__VLS_ctx.realTimeData),
+    columns: (__VLS_ctx.columns),
+    speed: (0.1),
+    loop: (true),
+    pauseOnHover: (true),
+    theme: "neon",
+}, ...__VLS_functionalComponentArgsRest(__VLS_1));
 __VLS_3.slots.default;
 {
     const { 'cell-status': __VLS_thisSlot } = __VLS_3.slots;
     const [{ row }] = __VLS_getSlotParams(__VLS_thisSlot);
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: (`status-dot ${row.status}`) }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: (`status-indicator ${row.status}`) }));
     (row.status);
 }
 var __VLS_3;
@@ -61,7 +60,6 @@ const __VLS_self = (await import('vue')).defineComponent({
         return {
             columns: columns,
             realTimeData: realTimeData,
-            loadMoreData: loadMoreData,
         };
     },
 });

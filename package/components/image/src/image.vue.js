@@ -1,4 +1,4 @@
-import { defineProps, withDefaults, ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 defineOptions({
     name: 'CyberImage',
 });
@@ -115,10 +115,6 @@ else if (__VLS_ctx.hasError) {
     var __VLS_4 = {};
     (__VLS_ctx.errorContent);
 }
-;
-;
-;
-;
 ;
 ;
 ;

@@ -146,9 +146,6 @@ for (const [item, index] of __VLS_getVForSourceType((props.items))) {
 ;
 ;
 ;
-;
-;
-;
 var __VLS_1 = __VLS_0;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({

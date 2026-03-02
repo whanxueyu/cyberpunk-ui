@@ -28,7 +28,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { defineProps, withDefaults, ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 defineOptions({
     name: 'CyberImage',
 })

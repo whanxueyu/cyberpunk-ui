@@ -83,8 +83,6 @@ else {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
     (props.content);
 }
-;
-;
 var __VLS_1 = __VLS_0;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
