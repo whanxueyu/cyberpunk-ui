@@ -1,6 +1,7 @@
 import { CyberButton } from '../components/button';
 import { CyberNotification } from '../components/cyberNotification';
 import { CyberTooltip } from '../components/cyberTooltip';
+import { CyberProgress } from '../components/cyberProgress';
 import { CyberDigitalCounter } from '../components/digitalCounter';
 import { CyberFullPage } from '../components/fullPage'
 import { CyberGlitchImage } from '../components/glitchImage';
@@ -25,6 +26,7 @@ export default [
     CyberButton,
     CyberNotification,
     CyberTooltip,
+    CyberProgress,
     CyberDigitalCounter,
     CyberGlitchImage,
     CyberGlitchProgress,

@@ -1,6 +1,7 @@
 export * from './button';
 export * from './cyberNotification';
 export * from './cyberTooltip';
+export * from './cyberProgress';
 export * from './digitalCounter';
 export * from './fullPage';
 export * from './glitchImage'
