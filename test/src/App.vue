@@ -5,9 +5,10 @@ import buttonPanel from './conponents/button.vue'
 import textPanel from './conponents/text.vue'
 import switchPanel from './conponents/switch.vue'
 import tooltipPanel from './conponents/tooltip.vue'
-import imagesPanel from './conponents/images.vue'
-import cyberImagePanel from './conponents/cyberimage.vue'
-import bannerPanel from './conponents/banner.vue'
+import progressPanel from './conponents/progress.vue'
+// import imagesPanel from './conponents/images.vue'
+// import cyberImagePanel from './conponents/cyberimage.vue'
+// import bannerPanel from './conponents/banner.vue'
 import cardPanel from './conponents/card.vue';
 import loadingPanel from './conponents/loading.vue';
 import tablePanel from './conponents/table.vue'
@@ -34,18 +35,18 @@ const changeShow = (show: boolean) => {
   showTitle.value = show;
 }
 const sectionItems = [
-  {
-    title: '轮播图片',
-    content: 'buttonPanel'
-  },
-  {
-    title: '赛博图片',
-    content: 'imagesPanel'
-  },
-  {
-    title: '故障图片',
-    content: 'cyberImagePanel'
-  },
+  // {
+  //   title: '轮播图片',
+  //   content: 'buttonPanel'
+  // },
+  // {
+  //   title: '赛博图片',
+  //   content: 'imagesPanel'
+  // },
+  // {
+  //   title: '故障图片',
+  //   content: 'cyberImagePanel'
+  // },
   {
     title: '滚动表格',
     content: 'tablePanel'
@@ -82,7 +83,7 @@ const showTitle = ref(true)
   <layout @changePosition="changePosition" @changeShow="changeShow">
     <CyberFullPage :items="sectionItems" @toNext="toNext" @toLast="toLast" @change="changePage" :position="dotPosition"
       :offset="60" :showTitle="showTitle">
-      <div class="section">
+      <!-- <div class="section">
         <div class="title">
           <div class="title_text">轮播图片
           </div>
@@ -102,7 +103,7 @@ const showTitle = ref(true)
           </div>
         </div>
         <imagesPanel></imagesPanel>
-      </div>
+      </div> -->
       <div class="section">
         <div class="title">滚动表格</div>
         <div class="content-box">
@@ -130,7 +131,8 @@ const showTitle = ref(true)
           <div class="title_text">霓虹开关</div>
           <div class="title_text">进度条</div>
         </div>
-        <switchPanel></switchPanel>
+        <!-- <switchPanel></switchPanel> -->
+        <progressPanel></progressPanel>
       </div>
       <div class="section">
         <div class="title">

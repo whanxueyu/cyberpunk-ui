@@ -5,7 +5,7 @@
     "declaration": false, // 默认不要声明文件
     "noImplicitAny": false, // 支持类型不标注可以默认any
     "removeComments": true, // 删除注释
-    "moduleResolution": "node", // 按照node模块来解析
+    "moduleResolution": "bundler", // 按照 bundler 模块来解析（支持 ESM）
     "esModuleInterop": true, // 支持es6,commonjs模块
     "jsx": "preserve", // jsx 不转
     "noLib": false, // 不处理类库

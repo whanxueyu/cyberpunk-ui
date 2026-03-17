@@ -167,7 +167,7 @@ for (const [node, index] of __VLS_getVForSourceType((__VLS_ctx.flatNodes))) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ key: (`${node.id}-${node._expanded}-${__VLS_ctx.refreshKey}`) }, { class: (['tree-node', { 'expanded': node._expanded, 'leaf': __VLS_ctx.isLeaf(node), 'last-child': __VLS_ctx.isLastChild(node, index) }]) }), { style: ({ paddingLeft: `${__VLS_ctx.getNodeIndent(node)}px` }) }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-connectors" }));
     for (const [level] of __VLS_getVForSourceType((__VLS_ctx.getNodeLevel(node)))) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "vertical-line" }, { class: ({ 'hidden': __VLS_ctx.shouldHideVerticalLine(node, level) }) }), { style: ({ left: `${(level - 1) * __VLS_ctx.indent + __VLS_ctx.getNodeIndent(node)}px` }) }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "vertical-line" }, { class: ({ 'hidden': __VLS_ctx.shouldHideVerticalLine(node, level) }) }), { style: ({ left: `${__VLS_ctx.getNodeIndent(node) - 12}px` }) }));
     }
     if (!__VLS_ctx.isLeaf(node)) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onClick: (...[$event]) => {
@@ -197,7 +197,7 @@ for (const [node, index] of __VLS_getVForSourceType((__VLS_ctx.flatNodes))) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "status-indicator" }, { class: (`status-${node.status}`) }));
     }
     if (__VLS_ctx.getNodeLevel(node) > 0) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "horizontal-connector" }, { style: ({ left: `${(__VLS_ctx.getNodeLevel(node) - 1) * __VLS_ctx.indent + __VLS_ctx.getNodeIndent(node) - 12}px` }) }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "horizontal-connector" }, { style: ({ left: `${__VLS_ctx.getNodeIndent(node) - 12}px` }) }));
     }
 }
 if (__VLS_ctx.showScanline) {
