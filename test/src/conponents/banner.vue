@@ -59,11 +59,11 @@ const treeData = ref([
   }
 ]);
 
-const handleNodeClick = (node) => {
+const handleNodeClick = (node: any) => {
   console.log('Node clicked:', node);
 };
 
-const handleSelectChange = (selectedNodes) => {
+const handleSelectChange = (selectedNodes: any[]) => {
   console.log('Selected nodes:', selectedNodes);
 };
 </script>
