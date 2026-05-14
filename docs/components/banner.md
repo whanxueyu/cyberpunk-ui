@@ -53,7 +53,6 @@ const imgList = [
 
 <style scoped>
 .content {
-    border-left: 1px solid #ccc;
     padding: 20px;
     text-align: left;
 }

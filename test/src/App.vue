@@ -3,17 +3,21 @@ import { ref } from "vue";
 import layout from "./layout/layout.vue";
 
 // 导入所有演示组件
+import bannerPanel from './conponents/banner.vue';
+import treePanel from './conponents/tree.vue';
+import cyberImagePanel from './conponents/cyberimage.vue';
+import imagesPanel from './conponents/images.vue';
 import buttonPanel from "./conponents/button.vue";
 import textPanel from "./conponents/text.vue";
 import switchPanel from "./conponents/switch.vue";
+import glitchProgressPanel from './conponents/glitch-progress.vue';
 import tooltipPanel from "./conponents/tooltip.vue";
+import digitalCounterPanel from './conponents/digital-counter.vue';
 import progressPanel from "./conponents/progress.vue";
-import cardPanel from "./conponents/card.vue";
-import loadingPanel from "./conponents/loading.vue";
 import tablePanel from "./conponents/table.vue";
-import imagesPanel from './conponents/images.vue'
-import cyberImagePanel from './conponents/cyberimage.vue'
-import bannerPanel from './conponents/banner.vue'
+import loadingPanel from "./conponents/loading.vue";
+import cardPanel from "./conponents/card.vue";
+import notificationPanel from './conponents/notification.vue';
 
 console.log(
   "%c %s",
@@ -21,171 +25,85 @@ console.log(
   "CyberPunk-UI - Component Showcase"
 );
 
-// 导航配置
-const sections = [
-    {
-    title: '轮播图片',
-    component: bannerPanel,
-    hasContentBox: true,
-  },
-  {
-    title: '赛博图片',
-    component: cyberImagePanel,
-    hasContentBox: true,
-  },
-  // {
-  //   title: '故障图片',
-  //   component: imagesPanel,
-  //   hasContentBox: true,
-  // },
-  { title: '进度条', component: progressPanel, hasContentBox: false },
-  { title: '滚动表格', component: tablePanel, hasContentBox: true },
-  { title: '文字样式', component: textPanel, hasContentBox: true },
-  { 
-    title: '按钮组', 
-    component: buttonPanel,
-    hasContentBox: true,
-    subTitles: ['故障按钮', '霓虹按钮', '反光按钮']
-  },
-  { title: '霓虹开关', component: switchPanel, hasContentBox: false },
-  { 
-    title: '提示与翻牌器', 
-    component: tooltipPanel,
-    hasContentBox: true,
-    subTitles: ['鼠标提示', '数字翻牌器']
-  },
-  { title: 'Loading', component: loadingPanel, hasContentBox: true },
-  { title: '卡片', component: cardPanel, hasContentBox: false },
-];
+// 组件菜单列表
+const componentsMenu = ref([
+  { title: '轮播图片', component: bannerPanel },
+  { title: '树形控件', component: treePanel },
+  { title: '赛博图片', component: cyberImagePanel },
+  { title: '故障图片', component: imagesPanel },
+  { title: '按钮组', component: buttonPanel },
+  { title: '文字样式', component: textPanel },
+  { title: '霓虹开关', component: switchPanel },
+  { title: '故障进度条', component: glitchProgressPanel },
+  { title: '鼠标提示', component: tooltipPanel },
+  { title: '数字翻牌器', component: digitalCounterPanel },
+  { title: '赛博进度条', component: progressPanel },
+  { title: '滚动表格', component: tablePanel },
+  { title: 'Loading', component: loadingPanel },
+  { title: '卡片', component: cardPanel },
+  { title: '通知提示', component: notificationPanel },
+]);
 
-// FullPage 组件配置
-const sectionItems = sections.map(section => ({
-  title: section.title,
-  component: section.component,
-}));
+// 当前选中的组件面板
+const activeMenu = ref(bannerPanel);
 
-// 状态管理
-const dotPosition = ref("right");
-const showTitle = ref(true);
-
-// 事件处理
-const handleNavigate = (index: number, direction: string) => {
-  console.log(`${direction}:`, index);
-};
-
-const handleChangePage = (content: any) => {
-  console.log("Current page:", content);
-};
-
-const handleChangePosition = (position: string) => {
-  dotPosition.value = position;
-};
-
-const handleChangeShow = (show: boolean) => {
-  showTitle.value = show;
+const handleMenuClick = (component: any) => {
+  activeMenu.value = component;
 };
 </script>
 
 <template>
-  <layout 
-    @changePosition="handleChangePosition" 
-    @changeShow="handleChangeShow"
-  >
-    <CyberFullPage
-      :items="sectionItems"
-      @toNext="(index: number) => handleNavigate(index, 'Next')"
-      @toLast="(index: number) => handleNavigate(index, 'Last')"
-      @change="handleChangePage"
-      :position="dotPosition"
-      :offset="60"
-      :showTitle="showTitle"
-    >
-      <div 
-        v-for="(section, index) in sections" 
-        :key="index"
-        class="section"
-      >
-        <div class="title">
-          <!-- 有子标题的情况 -->
-          <template v-if="section.subTitles">
-            <div 
-              v-for="(subTitle, idx) in section.subTitles" 
-              :key="idx"
-              class="title_text"
-            >
-              {{ subTitle }}
-            </div>
-          </template>
-          <!-- 普通标题 -->
-          <template v-else>
-            {{ section.title }}
-          </template>
+  <layout>
+    <template #aside>
+      <div class="menu-list">
+        <div
+          v-for="(item, index) in componentsMenu"
+          :key="index"
+          class="menu-item"
+          :class="{ active: activeMenu === item.component }"
+          @click="handleMenuClick(item.component)"
+        >
+          {{ item.title }}
         </div>
-        
-        <div v-if="section.hasContentBox" class="content-box">
-          <component :is="section.component" />
-        </div>
-        <component v-else :is="section.component" />
       </div>
-    </CyberFullPage>
+    </template>
+
+    <template #content>
+      <div class="main-content">
+        <component :is="activeMenu" />
+      </div>
+    </template>
   </layout>
 </template>
 
 <style scoped lang="scss">
-.section {
-  display: flex;
-  width: 100%;
-  height: calc(100vh - 60px);
-}
-
-.title {
-  min-width: 200px;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px;
+.menu-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  padding: 0 10px;
+}
 
-  .title_text {
-    padding: 10px;
+.menu-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.3s;
+  border-radius: 6px;
+  margin-bottom: 4px;
+
+  &:hover {
+    color: #fff;
+    background: #222;
+  }
+
+  &.active {
+    color: #fff;
+    background: linear-gradient(90deg, #CC54D1, #4EAFFA);
+    font-weight: bold;
   }
 }
 
-.content {
-  border-left: 1px solid #ccc;
-  padding: 20px;
-  text-align: left;
-  height: calc(100% - 40px);
-}
-
-.content-box {
-  height: 100%;
-  width: calc(100% - 240px);
-  overflow-y: auto;
-}
-
-.panel {
-  margin-bottom: 20px;
-
-  &.reflect1 {
-    height: 150px;
-  }
-
-  &.reflect2 {
-    height: 100px;
-  }
-
-  &.reflect3 {
-    height: 60px;
-  }
-}
-
-.subtitle {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-right: 20px;
+.main-content {
+  width: 100%;
 }
 </style>

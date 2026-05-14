@@ -1,58 +1,56 @@
 <template>
     <div class="main">
         <div class="header">
-            <head-vue @changePosition="changePosition" @changeShow="changeShow"></head-vue>
+            <head-vue />
         </div>
         <div class="page">
+            <div class="page-aside">
+                <slot name="aside"></slot>
+            </div>
             <div class="page-content">
-                <slot></slot>
+                <slot name="content"></slot>
             </div>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
 import headVue from './header.vue';
-const emits = defineEmits(["changePosition","changeShow"])
-const changePosition = (position: string) => {
-    emits("changePosition",position)
-}
-const changeShow = (value: boolean) => {
-    emits("changeShow",value)
-}
 </script>
 <style scoped lang="scss">
 .main {
   width: 100vw;
   height: 100vh;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   .header {
     height: 60px;
-    box-shadow: 0 0 5px #ccc;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+    border-bottom: 1px solid #333;
   }
 
   .page {
-    height: calc(100vh - 60px);
+    flex: 1;
     display: flex;
+    overflow: hidden;
 
     .page-aside {
-      width: 200px;
+      width: 240px;
       height: 100%;
-      border-right: 1px solid #ccc;
-      color: cyan;
-      font-size: 40px;
-      text-align: center;
+      border-right: 1px solid #333;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
     }
 
     .page-content {
-      width: calc(100%);
+      flex: 1;
       height: 100%;
+      overflow-y: auto;
+      padding: 30px;
+      box-sizing: border-box;
     }
   }
 }

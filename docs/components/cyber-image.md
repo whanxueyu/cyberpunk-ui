@@ -172,7 +172,6 @@
 | error	| 图片加载失败时显示的内容|
 <style scoped>
 .content {
-    border-left: 1px solid #ccc;
     padding: 20px;
     text-align: left;
 }
