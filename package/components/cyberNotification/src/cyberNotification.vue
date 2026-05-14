@@ -127,12 +127,15 @@ let notificationIdCounter = 0;
 const createNotification = (options: NotificationOptions): number => {
   const id = ++notificationIdCounter;
   
+  // 如果有操作按钮，默认居中且不自动关闭
+  const hasActions = options.actions && options.actions.length > 0;
+  
   const notification: Notification = {
     id,
     title: options.title || '',
     message: options.message,
     type: options.type || 'info',
-    duration: options.duration !== undefined ? options.duration : props.duration,
+    duration: options.duration !== undefined ? options.duration : (hasActions ? 0 : props.duration),
     showClose: options.showClose !== undefined ? options.showClose : true,
     showIcon: options.showIcon !== undefined ? options.showIcon : true,
     actions: options.actions || [],
@@ -237,29 +240,42 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   pointer-events: none;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  // 隐藏滚动条但保留滚动功能
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
   
   &.position-top-right {
-    top: 20px;
-    right: 20px;
+    top: 0;
+    right: 0;
     align-items: flex-end;
   }
   
   &.position-top-left {
-    top: 20px;
-    left: 20px;
+    top: 0;
+    left: 0;
     align-items: flex-start;
   }
   
   &.position-bottom-right {
-    bottom: 20px;
-    right: 20px;
+    bottom: 0;
+    right: 0;
     align-items: flex-end;
+    flex-direction: column-reverse;
   }
   
   &.position-bottom-left {
-    bottom: 20px;
-    left: 20px;
+    bottom: 0;
+    left: 0;
     align-items: flex-start;
+    flex-direction: column-reverse;
   }
   
   &.position-center {
@@ -267,22 +283,33 @@ onUnmounted(() => {
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: visible; // 居中时不需要滚动
   }
 }
 
 .cp-cyber-notification {
   position: relative;
-  width: 350px;
+  width: 380px;
   margin-bottom: 16px;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   pointer-events: auto;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
   
   // 基础样式
-  background-color: rgba(20, 20, 30, 0.85);
+  background-color: rgba(20, 20, 30, 0.9);
   border: 1px solid;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  
+  // 居中时的特殊样式
+  .position-center & {
+    width: 420px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    border-width: 2px;
+  }
   
   .notification-content {
     display: flex;
@@ -343,20 +370,31 @@ onUnmounted(() => {
   .notification-actions {
     margin-top: 12px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     
     .action-button {
-      padding: 6px 12px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex: 1;
+      padding: 8px 16px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 4px;
       color: inherit;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       
       &:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: var(--notification-color);
+        box-shadow: 0 0 10px var(--notification-color);
+        transform: translateY(-1px);
+      }
+      
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -605,20 +643,47 @@ onUnmounted(() => {
   }
 }
 
-// 过渡动画
+// 过渡动画 - 根据不同位置调整方向
 .notification-enter-active,
 .notification-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.notification-enter-from {
+// 右上角和右下角 - 从右侧滑入
+.position-top-right .notification-enter-from,
+.position-bottom-right .notification-enter-from {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(50px);
 }
 
-.notification-leave-to {
+.position-top-right .notification-leave-to,
+.position-bottom-right .notification-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(50px);
+}
+
+// 左上角和左下角 - 从左侧滑入
+.position-top-left .notification-enter-from,
+.position-bottom-left .notification-enter-from {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.position-top-left .notification-leave-to,
+.position-bottom-left .notification-leave-to {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+// 居中 - 从下方滑入并缩放
+.position-center .notification-enter-from {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+}
+
+.position-center .notification-leave-to {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.9);
 }
 
 // 动画定义

@@ -50,7 +50,6 @@
 </script>
 <style scoped lang="scss">
 .content {
-    border-left: 1px solid #ccc;
     padding: 20px;
     text-align: left;
 }
