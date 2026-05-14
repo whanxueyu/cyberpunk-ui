@@ -313,9 +313,7 @@ function changeBac(index) {
                 padding: 1px;
                 display: flex;
                 flex-direction: row-reverse;
-                // color: #fff;
                 transition: all linear 0.1s;
-                font-size: 12px;
             }
         }
     }

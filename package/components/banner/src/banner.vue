@@ -105,7 +105,6 @@ const getImageStyle = (index: number) => {
                 height: var(--img-height);
                 line-height: var(--img-height);
                 text-align: center;
-                font-size: 120px;
                 top: 0;
                 left: 0;
                 transform-style: preserve-3d;

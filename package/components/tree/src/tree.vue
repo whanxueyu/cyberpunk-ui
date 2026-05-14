@@ -556,7 +556,6 @@ defineExpose({
   flex: 1;
   
   .label-text {
-    font-size: 14px;
     letter-spacing: 0.5px;
     text-shadow: 0 0 5px var(--tree-primary);
   }

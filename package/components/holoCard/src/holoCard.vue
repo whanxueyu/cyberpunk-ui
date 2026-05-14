@@ -236,7 +236,6 @@ onMounted(() => {
     z-index: 3;
 
     .card-title {
-      font-size: 1.2em;
       font-weight: bold;
       margin-bottom: 10px;
     }

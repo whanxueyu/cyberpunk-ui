@@ -1,5 +1,5 @@
 <template>
-  <div class="text-container">
+  <div class="cyber-magic-text">
     <span class="gradient-text" :data-text="content">
         <slot></slot>
     </span>
@@ -19,7 +19,7 @@ if (slots && slots.default) {
 }
 </script>
 <style>
-.text-container {
+.cyber-magic-text {
   margin: auto;
   display: inline-block;
 }

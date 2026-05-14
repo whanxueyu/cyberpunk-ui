@@ -467,7 +467,6 @@ onUnmounted(() => {
       position: relative;
       z-index: 2;
       font-family: monospace;
-      font-size: 14px;
       line-height: 1.5;
     }
 

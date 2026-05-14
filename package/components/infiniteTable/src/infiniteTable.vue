@@ -468,7 +468,6 @@ onMounted(() => {
     width: 100%;
     
     .header-text {
-      font-size: 14px;
       font-weight: bold;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -573,7 +572,6 @@ onMounted(() => {
   }
   
   .cell-text {
-    font-size: 13px;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     display: block;

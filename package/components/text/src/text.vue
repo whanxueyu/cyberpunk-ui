@@ -30,7 +30,6 @@ const props = defineProps({
 <style lang="scss" scoped>
 .cp-text {
     position: relative;
-    font-size: 26px;
     font-family: Raleway, Verdana, Arial;
     display: inline-block;
     white-space: nowrap;

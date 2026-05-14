@@ -27,7 +27,6 @@ onMounted(() => {
   display: inline-block;
   font-family: 'Lobster';
   text-align: center;
-  font-size: 26px;
   line-height: 40px;
   color: var(--child-color);
   cursor: pointer;

@@ -498,7 +498,6 @@ onUnmounted(() => {
     .error-text {
       color: #00e6f6;
       font-family: 'Courier New', monospace;
-      font-size: 14px;
       text-shadow: 0 0 5px #00e6f6;
     }
     
