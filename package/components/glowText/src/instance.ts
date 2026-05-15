@@ -1,3 +1,3 @@
-import type GlowText from '/glowText.vue'
+import type GlowText from './glowText.vue'
 
 export type GlowTextInstance = InstanceType<typeof GlowText>
