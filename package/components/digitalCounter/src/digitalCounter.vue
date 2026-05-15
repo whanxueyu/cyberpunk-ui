@@ -232,10 +232,16 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+
+@font-face {
+    font-family: 'DigitalRegular';
+    src: url('Digital-7Mono.TTF') format('truetype');
+}
+
 .cp-digital-counter {
   display: inline-flex;
   align-items: center;
-  font-family: monospace;
+  font-family: DigitalRegular;
   
   .prefix, .suffix {
     margin: 0 4px;
@@ -319,7 +325,6 @@ onUnmounted(() => {
   &.theme-digital {
     color: #0f0;
     text-shadow: 0 0 5px #0f0;
-    font-family: 'Courier New', monospace;
     
     .digit-flipper {
       .digit-top, .digit-bottom {
