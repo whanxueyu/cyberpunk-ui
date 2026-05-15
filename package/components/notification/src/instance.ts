@@ -1,2 +1,2 @@
-import type cyberNotification from './cyberNotification.vue'
+import type cyberNotification from './notification.vue'
 export type NotificationInstance = InstanceType<typeof cyberNotification>

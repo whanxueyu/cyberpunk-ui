@@ -5,8 +5,8 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content" }));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 const __VLS_0 = {}.CyberNeonToggle;
 ;
 const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
@@ -37,8 +37,9 @@ const __VLS_10 = __VLS_9({
     modelValue: (__VLS_ctx.value),
     shape: "hex",
 }, ...__VLS_functionalComponentArgsRest(__VLS_9));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_12 = {}.CyberNeonToggle;
 ;
 const __VLS_13 = __VLS_asFunctionalComponent(__VLS_12, new __VLS_12({
@@ -111,8 +112,9 @@ const __VLS_34 = __VLS_33({
     modelValue: (__VLS_ctx.value),
     shape: "hex",
 }, ...__VLS_functionalComponentArgsRest(__VLS_33));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_36 = {}.CyberNeonToggle;
 ;
 const __VLS_37 = __VLS_asFunctionalComponent(__VLS_36, new __VLS_36({
@@ -167,8 +169,9 @@ const __VLS_54 = __VLS_53({
     modelValue: (__VLS_ctx.value),
     activeColor: "#00ff00cc",
 }, ...__VLS_functionalComponentArgsRest(__VLS_53));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_56 = {}.CyberNeonToggle;
 ;
 const __VLS_57 = __VLS_asFunctionalComponent(__VLS_56, new __VLS_56({
@@ -243,8 +246,9 @@ const __VLS_78 = __VLS_77({
     disabled: true,
     activeColor: "#00ff00cc",
 }, ...__VLS_functionalComponentArgsRest(__VLS_77));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_80 = {}.CyberNeonToggle;
 ;
 const __VLS_81 = __VLS_asFunctionalComponent(__VLS_80, new __VLS_80({
@@ -265,120 +269,20 @@ const __VLS_86 = __VLS_85({
     modelValue: (__VLS_ctx.value),
     pulseEffect: (false),
 }, ...__VLS_functionalComponentArgsRest(__VLS_85));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-const __VLS_88 = {}.CyberGlitchProgress;
 ;
-const __VLS_89 = __VLS_asFunctionalComponent(__VLS_88, new __VLS_88({
-    progress: (50),
-}));
-const __VLS_90 = __VLS_89({
-    progress: (50),
-}, ...__VLS_functionalComponentArgsRest(__VLS_89));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-const __VLS_92 = {}.CyberGlitchProgress;
 ;
-const __VLS_93 = __VLS_asFunctionalComponent(__VLS_92, new __VLS_92({
-    progress: (50),
-}));
-const __VLS_94 = __VLS_93({
-    progress: (50),
-}, ...__VLS_functionalComponentArgsRest(__VLS_93));
-const __VLS_96 = {}.CyberGlitchProgress;
 ;
-const __VLS_97 = __VLS_asFunctionalComponent(__VLS_96, new __VLS_96({
-    progress: (50),
-    direction: "vertical",
-}));
-const __VLS_98 = __VLS_97({
-    progress: (50),
-    direction: "vertical",
-}, ...__VLS_functionalComponentArgsRest(__VLS_97));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-const __VLS_100 = {}.CyberGlitchProgress;
 ;
-const __VLS_101 = __VLS_asFunctionalComponent(__VLS_100, new __VLS_100({
-    indeterminate: true,
-}));
-const __VLS_102 = __VLS_101({
-    indeterminate: true,
-}, ...__VLS_functionalComponentArgsRest(__VLS_101));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-const __VLS_104 = {}.CyberGlitchProgress;
 ;
-const __VLS_105 = __VLS_asFunctionalComponent(__VLS_104, new __VLS_104({
-    progress: (100),
-    color: "#02c54d",
-}));
-const __VLS_106 = __VLS_105({
-    progress: (100),
-    color: "#02c54d",
-}, ...__VLS_functionalComponentArgsRest(__VLS_105));
-const __VLS_108 = {}.CyberGlitchProgress;
 ;
-const __VLS_109 = __VLS_asFunctionalComponent(__VLS_108, new __VLS_108({
-    progress: (75),
-    color: "#00a6dc",
-}));
-const __VLS_110 = __VLS_109({
-    progress: (75),
-    color: "#00a6dc",
-}, ...__VLS_functionalComponentArgsRest(__VLS_109));
-const __VLS_112 = {}.CyberGlitchProgress;
 ;
-const __VLS_113 = __VLS_asFunctionalComponent(__VLS_112, new __VLS_112({
-    progress: (50),
-    color: "#ff9900",
-}));
-const __VLS_114 = __VLS_113({
-    progress: (50),
-    color: "#ff9900",
-}, ...__VLS_functionalComponentArgsRest(__VLS_113));
-const __VLS_116 = {}.CyberGlitchProgress;
 ;
-const __VLS_117 = __VLS_asFunctionalComponent(__VLS_116, new __VLS_116({
-    progress: (25),
-    color: "#ff013c",
-}));
-const __VLS_118 = __VLS_117({
-    progress: (25),
-    color: "#ff013c",
-}, ...__VLS_functionalComponentArgsRest(__VLS_117));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-const __VLS_120 = {}.CyberGlitchProgress;
 ;
-const __VLS_121 = __VLS_asFunctionalComponent(__VLS_120, new __VLS_120({
-    progress: (80),
-    glitchIntensity: (1),
-}));
-const __VLS_122 = __VLS_121({
-    progress: (80),
-    glitchIntensity: (1),
-}, ...__VLS_functionalComponentArgsRest(__VLS_121));
-const __VLS_124 = {}.CyberGlitchProgress;
 ;
-const __VLS_125 = __VLS_asFunctionalComponent(__VLS_124, new __VLS_124({
-    progress: (80),
-    glitchIntensity: (5),
-}));
-const __VLS_126 = __VLS_125({
-    progress: (80),
-    glitchIntensity: (5),
-}, ...__VLS_functionalComponentArgsRest(__VLS_125));
-const __VLS_128 = {}.CyberGlitchProgress;
 ;
-const __VLS_129 = __VLS_asFunctionalComponent(__VLS_128, new __VLS_128({
-    progress: (80),
-    glitchIntensity: (10),
-}));
-const __VLS_130 = __VLS_129({
-    progress: (80),
-    glitchIntensity: (10),
-}, ...__VLS_functionalComponentArgsRest(__VLS_129));
+;
+;
+;
 ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({

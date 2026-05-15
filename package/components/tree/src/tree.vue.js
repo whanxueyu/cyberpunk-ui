@@ -62,7 +62,7 @@ const getNodeIndent = (node) => {
 const isLastChild = (node, index) => {
     return node._isLastChild;
 };
-const shouldHideVerticalLine = (node, level) => {
+const isAncestorLastChild = (node, level) => {
     var _a;
     if (!props.showConnectors)
         return true;
@@ -162,54 +162,41 @@ let __VLS_components;
 let __VLS_directives;
 ;
 ;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cyber-tree" }, { class: ([`theme-${__VLS_ctx.theme}`, `effect-${__VLS_ctx.effect}`]) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cyber-tree" }, { class: ([`theme-${__VLS_ctx.theme}`]) }));
 for (const [node, index] of __VLS_getVForSourceType((__VLS_ctx.flatNodes))) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ key: (`${node.id}-${node._expanded}-${__VLS_ctx.refreshKey}`) }, { class: (['tree-node', { 'expanded': node._expanded, 'leaf': __VLS_ctx.isLeaf(node), 'last-child': __VLS_ctx.isLastChild(node, index) }]) }), { style: ({ paddingLeft: `${__VLS_ctx.getNodeIndent(node)}px` }) }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-connectors" }));
-    for (const [level] of __VLS_getVForSourceType((__VLS_ctx.getNodeLevel(node)))) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "vertical-line" }, { class: ({ 'hidden': __VLS_ctx.shouldHideVerticalLine(node, level) }) }), { style: ({ left: `${__VLS_ctx.getNodeIndent(node) - 12}px` }) }));
-    }
-    if (!__VLS_ctx.isLeaf(node)) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ onClick: (...[$event]) => {
-                if (!(!__VLS_ctx.isLeaf(node)))
-                    return;
-                __VLS_ctx.toggleNode(node);
-            } }, { class: "node-toggle" }), { style: ({ left: `${__VLS_ctx.getNodeIndent(node) - 20}px` }) }));
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "toggle-icon" }, { class: ({ 'rotated': node._expanded }) }));
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "icon-line vertical" }));
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "icon-line horizontal" }));
+    if (__VLS_ctx.showConnectors && __VLS_ctx.getNodeLevel(node) > 0) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "tree-connectors" }));
+        for (const [level] of __VLS_getVForSourceType((__VLS_ctx.getNodeLevel(node) - 1))) {
+            __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "ancestor-line" }, { class: ({
+                    'ancestor-hidden': __VLS_ctx.isAncestorLastChild(node, level)
+                }) }), { style: ({ left: `${level * __VLS_ctx.indent}px` }) }));
+        }
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "parent-line" }, { style: ({ left: `${(__VLS_ctx.getNodeLevel(node) - 1) * __VLS_ctx.indent}px` }) }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "horizontal-line" }, { style: ({
+                left: `${(__VLS_ctx.getNodeLevel(node) - 1) * __VLS_ctx.indent}px`,
+                width: `${__VLS_ctx.indent - 8}px`
+            }) }));
     }
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ onClick: (...[$event]) => {
             __VLS_ctx.handleContentClick(node);
         } }, { class: "node-content-wrapper" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-content" }, { class: ({ 'selected': node._selected }) }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-icon" }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "icon-glow" }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "icon-core" }, { class: (__VLS_ctx.getNodeIconClass(node)) }));
+    if (!__VLS_ctx.isLeaf(node)) {
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-expand-icon" }));
+        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "expand-arrow" }, { class: ({ 'rotated': node._expanded }) }));
+    }
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-label" }));
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "label-text" }));
     (node.label);
-    if (node._selected) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "label-underline" }));
-    }
     if (__VLS_ctx.showStatus && node.status) {
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "node-status" }));
         __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "status-indicator" }, { class: (`status-${node.status}`) }));
-    }
-    if (__VLS_ctx.getNodeLevel(node) > 0) {
-        __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "horizontal-connector" }, { style: ({ left: `${__VLS_ctx.getNodeIndent(node) - 12}px` }) }));
     }
 }
 if (__VLS_ctx.showScanline) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "tree-scanline" }));
 }
-;
-;
-;
-;
-;
-;
-;
 ;
 ;
 ;
@@ -234,10 +221,8 @@ const __VLS_self = (await import('vue')).defineComponent({
             getNodeLevel: getNodeLevel,
             getNodeIndent: getNodeIndent,
             isLastChild: isLastChild,
-            shouldHideVerticalLine: shouldHideVerticalLine,
-            toggleNode: toggleNode,
+            isAncestorLastChild: isAncestorLastChild,
             handleContentClick: handleContentClick,
-            getNodeIconClass: getNodeIconClass,
         };
     },
     __typeEmits: {},

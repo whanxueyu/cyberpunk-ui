@@ -1,7 +1,7 @@
 import { CyberButton } from '../components/button';
-import { CyberNotification } from '../components/cyberNotification';
-import { CyberTooltip } from '../components/cyberTooltip';
-import { CyberProgress } from '../components/cyberProgress';
+import { CyberNotification } from '../components/notification';
+import { CyberTooltip } from '../components/tooltip';
+import { CyberProgress } from '../components/progress';
 import { CyberDigitalCounter } from '../components/digitalCounter';
 import { CyberFullPage } from '../components/fullPage'
 import { CyberGlitchImage } from '../components/glitchImage';

@@ -1,2 +1,2 @@
-import type cyberTooltip from './cyberTooltip.vue'
+import type cyberTooltip from './tooltip.vue'
 export type TooltipInstance = InstanceType<typeof cyberTooltip>

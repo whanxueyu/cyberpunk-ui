@@ -24,6 +24,9 @@ const props = defineProps({
         default: 400
     }
 });
+const containerHeight = ref(props.imgHeight);
+if (props.shadow)
+    containerHeight.value = props.imgHeight * 2;
 const imageCount = ref(props.imgList.length);
 const containerWidth = calculateWaistLength(props.imgWidth, 360 / imageCount.value) * 1.6;
 function calculateWaistLength(baseLength, apexAngle) {
@@ -43,6 +46,7 @@ const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 ;
+__VLS_ctx.containerHeight + "px";
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "container" }, { style: ({
         '--container-width': `${__VLS_ctx.containerWidth}px`,
         '--img-width': `${props.imgWidth}px`,
@@ -68,6 +72,7 @@ var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
+            containerHeight: containerHeight,
             containerWidth: containerWidth,
             getImageStyle: getImageStyle,
         };

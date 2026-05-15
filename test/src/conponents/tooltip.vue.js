@@ -1,29 +1,10 @@
-import { ref, nextTick } from 'vue';
-const num1 = ref(999);
-const num2 = ref(12345);
-const num3 = ref(75);
-const num4 = ref(1234.56789);
-const num5 = ref(1234567.89);
-const reLoad = () => {
-    num1.value = 0;
-    num2.value = 0;
-    num3.value = 0;
-    num4.value = 0;
-    num5.value = 0;
-    nextTick(() => {
-        num1.value = 999;
-        num2.value = 12345;
-        num3.value = 75;
-        num4.value = 1234.56789;
-        num5.value = 1234567.89;
-    });
-};
 debugger;
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "content" }));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_0 = {}.CyberTooltip;
 ;
@@ -36,7 +17,8 @@ const __VLS_2 = __VLS_1({
 __VLS_3.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_3;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_4 = {}.CyberTooltip;
 ;
@@ -103,7 +85,8 @@ const __VLS_22 = __VLS_21({
 __VLS_23.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_23;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_24 = {}.CyberTooltip;
 ;
@@ -157,7 +140,8 @@ const __VLS_38 = __VLS_37({
 __VLS_39.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_39;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_40 = {}.CyberTooltip;
 ;
@@ -198,7 +182,8 @@ const __VLS_50 = __VLS_49({
 __VLS_51.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_51;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_52 = {}.CyberTooltip;
 ;
@@ -239,7 +224,8 @@ const __VLS_62 = __VLS_61({
 __VLS_63.slots.default;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_63;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "section-title" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
 const __VLS_64 = {}.CyberTooltip;
 ;
@@ -267,255 +253,12 @@ __VLS_67.slots.default;
 }
 __VLS_asFunctionalElement(__VLS_intrinsicElements.u, __VLS_intrinsicElements.u)({});
 var __VLS_67;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ style: {} }));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_72 = {}.CyberDigitalCounter;
 ;
-const __VLS_73 = __VLS_asFunctionalComponent(__VLS_72, new __VLS_72({
-    value: (__VLS_ctx.num1),
-}));
-const __VLS_74 = __VLS_73({
-    value: (__VLS_ctx.num1),
-}, ...__VLS_functionalComponentArgsRest(__VLS_73));
-const __VLS_76 = {}.CyberButton;
 ;
-const __VLS_77 = __VLS_asFunctionalComponent(__VLS_76, new __VLS_76(Object.assign({ 'onClick': {} }, { type: "warning", size: "small", content: "重新加载" })));
-const __VLS_78 = __VLS_77(Object.assign({ 'onClick': {} }, { type: "warning", size: "small", content: "重新加载" }), ...__VLS_functionalComponentArgsRest(__VLS_77));
-let __VLS_80;
-let __VLS_81;
-let __VLS_82;
-const __VLS_83 = {
-    onClick: (__VLS_ctx.reLoad)
-};
-__VLS_79.slots.default;
-var __VLS_79;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_84 = {}.CyberDigitalCounter;
 ;
-const __VLS_85 = __VLS_asFunctionalComponent(__VLS_84, new __VLS_84({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (1000),
-}));
-const __VLS_86 = __VLS_85({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (1000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_85));
-const __VLS_88 = {}.CyberDigitalCounter;
 ;
-const __VLS_89 = __VLS_asFunctionalComponent(__VLS_88, new __VLS_88({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (2000),
-}));
-const __VLS_90 = __VLS_89({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (2000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_89));
-const __VLS_92 = {}.CyberDigitalCounter;
 ;
-const __VLS_93 = __VLS_asFunctionalComponent(__VLS_92, new __VLS_92({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (3000),
-}));
-const __VLS_94 = __VLS_93({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (3000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_93));
-const __VLS_96 = {}.CyberDigitalCounter;
 ;
-const __VLS_97 = __VLS_asFunctionalComponent(__VLS_96, new __VLS_96({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (5000),
-}));
-const __VLS_98 = __VLS_97({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (5000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_97));
-const __VLS_100 = {}.CyberDigitalCounter;
-;
-const __VLS_101 = __VLS_asFunctionalComponent(__VLS_100, new __VLS_100({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (8000),
-}));
-const __VLS_102 = __VLS_101({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (8000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_101));
-const __VLS_104 = {}.CyberDigitalCounter;
-;
-const __VLS_105 = __VLS_asFunctionalComponent(__VLS_104, new __VLS_104({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (10000),
-}));
-const __VLS_106 = __VLS_105({
-    value: (__VLS_ctx.num1),
-    from: (0),
-    to: (__VLS_ctx.num1),
-    duration: (10000),
-}, ...__VLS_functionalComponentArgsRest(__VLS_105));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_108 = {}.CyberDigitalCounter;
-;
-const __VLS_109 = __VLS_asFunctionalComponent(__VLS_108, new __VLS_108({
-    value: (__VLS_ctx.num2),
-    theme: "neon",
-}));
-const __VLS_110 = __VLS_109({
-    value: (__VLS_ctx.num2),
-    theme: "neon",
-}, ...__VLS_functionalComponentArgsRest(__VLS_109));
-const __VLS_112 = {}.CyberDigitalCounter;
-;
-const __VLS_113 = __VLS_asFunctionalComponent(__VLS_112, new __VLS_112({
-    value: (__VLS_ctx.num2),
-    theme: "digital",
-}));
-const __VLS_114 = __VLS_113({
-    value: (__VLS_ctx.num2),
-    theme: "digital",
-}, ...__VLS_functionalComponentArgsRest(__VLS_113));
-const __VLS_116 = {}.CyberDigitalCounter;
-;
-const __VLS_117 = __VLS_asFunctionalComponent(__VLS_116, new __VLS_116({
-    value: (__VLS_ctx.num2),
-    theme: "hologram",
-}));
-const __VLS_118 = __VLS_117({
-    value: (__VLS_ctx.num2),
-    theme: "hologram",
-}, ...__VLS_functionalComponentArgsRest(__VLS_117));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_120 = {}.CyberDigitalCounter;
-;
-const __VLS_121 = __VLS_asFunctionalComponent(__VLS_120, new __VLS_120({
-    value: (__VLS_ctx.num2),
-    prefix: "$",
-}));
-const __VLS_122 = __VLS_121({
-    value: (__VLS_ctx.num2),
-    prefix: "$",
-}, ...__VLS_functionalComponentArgsRest(__VLS_121));
-const __VLS_124 = {}.CyberDigitalCounter;
-;
-const __VLS_125 = __VLS_asFunctionalComponent(__VLS_124, new __VLS_124({
-    value: (__VLS_ctx.num3),
-    suffix: "%",
-}));
-const __VLS_126 = __VLS_125({
-    value: (__VLS_ctx.num3),
-    suffix: "%",
-}, ...__VLS_functionalComponentArgsRest(__VLS_125));
-const __VLS_128 = {}.CyberDigitalCounter;
-;
-const __VLS_129 = __VLS_asFunctionalComponent(__VLS_128, new __VLS_128({
-    value: (__VLS_ctx.num2),
-    prefix: "Level ",
-    suffix: " Achieved",
-}));
-const __VLS_130 = __VLS_129({
-    value: (__VLS_ctx.num2),
-    prefix: "Level ",
-    suffix: " Achieved",
-}, ...__VLS_functionalComponentArgsRest(__VLS_129));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_132 = {}.CyberDigitalCounter;
-;
-const __VLS_133 = __VLS_asFunctionalComponent(__VLS_132, new __VLS_132({
-    value: (__VLS_ctx.num4),
-    decimal: (0),
-}));
-const __VLS_134 = __VLS_133({
-    value: (__VLS_ctx.num4),
-    decimal: (0),
-}, ...__VLS_functionalComponentArgsRest(__VLS_133));
-const __VLS_136 = {}.CyberDigitalCounter;
-;
-const __VLS_137 = __VLS_asFunctionalComponent(__VLS_136, new __VLS_136({
-    value: (__VLS_ctx.num4),
-    decimal: (2),
-}));
-const __VLS_138 = __VLS_137({
-    value: (__VLS_ctx.num4),
-    decimal: (2),
-}, ...__VLS_functionalComponentArgsRest(__VLS_137));
-const __VLS_140 = {}.CyberDigitalCounter;
-;
-const __VLS_141 = __VLS_asFunctionalComponent(__VLS_140, new __VLS_140({
-    value: (__VLS_ctx.num4),
-    decimal: (4),
-}));
-const __VLS_142 = __VLS_141({
-    value: (__VLS_ctx.num4),
-    decimal: (4),
-}, ...__VLS_functionalComponentArgsRest(__VLS_141));
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "flex" }));
-const __VLS_144 = {}.CyberDigitalCounter;
-;
-const __VLS_145 = __VLS_asFunctionalComponent(__VLS_144, new __VLS_144({
-    value: (__VLS_ctx.num5),
-    separator: ",",
-}));
-const __VLS_146 = __VLS_145({
-    value: (__VLS_ctx.num5),
-    separator: ",",
-}, ...__VLS_functionalComponentArgsRest(__VLS_145));
-const __VLS_148 = {}.CyberDigitalCounter;
-;
-const __VLS_149 = __VLS_asFunctionalComponent(__VLS_148, new __VLS_148({
-    value: (__VLS_ctx.num5),
-    separator: " ",
-}));
-const __VLS_150 = __VLS_149({
-    value: (__VLS_ctx.num5),
-    separator: " ",
-}, ...__VLS_functionalComponentArgsRest(__VLS_149));
-const __VLS_152 = {}.CyberDigitalCounter;
-;
-const __VLS_153 = __VLS_asFunctionalComponent(__VLS_152, new __VLS_152({
-    value: (__VLS_ctx.num5),
-    separator: "-",
-}));
-const __VLS_154 = __VLS_153({
-    value: (__VLS_ctx.num5),
-    separator: "-",
-}, ...__VLS_functionalComponentArgsRest(__VLS_153));
-const __VLS_156 = {}.CyberDigitalCounter;
-;
-const __VLS_157 = __VLS_asFunctionalComponent(__VLS_156, new __VLS_156({
-    value: (__VLS_ctx.num5),
-    separator: "/",
-}));
-const __VLS_158 = __VLS_157({
-    value: (__VLS_ctx.num5),
-    separator: "/",
-}, ...__VLS_functionalComponentArgsRest(__VLS_157));
 ;
 ;
 ;
@@ -532,14 +275,7 @@ const __VLS_158 = __VLS_157({
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
-        return {
-            num1: num1,
-            num2: num2,
-            num3: num3,
-            num4: num4,
-            num5: num5,
-            reLoad: reLoad,
-        };
+        return {};
     },
 });
 export default (await import('vue')).defineComponent({

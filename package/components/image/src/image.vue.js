@@ -1,56 +1,59 @@
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from "vue";
+const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,svg}', { eager: true, as: 'url' });
 defineOptions({
-    name: 'CyberImage',
+    name: "CyberImage",
 });
 const props = withDefaults(defineProps(), {
-    src: '',
-    alt: '',
-    width: '100%',
-    height: '100%',
-    fit: 'cover',
-    loading: 'lazy',
-    errorSrc: '',
-    crossorigin: 'anonymous',
-    errorContent: 'Image failed to load',
-    disableGlitch: false
+    src: "",
+    alt: "",
+    width: "auto",
+    height: "auto",
+    fit: "cover",
+    loading: "lazy",
+    errorSrc: "",
+    crossorigin: "anonymous",
+    errorContent: "Image failed to load",
+    disableGlitch: false,
 });
+const resolveImagePath = (path) => {
+    if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+        return path;
+    }
+    for (const [modulePath, moduleUrl] of Object.entries(imageModules)) {
+        if (modulePath.includes(path) || path.includes(modulePath.split('/').pop() || '')) {
+            return moduleUrl;
+        }
+    }
+    return path;
+};
 const isLoaded = ref(false);
 const hasError = ref(false);
-const actualSrc = ref(props.src);
-const normalizedWidth = computed(() => typeof props.width === 'number' ? `${props.width}px` : props.width);
-const normalizedHeight = computed(() => typeof props.height === 'number' ? `${props.height}px` : props.height);
-const backgroundImage = computed(() => {
-    if (hasError.value && props.errorSrc)
-        return `url(${props.errorSrc}) no-repeat`;
-    return `url(${actualSrc.value}) no-repeat`;
+const actualSrc = ref('');
+const wrapperStyle = computed(() => {
+    const style = {};
+    if (props.width !== 'auto' && props.width !== undefined) {
+        style.width = typeof props.width === 'number' ? `${props.width}px` : props.width;
+    }
+    if (props.height !== 'auto' && props.height !== undefined) {
+        style.height = typeof props.height === 'number' ? `${props.height}px` : props.height;
+    }
+    if (!style.width && !style.height) {
+        style.display = 'inline-block';
+    }
+    return style;
 });
-const loadImage = () => {
-    if (!props.src)
-        return;
-    isLoaded.value = false;
-    hasError.value = false;
-    const img = new Image();
-    if (props.crossorigin)
-        img.crossOrigin = props.crossorigin;
-    img.src = props.src;
-    img.onload = () => {
-        actualSrc.value = props.src;
-        isLoaded.value = true;
-    };
-    img.onerror = () => {
-        hasError.value = true;
-        if (props.errorSrc && props.errorSrc !== props.src) {
-            actualSrc.value = props.errorSrc;
-            const errorImg = new Image();
-            errorImg.src = props.errorSrc;
-            errorImg.onload = () => isLoaded.value = true;
-        }
-        else {
-            isLoaded.value = true;
-        }
-    };
-};
-const backgroundSize = computed(() => {
+const displayImage = computed(() => {
+    if (hasError.value && props.errorSrc) {
+        return `url(${props.errorSrc})`;
+    }
+    if (actualSrc.value) {
+        return `url(${actualSrc.value})`;
+    }
+    return 'none';
+});
+const computedBackgroundSize = computed(() => {
+    if (!props.fit)
+        return 'cover';
     switch (props.fit) {
         case 'fill':
             return '100% 100%';
@@ -60,20 +63,51 @@ const backgroundSize = computed(() => {
             return props.fit;
     }
 });
-watch(() => props.src, loadImage);
-onMounted(loadImage);
+const handleLoad = () => {
+    actualSrc.value = resolveImagePath(props.src);
+    isLoaded.value = true;
+    hasError.value = false;
+};
+const handleError = () => {
+    hasError.value = true;
+    if (props.errorSrc && props.errorSrc !== props.src) {
+        const errorImg = new Image();
+        errorImg.crossOrigin = props.crossorigin || '';
+        errorImg.src = resolveImagePath(props.errorSrc);
+        errorImg.onload = () => {
+            actualSrc.value = resolveImagePath(props.errorSrc);
+            isLoaded.value = true;
+        };
+        errorImg.onerror = () => {
+            isLoaded.value = true;
+        };
+    }
+    else {
+        isLoaded.value = true;
+    }
+};
+watch(() => props.src, () => {
+    isLoaded.value = false;
+    hasError.value = false;
+    actualSrc.value = resolveImagePath(props.src);
+}, { immediate: true });
+onMounted(() => {
+    if (props.src) {
+        actualSrc.value = resolveImagePath(props.src);
+    }
+});
 debugger;
 const __VLS_withDefaultsArg = (function (t) { return t; })({
-    src: '',
-    alt: '',
-    width: '100%',
-    height: '100%',
-    fit: 'cover',
-    loading: 'lazy',
-    errorSrc: '',
-    crossorigin: 'anonymous',
-    errorContent: 'Image failed to load',
-    disableGlitch: false
+    src: "",
+    alt: "",
+    width: "auto",
+    height: "auto",
+    fit: "cover",
+    loading: "lazy",
+    errorSrc: "",
+    crossorigin: "anonymous",
+    errorContent: "Image failed to load",
+    disableGlitch: false,
 });
 const __VLS_ctx = {};
 let __VLS_components;
@@ -81,40 +115,41 @@ let __VLS_directives;
 ;
 ;
 ;
-;
-;
-;
-;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({});
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "imgbox" }, { style: ({ width: __VLS_ctx.normalizedWidth, height: __VLS_ctx.normalizedHeight }) }), { role: "img", 'aria-label': (__VLS_ctx.alt || undefined), 'aria-busy': (!__VLS_ctx.isLoaded && !__VLS_ctx.hasError) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cyber-image-wrapper" }, { style: (__VLS_ctx.wrapperStyle) }));
 if (__VLS_ctx.src) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.img, __VLS_intrinsicElements.img)(Object.assign({ src: (__VLS_ctx.src), alt: (__VLS_ctx.alt), loading: (__VLS_ctx.loading), crossorigin: (__VLS_ctx.crossorigin) }, { class: "hidden-image" }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.img)(Object.assign(Object.assign(Object.assign({ onLoad: (__VLS_ctx.handleLoad) }, { onError: (__VLS_ctx.handleError) }), { src: (__VLS_ctx.src), alt: (__VLS_ctx.alt), loading: (__VLS_ctx.loading), crossorigin: (__VLS_ctx.crossorigin) }), { class: "hidden-image" }));
 }
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "cyberimg" }, { class: ({
-        'loaded': __VLS_ctx.isLoaded && !__VLS_ctx.hasError,
-        'loading': !__VLS_ctx.isLoaded && !__VLS_ctx.hasError,
-        'error': __VLS_ctx.hasError,
-        'no-glitch': __VLS_ctx.disableGlitch
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ class: "glitch" }, { class: ({
+        'is-loaded': __VLS_ctx.isLoaded && !__VLS_ctx.hasError,
+        'is-loading': !__VLS_ctx.isLoaded && !__VLS_ctx.hasError,
+        'is-error': __VLS_ctx.hasError,
+        'no-glitch': __VLS_ctx.disableGlitch,
     }) }), { style: ({
-        background: __VLS_ctx.backgroundImage,
-        backgroundSize: __VLS_ctx.backgroundSize
+        backgroundImage: __VLS_ctx.displayImage,
+        backgroundSize: __VLS_ctx.computedBackgroundSize,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
     }) }));
-if (__VLS_ctx.isLoaded && !__VLS_ctx.hasError) {
-    var __VLS_0 = {};
+if (__VLS_ctx.isLoaded && !__VLS_ctx.hasError && !__VLS_ctx.disableGlitch) {
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glitch-layer" }, { style: ({ backgroundImage: __VLS_ctx.displayImage }) }));
 }
-else if (!__VLS_ctx.isLoaded && __VLS_ctx.placeholder) {
+if (!__VLS_ctx.isLoaded && __VLS_ctx.placeholder) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "placeholder" }));
-    var __VLS_2 = {};
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.img, __VLS_intrinsicElements.img)({
+    var __VLS_0 = {};
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
         src: (__VLS_ctx.placeholder),
         alt: "Loading...",
     });
 }
 else if (__VLS_ctx.hasError) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "error" }));
-    var __VLS_4 = {};
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "error-content" }));
+    var __VLS_2 = {};
     (__VLS_ctx.errorContent);
 }
+if (__VLS_ctx.isLoaded && !__VLS_ctx.hasError) {
+    var __VLS_4 = {};
+}
+;
 ;
 ;
 ;
@@ -127,10 +162,11 @@ const __VLS_self = (await import('vue')).defineComponent({
         return {
             isLoaded: isLoaded,
             hasError: hasError,
-            normalizedWidth: normalizedWidth,
-            normalizedHeight: normalizedHeight,
-            backgroundImage: backgroundImage,
-            backgroundSize: backgroundSize,
+            wrapperStyle: wrapperStyle,
+            displayImage: displayImage,
+            computedBackgroundSize: computedBackgroundSize,
+            handleLoad: handleLoad,
+            handleError: handleError,
         };
     },
     __typeProps: {},

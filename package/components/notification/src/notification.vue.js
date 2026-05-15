@@ -32,12 +32,13 @@ const visible = ref(false);
 let notificationIdCounter = 0;
 const createNotification = (options) => {
     const id = ++notificationIdCounter;
+    const hasActions = options.actions && options.actions.length > 0;
     const notification = {
         id,
         title: options.title || '',
         message: options.message,
         type: options.type || 'info',
-        duration: options.duration !== undefined ? options.duration : props.duration,
+        duration: options.duration !== undefined ? options.duration : (hasActions ? 0 : props.duration),
         showClose: options.showClose !== undefined ? options.showClose : true,
         showIcon: options.showIcon !== undefined ? options.showIcon : true,
         actions: options.actions || [],
@@ -105,6 +106,25 @@ debugger;
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 ;
 ;
 ;
@@ -271,4 +291,4 @@ export default (await import('vue')).defineComponent({
     },
 });
 ;
-//# sourceMappingURL=cyberNotification.vue.js.map
+//# sourceMappingURL=notification.vue.js.map
