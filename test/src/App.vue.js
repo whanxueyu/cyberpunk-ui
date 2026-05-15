@@ -15,6 +15,8 @@ import tablePanel from "./conponents/table.vue";
 import loadingPanel from "./conponents/loading.vue";
 import cardPanel from "./conponents/card.vue";
 import notificationPanel from './conponents/notification.vue';
+import fullpagePanel from './conponents/fullpage.vue';
+import selectPanel from './conponents/select.vue';
 console.log("%c %s", "border: 1px solid #97E3FE;border-radius: 3px;padding: 2px 5px;color: white;font-weight:bolder;background: linear-gradient(to right, #fF717F,#CC54D1,#4EAFFA,#3DE1C3, #F7DA66)", "CyberPunk-UI - Component Showcase");
 const componentsMenu = ref([
     { title: '轮播图片', component: bannerPanel },
@@ -32,6 +34,8 @@ const componentsMenu = ref([
     { title: 'Loading', component: loadingPanel },
     { title: '卡片', component: cardPanel },
     { title: '通知提示', component: notificationPanel },
+    { title: '全屏滚动', component: fullpagePanel },
+    { title: '选择器', component: selectPanel },
 ]);
 const activeMenu = ref(bannerPanel);
 const handleMenuClick = (component) => {

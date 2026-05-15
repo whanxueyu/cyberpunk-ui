@@ -18,6 +18,8 @@ import tablePanel from "./conponents/table.vue";
 import loadingPanel from "./conponents/loading.vue";
 import cardPanel from "./conponents/card.vue";
 import notificationPanel from './conponents/notification.vue';
+import fullpagePanel from './conponents/fullpage.vue';
+import selectPanel from './conponents/select.vue';
 
 console.log(
   "%c %s",
@@ -42,6 +44,8 @@ const componentsMenu = ref([
   { title: 'Loading', component: loadingPanel },
   { title: '卡片', component: cardPanel },
   { title: '通知提示', component: notificationPanel },
+  { title: '全屏滚动', component: fullpagePanel },
+  { title: '选择器', component: selectPanel },
 ]);
 
 // 当前选中的组件面板
