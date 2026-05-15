@@ -83,6 +83,7 @@ const reLoad = () => {
 
 .section {
     margin-bottom: 40px;
+    font-size: 40px;
 }
 
 .section-title {

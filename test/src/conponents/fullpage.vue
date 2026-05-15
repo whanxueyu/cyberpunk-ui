@@ -152,9 +152,9 @@ interface SectionItem {
 const eventLog = ref('等待滚动操作...');
 
 const sectionItems = ref<SectionItem[]>([
-    { title: 'First Section' },
-    { title: 'Second Section' },
-    { title: 'Third Section' },
+    { title: 'First' },
+    { title: 'Second' },
+    { title: 'Third' },
 ]);
 
 const handleToNext = (index: number) => {
