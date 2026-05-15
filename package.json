@@ -3,7 +3,8 @@
   "private": false,
   "version": "1.0.46",
   "scripts": {
-    "build": "vue-tsc -b && vite build",
+    "build": "vite build",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly",
     "preview": "vite preview",
     "test:dev": "pnpm -C test dev",
     "docs:dev": "pnpm -C docs dev",

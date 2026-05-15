@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# 编译生成的文件（保留源码 .ts/.vue，不提交编译后的 .js/.map）
+package/**/*.js
+package/**/*.js.map
+test/src/**/*.js
+test/src/**/*.js.map
+test/src/**/*.vue.js
+test/src/**/*.vue.js.map
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
