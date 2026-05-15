@@ -68,6 +68,8 @@ const isCloseTranstion = ref(false) //控制是否显示动画效果
 const canRun = ref(true) //节流控制器
 
 function mousewheel(e) {
+    e.preventDefault()
+    e.stopPropagation()
     isCloseTranstion.value = false
     if (canRun.value) {
         canRun.value = false
