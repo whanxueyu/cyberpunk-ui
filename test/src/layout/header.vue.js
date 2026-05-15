@@ -26,7 +26,7 @@ __VLS_7.slots.default;
 var __VLS_7;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "controls" }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)({});
-(__VLS_ctx.value ? '暗黑模式' : '亮色模式');
+(__VLS_ctx.value ? '亮色模式' : '暗黑模式');
 const __VLS_8 = {}.CyberNeonToggle;
 ;
 const __VLS_9 = __VLS_asFunctionalComponent(__VLS_8, new __VLS_8(Object.assign({ 'onChange': {} }, { modelValue: (__VLS_ctx.value), activeColor: "#ffff00", inActiveColor: "#669999" })));
