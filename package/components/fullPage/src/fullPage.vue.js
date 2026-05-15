@@ -42,6 +42,8 @@ const transformScroll = computed(() => {
 const isCloseTranstion = ref(false);
 const canRun = ref(true);
 function mousewheel(e) {
+    e.preventDefault();
+    e.stopPropagation();
     isCloseTranstion.value = false;
     if (canRun.value) {
         canRun.value = false;
