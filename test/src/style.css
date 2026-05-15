@@ -23,6 +23,24 @@ a:hover {
   color: #535bf2;
 }
 
+.code-block {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #d4d4d4;
+    border: 1px solid #333;
+}
+
+.code-block code {
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
 body {
   margin: 0;
   display: flex;
