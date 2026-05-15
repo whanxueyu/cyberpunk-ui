@@ -82,15 +82,14 @@ const getImageStyle = (index: number) => {
 .stage {
     position: relative;
     width: var(--container-width);
-    margin: 20px auto;
-    perspective: 2000px;
+    margin: 0px auto;
+    perspective: 4000px;
     transform-style: preserve-3d;
 
     .control {
         position: relative;
         height: var(--img-height);
         transform-style: preserve-3d;
-        transform: translateZ(-2000px) rotateY(50deg) rotateZ(0deg);
         animation: rotate var(--animation-duration) linear infinite;
 
         .imgWrap {
