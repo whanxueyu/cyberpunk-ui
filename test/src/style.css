@@ -24,15 +24,17 @@ a:hover {
 }
 
 .code-block {
-    background-color: #1e1e1e;
+    background-color: #1a1a2e;
     border-radius: 8px;
-    padding: 16px;
+    padding: 16px 20px;
     overflow-x: auto;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #d4d4d4;
-    border: 1px solid #333;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    border: 1px solid #16213e;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .code-block code {
