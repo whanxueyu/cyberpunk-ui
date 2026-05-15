@@ -12,9 +12,7 @@ dist
 dist-ssr
 *.local
 
-# 编译生成的文件（保留源码 .ts/.vue，不提交编译后的 .js/.map）
-package/**/*.js
-package/**/*.js.map
+# 测试和文档目录中编译生成的文件（不提交）
 test/src/**/*.js
 test/src/**/*.js.map
 test/src/**/*.vue.js

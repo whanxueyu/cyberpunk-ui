@@ -25,15 +25,9 @@
       "@cyberpunk-ui/*": ["packages/*"]
     },
   },
-  "include": [
-    "package/**/*"
-  ],
   "exclude": [ // 排除掉哪些类库
     "node_modules",
     "**/__tests__",
-    "dist/**",
-    "test/**",
-    "docs/**",
-    "lib/**"
+    "dist/**"
   ]
 }

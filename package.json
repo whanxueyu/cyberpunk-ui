@@ -3,8 +3,9 @@
   "private": false,
   "version": "1.0.46",
   "scripts": {
-    "build": "vite build",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly",
+    "build:tsc": "vue-tsc --project tsconfig.package.json",
+    "build:vite": "vite build",
+    "build": "npm run build:tsc || npm run build:vite",
     "preview": "vite preview",
     "test:dev": "pnpm -C test dev",
     "docs:dev": "pnpm -C docs dev",
