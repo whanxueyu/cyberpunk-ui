@@ -47,6 +47,8 @@ const props = defineProps({
         default: 400
     }
 })
+const containerHeight = ref(props.imgHeight);
+if(props.shadow) containerHeight.value = props.imgHeight * 2;
 const imageCount = ref(props.imgList.length);
 const containerWidth = calculateWaistLength(props.imgWidth, 360 / imageCount.value) * 1.6;
 function calculateWaistLength(baseLength, apexAngle) {
@@ -70,6 +72,7 @@ const getImageStyle = (index: number) => {
 <style lang="scss" scoped>
 .container {
     position: relative;
+    height: v-bind('containerHeight + "px"');
 }
 
 .stage.has-shadow {
