@@ -83,6 +83,7 @@ export type { CardInstance } from './src/instance'
 - `withInstall` 路径必须是 `../../utils/index`。
 - 默认导出必须是包装后的 `CyberXxx`，不是原始 SFC。
 - 类型导出优先不带 `.ts` 后缀，保持 TypeScript 导入风格。
+- 组件样式需要考虑亮色模式和暗色模式的显示效果
 
 ## 5. `instance.ts` 固定格式
 
