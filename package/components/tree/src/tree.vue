@@ -1,75 +1,102 @@
 <template>
-  <div class="cyber-tree" :class="[`theme-${theme}`]">
-    <div 
-      v-for="(node, index) in flatNodes" 
-      :key="`${node.id}-${node._expanded}-${refreshKey}`"
-      :class="['tree-node', { 'expanded': node._expanded, 'leaf': isLeaf(node), 'last-child': isLastChild(node, index) }]"
+  <div
+    class="cp-cyber-tree cyber-tree"
+    :class="[`theme-${theme}`, `effect-${effect}`]"
+  >
+    <div
+      v-for="node in flatNodes"
+      :key="`${node.id}-${node._expanded}-${node._selected}-${refreshKey}`"
+      class="tree-node"
+      :class="{
+        expanded: node._expanded,
+        leaf: isLeaf(node),
+        'last-child': node._isLastChild,
+      }"
       :style="{ paddingLeft: `${getNodeIndent(node)}px` }"
     >
-      <!-- 连接线(多层级) -->
-      <div 
-        class="tree-connectors" 
+      <div
         v-if="showConnectors && getNodeLevel(node) > 0"
+        class="tree-connectors"
+        aria-hidden="true"
       >
-        <!-- 祖先层级的垂直线(不包括当前节点的父级) -->
-        <template v-for="level in getNodeLevel(node) - 1" :key="level">
-          <div 
-            class="ancestor-line" 
-            :class="{
-              'ancestor-hidden': isAncestorLastChild(node, level)
-            }"
-            :style="{ left: `${level * indent}px` }"
-          ></div>
-        </template>
-        <!-- 当前节点父级的垂直线(从上方延伸到当前节点中部) -->
-        <div 
+        <span
+          v-for="level in getAncestorLevels(node)"
+          :key="level"
+          class="ancestor-line"
+          :class="{ hidden: isAncestorLastChild(node, level) }"
+          :style="{ left: `${level * indent + connectorOffset}px` }"
+        ></span>
+
+        <span
           class="parent-line"
-          :style="{ left: `${(getNodeLevel(node) - 1) * indent}px` }"
-        ></div>
-        <!-- 当前节点的水平连接线(从父级垂直线延伸到图标前) -->
-        <div 
-          class="horizontal-line" 
+          :class="{ 'is-last': node._isLastChild }"
+          :style="{ left: `${(getNodeLevel(node) - 1) * indent + connectorOffset}px` }"
+        ></span>
+
+        <span
+          class="horizontal-line"
           :style="{
-            left: `${(getNodeLevel(node) - 1) * indent}px`,
-            width: `${indent - 8}px`
+            left: `${(getNodeLevel(node) - 1) * indent + connectorOffset}px`,
+            width: `${indent - connectorOffset + 20}px`,
           }"
-        ></div>
+        ></span>
+
+        <span
+          class="connector-joint"
+          :style="{ left: `${(getNodeLevel(node) - 1) * indent + connectorOffset}px` }"
+        ></span>
       </div>
-      
-      <!-- 节点内容 -->
-      <div 
+
+      <div
         class="node-content-wrapper"
         @click.stop="handleContentClick(node)"
       >
-        <div 
+        <div
           class="node-content"
-          :class="{ 'selected': node._selected }"
+          :class="{ selected: node._selected }"
         >
-          <!-- 展开/收起图标 -->
-          <div class="node-expand-icon" v-if="!isLeaf(node)">
-            <span class="expand-arrow" :class="{ 'rotated': node._expanded }">▶</span>
-          </div>
-          
-          <!-- 节点标签 -->
-          <div class="node-label">
+          <button
+            v-if="!isLeaf(node)"
+            class="node-expand-icon"
+            type="button"
+            :aria-expanded="node._expanded"
+            :aria-label="node._expanded ? 'Collapse node' : 'Expand node'"
+            @click.stop="toggleNode(node)"
+          >
+            <span class="expand-arrow" :class="{ rotated: node._expanded }"></span>
+          </button>
+          <span v-else class="node-expand-placeholder"></span>
+
+          <span class="node-icon" :class="getNodeIconClass(node)">
+            <span class="icon-core"></span>
+          </span>
+
+          <span class="node-label">
             <span class="label-text">{{ node.label }}</span>
-          </div>
-          
-          <!-- 节点状态指示器 -->
-          <div class="node-status" v-if="showStatus && node.status">
-            <div class="status-indicator" :class="`status-${node.status}`"></div>
-          </div>
+          </span>
+
+          <span
+            v-if="showStatus && node.status"
+            class="node-status"
+            :title="statusText(node.status)"
+          >
+            <span class="status-indicator" :class="`status-${node.status}`"></span>
+            <span class="status-text">{{ node.status }}</span>
+          </span>
         </div>
       </div>
     </div>
-    
-    <!-- 扫描线效果 -->
-    <div class="tree-scanline" v-if="showScanline"></div>
+
+    <div v-if="flatNodes.length === 0" class="tree-empty">
+      No data
+    </div>
+
+    <div class="tree-scanline" v-if="showScanline && effect !== 'static'"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 defineOptions({
   name: 'CyberTree',
@@ -112,10 +139,10 @@ const props = withDefaults(defineProps<{
   showConnectors: true,
   showStatus: true,
   showScanline: true,
-  indent: 24,
+  indent: 30,
   defaultExpandAll: false,
   expandOnClick: true,
-  multiple: false
+  multiple: false,
 });
 
 const emit = defineEmits<{
@@ -125,61 +152,56 @@ const emit = defineEmits<{
   (e: 'select-change', selectedNodes: TreeNode[]): void;
 }>()
 
-// 状态管理
 const internalData = ref<InternalTreeNode[]>([]);
 const selectedNodes = ref<InternalTreeNode[]>([]);
 const refreshKey = ref(0);
+const connectorOffset = 14;
 
-// 扁平化节点数据
 const flatNodes = computed(() => {
   const result: InternalTreeNode[] = [];
-  
-  const flatten = (nodes: InternalTreeNode[], level: number = 0, parent?: InternalTreeNode) => {
+
+  const flatten = (nodes: InternalTreeNode[], level = 0, parent?: InternalTreeNode) => {
     nodes.forEach((node, index) => {
-      // 设置内部属性
       node._level = level;
       node._parent = parent;
       node._expanded = node.expanded ?? (props.defaultExpandAll || level === 0);
       node._selected = node.selected ?? false;
       node._isLastChild = index === nodes.length - 1;
-      
+
       result.push(node);
-      
-      // 递归处理子节点
+
       if (node._expanded && node.children && node.children.length > 0) {
         flatten(node.children as InternalTreeNode[], level + 1, node);
       }
     });
   };
-  
+
   flatten(internalData.value);
   return result;
 });
 
-// 初始化数据
 const initializeData = () => {
-  const convertNode = (node: TreeNode, level: number = 0): InternalTreeNode => {
+  const convertNode = (node: TreeNode, level = 0): InternalTreeNode => {
     const internalNode: InternalTreeNode = {
       ...node,
       _expanded: node.expanded ?? (props.defaultExpandAll || level === 0),
       _selected: node.selected ?? false,
       _level: level,
       _parent: undefined,
-      _isLastChild: false
+      _isLastChild: false,
     };
-    
+
     if (node.children && node.children.length > 0) {
       internalNode.children = node.children.map(child => convertNode(child, level + 1));
     }
-    
+
     return internalNode;
   };
-  
+
   internalData.value = props.data.map(node => convertNode(node));
-  selectedNodes.value = [];
+  selectedNodes.value = flatNodes.value.filter(node => node._selected);
 };
 
-// 辅助方法
 const isLeaf = (node: InternalTreeNode) => {
   return !node.children || node.children.length === 0;
 };
@@ -192,71 +214,56 @@ const getNodeIndent = (node: InternalTreeNode) => {
   return getNodeLevel(node) * props.indent;
 };
 
-const isLastChild = (node: InternalTreeNode, index: number) => {
-  return node._isLastChild;
+const getAncestorLevels = (node: InternalTreeNode) => {
+  const level = getNodeLevel(node);
+  return Array.from({ length: Math.max(level - 1, 0) }, (_, index) => index);
 };
 
-// 连接线逻辑
 const isAncestorLastChild = (node: InternalTreeNode, level: number): boolean => {
-  if (!props.showConnectors) return true;
-  
-  // 找到指定层级的祖先节点
   let current: InternalTreeNode | undefined = node;
   let currentLevel = getNodeLevel(node);
-  
+
   while (current && currentLevel > level) {
     current = current._parent;
     currentLevel--;
   }
-  
-  // 如果该祖先节点是其父节点的最后一个子节点，则隐藏垂直线
+
   return current?._isLastChild ?? false;
 };
 
-// 节点操作
 const toggleNode = (node: InternalTreeNode) => {
   node._expanded = !node._expanded;
   node.expanded = node._expanded;
-  
+
   if (node._expanded) {
     emit('node-expand', node);
   } else {
     emit('node-collapse', node);
   }
-  
+
   forceUpdate();
 };
 
 const handleContentClick = (node: InternalTreeNode) => {
-  // 处理选中逻辑
   if (props.multiple) {
-    // 多选模式
     node._selected = !node._selected;
     node.selected = node._selected;
+  } else if (node._selected) {
+    node._selected = false;
+    node.selected = false;
   } else {
-    // 单选模式
-    if (node._selected) {
-      // 已选中则取消选中
-      node._selected = false;
-      node.selected = false;
-    } else {
-      // 未选中则选中，并取消其他选中项
-      selectedNodes.value.forEach(selectedNode => {
-        selectedNode._selected = false;
-        selectedNode.selected = false;
-      });
-      node._selected = true;
-      node.selected = true;
-    }
+    selectedNodes.value.forEach(selectedNode => {
+      selectedNode._selected = false;
+      selectedNode.selected = false;
+    });
+    node._selected = true;
+    node.selected = true;
   }
-  
-  // 更新选中节点数组
+
   updateSelectedNodes();
-  
   emit('select-change', selectedNodes.value);
   emit('node-click', node);
-  
-  // 点击展开逻辑
+
   if (props.expandOnClick && !isLeaf(node)) {
     toggleNode(node);
   }
@@ -269,24 +276,28 @@ const updateSelectedNodes = () => {
 const getNodeIconClass = (node: InternalTreeNode) => {
   if (node.icon) return node.icon;
   if (isLeaf(node)) return 'icon-file';
-  if (node._expanded) return 'icon-folder-open';
-  return 'icon-folder';
+  return node._expanded ? 'icon-folder-open' : 'icon-folder';
+};
+
+const statusText = (status?: TreeNode['status']) => {
+  const map = {
+    online: 'Online',
+    offline: 'Offline',
+    warning: 'Warning',
+    error: 'Error',
+  };
+
+  return status ? map[status] : '';
 };
 
 const forceUpdate = () => {
   refreshKey.value++;
 };
 
-// 生命周期
-onMounted(() => {
-  initializeData();
-});
-
 watch(() => props.data, () => {
   initializeData();
-}, { deep: true });
+}, { deep: true, immediate: true });
 
-// 暴露方法
 defineExpose({
   getSelectedNodes: () => selectedNodes.value,
   clearSelection: () => {
@@ -296,193 +307,343 @@ defineExpose({
     });
     selectedNodes.value = [];
     forceUpdate();
-  }
+  },
 });
 </script>
 
 <style lang="scss" scoped>
-.cyber-tree {
+.cp-cyber-tree {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   overflow: hidden;
   min-height: 50px;
-  
-  // 主题配色变量
-  &.theme-neon {
-    --tree-primary: #00b4d8;
-    --tree-secondary: #ff013c;
-    --tree-accent: #00ff88;
-    --tree-expand-icon: #00b4d8;
-  }
-  
+  padding: 10px;
+  color: var(--tree-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+
+  --tree-primary: #00e6f6;
+  --tree-secondary: #ff2f70;
+  --tree-accent: #47f2c6;
+  --tree-warning: #f7da66;
+  --tree-muted: rgba(210, 236, 255, 0.55);
+  --tree-text: rgba(245, 252, 255, 0.92);
+  --tree-bg: rgba(8, 16, 28, 0.58);
+  --tree-bg-hover: rgba(0, 230, 246, 0.12);
+  --tree-bg-selected: rgba(0, 230, 246, 0.18);
+  --tree-border: rgba(0, 230, 246, 0.24);
+  --tree-border-hover: rgba(0, 230, 246, 0.62);
+  --tree-connector: rgba(125, 224, 255, 0.68);
+  --tree-connector-glow: rgba(0, 230, 246, 0.35);
+  --tree-shadow: rgba(0, 230, 246, 0.22);
+
   &.theme-hologram {
-    --tree-primary: #8a2be2;
-    --tree-secondary: #00ffff;
-    --tree-accent: #ff1493;
-    --tree-expand-icon: #8a2be2;
+    --tree-primary: #b78cff;
+    --tree-secondary: #ff4fd8;
+    --tree-accent: #71f6ff;
+    --tree-bg-hover: rgba(183, 140, 255, 0.14);
+    --tree-bg-selected: rgba(183, 140, 255, 0.22);
+    --tree-border: rgba(183, 140, 255, 0.28);
+    --tree-border-hover: rgba(183, 140, 255, 0.72);
+    --tree-connector: rgba(198, 164, 255, 0.72);
+    --tree-connector-glow: rgba(183, 140, 255, 0.36);
+    --tree-shadow: rgba(183, 140, 255, 0.24);
   }
-  
+
   &.theme-terminal {
-    --tree-primary: #2ecc71;
-    --tree-secondary: #e74c3c;
-    --tree-accent: #00ff00;
-    --tree-expand-icon: #2ecc71;
+    --tree-primary: #47f26b;
+    --tree-secondary: #ff5252;
+    --tree-accent: #b4ff70;
+    --tree-bg-hover: rgba(71, 242, 107, 0.12);
+    --tree-bg-selected: rgba(71, 242, 107, 0.18);
+    --tree-border: rgba(71, 242, 107, 0.25);
+    --tree-border-hover: rgba(71, 242, 107, 0.7);
+    --tree-connector: rgba(99, 255, 130, 0.68);
+    --tree-connector-glow: rgba(71, 242, 107, 0.32);
+    --tree-shadow: rgba(71, 242, 107, 0.2);
   }
-  
+
   &.theme-matrix {
     --tree-primary: #00ff41;
-    --tree-secondary: #008f11;
-    --tree-accent: #00ff41;
-    --tree-expand-icon: #00ff41;
+    --tree-secondary: #ff3b3b;
+    --tree-accent: #c2f132;
+    --tree-bg-hover: rgba(0, 255, 65, 0.12);
+    --tree-bg-selected: rgba(0, 255, 65, 0.2);
+    --tree-border: rgba(0, 255, 65, 0.24);
+    --tree-border-hover: rgba(0, 255, 65, 0.68);
+    --tree-connector: rgba(0, 255, 65, 0.7);
+    --tree-connector-glow: rgba(0, 255, 65, 0.28);
+    --tree-shadow: rgba(0, 255, 65, 0.18);
   }
-    // 默认暗色主题的 CSS 变量
-  --tree-bg-hover: rgba(204, 204, 204, 0.178);
-  --tree-border-hover: rgba(77, 77, 77, 0.1);
-  --tree-border-selected: var(--tree-primary);
-  --tree-connector: rgba(128, 128, 128, 0.4);
-  --tree-connector-hover: rgba(128, 128, 128, 0.6);
-  --tree-selected-bg: rgba(0, 230, 246, 0.08);
 }
 
 .tree-node {
   position: relative;
-  margin: 1px 0;
-  transition: all 0.2s ease;
+  min-height: 40px;
+  transition: padding-left 0.2s ease, opacity 0.2s ease;
 }
 
-// 连接线容器
 .tree-connectors {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 1;
 }
 
-// 祖先垂直线
-.ancestor-line {
+.ancestor-line,
+.parent-line {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--tree-connector);
-  
-  // 最后一个子节点：只显示上半部分
-  &.ancestor-hidden {
+  top: -1px;
+  bottom: -1px;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, var(--tree-connector) 12%, var(--tree-connector) 88%, transparent);
+  box-shadow: 0 0 8px var(--tree-connector-glow);
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.parent-line {
+  &.is-last {
     bottom: 50%;
   }
 }
 
-// 父级垂直线
-.parent-line {
-  position: absolute;
-  top: 0;
-  bottom: 50%;
-  width: 1px;
-  background: var(--tree-connector);
-}
-
-// 水平连接线
 .horizontal-line {
   position: absolute;
   top: 50%;
-  height: 1px;
-  background: var(--tree-connector);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--tree-connector), rgba(255, 255, 255, 0.18), transparent);
+  box-shadow: 0 0 8px var(--tree-connector-glow);
   transform: translateY(-50%);
+}
+
+.connector-joint {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--tree-primary);
+  border-radius: 50%;
+  background: #08111f;
+  box-shadow: 0 0 10px var(--tree-primary);
+  transform: translate(-2.5px, -50%);
 }
 
 .node-content-wrapper {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
   cursor: pointer;
 }
 
 .node-content {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  padding: 4px 8px;
+  max-width: 100%;
+  min-width: 230px;
+  min-height: 30px;
+  padding: 5px 10px;
+  overflow: hidden;
+  color: var(--tree-text);
+  background: linear-gradient(90deg, var(--tree-bg), rgba(255, 255, 255, 0.025));
   border: 1px solid var(--tree-border);
-  border-radius: 4px;
-  transition: all 0.15s ease;
-  
-  &:hover {
-    background: var(--tree-bg-hover);
-    border-color: var(--tree-border-hover);
-    
-    .ancestor-line {
-      background: var(--tree-connector-hover);
-    }
-    
-    .horizontal-line {
-      background: var(--tree-connector-hover);
-    }
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    opacity: 0;
+    transform: translateX(-100%);
   }
-  
+
+  &:hover {
+    border-color: var(--tree-border-hover);
+    background: linear-gradient(90deg, var(--tree-bg-hover), rgba(255, 255, 255, 0.04));
+    box-shadow: 0 0 18px var(--tree-shadow);
+    transform: translateX(3px);
+  }
+
   &.selected {
-    background: var(--tree-selected-bg);
-    border-color: var(--tree-border-selected);
+    border-color: var(--tree-primary);
+    background: linear-gradient(90deg, var(--tree-bg-selected), rgba(255, 255, 255, 0.05));
+    box-shadow: 0 0 18px var(--tree-shadow), inset 3px 0 0 var(--tree-primary);
   }
 }
 
+.node-expand-icon,
+.node-expand-placeholder {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  flex: 0 0 18px;
+}
+
 .node-expand-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  
-  .expand-arrow {
-    font-size: 10px;
-    color: var(--tree-expand-icon);
-    transition: transform 0.2s ease;
-    display: inline-block;
-    
-    &.rotated {
-      transform: rotate(90deg);
+  padding: 0;
+  color: var(--tree-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--tree-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    border-color: var(--tree-primary);
+    box-shadow: 0 0 10px var(--tree-shadow);
+  }
+}
+
+.expand-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid currentColor;
+  transition: transform 0.18s ease;
+
+  &.rotated {
+    transform: rotate(90deg);
+  }
+}
+
+.node-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin-right: 9px;
+  flex: 0 0 18px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--tree-primary), transparent 68%);
+    opacity: 0.18;
+  }
+}
+
+.icon-core {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--tree-primary);
+  border-radius: 3px;
+  background: rgba(0, 230, 246, 0.08);
+  box-shadow: 0 0 8px var(--tree-shadow);
+}
+
+.icon-folder,
+.icon-folder-open {
+  .icon-core {
+    border-radius: 2px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -1px;
+      width: 9px;
+      height: 5px;
+      border: 1px solid var(--tree-primary);
+      border-bottom: 0;
+      border-radius: 2px 2px 0 0;
+      background: rgba(0, 230, 246, 0.1);
     }
+  }
+}
+
+.icon-folder-open .icon-core {
+  transform: skewX(-8deg);
+}
+
+.icon-file .icon-core {
+  border-radius: 2px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 5px;
+    height: 5px;
+    background: var(--tree-primary);
+    clip-path: polygon(0 0, 100% 100%, 100% 0);
+    opacity: 0.85;
   }
 }
 
 .node-label {
-  flex: 1;
-  font-size: 13px;
-  line-height: 1.5;
-  
-  .label-text {
-    letter-spacing: 0.2px;
-  }
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.label-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
 }
 
 .node-status {
-  margin-left: 8px;
-  flex-shrink: 0;
-  
-  .status-indicator {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    
-    &.status-online {
-      background-color: var(--tree-accent);
-    }
-    
-    &.status-offline { 
-      background-color: #999; 
-    }
-    
-    &.status-warning {
-      background-color: #f39c12;
-    }
-    
-    &.status-error {
-      background-color: var(--tree-secondary);
-    }
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  flex: 0 0 auto;
+  color: var(--tree-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+
+  &.status-online {
+    color: var(--tree-accent);
+    background: var(--tree-accent);
   }
+
+  &.status-offline {
+    color: #8a94a6;
+    background: #8a94a6;
+  }
+
+  &.status-warning {
+    color: var(--tree-warning);
+    background: var(--tree-warning);
+  }
+
+  &.status-error {
+    color: var(--tree-secondary);
+    background: var(--tree-secondary);
+  }
+}
+
+.tree-empty {
+  padding: 18px;
+  color: var(--tree-muted);
+  border: 1px dashed var(--tree-border);
+  border-radius: 6px;
+  text-align: center;
 }
 
 .tree-scanline {
@@ -490,19 +651,75 @@ defineExpose({
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--tree-primary), transparent);
-  opacity: 0.15;
-  z-index: 10;
-  animation: tree-scan 5s linear infinite;
+  height: 2px;
   pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--tree-primary), transparent);
+  box-shadow: 0 0 14px var(--tree-primary);
+  opacity: 0.35;
+  z-index: 10;
+  animation: tree-scan 4.5s linear infinite;
 }
 
-// 动画定义
+.effect-glitch {
+  .node-content:hover {
+    animation: tree-glitch 0.36s steps(2, end);
+  }
+}
+
+.effect-pulse {
+  .node-icon::before,
+  .status-indicator {
+    animation: tree-pulse 1.8s ease-in-out infinite;
+  }
+}
+
+.effect-static {
+  .tree-scanline,
+  .node-icon::before,
+  .status-indicator {
+    animation: none;
+  }
+}
+
 @keyframes tree-scan {
-  0% { top: 0; opacity: 0; }
-  10% { opacity: 0.15; }
-  90% { opacity: 0.15; }
-  100% { top: 100%; opacity: 0; }
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 0.35;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes tree-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes tree-glitch {
+  0% {
+    transform: translateX(3px);
+  }
+  35% {
+    transform: translateX(7px) skewX(-4deg);
+  }
+  65% {
+    transform: translateX(0) skewX(4deg);
+  }
+  100% {
+    transform: translateX(3px);
+  }
 }
 </style>
