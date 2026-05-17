@@ -21,6 +21,7 @@ import notificationPanel from './conponents/notification.vue';
 import fullpagePanel from './conponents/fullpage.vue';
 import selectPanel from './conponents/select.vue';
 import dividerPanel from './conponents/divider.vue';
+import inputPanel from './conponents/input.vue';
 
 console.log(
   "%c %s",
@@ -48,6 +49,7 @@ const componentsMenu = ref([
   { title: '卡片', component: cardPanel },
   { title: '通知提示', component: notificationPanel },
   { title: '分割线', component: dividerPanel },
+  { title: '输入框', component: inputPanel },
 ]);
 
 // 当前选中的组件面板
