@@ -23,6 +23,7 @@ import selectPanel from './conponents/select.vue';
 import dividerPanel from './conponents/divider.vue';
 import inputPanel from './conponents/input.vue';
 import cascaderPanel from './conponents/cascader.vue';
+import menuPanel from './conponents/menu-test.vue';
 
 
 console.log(
@@ -64,6 +65,9 @@ const componentsMenu = ref([
   
   // 布局组件
   { title: '全屏滚动', component: shallowRef(fullpagePanel) },
+  
+  // 导航组件
+  { title: '赛博菜单', component: shallowRef(menuPanel) },
 ]);
 
 // 当前选中的组件面板

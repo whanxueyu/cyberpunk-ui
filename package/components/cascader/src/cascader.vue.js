@@ -1,4 +1,5 @@
-import { computed, onBeforeUnmount, onMounted, ref, watch, defineComponent, h } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import CascaderOptionTree from './option-tree.vue';
 defineOptions({
     name: 'CyberCascader',
 });
@@ -19,105 +20,6 @@ const props = withDefaults(defineProps(), {
     childrenKey: 'children',
 });
 const emit = defineEmits();
-const CascaderMenu = defineComponent({
-    name: 'CascaderMenu',
-    props: {
-        options: { type: Array, required: true },
-        selectedValues: { type: Array, required: true },
-        multiple: { type: Boolean, default: false },
-        labelKey: { type: String, default: 'label' },
-        valueKey: { type: String, default: 'value' },
-        childrenKey: { type: String, default: 'children' },
-    },
-    emits: ['select'],
-    setup(props, { emit }) {
-        const expandedKeys = ref(new Set());
-        const getOptionLabel = (option) => {
-            var _a, _b, _c, _d;
-            return String((_d = (_c = (_b = (_a = option[props.labelKey]) !== null && _a !== void 0 ? _a : option.label) !== null && _b !== void 0 ? _b : option[props.valueKey]) !== null && _c !== void 0 ? _c : option.value) !== null && _d !== void 0 ? _d : '');
-        };
-        const getOptionValue = (option) => {
-            var _a, _b;
-            return (_b = (_a = option[props.valueKey]) !== null && _a !== void 0 ? _a : option.value) !== null && _b !== void 0 ? _b : '';
-        };
-        const hasChildren = (option) => {
-            var _a;
-            const children = (_a = option[props.childrenKey]) !== null && _a !== void 0 ? _a : option.children;
-            return Array.isArray(children) && children.length > 0;
-        };
-        const getChildren = (option) => {
-            var _a, _b;
-            return (_b = (_a = option[props.childrenKey]) !== null && _a !== void 0 ? _a : option.children) !== null && _b !== void 0 ? _b : [];
-        };
-        const isSelected = (option) => {
-            const value = getOptionValue(option);
-            return props.selectedValues.includes(value);
-        };
-        const toggleExpand = (option, event) => {
-            event.stopPropagation();
-            const value = getOptionValue(option);
-            if (expandedKeys.value.has(value)) {
-                expandedKeys.value.delete(value);
-            }
-            else {
-                expandedKeys.value.add(value);
-            }
-        };
-        const handleOptionClick = (option) => {
-            if (option.disabled)
-                return;
-            const value = getOptionValue(option);
-            const children = getChildren(option);
-            if (hasChildren(option)) {
-                toggleExpand(option, new MouseEvent('click'));
-            }
-            else {
-                emit('select', { option, value });
-            }
-        };
-        return () => {
-            return h('div', { class: 'cascader-menu' }, [
-                ...(props.options || []).map((option) => {
-                    const value = getOptionValue(option);
-                    const isExpanded = expandedKeys.value.has(value);
-                    const optionChildren = getChildren(option);
-                    return h('div', { key: String(value), class: 'cascader-menu-item' }, [
-                        h('button', {
-                            class: [
-                                'cascader-option',
-                                {
-                                    selected: isSelected(option),
-                                    disabled: option.disabled,
-                                    'has-children': hasChildren(option),
-                                },
-                            ],
-                            type: 'button',
-                            onClick: (e) => handleOptionClick(option),
-                        }, [
-                            props.multiple && h('span', { class: 'option-check' }, [
-                                isSelected(option) && h('span', { class: 'check-icon' }, '✓')
-                            ]),
-                            h('span', { class: 'option-label' }, getOptionLabel(option)),
-                            hasChildren(option) && h('span', {
-                                class: ['option-arrow', { 'is-expanded': isExpanded }]
-                            }),
-                        ]),
-                        hasChildren(option) && isExpanded && h('div', { class: 'cascader-submenu' }, [h(CascaderMenu, {
-                                options: optionChildren,
-                                selectedValues: props.selectedValues,
-                                multiple: props.multiple,
-                                labelKey: props.labelKey,
-                                valueKey: props.valueKey,
-                                childrenKey: props.childrenKey,
-                                onSelect: (data) => emit('select', data),
-                            })]),
-                    ]);
-                }),
-                props.options.length === 0 && h('div', { class: 'cascader-empty' }, '暂无数据'),
-            ]);
-        };
-    },
-});
 const cascaderRef = ref();
 const isOpen = ref(false);
 const currentValue = ref('');
@@ -128,23 +30,6 @@ const hasValue = computed(() => {
     }
     return props.modelValue !== '' && props.modelValue !== null && props.modelValue !== undefined;
 });
-const getOptionLabel = (option) => {
-    var _a, _b, _c, _d;
-    return String((_d = (_c = (_b = (_a = option[props.labelKey]) !== null && _a !== void 0 ? _a : option.label) !== null && _b !== void 0 ? _b : option[props.valueKey]) !== null && _c !== void 0 ? _c : option.value) !== null && _d !== void 0 ? _d : '');
-};
-const getOptionValue = (option) => {
-    var _a, _b;
-    return (_b = (_a = option[props.valueKey]) !== null && _a !== void 0 ? _a : option.value) !== null && _b !== void 0 ? _b : '';
-};
-const hasChildren = (option) => {
-    var _a;
-    const children = (_a = option[props.childrenKey]) !== null && _a !== void 0 ? _a : option.children;
-    return Array.isArray(children) && children.length > 0;
-};
-const getChildren = (option) => {
-    var _a, _b;
-    return (_b = (_a = option[props.childrenKey]) !== null && _a !== void 0 ? _a : option.children) !== null && _b !== void 0 ? _b : [];
-};
 const getDisplayValue = (value) => {
     if (!props.showAllLevels) {
         const option = findOptionByValue(props.options, value);
@@ -182,12 +67,17 @@ const findOptionPath = (options, value) => {
     }
     return [];
 };
-const isOptionSelected = (option) => {
-    const value = getOptionValue(option);
-    if (props.multiple) {
-        return selectedValues.value.includes(value);
-    }
-    return currentValue.value === value;
+const getOptionLabel = (option) => {
+    var _a, _b, _c, _d;
+    return String((_d = (_c = (_b = (_a = option[props.labelKey]) !== null && _a !== void 0 ? _a : option.label) !== null && _b !== void 0 ? _b : option[props.valueKey]) !== null && _c !== void 0 ? _c : option.value) !== null && _d !== void 0 ? _d : '');
+};
+const getOptionValue = (option) => {
+    var _a, _b;
+    return (_b = (_a = option[props.valueKey]) !== null && _a !== void 0 ? _a : option.value) !== null && _b !== void 0 ? _b : '';
+};
+const getChildren = (option) => {
+    var _a, _b;
+    return (_b = (_a = option[props.childrenKey]) !== null && _a !== void 0 ? _a : option.children) !== null && _b !== void 0 ? _b : [];
 };
 const setOpen = (visible) => {
     if (props.disabled || isOpen.value === visible)
@@ -198,8 +88,8 @@ const setOpen = (visible) => {
 const toggleDropdown = () => {
     setOpen(!isOpen.value);
 };
-const handleOptionSelect = ({ option, value }) => {
-    if (props.disabled || option.disabled)
+const handleOptionSelect = ({ value }) => {
+    if (props.disabled)
         return;
     if (props.multiple) {
         const index = selectedValues.value.indexOf(value);
@@ -313,8 +203,6 @@ let __VLS_directives;
 ;
 ;
 ;
-;
-;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign(Object.assign({ ref: "cascaderRef" }, { class: "cp-cyber-cascader" }), { class: ([
         `theme-${__VLS_ctx.theme}`,
         `size-${__VLS_ctx.size}`,
@@ -348,9 +236,8 @@ else {
 }
 if (__VLS_ctx.clearable && __VLS_ctx.hasValue && !__VLS_ctx.disabled) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)(Object.assign(Object.assign({ onClick: (__VLS_ctx.clearSelection) }, { class: "clear-button" }), { type: "button", 'aria-label': "清空" }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "clear-icon" }));
 }
-__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "arrow" }, { class: ({ 'is-reverse': __VLS_ctx.isOpen }) }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "cascader-arrow" }));
 const __VLS_0 = {}.transition;
 ;
 const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0({
@@ -362,21 +249,19 @@ const __VLS_2 = __VLS_1({
 __VLS_3.slots.default;
 if (__VLS_ctx.isOpen) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cascader-dropdown" }, { style: (__VLS_ctx.dropdownStyle) }));
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cascader-panel-wrapper" }));
-    const __VLS_4 = {}.CascaderMenu;
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "cascader-options" }));
     ;
-    const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4(Object.assign({ 'onSelect': {} }, { options: (props.options), selectedValues: (__VLS_ctx.multiple ? __VLS_ctx.selectedValues : [__VLS_ctx.currentValue]), multiple: (__VLS_ctx.multiple), labelKey: (__VLS_ctx.labelKey), valueKey: (__VLS_ctx.valueKey), childrenKey: (__VLS_ctx.childrenKey) })));
-    const __VLS_6 = __VLS_5(Object.assign({ 'onSelect': {} }, { options: (props.options), selectedValues: (__VLS_ctx.multiple ? __VLS_ctx.selectedValues : [__VLS_ctx.currentValue]), multiple: (__VLS_ctx.multiple), labelKey: (__VLS_ctx.labelKey), valueKey: (__VLS_ctx.valueKey), childrenKey: (__VLS_ctx.childrenKey) }), ...__VLS_functionalComponentArgsRest(__VLS_5));
+    const __VLS_4 = __VLS_asFunctionalComponent(CascaderOptionTree, new CascaderOptionTree(Object.assign({ 'onSelect': {} }, { options: (props.options), selectedValues: (__VLS_ctx.multiple ? __VLS_ctx.selectedValues : [__VLS_ctx.currentValue]), multiple: (__VLS_ctx.multiple), labelKey: (__VLS_ctx.labelKey), valueKey: (__VLS_ctx.valueKey), childrenKey: (__VLS_ctx.childrenKey) })));
+    const __VLS_5 = __VLS_4(Object.assign({ 'onSelect': {} }, { options: (props.options), selectedValues: (__VLS_ctx.multiple ? __VLS_ctx.selectedValues : [__VLS_ctx.currentValue]), multiple: (__VLS_ctx.multiple), labelKey: (__VLS_ctx.labelKey), valueKey: (__VLS_ctx.valueKey), childrenKey: (__VLS_ctx.childrenKey) }), ...__VLS_functionalComponentArgsRest(__VLS_4));
+    let __VLS_7;
     let __VLS_8;
     let __VLS_9;
-    let __VLS_10;
-    const __VLS_11 = {
+    const __VLS_10 = {
         onSelect: (__VLS_ctx.handleOptionSelect)
     };
-    var __VLS_7;
+    var __VLS_6;
 }
 var __VLS_3;
-;
 ;
 ;
 ;
@@ -392,7 +277,7 @@ var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
-            CascaderMenu: CascaderMenu,
+            CascaderOptionTree: CascaderOptionTree,
             cascaderRef: cascaderRef,
             isOpen: isOpen,
             currentValue: currentValue,
