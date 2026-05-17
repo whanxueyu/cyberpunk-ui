@@ -49,7 +49,7 @@ const componentsMenu = ref([
 ]);
 
 // 当前选中的组件面板
-const activeMenu = ref(bannerPanel);
+const activeMenu = ref(buttonPanel);
 
 const handleMenuClick = (component: any) => {
   activeMenu.value = component;

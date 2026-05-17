@@ -11,10 +11,12 @@ const toggleDark = useToggle(isDark)
 </script>
 <template>
     <div class="header-content">
-        <cyber-text class="logo">CyberPunk-UI</cyber-text>
+        <!-- <cyber-text class="logo">CyberPunk-UI</cyber-text> -->
+        <cyber-shadow-text shadowColor="#ff5588" class="logo" direction="right" :long="6">CyberPunk-UI</cyber-shadow-text>
         <cyber-magic-text class="logo">CyberPunk-UI</cyber-magic-text>
         <div class="controls">
-            <span>{{value?'亮色模式':'暗黑模式'}}</span>
+            <cyber-text v-if="value">亮色模式</cyber-text>
+            <cyber-text v-else>暗黑模式</cyber-text>
             <cyber-neon-toggle v-model="value" @change="toggleDark()" active-color="#ffff00" inActiveColor="#669999" />
         </div>
     </div>
@@ -35,12 +37,14 @@ const toggleDark = useToggle(isDark)
 .logo {
     font-size: 26px;
     font-weight: bold;
+    color: #00b6ff;
 }
 
 .controls {
     display: flex;
     align-items: center;
     gap: 10px;
-    // color: #ccc;
+    font-size: 20px;
+    color: #00b6ff;
 }
 </style>
