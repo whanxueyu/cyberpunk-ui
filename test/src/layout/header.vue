@@ -45,6 +45,5 @@ const toggleDark = useToggle(isDark)
     align-items: center;
     gap: 10px;
     font-size: 20px;
-    color: #00b6ff;
 }
 </style>

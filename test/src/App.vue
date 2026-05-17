@@ -20,6 +20,7 @@ import cardPanel from "./conponents/card.vue";
 import notificationPanel from './conponents/notification.vue';
 import fullpagePanel from './conponents/fullpage.vue';
 import selectPanel from './conponents/select.vue';
+import dividerPanel from './conponents/divider.vue';
 
 console.log(
   "%c %s",
@@ -46,10 +47,11 @@ const componentsMenu = ref([
   { title: '加载器', component: loadingPanel },
   { title: '卡片', component: cardPanel },
   { title: '通知提示', component: notificationPanel },
+  { title: '分割线', component: dividerPanel },
 ]);
 
 // 当前选中的组件面板
-const activeMenu = ref(buttonPanel);
+const activeMenu = ref(dividerPanel);
 
 const handleMenuClick = (component: any) => {
   activeMenu.value = component;
