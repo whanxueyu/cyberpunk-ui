@@ -72,6 +72,7 @@ export default {
             { text: "全息卡片", link: "/components/holo-card" },
             { text: "全息加载器", link: "/components/holo-loader" },
             { text: "消息提示组件", link: "/components/cyber-notification" },
+            { text: "divider 分割线", link: "/components/divider" },
             // { text: "无限滚动表格", link: "/components/infinite-table" },
           ]
         }
