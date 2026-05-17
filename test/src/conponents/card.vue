@@ -132,6 +132,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
+    width: 20%;
 }
 
 .demo-label {

@@ -145,7 +145,7 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    align-items: center;
+    // align-items: center;
 }
 
 .demo-item {
@@ -153,6 +153,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
+    width: 18%
 }
 
 .demo-label {
