@@ -55,8 +55,8 @@ import headVue from "./header.vue";
       height: 100%;
       border-right: 1px solid #333;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: column;
     }
 
     .page-content {
