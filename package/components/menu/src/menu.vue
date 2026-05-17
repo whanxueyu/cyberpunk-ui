@@ -57,12 +57,14 @@ const props = withDefaults(defineProps<{
   direction?: MenuDirection;
   theme?: MenuTheme;
   effect?: MenuEffect;
+  expandedValues?: (string | number)[];
 }>(), {
   modelValue: '',
   items: () => [],
   direction: 'vertical',
   theme: 'neon',
   effect: 'none',
+  expandedValues: () => [],
 });
 
 const emit = defineEmits<{
@@ -72,7 +74,7 @@ const emit = defineEmits<{
 }>();
 
 const activeValue = ref<string | number>(props.modelValue);
-const expandedValues = ref<(string | number)[]>([]);
+const expandedValues = ref<(string | number)[]>(props.expandedValues);
 const isGlitching = ref(false);
 
 const menuItems = ref<MenuItem[]>(props.items);
@@ -104,10 +106,10 @@ const handleToggleExpand = (value: string | number) => {
 
 // Trigger glitch effect
 const triggerGlitchEffect = () => {
-  isGlitching.value = true;
-  setTimeout(() => {
-    isGlitching.value = false;
-  }, 300);
+//   isGlitching.value = true;
+//   setTimeout(() => {
+//     isGlitching.value = false;
+//   }, 300);
 };
 
 // Watch for external modelValue changes
@@ -119,6 +121,11 @@ watch(() => props.modelValue, (newVal) => {
 watch(() => props.items, (newItems) => {
   menuItems.value = newItems;
 }, { deep: true });
+
+// Watch for expandedValues prop changes
+watch(() => props.expandedValues, (newValues) => {
+  expandedValues.value = [...newValues];
+}, { deep: true });
 </script>
 
 <style lang="scss" scoped>
@@ -126,8 +133,9 @@ watch(() => props.items, (newItems) => {
   position: relative;
   display: inline-block;
   min-width: 200px;
+  width: 100%; /* Full width */
   background: rgba(8, 16, 28, 0.85);
-  border: 1px solid var(--menu-border-color, rgba(0, 230, 246, 0.3));
+//   border: 1px solid var(--menu-border-color, rgba(0, 230, 246, 0.3));
   border-radius: 4px;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -183,6 +191,10 @@ watch(() => props.items, (newItems) => {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      
+      > .menu-item {
+        position: relative;
+      }
     }
   }
   
@@ -190,6 +202,21 @@ watch(() => props.items, (newItems) => {
     .menu-list {
       display: flex;
       flex-direction: column;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(
+          to bottom,
+          var(--menu-primary) 0%,
+          var(--menu-primary) 100%
+        );
+        box-shadow: 0 0 8px var(--menu-primary);
+        opacity: 0.6;
+      }
     }
   }
   

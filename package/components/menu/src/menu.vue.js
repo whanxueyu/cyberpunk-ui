@@ -9,10 +9,11 @@ const props = withDefaults(defineProps(), {
     direction: 'vertical',
     theme: 'neon',
     effect: 'none',
+    expandedValues: () => [],
 });
 const emit = defineEmits();
 const activeValue = ref(props.modelValue);
-const expandedValues = ref([]);
+const expandedValues = ref(props.expandedValues);
 const isGlitching = ref(false);
 const menuItems = ref(props.items);
 const handleSelect = (item) => {
@@ -36,16 +37,15 @@ const handleToggleExpand = (value) => {
     }
 };
 const triggerGlitchEffect = () => {
-    isGlitching.value = true;
-    setTimeout(() => {
-        isGlitching.value = false;
-    }, 300);
 };
 watch(() => props.modelValue, (newVal) => {
     activeValue.value = newVal;
 });
 watch(() => props.items, (newItems) => {
     menuItems.value = newItems;
+}, { deep: true });
+watch(() => props.expandedValues, (newValues) => {
+    expandedValues.value = [...newValues];
 }, { deep: true });
 debugger;
 const __VLS_withDefaultsArg = (function (t) { return t; })({
@@ -54,6 +54,7 @@ const __VLS_withDefaultsArg = (function (t) { return t; })({
     direction: 'vertical',
     theme: 'neon',
     effect: 'none',
+    expandedValues: () => [],
 });
 const __VLS_ctx = {};
 let __VLS_components;

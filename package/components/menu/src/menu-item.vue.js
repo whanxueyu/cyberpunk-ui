@@ -41,6 +41,26 @@ let __VLS_directives;
 ;
 ;
 ;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.li, __VLS_intrinsicElements.li)(Object.assign({ class: ([
         'menu-item',
         `depth-${__VLS_ctx.depth}`,
@@ -73,7 +93,10 @@ const __VLS_2 = __VLS_1({
 }, ...__VLS_functionalComponentArgsRest(__VLS_1));
 __VLS_3.slots.default;
 if (__VLS_ctx.hasChildren && __VLS_ctx.isExpanded) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.ul, __VLS_intrinsicElements.ul)(Object.assign({ class: "submenu-list" }, { class: (`submenu-depth-${__VLS_ctx.depth + 1}`) }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.ul, __VLS_intrinsicElements.ul)(Object.assign({ class: "submenu-list" }, { class: ([
+            `submenu-depth-${__VLS_ctx.depth + 1}`,
+            { 'is-horizontal-submenu': __VLS_ctx.direction === 'horizontal' }
+        ]) }));
     for (const [child] of __VLS_getVForSourceType((__VLS_ctx.item.children))) {
         const __VLS_4 = {}.CyberMenuItem;
         ;

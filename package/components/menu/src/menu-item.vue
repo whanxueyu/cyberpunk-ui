@@ -44,7 +44,10 @@
       <ul 
         v-if="hasChildren && isExpanded" 
         class="submenu-list"
-        :class="`submenu-depth-${depth + 1}`"
+        :class="[
+          `submenu-depth-${depth + 1}`,
+          { 'is-horizontal-submenu': direction === 'horizontal' }
+        ]"
       >
         <CyberMenuItem
           v-for="child in item.children"
@@ -126,6 +129,35 @@ const handleMouseLeave = () => {
   position: relative;
   list-style: none;
   
+  // 横向菜单项需要明确的边界
+  .direction-horizontal & {
+    position: relative;
+    display: inline-block; // 确保每个项是独立的块
+    
+    &.has-children {
+      z-index: 10;
+    }
+  }
+  
+  // 竖向菜单的子菜单缩进，增强父子关系
+  .direction-vertical &.has-children.is-expanded {
+    > .menu-item-content {
+      // 展开的父菜单添加特殊标记
+      &::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        width: 6px;
+        height: 6px;
+        background: var(--menu-primary);
+        border-radius: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 0 8px var(--menu-primary);
+      }
+    }
+  }
+  
   &.is-disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -138,17 +170,40 @@ const handleMouseLeave = () => {
   &.is-active {
     .menu-item-content {
       background: var(--menu-active);
-      border-left: 3px solid var(--menu-primary);
       
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 3px;
-        background: var(--menu-primary);
-        box-shadow: 0 0 10px var(--menu-primary);
+      // 横向菜单：底部高亮
+      .direction-horizontal & {
+        border-bottom: 3px solid var(--menu-primary);
+        border-left: 3px solid transparent;
+        box-shadow: 0 4px 12px rgba(var(--menu-primary-rgb), 0.3);
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: var(--menu-primary);
+          box-shadow: 0 0 15px var(--menu-primary), 0 0 30px var(--menu-primary);
+        }
+      }
+      
+      // 竖向菜单：左侧高亮
+      .direction-vertical & {
+        border-left: 3px solid var(--menu-primary);
+        border-bottom: 3px solid transparent;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 3px;
+          background: var(--menu-primary);
+          box-shadow: 0 0 10px var(--menu-primary);
+        }
       }
     }
     
@@ -167,10 +222,63 @@ const handleMouseLeave = () => {
   cursor: pointer;
   transition: all 0.2s ease;
   border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  
+  // 横向菜单项需要有独立的背景容器
+  .direction-horizontal & {
+    position: relative;
+    display: inline-flex;
+    padding: 14px 28px;
+    margin: 4px 2px;
+    background: rgba(8, 16, 28, 0.6);
+    border: 1px solid rgba(0, 230, 246, 0.1);
+    border-radius: 4px;
+    z-index: 2;
+    isolation: isolate;
+    
+    // 确保hover效果只在当前项内生效
+    &:hover {
+      background: rgba(0, 230, 246, 0.1);
+      border-color: rgba(0, 230, 246, 0.3);
+    }
+    
+    &.is-active {
+      background: rgba(0, 230, 246, 0.2);
+      border-color: rgba(0, 230, 246, 0.5);
+    }
+  }
+  
+  // 为子菜单项添加缩进指示线
+  .has-children.is-expanded > & {
+    &::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      width: 10px;
+      height: 2px;
+      background: var(--menu-primary);
+      opacity: 0.6;
+      transform: translateY(-50%);
+      box-shadow: 0 0 6px var(--menu-primary);
+    }
+  }
   
   &:hover:not(.is-disabled) {
     background: var(--menu-hover);
-    border-left-color: var(--menu-primary);
+    
+    // 横向菜单：悬停时底部显示
+    .direction-horizontal & {
+      border-bottom-color: var(--menu-primary);
+      border-left-color: transparent;
+      box-shadow: 0 2px 8px rgba(var(--menu-primary-rgb), 0.2);
+    }
+    
+    // 竖向菜单：悬停时左侧显示
+    .direction-vertical & {
+      border-left-color: var(--menu-primary);
+      border-bottom-color: transparent;
+    }
     
     .menu-label {
       color: var(--menu-primary);
@@ -270,24 +378,137 @@ const handleMouseLeave = () => {
   }
 }
 
+// 不同深度的样式差异化
+.menu-item.depth-1 {
+  .menu-item-content {
+    padding: 14px 16px;
+    font-weight: 500;
+  }
+}
+
+.menu-item.depth-2 {
+  .menu-item-content {
+    padding: 10px 16px;
+    font-size: 13px;
+    
+    // 二级菜单项左侧添加连接点
+    &::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      width: 8px;
+      height: 2px;
+      background: var(--menu-primary);
+      opacity: 0.7;
+      transform: translateY(-50%);
+      box-shadow: 0 0 4px var(--menu-primary);
+    }
+  }
+  
+  .menu-label {
+    opacity: 0.9;
+  }
+}
+
+.menu-item.depth-3 {
+  .menu-item-content {
+    padding: 8px 16px;
+    font-size: 12px;
+    
+    // 三级菜单项左侧添加更短的连接线
+    &::before {
+      content: '';
+      position: absolute;
+      left: -18px;
+      top: 50%;
+      width: 6px;
+      height: 1px;
+      background: var(--menu-primary);
+      opacity: 0.5;
+      transform: translateY(-50%);
+    }
+  }
+  
+  .menu-label {
+    opacity: 0.85;
+  }
+}
+
 .submenu-list {
   list-style: none;
   margin: 0;
-  padding: 0;
-  background: rgba(5, 10, 20, 0.9);
-  border-left: 1px solid var(--menu-border-color);
+  padding: 4px 0;
+  background: rgba(5, 10, 20, 0.95);
+  position: relative;
+  
+  // 添加明显的连接线指示器
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      var(--menu-primary) 0%,
+      var(--menu-primary) 100%
+    );
+    box-shadow: 0 0 8px var(--menu-primary);
+    opacity: 0.6;
+  }
+  
+  // 竖向菜单的子菜单容器也需要相对定位
+  .direction-vertical & {
+    position: relative;
+  }
 }
 
 .submenu-depth-1 {
-  margin-left: 16px;
+  margin-left: 24px;
+  padding-left: 12px;
 }
 
 .submenu-depth-2 {
-  margin-left: 32px;
+  margin-left: 24px;
+  padding-left: 12px;
+  background: rgba(3, 7, 15, 0.97);
 }
 
 .submenu-depth-3 {
-  margin-left: 48px;
+  margin-left: 24px;
+  padding-left: 12px;
+  background: rgba(2, 5, 12, 0.99);
+}
+
+// 横向菜单的子菜单样式 - 向下展开
+.is-horizontal-submenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 200px;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--menu-primary-rgb), 0.2);
+  border-radius: 4px;
+  border: 1px solid var(--menu-border-color);
+  
+  // 移除连接线，改为顶部指示线
+  &::before {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: auto;
+    width: auto;
+    height: 3px;
+    background: linear-gradient(
+      to right,
+      var(--menu-primary) 0%,
+      var(--menu-primary) 100%
+    );
+  }
 }
 
 .item-glitch-overlay {
