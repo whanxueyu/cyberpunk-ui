@@ -37,7 +37,7 @@
               type="button"
               :aria-label="`移除 ${getDisplayValue(value)}`"
               @click.stop="removeValue(value)"
-            >×</button>
+            ></button>
           </span>
         </template>
 
@@ -56,19 +56,16 @@
         type="button"
         aria-label="清空"
         @click.stop="clearSelection"
-      >
-        <span class="clear-icon">×</span>
-      </button>
+      ></button>
 
-      <span class="arrow" :class="{ 'is-reverse': isOpen }"></span>
+      <span class="cascader-arrow"></span>
     </div>
 
     <!-- 下拉面板 -->
     <transition name="cascader-dropdown">
       <div v-if="isOpen" class="cascader-dropdown" :style="dropdownStyle">
-        <div class="cascader-panel-wrapper">
-          <!-- 递归渲染选项树 -->
-          <CascaderMenu
+        <div class="cascader-options">
+          <CascaderOptionTree
             :options="props.options"
             :selected-values="multiple ? selectedValues : [currentValue]"
             :multiple="multiple"
@@ -84,7 +81,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch, defineComponent, h } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import CascaderOptionTree from './option-tree.vue';
 
 defineOptions({
   name: 'CyberCascader',
@@ -99,12 +97,6 @@ interface CascaderOption {
   disabled?: boolean;
   children?: CascaderOption[];
   [key: string]: any;
-}
-
-interface BreadcrumbItem {
-  label: string;
-  options: CascaderOption[];
-  value?: OptionValue;
 }
 
 const props = withDefaults(defineProps<{
@@ -148,126 +140,6 @@ const emit = defineEmits<{
   (e: 'clear'): void;
 }>()
 
-// 递归菜单组件
-const CascaderMenu = defineComponent({
-  name: 'CascaderMenu',
-  props: {
-    options: { type: Array as () => CascaderOption[], required: true },
-    selectedValues: { type: Array as () => OptionValue[], required: true },
-    multiple: { type: Boolean, default: false },
-    labelKey: { type: String, default: 'label' },
-    valueKey: { type: String, default: 'value' },
-    childrenKey: { type: String, default: 'children' },
-  },
-  emits: ['select'],
-  setup(props, { emit }) {
-    const expandedKeys = ref<Set<OptionValue>>(new Set());
-
-    const getOptionLabel = (option: CascaderOption) => {
-      return String(option[props.labelKey] ?? option.label ?? option[props.valueKey] ?? option.value ?? '');
-    };
-
-    const getOptionValue = (option: CascaderOption): OptionValue => {
-      return option[props.valueKey] ?? option.value ?? '';
-    };
-
-    const hasChildren = (option: CascaderOption) => {
-      const children = option[props.childrenKey] ?? option.children;
-      return Array.isArray(children) && children.length > 0;
-    };
-
-    const getChildren = (option: CascaderOption): CascaderOption[] => {
-      return option[props.childrenKey] ?? option.children ?? [];
-    };
-
-    const isSelected = (option: CascaderOption) => {
-      const value = getOptionValue(option);
-      return props.selectedValues.includes(value);
-    };
-
-    const toggleExpand = (option: CascaderOption, event: Event) => {
-      event.stopPropagation();
-      const value = getOptionValue(option);
-      if (expandedKeys.value.has(value)) {
-        expandedKeys.value.delete(value);
-      } else {
-        expandedKeys.value.add(value);
-      }
-    };
-
-    const handleOptionClick = (option: CascaderOption) => {
-      if (option.disabled) return;
-
-      const value = getOptionValue(option);
-      const children = getChildren(option);
-
-      if (hasChildren(option)) {
-        // 有子菜单，切换展开状态
-        toggleExpand(option, new MouseEvent('click'));
-      } else {
-        // 叶子节点，选择该项
-        emit('select', { option, value });
-      }
-    };
-
-    return () => {
-      return h('div', { class: 'cascader-menu' }, [
-        ...(props.options || []).map((option) => {
-          const value = getOptionValue(option);
-          const isExpanded = expandedKeys.value.has(value);
-          const optionChildren = getChildren(option);
-
-          return h('div', { key: String(value), class: 'cascader-menu-item' }, [
-            // 选项按钮
-            h(
-              'button',
-              {
-                class: [
-                  'cascader-option',
-                  { 
-                    selected: isSelected(option),
-                    disabled: option.disabled,
-                    'has-children': hasChildren(option),
-                  },
-                ],
-                type: 'button',
-                onClick: (e: Event) => handleOptionClick(option),
-              },
-              [
-                // 多选框
-                props.multiple && h('span', { class: 'option-check' }, [
-                  isSelected(option) && h('span', { class: 'check-icon' }, '✓')
-                ]),
-                // 标签
-                h('span', { class: 'option-label' }, getOptionLabel(option)),
-                // 箭头
-                hasChildren(option) && h('span', { 
-                  class: ['option-arrow', { 'is-expanded': isExpanded }]
-                }),
-              ]
-            ),
-            // 子菜单
-            hasChildren(option) && isExpanded && h(
-              'div',
-              { class: 'cascader-submenu' },
-              [h(CascaderMenu, {
-                options: optionChildren,
-                selectedValues: props.selectedValues,
-                multiple: props.multiple,
-                labelKey: props.labelKey,
-                valueKey: props.valueKey,
-                childrenKey: props.childrenKey,
-                onSelect: (data: any) => emit('select', data),
-              })]
-            ),
-          ]);
-        }),
-        props.options.length === 0 && h('div', { class: 'cascader-empty' }, '暂无数据'),
-      ]);
-    };
-  },
-});
-
 const cascaderRef = ref<HTMLElement>();
 const isOpen = ref(false);
 const currentValue = ref<OptionValue>('');
@@ -279,23 +151,6 @@ const hasValue = computed(() => {
   }
   return props.modelValue !== '' && props.modelValue !== null && props.modelValue !== undefined;
 });
-
-const getOptionLabel = (option: CascaderOption) => {
-  return String(option[props.labelKey] ?? option.label ?? option[props.valueKey] ?? option.value ?? '');
-};
-
-const getOptionValue = (option: CascaderOption): OptionValue => {
-  return option[props.valueKey] ?? option.value ?? '';
-};
-
-const hasChildren = (option: CascaderOption) => {
-  const children = option[props.childrenKey] ?? option.children;
-  return Array.isArray(children) && children.length > 0;
-};
-
-const getChildren = (option: CascaderOption): CascaderOption[] => {
-  return option[props.childrenKey] ?? option.children ?? [];
-};
 
 // 获取显示值（支持显示完整路径）
 const getDisplayValue = (value: OptionValue): string => {
@@ -342,12 +197,16 @@ const findOptionPath = (options: CascaderOption[], value: OptionValue): Cascader
   return [];
 };
 
-const isOptionSelected = (option: CascaderOption) => {
-  const value = getOptionValue(option);
-  if (props.multiple) {
-    return selectedValues.value.includes(value);
-  }
-  return currentValue.value === value;
+const getOptionLabel = (option: CascaderOption) => {
+  return String(option[props.labelKey] ?? option.label ?? option[props.valueKey] ?? option.value ?? '');
+};
+
+const getOptionValue = (option: CascaderOption): OptionValue => {
+  return option[props.valueKey] ?? option.value ?? '';
+};
+
+const getChildren = (option: CascaderOption): CascaderOption[] => {
+  return option[props.childrenKey] ?? option.children ?? [];
 };
 
 const setOpen = (visible: boolean) => {
@@ -361,8 +220,8 @@ const toggleDropdown = () => {
   setOpen(!isOpen.value);
 };
 
-const handleOptionSelect = ({ option, value }: { option: CascaderOption; value: OptionValue }) => {
-  if (props.disabled || option.disabled) return;
+const handleOptionSelect = ({ value }: { value: OptionValue }) => {
+  if (props.disabled) return;
 
   if (props.multiple) {
     const index = selectedValues.value.indexOf(value);
@@ -513,33 +372,37 @@ onBeforeUnmount(() => {
 
     .cascader-control {
       min-height: 36px;
-      padding: 0 12px;
+      padding: 8px 42px 8px 14px;
     }
   }
 
   &.size-small {
-    width: 200px;
+    width: 220px;
     font-size: 12px;
 
     .cascader-control {
-      min-height: 28px;
-      padding: 0 8px;
+      min-height: 22px;
+      padding: 5px 36px 5px 10px;
+    }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+
+    .cascader-control {
+      cursor: not-allowed;
     }
   }
 
   &.is-open {
     .cascader-control {
       border-color: var(--cascader-primary);
-      box-shadow: 0 0 10px var(--cascader-shadow);
+      box-shadow: 0 0 18px var(--cascader-shadow), inset 0 0 18px rgba(255, 255, 255, 0.03);
     }
-  }
 
-  &.is-disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-
-    .cascader-control {
-      cursor: not-allowed;
+    .cascader-arrow {
+      transform: translateY(-50%) rotate(180deg);
     }
   }
 }
@@ -548,65 +411,53 @@ onBeforeUnmount(() => {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 32px;
-  padding: 0 10px;
-  background: var(--cascader-bg);
+  min-height: 28px;
+  padding: 6px 40px 6px 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cascader-bg), rgba(255, 255, 255, 0.03));
   border: 1px solid var(--cascader-border);
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
   cursor: pointer;
-  transition: all 0.2s ease;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-  &:hover:not(.is-disabled) {
-    border-color: var(--cascader-primary);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.2s ease, transform 0.35s ease;
   }
 
+  &:hover,
   &:focus {
-    outline: none;
     border-color: var(--cascader-primary);
-    box-shadow: 0 0 8px var(--cascader-shadow);
+    box-shadow: 0 0 14px var(--cascader-shadow);
+
+    &::before {
+      opacity: 1;
+      transform: translateX(100%);
+    }
   }
 }
 
 .cascader-value {
-  flex: 1;
   display: flex;
   align-items: center;
+  flex: 1;
   min-width: 0;
-  overflow: hidden;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.cascader-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  margin-right: 6px;
-  background: rgba(var(--cascader-primary-rgb), 0.15);
-  border: 1px solid rgba(var(--cascader-primary-rgb), 0.3);
-  border-radius: 3px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.tag-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-  margin-left: 4px;
-  background: none;
-  border: none;
-  color: var(--cascader-primary);
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-
-  &:hover {
-    color: var(--cascader-secondary);
-  }
-}
-
-.cascader-single {
+.cascader-single,
+.cascader-placeholder {
+  display: block;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -616,178 +467,119 @@ onBeforeUnmount(() => {
   color: var(--cascader-muted);
 }
 
-.clear-button {
-  display: flex;
+.cascader-tag {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  background: none;
-  border: none;
-  color: var(--cascader-muted);
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 1;
+  max-width: 100%;
+  gap: 6px;
+  padding: 3px 7px;
+  color: var(--cascader-text);
+  background: var(--cascader-selected);
+  border: 1px solid var(--cascader-border);
+  border-radius: 4px;
+  line-height: 1.2;
+}
 
-  &:hover {
-    color: var(--cascader-primary);
+.tag-close,
+.clear-button {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  flex: 0 0 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 10px;
+    height: 1px;
+    background: currentColor;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
   }
 }
 
-.clear-icon {
-  display: block;
+.tag-close {
+  color: var(--cascader-muted);
+
+  &:hover {
+    color: var(--cascader-secondary);
+  }
 }
 
-.arrow {
-  position: relative;
+.clear-button {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  color: var(--cascader-muted);
+  transform: translateY(-50%);
+
+  &:hover {
+    color: var(--cascader-secondary);
+  }
+}
+
+.cascader-arrow {
+  position: absolute;
+  right: 13px;
+  top: 50%;
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid var(--cascader-primary);
-  filter: drop-shadow(0 0 3px var(--cascader-primary));
+  border-top: 6px solid var(--cascader-primary);
+  filter: drop-shadow(0 0 6px var(--cascader-primary));
+  transform: translateY(-50%);
   transition: transform 0.2s ease;
-
-  &.is-reverse {
-    transform: rotate(180deg);
-  }
 }
 
 .cascader-dropdown {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   left: 0;
-  z-index: 1000;
-  min-width: 260px;
-  max-height: 400px;
+  z-index: 80;
+  width: 100%;
+  max-height: 280px;
+  overflow: hidden;
   background: var(--cascader-panel-bg);
   border: 1px solid var(--cascader-border);
   border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px var(--cascader-shadow);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.38), 0 0 24px var(--cascader-shadow);
+}
+
+.cascader-options {
+  max-height: 230px;
   overflow-y: auto;
-  backdrop-filter: blur(10px);
-}
+  padding: 6px;
 
-.cascader-panel-wrapper {
-  padding: 6px 0;
-}
-
-.cascader-menu {
-  display: flex;
-  flex-direction: column;
-}
-
-.cascader-menu-item {
-  position: relative;
-}
-
-.cascader-dropdown::-webkit-scrollbar {
-  width: 6px;
-}
-
-.cascader-dropdown::-webkit-scrollbar-track {
-  background: rgba(var(--cascader-primary-rgb), 0.05);
-}
-
-.cascader-dropdown::-webkit-scrollbar-thumb {
-  background: var(--cascader-border);
-  border-radius: 3px;
-
-  &:hover {
-    background: var(--cascader-primary);
-  }
-}
-
-.cascader-option {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: 34px;
-  padding: 6px 12px;
-  background: none;
-  border: 1px solid transparent;
-  color: var(--cascader-text);
-  cursor: pointer;
-  font-size: inherit;
-  text-align: left;
-  transition: all 0.2s ease;
-
-  &:hover:not(.disabled) {
-    background: var(--cascader-hover);
-    border-color: var(--cascader-border);
+  &::-webkit-scrollbar {
+    width: 6px;
   }
 
-  &.selected {
-    background: var(--cascader-selected);
-    border-color: var(--cascader-primary);
+  &::-webkit-scrollbar-track {
+    background: rgba(var(--cascader-primary-rgb), 0.05);
   }
 
-  &.disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--cascader-border);
+    border-radius: 3px;
 
-  &.has-children {
-    .option-label {
-      color: var(--cascader-primary);
+    &:hover {
+      background: var(--cascader-primary);
     }
   }
-}
-
-.cascader-submenu {
-  margin-left: 16px;
-  padding-left: 8px;
-  border-left: 1px solid var(--cascader-border);
-}
-
-.option-check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  border: 1px solid var(--cascader-border);
-  border-radius: 2px;
-  flex-shrink: 0;
-
-  .check-icon {
-    color: var(--cascader-primary);
-    font-size: 12px;
-    font-weight: bold;
-  }
-}
-
-.option-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.option-arrow {
-  position: relative;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--cascader-primary);
-  filter: drop-shadow(0 0 4px var(--cascader-primary));
-  margin-left: 8px;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-
-  &.is-expanded {
-    transform: rotate(180deg);
-  }
-}
-
-.cascader-empty {
-  padding: 18px;
-  color: var(--cascader-muted);
-  text-align: center;
 }
 
 .cascader-dropdown-enter-active,
