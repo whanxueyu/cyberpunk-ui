@@ -205,6 +205,28 @@
                 </div>
             </div>
         </div>
+
+        <div class="section">
+            <div class="section-title">带图标和快捷键</div>
+            <pre class="code-block"><code class="html">&lt;cyber-select 
+  v-model="iconValue"
+  :options="iconOptions"
+  placeholder="选择操作..."
+&gt;&lt;/cyber-select&gt;</code></pre>
+            <div class="demo-panel">
+                <div class="form-item">
+                    <label>带图标和快捷键的选择器：</label>
+                    <cyber-select 
+                        v-model="iconValue"
+                        :options="iconOptions"
+                        placeholder="选择操作..."
+                    ></cyber-select>
+                </div>
+                <div class="result-display">
+                    <p>当前选中值: <span class="highlight">{{ iconValue || '未选择' }}</span></p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -277,6 +299,16 @@ const groupOptions = ref([
     },
 ]);
 
+
+// 带图标的选项
+const iconOptions = ref([
+    { label: '首页', value: 'home', shortcut: 'Alt+H' },
+    { label: '搜索', value: 'search', shortcut: 'Ctrl+F' },
+    { divider: true },
+    { label: '设置', value: 'settings', shortcut: 'Ctrl+,' },
+    { label: '帮助', value: 'help', shortcut: 'F1' },
+]);
+
 // 响应式数据
 const selectedValue = ref('');
 const searchValue = ref('');
@@ -284,6 +316,7 @@ const multiValues = ref([]);
 const customValue = ref(null);
 const eventValue = ref('');
 const groupValue = ref('');
+const iconValue = ref('');
 
 // 事件处理
 const handleChange = (value: any) => {

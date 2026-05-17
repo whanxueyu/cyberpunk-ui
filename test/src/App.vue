@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, shallowRef } from "vue";
 import layout from "./layout/layout.vue";
 
 // 导入所有演示组件
@@ -22,6 +22,8 @@ import fullpagePanel from './conponents/fullpage.vue';
 import selectPanel from './conponents/select.vue';
 import dividerPanel from './conponents/divider.vue';
 import inputPanel from './conponents/input.vue';
+import cascaderPanel from './conponents/cascader.vue';
+
 
 console.log(
   "%c %s",
@@ -31,29 +33,41 @@ console.log(
 
 // 组件菜单列表
 const componentsMenu = ref([
-  { title: '按钮组', component: buttonPanel },
-  { title: '文字样式', component: textPanel },
-  { title: '选择器', component: selectPanel },
-  { title: '树形控件', component: treePanel },
-  { title: '赛博图片', component: cyberImagePanel },
-  { title: '故障图片', component: imagesPanel },
-  { title: '轮播图片', component: bannerPanel },
-  { title: '霓虹开关', component: switchPanel },
-  { title: '故障进度条', component: glitchProgressPanel },
-  { title: '赛博进度条', component: progressPanel },
-  { title: '鼠标提示', component: tooltipPanel },
-  { title: '数字翻牌器', component: digitalCounterPanel },
-  { title: '滚动表格', component: tablePanel },
-  { title: '全屏滚动', component: fullpagePanel },
-  { title: '加载器', component: loadingPanel },
-  { title: '卡片', component: cardPanel },
-  { title: '通知提示', component: notificationPanel },
-  { title: '分割线', component: dividerPanel },
-  { title: '输入框', component: inputPanel },
+  // 基础组件
+  { title: '按钮组', component: shallowRef(buttonPanel) },
+  { title: '文字样式', component: shallowRef(textPanel) },
+  { title: '输入框', component: shallowRef(inputPanel) },
+  { title: '分割线', component: shallowRef(dividerPanel) },
+  
+  // 表单组件
+  { title: '选择器', component: shallowRef(selectPanel) },
+  { title: '级联选择', component: shallowRef(cascaderPanel) },
+  { title: '树形控件', component: shallowRef(treePanel) },
+  { title: '霓虹开关', component: shallowRef(switchPanel) },
+  
+  // 展示组件
+  { title: '赛博图片', component: shallowRef(cyberImagePanel) },
+  { title: '故障图片', component: shallowRef(imagesPanel) },
+  { title: '轮播图片', component: shallowRef(bannerPanel) },
+  { title: '卡片', component: shallowRef(cardPanel) },
+  
+  // 反馈组件
+  { title: '鼠标提示', component: shallowRef(tooltipPanel) },
+  { title: '通知提示', component: shallowRef(notificationPanel) },
+  { title: '加载器', component: shallowRef(loadingPanel) },
+  
+  // 数据组件
+  { title: '数字翻牌器', component: shallowRef(digitalCounterPanel) },
+  { title: '故障进度条', component: shallowRef(glitchProgressPanel) },
+  { title: '赛博进度条', component: shallowRef(progressPanel) },
+  { title: '滚动表格', component: shallowRef(tablePanel) },
+  
+  // 布局组件
+  { title: '全屏滚动', component: shallowRef(fullpagePanel) },
 ]);
 
 // 当前选中的组件面板
-const activeMenu = ref(dividerPanel);
+const activeMenu = shallowRef(dividerPanel);
 
 const handleMenuClick = (component: any) => {
   activeMenu.value = component;
