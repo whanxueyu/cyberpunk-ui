@@ -22,4 +22,5 @@ export * from './banner';
 export * from './select';
 export * from './tree';
 export * from './divider';
+export * from './input';
 //# sourceMappingURL=index.js.map

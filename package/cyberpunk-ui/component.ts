@@ -22,6 +22,7 @@ import { CyberBanner } from '../components/banner';
 import { CyberSelect } from '../components/select';
 import { CyberTree } from '../components/tree';
 import { CyberDivider } from '../components/divider';
+import { CyberInput } from '../components/input';
 
 export default [
     CyberButton,
@@ -47,7 +48,8 @@ export default [
     CyberSelect,
     CyberTree,
     CyberBanner,
-    CyberDivider
+    CyberDivider,
+    CyberInput
 ]
 
 
