@@ -20,6 +20,7 @@ import { CyberImage } from '../components/image';
 import { CyberMagicText } from '../components/magicText';
 import { CyberBanner } from '../components/banner';
 import { CyberSelect } from '../components/select';
+import { CyberCascader } from '../components/cascader';
 import { CyberTree } from '../components/tree';
 import { CyberDivider } from '../components/divider';
 import { CyberInput } from '../components/input';
@@ -46,6 +47,7 @@ export default [
     CyberImage,
     CyberMagicText,
     CyberSelect,
+    CyberCascader,
     CyberTree,
     CyberBanner,
     CyberDivider,

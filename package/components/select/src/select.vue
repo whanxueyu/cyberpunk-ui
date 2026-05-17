@@ -86,21 +86,32 @@
               {{ group.label }}
             </div>
 
-            <button
-              v-for="option in group.options"
-              :key="`${group.key}-${String(getOptionValue(option))}`"
-              class="select-option"
-              :class="{
-                selected: isSelected(option),
-                disabled: option.disabled,
-              }"
-              type="button"
-              :disabled="option.disabled"
-              @click.stop="selectOption(option)"
-            >
-              <span class="option-check"></span>
-              <span class="option-label">{{ getOptionLabel(option) }}</span>
-            </button>
+            <!-- 渲染选项 -->
+            <template v-for="option in group.options">
+              <!-- 分隔线 -->
+              <div v-if="option.divider" class="select-divider" :key="`divider-${option.key || Math.random()}`" />
+
+              <!-- 普通选项 -->
+              <button
+                v-else
+                :key="`${group.key}-${String(getOptionValue(option))}`"
+                class="select-option"
+                :class="{
+                  selected: isSelected(option),
+                  disabled: option.disabled,
+                }"
+                type="button"
+                :disabled="option.disabled"
+                @click.stop="selectOption(option)"
+              >
+                <span v-if="shouldShowCheck" class="option-check"></span>
+                <span class="option-icon" v-if="option.icon">
+                  <component :is="option.icon" />
+                </span>
+                <span class="option-label">{{ getOptionLabel(option) }}</span>
+                <span v-if="option.shortcut" class="option-shortcut">{{ option.shortcut }}</span>
+              </button>
+            </template>
           </template>
         </div>
 
@@ -126,7 +137,11 @@ interface SelectOption {
   label?: string;
   value?: OptionValue;
   disabled?: boolean;
-  options?: SelectOption[];
+  options?: SelectOption[]; // 分组选项
+  icon?: any; // 图标组件
+  shortcut?: string; // 快捷键提示
+  divider?: boolean; // 分隔线
+  key?: string; // 唯一标识
   [key: string]: any;
 }
 
@@ -146,6 +161,7 @@ const props = withDefaults(defineProps<{
   clearable?: boolean;
   filterable?: boolean;
   multiple?: boolean;
+  showCheck?: boolean; // 是否显示勾选框
   size?: 'large' | 'default' | 'small';
   theme?: 'neon' | 'terminal' | 'matrix' | 'hologram';
   labelKey?: string;
@@ -160,6 +176,7 @@ const props = withDefaults(defineProps<{
   clearable: true,
   filterable: false,
   multiple: false,
+  showCheck: undefined, // 默认 undefined，由组件内部决定
   size: 'default',
   theme: 'neon',
   labelKey: 'label',
@@ -179,6 +196,14 @@ const selectRef = ref<HTMLElement>();
 const searchInputRef = ref<HTMLInputElement>();
 const isOpen = ref(false);
 const searchQuery = ref('');
+
+// 是否显示勾选框：默认多选时显示，单选时不显示，可通过 showCheck 属性覆盖
+const shouldShowCheck = computed(() => {
+  if (props.showCheck !== undefined) {
+    return props.showCheck;
+  }
+  return props.multiple;
+});
 
 const normalizedGroups = computed<OptionGroup[]>(() => {
   const groups: OptionGroup[] = [];
@@ -396,6 +421,7 @@ onBeforeUnmount(() => {
   font-size: 14px;
 
   --select-primary: #00e6f6;
+  --select-primary-rgb: 0, 230, 246;
   --select-secondary: #ff2f70;
   --select-accent: #47f2c6;
   --select-text: rgba(245, 252, 255, 0.95);
@@ -409,6 +435,7 @@ onBeforeUnmount(() => {
 
   &.theme-terminal {
     --select-primary: #47f26b;
+    --select-primary-rgb: 71, 242, 107;
     --select-secondary: #ff5252;
     --select-accent: #c2f132;
     --select-border: rgba(71, 242, 107, 0.42);
@@ -419,6 +446,7 @@ onBeforeUnmount(() => {
 
   &.theme-matrix {
     --select-primary: #00ff41;
+    --select-primary-rgb: 0, 255, 65;
     --select-secondary: #f7da66;
     --select-accent: #00ff41;
     --select-border: rgba(0, 255, 65, 0.42);
@@ -429,6 +457,7 @@ onBeforeUnmount(() => {
 
   &.theme-hologram {
     --select-primary: #b78cff;
+    --select-primary-rgb: 183, 140, 255;
     --select-secondary: #ff4fd8;
     --select-accent: #71f6ff;
     --select-border: rgba(183, 140, 255, 0.44);
@@ -740,6 +769,50 @@ onBeforeUnmount(() => {
   padding: 18px;
   color: var(--select-muted);
   text-align: center;
+}
+
+// 分隔线样式
+.select-divider {
+  height: 1px;
+  margin: 6px 0;
+  background: var(--select-border);
+}
+
+// 有子菜单的选项
+.select-option.has-children {
+  position: relative;
+  cursor: pointer;
+  background: rgba(var(--select-primary-rgb), 0.05);
+  border-color: rgba(var(--select-primary-rgb), 0.3);
+  
+  &:hover {
+    background: var(--select-hover);
+    border-color: var(--select-primary);
+  }
+  
+  &.is-expanded {
+    background: rgba(var(--select-primary-rgb), 0.1);
+    border-color: var(--select-primary);
+  }
+}
+
+// 选项图标
+.option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+// 快捷键
+.option-shortcut {
+  margin-left: auto;
+  padding-left: 12px;
+  color: var(--select-muted);
+  font-size: 12px;
 }
 
 .select-dropdown-enter-active,

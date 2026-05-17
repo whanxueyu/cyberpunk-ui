@@ -12,6 +12,7 @@ const props = withDefaults(defineProps(), {
     clearable: true,
     filterable: false,
     multiple: false,
+    showCheck: undefined,
     size: 'default',
     theme: 'neon',
     labelKey: 'label',
@@ -22,6 +23,12 @@ const selectRef = ref();
 const searchInputRef = ref();
 const isOpen = ref(false);
 const searchQuery = ref('');
+const shouldShowCheck = computed(() => {
+    if (props.showCheck !== undefined) {
+        return props.showCheck;
+    }
+    return props.multiple;
+});
 const normalizedGroups = computed(() => {
     const groups = [];
     const normalOptions = [];
@@ -205,6 +212,7 @@ const __VLS_withDefaultsArg = (function (t) { return t; })({
     clearable: true,
     filterable: false,
     multiple: false,
+    showCheck: undefined,
     size: 'default',
     theme: 'neon',
     labelKey: 'label',
@@ -213,6 +221,7 @@ const __VLS_withDefaultsArg = (function (t) { return t; })({
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
+;
 ;
 ;
 ;
@@ -283,19 +292,38 @@ if (__VLS_ctx.isOpen) {
                 (group.label);
             }
             for (const [option] of __VLS_getVForSourceType((group.options))) {
-                __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)(Object.assign(Object.assign(Object.assign(Object.assign({ onClick: (...[$event]) => {
-                        if (!(__VLS_ctx.isOpen))
-                            return;
-                        if (!(__VLS_ctx.filteredGroups.length))
-                            return;
-                        __VLS_ctx.selectOption(option);
-                    } }, { key: (`${group.key}-${String(__VLS_ctx.getOptionValue(option))}`) }), { class: "select-option" }), { class: ({
-                        selected: __VLS_ctx.isSelected(option),
-                        disabled: option.disabled,
-                    }) }), { type: "button", disabled: (option.disabled) }));
-                __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-check" }));
-                __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-label" }));
-                (__VLS_ctx.getOptionLabel(option));
+                if (option.divider) {
+                    __VLS_asFunctionalElement(__VLS_intrinsicElements.div)(Object.assign({ class: "select-divider" }, { key: (`divider-${option.key || Math.random()}`) }));
+                }
+                else {
+                    __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)(Object.assign(Object.assign(Object.assign(Object.assign({ onClick: (...[$event]) => {
+                            if (!(__VLS_ctx.isOpen))
+                                return;
+                            if (!(__VLS_ctx.filteredGroups.length))
+                                return;
+                            if (!!(option.divider))
+                                return;
+                            __VLS_ctx.selectOption(option);
+                        } }, { key: (`${group.key}-${String(__VLS_ctx.getOptionValue(option))}`) }), { class: "select-option" }), { class: ({
+                            selected: __VLS_ctx.isSelected(option),
+                            disabled: option.disabled,
+                        }) }), { type: "button", disabled: (option.disabled) }));
+                    if (__VLS_ctx.shouldShowCheck) {
+                        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-check" }));
+                    }
+                    if (option.icon) {
+                        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-icon" }));
+                        const __VLS_4 = ((option.icon));
+                        const __VLS_5 = __VLS_asFunctionalComponent(__VLS_4, new __VLS_4({}));
+                        const __VLS_6 = __VLS_5({}, ...__VLS_functionalComponentArgsRest(__VLS_5));
+                    }
+                    __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-label" }));
+                    (__VLS_ctx.getOptionLabel(option));
+                    if (option.shortcut) {
+                        __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "option-shortcut" }));
+                        (option.shortcut);
+                    }
+                }
             }
         }
     }
@@ -322,6 +350,9 @@ var __VLS_3;
 ;
 ;
 ;
+;
+;
+;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
@@ -330,6 +361,7 @@ const __VLS_self = (await import('vue')).defineComponent({
             searchInputRef: searchInputRef,
             isOpen: isOpen,
             searchQuery: searchQuery,
+            shouldShowCheck: shouldShowCheck,
             filteredGroups: filteredGroups,
             selectedOptions: selectedOptions,
             hasValue: hasValue,
