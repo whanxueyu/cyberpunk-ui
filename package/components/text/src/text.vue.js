@@ -11,7 +11,7 @@ if (slots && slots.default) {
 const props = defineProps({
     lineColor: {
         type: String,
-        default: '#fff'
+        default: '#0000'
     },
 });
 debugger;
@@ -37,7 +37,7 @@ const __VLS_self = (await import('vue')).defineComponent({
     props: {
         lineColor: {
             type: String,
-            default: '#fff'
+            default: '#0000'
         },
     },
 });
@@ -48,7 +48,7 @@ const __VLS_component = (await import('vue')).defineComponent({
     props: {
         lineColor: {
             type: String,
-            default: '#fff'
+            default: '#0000'
         },
     },
 });

@@ -21,6 +21,7 @@ import { CyberMagicText } from '../components/magicText';
 import { CyberBanner } from '../components/banner';
 import { CyberSelect } from '../components/select';
 import { CyberTree } from '../components/tree';
+import { CyberDivider } from '../components/divider';
 
 export default [
     CyberButton,
@@ -45,7 +46,8 @@ export default [
     CyberMagicText,
     CyberSelect,
     CyberTree,
-    CyberBanner
+    CyberBanner,
+    CyberDivider
 ]
 
 

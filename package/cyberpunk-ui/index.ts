@@ -6,6 +6,7 @@
  * @FilePath: \cyberpunk-ui\package\cyberpunk-ui\index.ts
  * @Description: 
  */
+import '../theme-chalk/const.css'
 import installer from './defaults'
 export * from './make-installer'
 console.log(
