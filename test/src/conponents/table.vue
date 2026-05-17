@@ -1,46 +1,105 @@
 <template>
-  <div class="dashboard">
-    <CyberInfiniteTable
-      :data="localData"
-      :columns="columns"
-      :auto-scroll="true"
-      :row-num="5"
-      :wait-time="1000"
-      :hover-pause="true"
-      :row-height="40"
-    ></CyberInfiniteTable>
-    <CyberInfiniteTable
-      theme="hologram"
-      :data="localData"
-      :columns="columns"
-      :auto-scroll="true"
-      :row-num="5"
-      scroll-type="page"
-      :wait-time="2000"
-      :hover-pause="true"
-      :row-height="40"
-    ></CyberInfiniteTable>
-    <CyberInfiniteTable
-      theme="terminal"
-      :data="localData"
-      :columns="columns"
-      :auto-scroll="true"
-      :row-num="5"
-      scroll-type="page"
-      :wait-time="3000"
-      :hover-pause="true"
-      :row-height="40"
-    ></CyberInfiniteTable>
-    <CyberInfiniteTable
-      theme="matrix"
-      :data="localData"
-      :columns="columns"
-      :row-num="5"
-      :wait-time="2000"
-      :hover-pause="true"
-      :row-height="40"
-    ></CyberInfiniteTable>
-  </div>
+    <div class="content">
+        <!-- Neon 主题（默认） -->
+        <div class="section">
+            <div class="section-title">Neon 主题（默认）</div>
+            <pre class="code-block"><code class="html">&lt;CyberInfiniteTable
+  :data="localData"
+  :columns="columns"
+  :auto-scroll="true"
+  :row-num="5"
+  :wait-time="1000"
+  :hover-pause="true"
+  :row-height="40"
+/&gt;</code></pre>
+            <CyberInfiniteTable
+                :data="localData"
+                :columns="columns"
+                :auto-scroll="true"
+                :row-num="5"
+                :wait-time="1000"
+                :hover-pause="true"
+                :row-height="40"
+            ></CyberInfiniteTable>
+        </div>
+
+        <!-- Hologram 主题 -->
+        <div class="section">
+            <div class="section-title">Hologram 主题</div>
+            <pre class="code-block"><code class="html">&lt;CyberInfiniteTable
+  theme="hologram"
+  :data="localData"
+  :columns="columns"
+  :auto-scroll="true"
+  :row-num="5"
+  scroll-type="page"
+  :wait-time="2000"
+  :hover-pause="true"
+  :row-height="40"
+/&gt;</code></pre>
+            <CyberInfiniteTable
+                theme="hologram"
+                :data="localData"
+                :columns="columns"
+                :auto-scroll="true"
+                :row-num="5"
+                scroll-type="page"
+                :wait-time="2000"
+                :hover-pause="true"
+                :row-height="40"
+            ></CyberInfiniteTable>
+        </div>
+
+        <!-- Terminal 主题 -->
+        <div class="section">
+            <div class="section-title">Terminal 主题</div>
+            <pre class="code-block"><code class="html">&lt;CyberInfiniteTable
+  theme="terminal"
+  :data="localData"
+  :columns="columns"
+  :auto-scroll="true"
+  :row-num="5"
+  scroll-type="page"
+  :wait-time="3000"
+  :hover-pause="true"
+  :row-height="40"
+/&gt;</code></pre>
+            <CyberInfiniteTable
+                theme="terminal"
+                :data="localData"
+                :columns="columns"
+                :auto-scroll="true"
+                :row-num="5"
+                scroll-type="page"
+                :wait-time="3000"
+                :hover-pause="true"
+                :row-height="40"
+            ></CyberInfiniteTable>
+        </div>
+
+        <!-- Matrix 主题 -->
+        <div class="section">
+            <div class="section-title">Matrix 主题</div>
+            <pre class="code-block"><code class="html">&lt;CyberInfiniteTable
+  theme="matrix"
+  :data="localData"
+  :columns="columns"
+  :row-num="5"
+  :wait-time="2000"
+  :hover-pause="true"
+  :row-height="40"
+/&gt;</code></pre>
+            <CyberInfiniteTable
+                theme="matrix"
+                :data="localData"
+                :columns="columns"
+                :row-num="5"
+                :wait-time="2000"
+                :hover-pause="true"
+                :row-height="40"
+            ></CyberInfiniteTable>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -86,13 +145,21 @@ onMounted(() => {
   // 初始化数据
 });
 </script>
-<style scoped>
-  .dashboard {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-  }
+<style scoped lang="scss">
+.content {
+    padding: 20px;
+    text-align: left;
+}
+
+.section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
 </style>
