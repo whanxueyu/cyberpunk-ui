@@ -1,34 +1,40 @@
 :root {
-    /*  */
-    --cp-primary-color: #4EAFFA;
-    --cp-success-color: #EAA3D2;
-    --cp-warning-color: #CC54D1;
-    --cp-danger-color: #B74F69;
+    /* 主题色 - 第一组（主色调） */
+    --cp-primary-color: #00a6dc;
+    --cp-success-color: #02c54d;
+    --cp-warning-color: #ff9900;
+    --cp-danger-color: #ff013c;
     --cp-info-color: #4A41AF;
-    /*  */
-    --cp-primary-color2: #47F2C6;
-    --cp-success-color2: #00D1A8;
-    --cp-warning-color2: #0F717F;
+    /* 主题色 - 第二组（辅助色1） */
+    --cp-primary-color2: #9280ed;
+    --cp-success-color2: #ffce6c;
+    --cp-warning-color2: #00e6f6;
     --cp-danger-color2: #3F8B9F;
     --cp-info-color2: #2F4F79;
-    /* */
-    --cp-primary-color3: #97E3FE;
-    --cp-success-color3: #F294F8;
+    /* 主题色 - 第三组（辅助色2/文字阴影） */
+    --cp-primary-color3: #69f569;
+    --cp-success-color3: #00a7d5;
     --cp-warning-color3: #818CE1;
     --cp-danger-color3: #9A54D0;
     --cp-info-color3: #2743AE;
-    /* */
+    /* 主题色 - 第四组 */
     --cp-primary-color4: #F7DA66;
     --cp-success-color4: #3DB3CF;
     --cp-warning-color4: #C14347;
     --cp-danger-color4: #AB599B;
     --cp-info-color4: #1A133A;
-    /* */
+    /* 主题色 - 第五组 */
     --cp-primary-color5: #C2F132;
     --cp-success-color5: #61FAF8;
     --cp-warning-color5: #3DE1C3;
     --cp-danger-color5: #3D8155;
     --cp-info-color5: #396976;
+    /* 按钮背景色（深色版本） */
+    --cp-primary-bg: #014961;
+    --cp-success-bg: #015722;
+    --cp-warning-bg: #613a01;
+    --cp-danger-bg: #5c0116;
+    --cp-info-bg: #1A133A;
 }
-/* 蓝绿红黄紫 */
+/* 蓝绿橙红紫 */
     

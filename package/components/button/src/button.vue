@@ -167,7 +167,7 @@ const buttonSize = computed(() => {
     line-height: 1; */
     /* cursive 为通用字体族名——草书 */
     /* font-family: "Bebas Neue", cursive; */
-    background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+    background: linear-gradient(45deg, transparent 5%, var(--cp-danger-color) 5%);
     border: 0;
     color: #fff;
     letter-spacing: 3px;
@@ -191,11 +191,11 @@ const buttonSize = computed(() => {
     bottom: 0;
     background: linear-gradient(45deg,
             transparent 3%,
-            #00e6f6 3%,
-            #00e6f6 5%,
-            #ff013c 5%);
-    box-shadow: 6px 0 0 #00e6f6;
-    text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+            var(--cp-warning-color2) 3%,
+            var(--cp-warning-color2) 5%,
+            var(--cp-danger-color) 5%);
+    box-shadow: 6px 0 0 var(--cp-warning-color2);
+    text-shadow: -3px -3px 0px var(--cp-primary-color3), 3px 3px 0px var(--cp-warning-color2);
     clip-path: var(--slice-0);
 }
 
@@ -206,49 +206,49 @@ const buttonSize = computed(() => {
 
 .primary-style {
     /* primary样式定义 */
-    background: linear-gradient(45deg, transparent 5%, #00a6dc 5%);
+    background: linear-gradient(45deg, transparent 5%, var(--cp-primary-color) 5%);
 
     &::after {
         background: linear-gradient(45deg,
                 transparent 3%,
-                #9280ed 3%,
-                #9280ed 5%,
-                #00a6dc 5%);
-        box-shadow: 6px 0 0 #9280ed;
-        text-shadow: -3px -3px 0px #69f569, 3px 3px 0px #9280ed;
+                var(--cp-primary-color2) 3%,
+                var(--cp-primary-color2) 5%,
+                var(--cp-primary-color) 5%);
+        box-shadow: 6px 0 0 var(--cp-primary-color2);
+        text-shadow: -3px -3px 0px var(--cp-primary-color3), 3px 3px 0px var(--cp-primary-color2);
     }
 }
 
 .success-style {
     /* success样式定义 */
-    background: linear-gradient(45deg, transparent 5%, #02c54d 5%);
+    background: linear-gradient(45deg, transparent 5%, var(--cp-success-color) 5%);
 
     &::after {
         background: linear-gradient(45deg,
                 transparent 3%,
-                #ffce6c 3%,
-                #ffce6c 5%,
-                #02c54d 5%);
-        box-shadow: 6px 0 0 #ffce6c;
-        text-shadow: -3px -3px 0px #00a7d5, 3px 3px 0px #ffce6c;
+                var(--cp-success-color2) 3%,
+                var(--cp-success-color2) 5%,
+                var(--cp-success-color) 5%);
+        box-shadow: 6px 0 0 var(--cp-success-color2);
+        text-shadow: -3px -3px 0px var(--cp-success-color3), 3px 3px 0px var(--cp-success-color2);
     }
 }
 
 .warning-style {
     /* warning样式定义 */
-    background: linear-gradient(45deg, transparent 5%, #ff9900 5%);
+    background: linear-gradient(45deg, transparent 5%, var(--cp-warning-color) 5%);
 
     &::after {
         background: linear-gradient(45deg,
                 transparent 3%,
-                #00e6f6 3%,
-                #00e6f6 5%,
-                #ff9900 5%);
+                var(--cp-warning-color2) 3%,
+                var(--cp-warning-color2) 5%,
+                var(--cp-warning-color) 5%);
     }
 }
 
 .danger-style {
     /* danger样式定义 */
-    background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+    background: linear-gradient(45deg, transparent 5%, var(--cp-danger-color) 5%);
 }
 </style>

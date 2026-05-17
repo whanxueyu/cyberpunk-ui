@@ -108,7 +108,7 @@ const buttonSize = computed(() => {
 }
 
 .button {
-    --base-color: #03e9f4;
+    --base-color: var(--cp-primary-color);
     color: var(--base-color);
     position: relative;
     z-index: 0;
@@ -171,19 +171,19 @@ const buttonSize = computed(() => {
     &.show-bg {
         color: #fff;
         &::after {
-            background: #014961;
+            background: var(--cp-primary-bg);
         }
         &::before {
             background-color: transparent;
         }
 
         &:hover {
-            background: #00a6dc;
+            background: var(--cp-primary-color);
         }
     }
 
     &.button {
-        --base-color: #00a6dc;
+        --base-color: var(--cp-primary-color);
     }
 }
 
@@ -191,19 +191,19 @@ const buttonSize = computed(() => {
     &.show-bg {
         color: #fff;
         &::after {
-            background: #015722;
+            background: var(--cp-success-bg);
         }
         &::before {
             background-color: transparent;
         }
 
         &:hover {
-            background: #02c54d;
+            background: var(--cp-success-color);
         }
     }
 
     &.button {
-        --base-color: #02c54d;
+        --base-color: var(--cp-success-color);
     }
 }
 
@@ -211,19 +211,19 @@ const buttonSize = computed(() => {
     &.show-bg {
         color: #fff;
         &::after {
-            background: #613a01;
+            background: var(--cp-warning-bg);
         }
         &::before {
             background-color: transparent;
         }
 
         &:hover {
-            background: #ff9900;
+            background: var(--cp-warning-color);
         }
     }
 
     &.button {
-        --base-color: #ff9900;
+        --base-color: var(--cp-warning-color);
     }
 }
 
@@ -232,19 +232,19 @@ const buttonSize = computed(() => {
         color: #fff;
 
         &::after {
-            background: #5c0116;
+            background: var(--cp-danger-bg);
         }
         &::before {
             background-color: transparent;
         }
 
         &:hover {
-            background: #ff013c;
+            background: var(--cp-danger-color);
         }
     }
 
     &.button {
-        --base-color: #ff013c;
+        --base-color: var(--cp-danger-color);
     }
 }
 </style>

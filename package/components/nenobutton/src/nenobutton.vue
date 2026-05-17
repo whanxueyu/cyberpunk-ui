@@ -106,7 +106,7 @@ const buttonSize = computed(() => {
 }
 
 .button {
-    --base-color: #03e9f4;
+    --base-color: var(--cp-primary-color);
     position: relative;
     padding: 25px 30px;
     color: var(--base-color);
@@ -216,60 +216,60 @@ const buttonSize = computed(() => {
 
 .primary-style {
     &.show-bg {
-        background: #014961;
+        background: var(--cp-primary-bg);
         color: #fff;
         &:hover{
-            background: #00a6dc;
+            background: var(--cp-primary-color);
         }
     }
 
     &.button {
-        --base-color: #00a6dc;
+        --base-color: var(--cp-primary-color);
     }
 }
 
 .success-style {
     &.show-bg {
-        background: #015722;
+        background: var(--cp-success-bg);
         color: #fff;
 
         &:hover{
-            background: #02c54d;
+            background: var(--cp-success-color);
         }
     }
 
     &.button {
-        --base-color: #02c54d;
+        --base-color: var(--cp-success-color);
     }
 }
 
 .warning-style {
     &.show-bg {
-        background: #613a01;
+        background: var(--cp-warning-bg);
         color: #fff;
 
         &:hover{
-            background: #ff9900;
+            background: var(--cp-warning-color);
         }
     }
 
     &.button {
-        --base-color: #ff9900;
+        --base-color: var(--cp-warning-color);
     }
 }
 
 .danger-style {
     &.show-bg {
-        background: #5c0116;
+        background: var(--cp-danger-bg);
         color: #fff;
 
         &:hover{
-            background: #ff013c;
+            background: var(--cp-danger-color);
         }
     }
 
     &.button {
-        --base-color: #ff013c;
+        --base-color: var(--cp-danger-color);
     }
 }
 </style>
