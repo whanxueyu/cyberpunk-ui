@@ -102,6 +102,7 @@ const groupOptions = [
 </script>
 ```
 
+
 ## 自定义字段
 
 <cyber-select v-model="customValue" :options="customOptions" label-key="name" value-key="id" placeholder="选择项目"></cyber-select>
@@ -204,4 +205,40 @@ const customOptions = [
   { id: 2, name: 'Project Beta' },
   { id: 3, name: 'Project Gamma' },
 ]
+
+const multiLevelOptions = [
+  {
+    label: '文件',
+    key: 'file',
+    children: [
+      { label: '新建', value: 'new', shortcut: 'Ctrl+N' },
+      { label: '打开', value: 'open', shortcut: 'Ctrl+O' },
+    ],
+  },
+  {
+    label: '编辑',
+    key: 'edit',
+    children: [
+      { label: '撤销', value: 'undo', shortcut: 'Ctrl+Z' },
+      { label: '重做', value: 'redo', shortcut: 'Ctrl+Y' },
+    ],
+  },
+]
 </script>
+
+## 选项数据结构
+
+### 基础选项
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| label | 选项文本 | `string` | - |
+| value | 选项值 | `string \| number` | - |
+| disabled | 是否禁用 | `boolean` | `false` |
+
+### 分组选项
+
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| label | 分组标题 | `string` | - |
+| options | 分组内的选项 | `Option[]` | - |
