@@ -24,6 +24,7 @@ import { CyberCascader } from '../components/cascader';
 import { CyberTree } from '../components/tree';
 import { CyberDivider } from '../components/divider';
 import { CyberInput } from '../components/input';
+import { CyberMenu } from '../components/menu';
 
 export default [
     CyberButton,
@@ -51,7 +52,8 @@ export default [
     CyberTree,
     CyberBanner,
     CyberDivider,
-    CyberInput
+    CyberInput,
+    CyberMenu
 ]
 
 

@@ -24,4 +24,5 @@ export * from './cascader';
 export * from './tree';
 export * from './divider';
 export * from './input';
+export * from './menu';
 //# sourceMappingURL=index.js.map
