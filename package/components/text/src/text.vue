@@ -20,7 +20,7 @@ if (slots && slots.default) {
 const props = defineProps({
     lineColor: {
         type: String,
-        default: '#fff'
+        default: '#0000'
     },
 })
 
