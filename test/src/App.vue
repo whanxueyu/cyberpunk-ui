@@ -33,7 +33,7 @@ console.log(
 );
 
 // 当前选中的组件面板
-const activeMenu = shallowRef(dividerPanel);
+const activeMenu = shallowRef(menuPanel);
 
 // const handleMenuClick = (component: any) => {
 //   activeMenu.value = component;
