@@ -1,78 +1,70 @@
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import CyberMenuItem from './menu-item.vue';
-defineOptions({
-    name: 'CyberMenu',
-});
+defineOptions({ name: 'CyberMenu' });
 const props = withDefaults(defineProps(), {
     modelValue: '',
     items: () => [],
     direction: 'vertical',
     theme: 'neon',
-    effect: 'none',
     expandedValues: () => [],
 });
 const emit = defineEmits();
 const activeValue = ref(props.modelValue);
-const expandedValues = ref(props.expandedValues);
-const isGlitching = ref(false);
-const menuItems = ref(props.items);
+const expandedValues = ref([...props.expandedValues]);
+const menuItems = ref([...props.items]);
 const handleSelect = (item) => {
-    if (item.disabled)
-        return;
     activeValue.value = item.value;
     emit('update:modelValue', item.value);
     emit('change', item.value);
     emit('select', item);
-    if (props.effect === 'glitch') {
-        triggerGlitchEffect();
-    }
 };
 const handleToggleExpand = (value) => {
-    const index = expandedValues.value.indexOf(value);
-    if (index > -1) {
-        expandedValues.value.splice(index, 1);
-    }
+    const arr = [...expandedValues.value];
+    const i = arr.indexOf(value);
+    if (i > -1)
+        arr.splice(i, 1);
     else {
-        expandedValues.value.push(value);
+        if (props.direction === 'horizontal')
+            arr.length = 0;
+        arr.push(value);
     }
+    expandedValues.value = arr;
+    emit('update:expandedValues', arr);
 };
-const triggerGlitchEffect = () => {
-};
-watch(() => props.modelValue, (newVal) => {
-    activeValue.value = newVal;
+watch(() => props.modelValue, v => activeValue.value = v, { immediate: true });
+watch(() => props.items, v => menuItems.value = [...v], { deep: true, immediate: true });
+watch(() => props.expandedValues, v => expandedValues.value = [...v], { deep: true, immediate: true });
+const themeStyles = computed(() => {
+    const t = {
+        neon: { primary: '#00e6f6', bg: 'rgba(8,16,28,0.95)', hover: 'rgba(0,230,246,0.15)', active: 'rgba(0,230,246,0.25)', text: '#fff', muted: '#aaa' },
+        terminal: { primary: '#47f26b', bg: '#0a140a', hover: 'rgba(71,242,107,0.15)', active: 'rgba(71,242,107,0.25)', text: '#fff', muted: '#aaa' },
+        matrix: { primary: '#00ff41', bg: '#000000', hover: 'rgba(0,255,65,0.15)', active: 'rgba(0,255,65,0.25)', text: '#00ff41', muted: '#00aa2a' },
+        hologram: { primary: '#ff00ff', bg: 'rgba(10,0,20,0.9)', hover: 'rgba(255,0,255,0.15)', active: 'rgba(255,0,255,0.25)', text: '#ffffff', muted: '#cccccc' }
+    };
+    return t[props.theme];
 });
-watch(() => props.items, (newItems) => {
-    menuItems.value = newItems;
-}, { deep: true });
-watch(() => props.expandedValues, (newValues) => {
-    expandedValues.value = [...newValues];
-}, { deep: true });
 debugger;
 const __VLS_withDefaultsArg = (function (t) { return t; })({
     modelValue: '',
     items: () => [],
     direction: 'vertical',
     theme: 'neon',
-    effect: 'none',
     expandedValues: () => [],
 });
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
 ;
-;
-;
-;
+__VLS_ctx.themeStyles.primary;
+__VLS_ctx.themeStyles.bg;
+__VLS_ctx.themeStyles.hover;
+__VLS_ctx.themeStyles.active;
+__VLS_ctx.themeStyles.text;
+__VLS_ctx.themeStyles.muted;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: ([
         'cp-cyber-menu',
         `direction-${__VLS_ctx.direction}`,
-        `theme-${__VLS_ctx.theme}`,
-        `effect-${__VLS_ctx.effect}`,
-        {
-            'is-horizontal': __VLS_ctx.direction === 'horizontal',
-            'is-vertical': __VLS_ctx.direction === 'vertical',
-            'is-glitching': __VLS_ctx.isGlitching,
-        },
+        `theme-${__VLS_ctx.theme}`
     ]) }));
 __VLS_asFunctionalElement(__VLS_intrinsicElements.ul, __VLS_intrinsicElements.ul)(Object.assign({ class: "menu-list" }));
 for (const [item] of __VLS_getVForSourceType((__VLS_ctx.menuItems))) {
@@ -90,10 +82,6 @@ for (const [item] of __VLS_getVForSourceType((__VLS_ctx.menuItems))) {
     };
     var __VLS_2;
 }
-if (__VLS_ctx.effect === 'glitch') {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "menu-glitch-overlay" }));
-}
-;
 ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
@@ -102,10 +90,10 @@ const __VLS_self = (await import('vue')).defineComponent({
             CyberMenuItem: CyberMenuItem,
             activeValue: activeValue,
             expandedValues: expandedValues,
-            isGlitching: isGlitching,
             menuItems: menuItems,
             handleSelect: handleSelect,
             handleToggleExpand: handleToggleExpand,
+            themeStyles: themeStyles,
         };
     },
     __typeEmits: {},
