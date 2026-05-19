@@ -1,7 +1,20 @@
 // .vitepress/config.ts
+import path from 'path'
+
 export default {
   title: 'CyberPunk-UI',
   description: 'cyberpunk-ui',
+  vite: {
+    resolve: {
+      alias: {
+        '@package': path.resolve(__dirname, '../../package'),
+        '@csslib': path.resolve(__dirname, '../../lib')
+      }
+    },
+    optimizeDeps: {
+      exclude: ['@package','@csslib']
+    }
+  },
   /* prettier-ignore */
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
@@ -58,23 +71,68 @@ export default {
         {
           text: "基础组件",
           items: [
-            { text: "button 按钮", link: "/components/button" },
-            { text: "text 文字", link: "/components/text" },
             { text: "banner 3D轮播", link: "/components/banner" },
-            { text: "select 选择器", link: "/components/select" },
-            { text: "霓虹开关", link: "/components/neon-toggle" },
-            { text: "故障风格图片", link: "/components/glitch-image" },
-            { text: "赛博风格图片", link: "/components/cyber-image" },
-            { text: "数字翻滚", link: "/components/digital-counter" },
-            { text: "故障进度条", link: "/components/glitch-progress" },
-            { text: "Tooltip 提示组件", link: "/components/cyber-tooltip" },
-            { text: "全屏滚动", link: "/components/fullpage" },
-            { text: "全息卡片", link: "/components/holo-card" },
-            { text: "全息加载器", link: "/components/holo-loader" },
-            { text: "消息提示组件", link: "/components/cyber-notification" },
             { text: "divider 分割线", link: "/components/divider" },
             { text: "input 输入框", link: "/components/input" },
-            // { text: "无限滚动表格", link: "/components/infinite-table" },
+            { text: "neon-toggle 霓虹开关", link: "/components/neon-toggle" },
+          ]
+        },
+        {
+          text: "按钮组件",
+          items: [
+            { text: "button 故障按钮", link: "/components/button" },
+            { text: "nenobutton 霓虹按钮", link: "/components/nenobutton" },
+            { text: "reflectbutton 反光按钮", link: "/components/reflectbutton" },
+          ]
+        },
+        {
+          text: "文字组件",
+          items: [
+            { text: "text 故障文字", link: "/components/text" },
+            { text: "glowtext 发光文字", link: "/components/glowtext" },
+            { text: "shadowtext 阴影文字", link: "/components/shadowtext" },
+            { text: "typing 打字效果", link: "/components/typing" },
+            { text: "magictext 魔法文字", link: "/components/magictext" },
+          ]
+        },
+        {
+          text: "选择器组件",
+          items: [
+            { text: "select 选择器", link: "/components/select" },
+            { text: "cascader 级联选择器", link: "/components/cascader" },
+            { text: "tree 树形组件", link: "/components/tree" },
+            { text: "menu 菜单", link: "/components/menu" },
+          ]
+        },
+        {
+          text: "进度条组件",
+          items: [
+            { text: "glitch-progress 故障进度条", link: "/components/glitch-progress" },
+            { text: "progress 赛博进度条", link: "/components/progress" },
+          ]
+        },
+        {
+          text: "数据展示",
+          items: [
+            { text: "digital-counter 数字翻滚", link: "/components/digital-counter" },
+            { text: "infinite-table 无限滚动表格", link: "/components/infinite-table" },
+          ]
+        },
+        {
+          text: "反馈组件",
+          items: [
+            { text: "cyber-notification 消息提示", link: "/components/cyber-notification" },
+            { text: "cyber-tooltip 提示组件", link: "/components/cyber-tooltip" },
+          ]
+        },
+        {
+          text: "特效组件",
+          items: [
+            { text: "glitch-image 故障图片", link: "/components/glitch-image" },
+            { text: "cyber-image 赛博图片", link: "/components/cyber-image" },
+            { text: "holo-card 全息卡片", link: "/components/holo-card" },
+            { text: "holo-loader 全息加载器", link: "/components/holo-loader" },
+            { text: "fullpage 全屏滚动", link: "/components/fullpage" },
           ]
         }
       ]
