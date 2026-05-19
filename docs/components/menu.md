@@ -3,6 +3,64 @@ title: Menu
 lang: zh-CN
 ---
 
+<script setup>
+import { ref } from 'vue'
+
+const activeMenu = ref('home')
+
+const menuItems = [
+  { label: '首页', value: 'home' },
+  { label: '产品', value: 'products' },
+  { label: '关于我们', value: 'about' },
+  { label: '联系我们', value: 'contact' }
+]
+
+const multiLevelMenu = [
+  {
+    label: '文件',
+    value: 'file',
+    children: [
+      { label: '新建', value: 'new' },
+      { label: '打开', value: 'open' },
+      { label: '保存', value: 'save' }
+    ]
+  },
+  {
+    label: '编辑',
+    value: 'edit',
+    children: [
+      { label: '撤销', value: 'undo' },
+      { label: '重做', value: 'redo' },
+      { label: '剪切', value: 'cut' },
+      { label: '复制', value: 'copy' },
+      { label: '粘贴', value: 'paste' }
+    ]
+  },
+  {
+    label: '视图',
+    value: 'view',
+    children: [
+      { label: '放大', value: 'zoom-in' },
+      { label: '缩小', value: 'zoom-out' }
+    ]
+  }
+]
+
+const disabledMenu = [
+  { label: '正常选项', value: 'normal' },
+  { label: '禁用选项', value: 'disabled', disabled: true },
+  { label: '另一个选项', value: 'another' }
+]
+
+const handleChange = (value) => {
+  console.log('菜单值变化:', value)
+}
+
+const handleSelect = (item) => {
+  console.log('选中菜单项:', item)
+}
+</script>
+
 # Menu 菜单
 
 赛博朋克风格的菜单组件，支持横向和纵向布局、多级菜单、不同主题。
@@ -120,33 +178,6 @@ const disabledMenu = [
   { label: '禁用选项', value: 'disabled', disabled: true },
   { label: '另一个选项', value: 'another' }
 ]
-</script>
-```
-
-## 事件
-
-```vue
-<template>
-  <cyber-menu
-    v-model="activeMenu"
-    :items="menuItems"
-    @change="handleChange"
-    @select="handleSelect"
-  />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const activeMenu = ref('')
-
-const handleChange = (value) => {
-  console.log('菜单值变化:', value)
-}
-
-const handleSelect = (item) => {
-  console.log('选中菜单项:', item)
-}
 </script>
 ```
 

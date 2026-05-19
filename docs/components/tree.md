@@ -3,6 +3,51 @@ title: Tree
 lang: zh-CN
 ---
 
+<script setup>
+import { ref } from 'vue'
+
+const basicData = ref([
+  {
+    id: 1,
+    label: '系统根节点',
+    children: [
+      {
+        id: 2,
+        label: '文件夹 1',
+        children: [
+          { id: 3, label: '文件 1-1' },
+          { id: 4, label: '文件 1-2' }
+        ]
+      },
+      {
+        id: 5,
+        label: '文件夹 2',
+        children: [
+          { id: 6, label: '文件 2-1' }
+        ]
+      }
+    ]
+  }
+])
+
+const statusData = ref([
+  {
+    id: 1,
+    label: '服务器集群',
+    children: [
+      { id: 2, label: '服务器 A', status: 'online' },
+      { id: 3, label: '服务器 B', status: 'warning' },
+      { id: 4, label: '服务器 C', status: 'offline' },
+      { id: 5, label: '服务器 D', status: 'error' }
+    ]
+  }
+])
+
+const handleSelectChange = (selectedNodes) => {
+  console.log('选中的节点:', selectedNodes)
+}
+</script>
+
 # Tree 树形组件
 
 赛博朋克风格的树形组件，支持多级数据展示、节点选择、状态显示等功能。

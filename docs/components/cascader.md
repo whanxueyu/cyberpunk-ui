@@ -2,7 +2,64 @@
 
 级联选择器用于多层级数据的选择，支持单选和多选模式。
 
+<script setup>
+import { ref } from 'vue';
+
+const value = ref('');
+const values = ref([]);
+const showAllValue = ref('');
+
+const options = ref([
+  {
+    label: '电子产品',
+    value: 'electronics',
+    children: [
+      {
+        label: '手机',
+        value: 'phone',
+        children: [
+          { label: 'iPhone', value: 'iphone' },
+          { label: 'Android', value: 'android' },
+        ],
+      },
+      {
+        label: '电脑',
+        value: 'computer',
+        children: [
+          { label: '笔记本', value: 'laptop' },
+          { label: '台式机', value: 'desktop' },
+        ],
+      },
+    ],
+  },
+  {
+    label: '服装',
+    value: 'clothing',
+    children: [
+      {
+        label: '男装',
+        value: 'men',
+        children: [
+          { label: '衬衫', value: 'shirt' },
+          { label: 'T恤', value: 'tshirt' },
+        ],
+      },
+      {
+        label: '女装',
+        value: 'women',
+        children: [
+          { label: '连衣裙', value: 'dress' },
+          { label: '裙子', value: 'skirt' },
+        ],
+      },
+    ],
+  },
+]);
+</script>
+
 ## 基础用法
+
+<cyber-cascader v-model="value" :options="options" placeholder="请选择" />
 
 ```vue
 <template>
@@ -32,6 +89,8 @@ const options = ref([
 
 ## 多选模式
 
+<cyber-cascader v-model="values" :options="options" multiple />
+
 ```vue
 <cyber-cascader 
   v-model="values"
@@ -44,6 +103,8 @@ const options = ref([
 
 默认显示完整路径（如：电子产品 / 手机 / iPhone），设置 `show-all-levels` 为 `false` 可只显示最后一级。
 
+<cyber-cascader v-model="showAllValue" :options="options" :show-all-levels="false" />
+
 ```vue
 <cyber-cascader 
   v-model="value"
@@ -53,6 +114,11 @@ const options = ref([
 ```
 
 ## 不同主题
+
+<cyber-cascader theme="neon" :options="options" />
+<cyber-cascader theme="terminal" :options="options" />
+<cyber-cascader theme="matrix" :options="options" />
+<cyber-cascader theme="hologram" :options="options" />
 
 ```vue
 <cyber-cascader theme="neon" :options="options" />

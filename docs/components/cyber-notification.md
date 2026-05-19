@@ -1,50 +1,112 @@
-# CyberNotification 消息提示（待完善修复问题）
+# CyberNotification 消息提示
 
 消息提示组件提供了具有未来感的通知系统，适合在赛博朋克风格界面中展示各类通知信息。
 
-## 基本用法
-
-<button @click="showNotification">显示通知</button>
-
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const notificationRef = ref(null);
 
-onMounted(() => {
-  // 获取组件实例
-  notificationRef.value = document.querySelector('#app').__vueParentComponent.ctx;
-  console.log(notificationRef.value);
-});
-
-const showNotification = () => {
-  console.log(notificationRef.value);
-
-  notificationRef.value.info({
+const showInfo = () => {
+  notificationRef.value?.info({
     title: '信息通知',
     message: '这是一条信息通知',
     duration: 3000
   });
 };
+
+const showSuccess = () => {
+  notificationRef.value?.success({
+    title: '成功通知',
+    message: '操作已成功完成',
+    duration: 3000
+  });
+};
+
+const showWarning = () => {
+  notificationRef.value?.warning({
+    title: '警告通知',
+    message: '请注意可能的风险',
+    duration: 3000
+  });
+};
+
+const showError = () => {
+  notificationRef.value?.error({
+    title: '错误通知',
+    message: '操作失败，请重试',
+    duration: 3000
+  });
+};
+
+const showHologram = () => {
+  notificationRef.value?.info({
+    title: '全息效果',
+    message: '这是全息效果通知',
+    effect: 'hologram',
+    duration: 3000
+  });
+};
+
+const showGlitch = () => {
+  notificationRef.value?.info({
+    title: '故障效果',
+    message: '这是故障效果通知',
+    effect: 'glitch',
+    duration: 3000
+  });
+};
+
+const showCircuit = () => {
+  notificationRef.value?.info({
+    title: '电路效果',
+    message: '这是电路效果通知',
+    effect: 'circuit',
+    duration: 3000
+  });
+};
+
+const showWithActions = () => {
+  notificationRef.value?.warning({
+    title: '带操作按钮',
+    message: '这条通知包含操作按钮',
+    duration: 0,
+    actions: [
+      {
+        text: '确认',
+        callback: () => {
+          console.log('点击了确认');
+        }
+      },
+      {
+        text: '取消',
+        callback: () => {
+          console.log('点击了取消');
+        }
+      }
+    ]
+  });
+};
 </script>
+
+## 基本用法
+
+<cyber-button @click="showInfo">显示通知</cyber-button>
+<cyber-notification ref="notificationRef" />
 
 ```vue
 <template>
-  <button @click="showNotification">显示通知</button>
+  <cyber-button @click="showNotification">显示通知</cyber-button>
+  <cyber-notification ref="notificationRef" />
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const notificationRef = ref(null);
 
-onMounted(() => {
-  // 获取组件实例
-  notificationRef.value = document.querySelector('.cyber-notification-container').__vueParentComponent.ctx;
-});
-
 const showNotification = () => {
-  notificationRef.value.info({
+  notificationRef.value?.info({
     title: '信息通知',
     message: '这是一条信息通知',
     duration: 3000
@@ -55,41 +117,64 @@ const showNotification = () => {
 
 ## 不同类型
 
+<cyber-button @click="showInfo">信息通知</cyber-button>
+<cyber-button @click="showSuccess">成功通知</cyber-button>
+<cyber-button @click="showWarning">警告通知</cyber-button>
+<cyber-button @click="showError">错误通知</cyber-button>
+
 ```vue
+<template>
+  <cyber-button @click="showInfo">信息通知</cyber-button>
+  <cyber-button @click="showSuccess">成功通知</cyber-button>
+  <cyber-button @click="showWarning">警告通知</cyber-button>
+  <cyber-button @click="showError">错误通知</cyber-button>
+  <cyber-notification ref="notificationRef" />
+</template>
+
 <script setup>
-// 信息通知
-notificationRef.value.info({
-  title: '信息通知',
-  message: '这是一条信息通知'
-});
+import { ref } from 'vue';
 
-// 成功通知
-notificationRef.value.success({
-  title: '成功通知',
-  message: '操作已成功完成'
-});
+const notificationRef = ref(null);
 
-// 警告通知
-notificationRef.value.warning({
-  title: '警告通知',
-  message: '请注意可能的风险'
-});
+const showInfo = () => {
+  notificationRef.value?.info({
+    title: '信息通知',
+    message: '这是一条信息通知'
+  });
+};
 
-// 错误通知
-notificationRef.value.error({
-  title: '错误通知',
-  message: '操作失败，请重试'
-});
+const showSuccess = () => {
+  notificationRef.value?.success({
+    title: '成功通知',
+    message: '操作已成功完成'
+  });
+};
+
+const showWarning = () => {
+  notificationRef.value?.warning({
+    title: '警告通知',
+    message: '请注意可能的风险'
+  });
+};
+
+const showError = () => {
+  notificationRef.value?.error({
+    title: '错误通知',
+    message: '操作失败，请重试'
+  });
+};
 </script>
 ```
 
 ## 不同位置
 
-  <cyber-notification position="top-right" />
-  <cyber-notification position="top-left" />
-  <cyber-notification position="bottom-right" />
-  <cyber-notification position="bottom-left" />
-  <cyber-notification position="center" />
+<cyber-button @click="showInfo">显示通知(右上角)</cyber-button>
+
+<cyber-notification ref="notificationRef" position="top-right" />
+<cyber-notification position="top-left" />
+<cyber-notification position="bottom-right" />
+<cyber-notification position="bottom-left" />
+<cyber-notification position="center" />
 
 ```vue
 <template>
@@ -103,70 +188,114 @@ notificationRef.value.error({
 
 ## 不同效果
 
+<cyber-button @click="showGlitch">故障效果</cyber-button>
+<cyber-button @click="showHologram">全息效果</cyber-button>
+<cyber-button @click="showCircuit">电路效果</cyber-button>
+
 ```vue
+<template>
+  <cyber-button @click="showGlitch">故障效果</cyber-button>
+  <cyber-button @click="showHologram">全息效果</cyber-button>
+  <cyber-button @click="showCircuit">电路效果</cyber-button>
+  <cyber-notification ref="notificationRef" />
+</template>
+
 <script setup>
-notificationRef.value.info({
-  title: '全息效果',
-  message: '这是全息效果通知',
-  effect: 'hologram'
-});
+import { ref } from 'vue';
 
-notificationRef.value.info({
-  title: '故障效果',
-  message: '这是故障效果通知',
-  effect: 'glitch'
-});
+const notificationRef = ref(null);
 
-notificationRef.value.info({
-  title: '电路效果',
-  message: '这是电路效果通知',
-  effect: 'circuit'
-});
+const showGlitch = () => {
+  notificationRef.value?.info({
+    title: '故障效果',
+    message: '这是故障效果通知',
+    effect: 'glitch'
+  });
+};
+
+const showHologram = () => {
+  notificationRef.value?.info({
+    title: '全息效果',
+    message: '这是全息效果通知',
+    effect: 'hologram'
+  });
+};
+
+const showCircuit = () => {
+  notificationRef.value?.info({
+    title: '电路效果',
+    message: '这是电路效果通知',
+    effect: 'circuit'
+  });
+};
 </script>
 ```
 
 ## 自定义持续时间
 
-```vue
-<script setup>
-// 持续显示（不会自动关闭）
-notificationRef.value.info({
-  title: '持续通知',
-  message: '这条通知不会自动关闭',
-  duration: 0
-});
+<cyber-button @click="showWithDuration(2000)">2秒后关闭</cyber-button>
+<cyber-button @click="showWithDuration(5000)">5秒后关闭</cyber-button>
+<cyber-button @click="showWithDuration(0)">不自动关闭</cyber-button>
 
-// 短暂显示
-notificationRef.value.info({
-  title: '短暂通知',
-  message: '这条通知将在2秒后关闭',
-  duration: 2000
-});
+```vue
+<template>
+  <cyber-button @click="showWithDuration(2000)">2秒后关闭</cyber-button>
+  <cyber-button @click="showWithDuration(5000)">5秒后关闭</cyber-button>
+  <cyber-button @click="showWithDuration(0)">不自动关闭</cyber-button>
+  <cyber-notification ref="notificationRef" />
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const notificationRef = ref(null);
+
+const showWithDuration = (duration) => {
+  notificationRef.value?.info({
+    title: '持续时间',
+    message: duration === 0 ? '不会自动关闭' : `${duration / 1000}秒后关闭`,
+    duration
+  });
+};
 </script>
 ```
 
 ## 带操作按钮
 
+<cyber-button @click="showWithActions">显示带操作的通知</cyber-button>
+
 ```vue
+<template>
+  <cyber-button @click="showWithActions">显示带操作的通知</cyber-button>
+  <cyber-notification ref="notificationRef" />
+</template>
+
 <script setup>
-notificationRef.value.info({
-  title: '带操作按钮',
-  message: '这条通知包含操作按钮',
-  actions: [
-    {
-      text: '确认',
-      callback: () => {
-        console.log('点击了确认');
+import { ref } from 'vue';
+
+const notificationRef = ref(null);
+
+const showWithActions = () => {
+  notificationRef.value?.warning({
+    title: '带操作按钮',
+    message: '这条通知包含操作按钮',
+    duration: 0,
+    actions: [
+      {
+        text: '确认',
+        callback: () => {
+          console.log('点击了确认');
+        }
+      },
+      {
+        text: '取消',
+        callback: () => {
+          console.log('点击了取消');
+        }
       }
-    },
-    {
-      text: '取消',
-      callback: () => {
-        console.log('点击了取消');
-      }
-    }
-  ]
-});
+    ]
+  });
+};
 </script>
 ```
 

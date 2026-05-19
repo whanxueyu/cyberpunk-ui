@@ -2,7 +2,14 @@
 
 赛博朋克风格的输入框组件，支持多种主题、尺寸和特效。
 
+<script setup>
+import { ref } from 'vue'
+const value = ref('')
+</script>
+
 ## 基础用法
+
+<cyber-input v-model="value" placeholder="请输入内容"></cyber-input>
 
 ```vue
 <template>
@@ -19,6 +26,12 @@ const value = ref('')
 
 组件支持 5 种主题样式：`primary`、`success`、`warning`、`danger`、`info`
 
+<cyber-input theme="primary" placeholder="主要主题"></cyber-input>
+<cyber-input theme="success" placeholder="成功主题"></cyber-input>
+<cyber-input theme="warning" placeholder="警告主题"></cyber-input>
+<cyber-input theme="danger" placeholder="危险主题"></cyber-input>
+<cyber-input theme="info" placeholder="信息主题"></cyber-input>
+
 ```vue
 <template>
   <cyber-input theme="primary" placeholder="主要主题"></cyber-input>
@@ -33,6 +46,10 @@ const value = ref('')
 
 支持 3 种尺寸：`large`、`default`、`small`
 
+<cyber-input size="large" placeholder="大尺寸"></cyber-input>
+<cyber-input size="default" placeholder="默认尺寸"></cyber-input>
+<cyber-input size="small" placeholder="小尺寸"></cyber-input>
+
 ```vue
 <template>
   <cyber-input size="large" placeholder="大尺寸"></cyber-input>
@@ -43,6 +60,8 @@ const value = ref('')
 
 ## 禁用状态
 
+<cyber-input disabled placeholder="禁用状态"></cyber-input>
+
 ```vue
 <template>
   <cyber-input disabled placeholder="禁用状态"></cyber-input>
@@ -50,6 +69,8 @@ const value = ref('')
 ```
 
 ## 只读状态
+
+<cyber-input readonly model-value="只读内容"></cyber-input>
 
 ```vue
 <template>
@@ -61,6 +82,10 @@ const value = ref('')
 
 支持多种输入类型：`text`、`password`、`number`、`email`、`tel`、`url`
 
+<cyber-input type="password" placeholder="密码输入"></cyber-input>
+<cyber-input type="email" placeholder="邮箱输入"></cyber-input>
+<cyber-input type="number" placeholder="数字输入"></cyber-input>
+
 ```vue
 <template>
   <cyber-input type="password" placeholder="密码输入"></cyber-input>
@@ -71,6 +96,8 @@ const value = ref('')
 
 ## 最大长度限制
 
+<cyber-input maxlength="10" placeholder="最多10个字符"></cyber-input>
+
 ```vue
 <template>
   <cyber-input maxlength="10" placeholder="最多10个字符"></cyber-input>
@@ -80,6 +107,10 @@ const value = ref('')
 ## 特效控制
 
 可以控制故障特效和扫描线特效的显示
+
+<cyber-input :glitch-effect="false" placeholder="无故障特效"></cyber-input>
+<cyber-input :scanline-effect="false" placeholder="无扫描线特效"></cyber-input>
+<cyber-input :glitch-effect="false" :scanline-effect="false" placeholder="无特效"></cyber-input>
 
 ```vue
 <template>
