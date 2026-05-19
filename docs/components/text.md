@@ -1,99 +1,42 @@
 ---
-title: Text
-lang: en-US
+title: Text 故障文字
+lang: zh-CN
 ---
-# text
-故障效果文字、霓虹效果文字、3D效果文字
-## 故障文字
-这是一个最基础的按钮，也是最具代表性的，可以设置扫描线的颜色 `lineColor`
-<cyber-text>CyberPunkUI </cyber-text>
+
+# Text 故障文字
+
+赛博朋克风格的故障艺术效果文字组件，具有扫描线动画效果。
+
+## 基本用法
+
+<cyber-text>CyberPunkUI</cyber-text>
+
+```vue
+<template>
+  <cyber-text>CyberPunkUI</cyber-text>
+</template>
+```
+
+## 自定义扫描线颜色
+
+可以通过 `lineColor` 属性自定义扫描线颜色
+
+<cyber-text lineColor="#111">黑色扫描线</cyber-text>
 <br />
-<cyber-text lineColor="#111">这段文字的lineColor为黑色 </cyber-text>
+<cyber-text lineColor="#f30">红色扫描线</cyber-text>
 <br />
-<cyber-text lineColor="#f30"> 这段文字的lineColor为红色“#ff3300”</cyber-text>
+<cyber-text lineColor="#00ff00">绿色扫描线</cyber-text>
 
 ```vue
 <template>
-    <cyber-text>CyberPunkUI</cyber-text>
-    <cyber-text lineColor="#f30">这段文字的lineColor为红色“#ff3300”</cyber-text>
+  <cyber-text lineColor="#111">黑色扫描线</cyber-text>
+  <cyber-text lineColor="#f30">红色扫描线</cyber-text>
+  <cyber-text lineColor="#00ff00">绿色扫描线</cyber-text>
 </template>
 ```
 
-## 3D文字 
-这是一个3D具有阴影效果的文字，可以设置阴影颜色 `shadowColor` 、方向 `direction` 以及阴影长度 `long`
-<div style="font-size: 48px;font-weight: bold;line-height: 1.2">
-    <cyber-shadow-text shadowColor="#33a6f9" direction="left" :long="20">shadow-left-long20</cyber-shadow-text>
-    <cyber-shadow-text shadowColor="#33a89f" direction="left" :long="10">shadow-left-long10</cyber-shadow-text>
-    <cyber-shadow-text shadowColor="#ff5555" direction="right" :long="10">shadow-right-long10</cyber-shadow-text>
-    <cyber-shadow-text shadowColor="#ff5588" direction="right" :long="20">shadow-right-long20</cyber-shadow-text>
-</div>
+## 属性
 
-```vue
-<template>
-    <div style="font-size: 48px;font-weight: bold;line-height: 1.2">
-        <cyber-shadow-text shadowColor="#33a6f9" direction="left" :long="20">shadow-left-long20</cyber-shadow-text>
-        <cyber-shadow-text shadowColor="#33a89f" direction="left" :long="10">shadow-left-long10</cyber-shadow-text>
-        <cyber-shadow-text shadowColor="#ff5555" direction="right" :long="10">shadow-right-long10</cyber-shadow-text>
-        <cyber-shadow-text shadowColor="#ff5588" direction="right" :long="20">shadow-right-long20</cyber-shadow-text>
-    </div>
-</template>
-```
-
-## 霓虹文字
-这是一个鼠标悬浮后有霓虹发光效果的文字，可以设置发光颜色 `color`
-<cyber-glow-text color="#ff5588">cyber-glow-text</cyber-glow-text>
-
-```vue
-<template>
-    <cyber-glow-text color="#ff5588">cyber-glow-text</cyber-glow-text>
-</template>
-```
-
-## 打字效果
-这是一个打字效果的文字
-<cyber-typing>这是一个打字效果的文字</cyber-typing>
-<br />
-<cyber-typing>1234567890</cyber-typing>
-
-```vue
-<template>
-    <cyber-typing>这是一个打字效果的文字</cyber-typing>
-    <cyber-typing>1234567890</cyber-typing>
-</template>
-```
-
-## 魔术文字
-这是一个非常炫酷的魔术文字效果
-<div style="display: flex;font-size: 48px;line-height: 60px;">
-    <cyber-magic-text>CyberMagicText</cyber-magic-text>
-</div>
-<div style="display: flex;font-size: 48px;line-height: 60px;">
-    <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-</div>
-<div style="display: flex;font-size: 22px;line-height: 40px;">
-    <cyber-magic-text>CyberMagicText</cyber-magic-text>
-    <cyber-magic-text>1234567890</cyber-magic-text>
-</div>
-<div style="display: flex;font-size: 22px;line-height: 40px;">
-    <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
-    <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-</div>
-
-```vue
-<template>
-    <div style="display: flex;font-size: 48px;line-height: 60px;">
-        <cyber-magic-text>CyberMagicText</cyber-magic-text>
-    </div>
-    <div style="display: flex;font-size: 48px;line-height: 60px;">
-        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-    </div>
-    <div style="display: flex;font-size: 22px;line-height: 40px;">
-        <cyber-magic-text>CyberMagicText</cyber-magic-text>
-        <cyber-magic-text>1234567890</cyber-magic-text>
-    </div>
-    <div style="display: flex;font-size: 22px;line-height: 40px;">
-        <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
-        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-    </div>
-</template>
-```
+| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
+|--------|------|------|--------|--------|
+| lineColor | 扫描线颜色 | string | - | `#00e6f6` |
