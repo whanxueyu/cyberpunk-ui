@@ -3,25 +3,39 @@ layout: home
 
 hero:
     name: CyberPunk-UI
-    text: 基于vue3的组件库
-    tagline: 建议黑暗模式使用.
-    image: /logo.svg
+    text: 赛博朋克风格 Vue3 组件库
+    tagline: 探索未来世界的界面设计 · 建议配合黑暗模式使用
+    image:
+      src: /logo.svg
+      alt: CyberPunk-UI Logo
     actions:
       - theme: brand
-        text: 快速开始
+        text: 🚀 快速开始
         link: /guide/quickstart
       - theme: alt
-        text: GitHub
+        text: 📦 查看组件
+        link: /components/button
+      - theme: alt
+        text: ⭐ GitHub
         link: https://github.com/whanxueyu/cyberpunk-ui
+
 features:
-  - icon: 🛠️
-    title: 炫酷的效果
-    details: 极具科幻效果的组件库，赛博朋克风格，充满未来感
-  - icon: 🚀
-    title: 极少的依赖
-    details: 所有组件均为 Vue3 纯手打，非其他组件库的二次开发和封装
-  - icon: 📝
-    title: 人性化的设计
-    details: 有什么好的建议和需求，欢迎提issue或pr.
-    link: https://github.com/whanxueyu/cyberpunk-ui/pulls
+  - icon: 🎨
+    title: 炫酷的视觉效果
+    details: 极具科幻感的赛博朋克风格，包含故障艺术、霓虹光效、全息投影等多种特效，充满未来科技感
+  - icon: 💎
+    title: 纯手工打造
+    details: 所有组件均为 Vue3 + TypeScript 纯手写实现，零依赖其他 UI 库，代码简洁高效
+  - icon: 🎭
+    title: 多主题支持
+    details: 支持 neon、hologram、terminal、matrix 四种赛博朋克主题，一键切换不同视觉风格
+  - icon: 📱
+    title: 响应式设计
+    details: 所有组件均采用响应式布局，完美适配桌面端、平板和移动端设备
+  - icon: 🔧
+    title: 高度可定制
+    details: 提供丰富的属性配置和 CSS 变量，轻松自定义颜色、尺寸、动画等样式
+  - icon: 🌟
+    title: 持续更新
+    details: 活跃的社区支持和持续的版本迭代，不断添加新组件和优化现有功能
 ---
