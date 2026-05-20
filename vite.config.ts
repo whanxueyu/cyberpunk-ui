@@ -16,7 +16,8 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, './package/cyberpunk-ui/index.ts'),
       name: 'cyberpunkUI',
-      fileName: 'cyberpunk-ui'
+      fileName: 'cyberpunk-ui',
+      formats: ['es', 'umd']
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

@@ -1,0 +1,24 @@
+# 开发目录
+test/
+docs/
+.lingma/
+
+# 配置文件
+.gitignore
+.npmrc
+pnpm-workspace.yaml
+tsconfig.json
+tsconfig.package.json
+tsconfig.tsbuildinfo
+vite.config.js
+vite.config.js.map
+vite.config.ts
+
+# 编译产物（除了lib目录）
+*.js.map
+*.tsbuildinfo
+
+# 其他
+node_modules/
+.vscode/
+AI_COMPONENT_SPEC.md
