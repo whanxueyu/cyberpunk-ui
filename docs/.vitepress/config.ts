@@ -4,17 +4,6 @@ import path from 'path'
 export default {
   title: 'CyberPunk-UI',
   description: 'cyberpunk-ui',
-  // vite: {
-  //   resolve: {
-  //     alias: {
-  //       '@package': path.resolve(__dirname, '../../package'),
-  //       '@csslib': path.resolve(__dirname, '../../lib')
-  //     }
-  //   },
-  //   optimizeDeps: {
-  //     exclude: ['@package','@csslib']
-  //   }
-  // },
   /* prettier-ignore */
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
