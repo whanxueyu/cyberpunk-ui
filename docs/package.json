@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "cyberpunk-ui": "^1.1.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.60.4"
   }
 }
