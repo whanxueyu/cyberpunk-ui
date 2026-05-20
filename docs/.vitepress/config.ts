@@ -25,7 +25,7 @@ export default {
     },
     footer: {
       message: 'Relcased under the Mit Lincense.',
-      copyright: 'CopyRight 2024-anxueyu',
+      copyright: 'CopyRight 2026-anxueyu',
     },
     nav: [
       { text: "指南", link: "/guide/installation", activeMatch: '/guide/' },
@@ -48,6 +48,17 @@ export default {
         },
         {
           text: "进阶",
+          items: [
+            {
+              text: "自定义主题颜色",
+              link: "/advance/themeColor",
+            },
+          ],
+        },
+      ],
+      "/advance/": [
+        {
+          text: "进阶指南",
           items: [
             {
               text: "自定义主题颜色",

@@ -18,6 +18,59 @@ CyberPunk-UI 内置了四种赛博朋克主题：
 | terminal | 终端主题 | #00ff00（绿色） |
 | matrix | 矩阵主题 | #00ff41（数字绿） |
 
+### 主题效果预览
+
+<div class="theme-preview">
+  <div class="theme-card neon-theme">
+    <h4>Neon 主题</h4>
+    <cyber-button type="primary">Primary</cyber-button>
+    <cyber-button type="success">Success</cyber-button>
+    <cyber-text lineColor="#00e6f6">Neon Text</cyber-text>
+  </div>
+  
+  <div class="theme-card hologram-theme">
+    <h4>Hologram 主题</h4>
+    <cyber-button type="primary">Primary</cyber-button>
+    <cyber-button type="success">Success</cyber-button>
+    <cyber-text lineColor="#ff00ff">Hologram Text</cyber-text>
+  </div>
+</div>
+
+<style scoped>
+.theme-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.theme-card {
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid;
+}
+
+.theme-card h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.theme-card > * {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.neon-theme {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  border-color: #00e6f6;
+}
+
+.hologram-theme {
+  background: linear-gradient(135deg, #1a0a1a 0%, #2e1a2e 100%);
+  border-color: #ff00ff;
+}
+</style>
+
 ## 通过 CSS 变量定制
 
 ### 全局主题色
@@ -46,6 +99,49 @@ CyberPunk-UI 内置了四种赛博朋克主题：
 }
 ```
 
+### 自定义主题效果
+
+<div class="custom-theme-demo">
+  <h4>自定义粉色主题</h4>
+  <cyber-button type="primary">Primary Button</cyber-button>
+  <cyber-button type="success">Success Button</cyber-button>
+  <cyber-button type="warning">Warning Button</cyber-button>
+  <cyber-button type="danger">Danger Button</cyber-button>
+  <cyber-text lineColor="#ff0080">Custom Theme Text</cyber-text>
+</div>
+
+<style scoped>
+.custom-theme-demo {
+  padding: 20px;
+  margin: 20px 0;
+  background: linear-gradient(135deg, #1a0a1a 0%, #2e1a2e 100%);
+  border-radius: 8px;
+  border: 2px solid #ff0080;
+  --cp-primary-color: #ff0080;
+  --cp-primary-light: #ff3399;
+  --cp-success-color: #00ff88;
+  --cp-warning-color: #ffaa00;
+  --cp-danger-color: #ff3366;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-theme-demo h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #ff0080;
+}
+
+.custom-theme-demo > * {
+  display: block;
+  margin-bottom: 10px;
+}
+</style>
+
 ### 组件级别定制
 
 你也可以针对特定组件进行样式定制。
@@ -64,6 +160,66 @@ CyberPunk-UI 内置了四种赛博朋克主题：
 }
 </style>
 ```
+
+### 组件级定制效果
+
+<div class="component-level-demo">
+  <div class="demo-section">
+    <h4>默认主题</h4>
+    <cyber-button type="primary">Default</cyber-button>
+    <cyber-input placeholder="Default Input" />
+  </div>
+  
+  <div class="demo-section orange-theme">
+    <h4>橙色主题</h4>
+    <cyber-button type="primary">Orange</cyber-button>
+    <cyber-input placeholder="Orange Input" />
+  </div>
+  
+  <div class="demo-section purple-theme">
+    <h4>紫色主题</h4>
+    <cyber-button type="primary">Purple</cyber-button>
+    <cyber-input placeholder="Purple Input" />
+  </div>
+</div>
+
+<style scoped>
+.component-level-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.demo-section {
+  padding: 20px;
+  background: #0a0a0a;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.demo-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.demo-section > * {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.orange-theme {
+  --cp-primary-color: #ff5500;
+  --cp-primary-light: #ff7733;
+  border-color: #ff5500;
+}
+
+.purple-theme {
+  --cp-primary-color: #9333ea;
+  --cp-primary-light: #a855f7;
+  border-color: #9333ea;
+}
+</style>
 
 ## 常用 CSS 变量
 
