@@ -8,14 +8,14 @@ import { ref } from 'vue'
 
 const columns = [
   { title: 'ID', field: 'id', width: '80px', align: 'center' },
-  { title: '姓名', field: 'name', minWidth: '120px' },
-  { title: '邮箱', field: 'email', minWidth: '200px' },
+  { title: '姓名', field: 'name', width: '120px' },
+  { title: '邮箱', field: 'email', width: '200px' },
   { title: '角色', field: 'role', width: '120px', align: 'center' }
 ]
 
 const sortColumns = [
   { title: 'ID', field: 'id', width: '80px', align: 'center' },
-  { title: '姓名', field: 'name', minWidth: '120px' },
+  { title: '姓名', field: 'name', width: '120px' },
   { title: '年龄', field: 'age', width: '80px', align: 'center' }
 ]
 
@@ -24,7 +24,9 @@ const tableData = ref([
   { id: 2, name: '李四', email: 'lisi@example.com', role: '编辑', age: 32 },
   { id: 3, name: '王五', email: 'wangwu@example.com', role: '用户', age: 25 },
   { id: 4, name: '赵六', email: 'zhaoliu@example.com', role: '用户', age: 30 },
-  { id: 5, name: '孙七', email: 'sunqi@example.com', role: '编辑', age: 27 }
+  { id: 5, name: '孙七', email: 'sunqi@example.com', role: '编辑', age: 27 },
+  { id: 6, name: '郑八', email: 'zhengba@qq.com', role: '管理员', age: 32 },
+  { id: 7, name: '陈九', email: 'cehnjiu@gmail.com', role: '编辑', age: 32 }
 ])
 
 const handleSelectionChange = (selectedRows) => {
@@ -60,32 +62,34 @@ const columns = [
 ]
 
 const tableData = ref([
-  { id: 1, name: '张三', email: 'zhangsan@example.com', role: '管理员' },
-  { id: 2, name: '李四', email: 'lisi@example.com', role: '编辑' },
-  { id: 3, name: '王五', email: 'wangwu@example.com', role: '用户' },
-  { id: 4, name: '赵六', email: 'zhaoliu@example.com', role: '用户' },
-  { id: 5, name: '孙七', email: 'sunqi@example.com', role: '编辑' }
+  { id: 1, name: '张三', email: 'zhangsan@example.com', role: '管理员', age: 28 },
+  { id: 2, name: '李四', email: 'lisi@example.com', role: '编辑', age: 32 },
+  { id: 3, name: '王五', email: 'wangwu@example.com', role: '用户', age: 25 },
+  { id: 4, name: '赵六', email: 'zhaoliu@example.com', role: '用户', age: 30 },
+  { id: 5, name: '孙七', email: 'sunqi@example.com', role: '编辑', age: 27 },
+  { id: 6, name: '郑八'，email: 'zhengba@qq.com', role: '管理员'，age: 32 },
+  { id: 7, name: '陈九'，email: 'cehnjiu@gmail.com', role: '编辑'，age: 32 }
 ])
 </script>
 ```
 
 ## 固定表头
 
-<cyber-infinite-table :data="tableData" :columns="columns" :row-num="3" />
+<cyber-infinite-table :data="tableData" :columns="columns" :row-num="4" />
 
 ```vue
 <template>
-  <cyber-infinite-table :data="tableData" :columns="columns" :row-num="3" />
+  <cyber-infinite-table :data="tableData" :columns="columns" :row-num="4" />
 </template>
 ```
 
 ## 选择功能
 
-<cyber-infinite-table :data="tableData" :columns="columns" :row-num="3" />
+<cyber-infinite-table :data="tableData" :columns="columns" :row-num="4" />
 
 ```vue
 <template>
-  <cyber-infinite-table :data="tableData" :columns="columns" :row-num="3" />
+  <cyber-infinite-table :data="tableData" :columns="columns" :row-num="4" />
 </template>
 
 <script setup>
@@ -99,27 +103,27 @@ const handleSelectionChange = (selectedRows) => {
 
 支持四种赛博朋克主题：`neon`、`hologram`、`terminal`、`matrix`
 
-<cyber-infinite-table :data="tableData" :columns="columns" theme="neon" :row-num="3" />
-<cyber-infinite-table :data="tableData" :columns="columns" theme="hologram" :row-num="3" />
-<cyber-infinite-table :data="tableData" :columns="columns" theme="terminal" :row-num="3" />
-<cyber-infinite-table :data="tableData" :columns="columns" theme="matrix" :row-num="3" />
+<cyber-infinite-table :data="tableData" :columns="columns" theme="neon" :row-num="4" />
+<cyber-infinite-table :data="tableData" :columns="columns" theme="hologram" :row-num="4" />
+<cyber-infinite-table :data="tableData" :columns="columns" theme="terminal" :row-num="4" />
+<cyber-infinite-table :data="tableData" :columns="columns" theme="matrix" :row-num="4" />
 
 ```vue
 <template>
-  <cyber-infinite-table :data="tableData" :columns="columns" theme="neon" :row-num="3" />
-  <cyber-infinite-table :data="tableData" :columns="columns" theme="hologram" :row-num="3" />
-  <cyber-infinite-table :data="tableData" :columns="columns" theme="terminal" :row-num="3" />
-  <cyber-infinite-table :data="tableData" :columns="columns" theme="matrix" :row-num="3" />
+  <cyber-infinite-table :data="tableData" :columns="columns" theme="neon" :row-num="4" />
+  <cyber-infinite-table :data="tableData" :columns="columns" theme="hologram" :row-num="4" />
+  <cyber-infinite-table :data="tableData" :columns="columns" theme="terminal" :row-num="4" />
+  <cyber-infinite-table :data="tableData" :columns="columns" theme="matrix" :row-num="4" />
 </template>
 ```
 
 ## 排序功能
 
-<cyber-infinite-table :data="tableData" :columns="sortColumns" :row-num="3" />
+<cyber-infinite-table :data="tableData" :columns="sortColumns" :row-num="4" />
 
 ```vue
 <template>
-  <cyber-infinite-table :data="tableData" :columns="sortColumns" :row-num="3" />
+  <cyber-infinite-table :data="tableData" :columns="sortColumns" :row-num="4" />
 </template>
 
 <script setup>
@@ -134,6 +138,11 @@ const handleSortChange = ({ prop, order }) => {
 }
 </script>
 ```
+
+
+
+-  `todo: 目前已经测出来一些小问题，后续会修复的`
+ 
 
 ## 属性
 

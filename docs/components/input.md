@@ -2,6 +2,8 @@
 
 赛博朋克风格的输入框组件，支持多种主题、尺寸和特效。
 
+-  `todo: input写的比较匆忙，很多功能没完善，样式也丑，下个版本会修复`
+
 <script setup>
 import { ref } from 'vue'
 const value = ref('')
