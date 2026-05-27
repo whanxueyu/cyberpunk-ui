@@ -2,8 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": "./package",
     "module": "ESNext",
-    "declaration": false,
+    "declaration": true,
+    "declarationDir": "./lib/types",
+    "emitDeclarationOnly": true,
     "noImplicitAny": false,
     "removeComments": true,
     "moduleResolution": "bundler",

@@ -95,13 +95,46 @@ import type ComponentName from './componentName.vue'
 export type ComponentNameInstance = InstanceType<typeof ComponentName>
 ```
 
-示例：
+**重要：`instance.ts` 不仅仅是导出 `InstanceType`。如果组件的 props、emits、内部状态使用了任何自定义 interface 或 type，必须全部在这里定义并导出，然后在 `.vue` 中使用 `import type` 导入。** 否则 `vue-tsc` 生成 `.d.ts` 声明时会报 TS4023/TS4082 "private name" 错误。
+
+完整示例（notification 组件）：
 
 ```ts
-import type Card from './card.vue'
+import type NotificationCmp from './notification.vue'
 
-export type CardInstance = InstanceType<typeof Card>
+export type NotificationInstance = InstanceType<typeof NotificationCmp>
+
+// 导出 props/emits 中使用的所有类型
+export type NotificationType = 'info' | 'success' | 'warning' | 'error'
+export type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center'
+export type NotificationEffect = 'glitch' | 'hologram' | 'circuit'
+export interface NotificationAction {
+  text: string
+  callback?: () => void
+}
+export interface NotificationOptions {
+  title?: string
+  message: string
+  type?: NotificationType
+  duration?: number
+  showClose?: boolean
+  showIcon?: boolean
+  actions?: NotificationAction[]
+  effect?: NotificationEffect
+  onClose?: () => void
+}
 ```
+
+然后 `.vue` 文件中从 `./instance` 导入这些类型：
+
+```ts
+import type { NotificationType, NotificationPosition, NotificationEffect, NotificationAction, NotificationOptions } from './instance'
+```
+
+规则：
+- 凡是在 props 类型、emits 类型、`ref<T>()`、`reactive<T>()` 中出现的自定义 interface/type，统一放在 `instance.ts` 中
+- `.vue` 文件绝不定义这些接口，只从 `instance.ts` 导入
+- 特例：组件内部临时使用的、不对外暴露的局部接口可以定义在 `<script setup>` 内，但必须确认不会出现在 props/emits 的类型签名中
 
 ## 6. `.vue` 组件固定结构
 
@@ -142,6 +175,7 @@ const emit = defineEmits<{
 
 必须遵守：
 
+- **所有 `import` 语句必须放在 `<script setup>` 最顶部**，包括 `import type`。`defineOptions()` 紧跟所有 import 之后。之后才能写 `const`、`let`、`props`、`emits` 等其他语句。import 语句放在 `defineOptions()` 之后会报 "Import declaration can only be used at the top level" 错误。
 - 必须写 `defineOptions({ name: 'CyberXxx' })`，否则 `withInstall` 无法正确全局注册。
 - 优先使用 `withDefaults(defineProps<...>(), ...)` 写类型和默认值。
 - 需要运行时校验的枚举 props，可以使用现有组件中的对象式 `defineProps` + `validator`。
@@ -150,6 +184,7 @@ const emit = defineEmits<{
 - 样式必须加 `scoped`，样式语言使用 `scss`。
 - 根类名必须以 `cp-` 开头，并使用组件 kebab 名称，例如 `.cp-glitch-progress`。
 - 组件内部 class 不要使用过于通用的名字作为全局根选择器，例如 `.button`、`.content`、`.title`；如果必须使用，应嵌套在根类名下。
+- **禁止在 `<script setup>` 内部定义用于 props/emits 的自定义 interface/type**。这些类型必须定义在 `instance.ts` 中并用 `import type` 导入。
 
 ## 7. Props、事件、插槽规范
 
@@ -314,24 +349,133 @@ pnpm run test:dev
 - 新组件可以通过 `import { CyberXxx } from 'cyberpunk-ui'` 按需导入。
 - 文档示例中的标签名与真实组件名一致。
 
-## 13. AI 新增组件执行清单
+## 13. TypeScript 声明生成（build:types）
+
+### 13.1 概述
+
+组件库构建时通过 `vue-tsc` 生成 `.d.ts` 声明文件到 `lib/types/`，使消费者安装 `cyberpunk-ui` 后能获得完整的 TypeScript 类型提示。
+
+构建命令：
+```bash
+vue-tsc --project tsconfig.package.json --declaration --emitDeclarationOnly --declarationDir ./lib/types
+```
+
+`package.json` 中合并为 `build:types` 脚本。
+
+### 13.2 tsconfig.package.json 要求
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./package",
+    "declaration": true,
+    "declarationDir": "./lib/types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["package/**/*.ts", "package/**/*.vue"]
+}
+```
+
+注意 `rootDir` 必须为 `./package`，这样输出的目录结构才是 `lib/types/cyberpunk-ui/...`。
+
+### 13.3 常见错误与解决
+
+**TS4023 / TS4082 "private name" 错误**：当组件 `<script setup>` 内部定义了 interface，而该 interface 被导出类型（通过 `InstanceType`）引用时，`vue-tsc` 无法在 `.d.ts` 中表达该私有类型。
+
+解决：将所有被 props/emits/export 引用的 interface/type 提取到 `instance.ts` 并导出，`.vue` 中 `import type` 导入。
+
+**Import declaration not at top level**：`import` 或 `import type` 语句必须放在 `<script setup>` 的最顶部，不能在 `defineOptions()` 或其他语句之后。
+
+## 14. global.d.ts — 消费者全局组件智能提示
+
+项目根目录 `global.d.ts` 通过 `GlobalComponents` 接口增广，使消费者在 `<template>` 中使用 `<cyber-xxx />` 标签时获得 IDE 智能提示：
+
+```ts
+export {}
+
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    'cyber-input': (typeof import('cyberpunk-ui'))['CyberInput']
+    'cyber-button': (typeof import('cyberpunk-ui'))['CyberButton']
+    // ...所有组件
+  }
+}
+```
+
+### 14.1 消费者使用方式
+
+消费者项目在 `tsconfig.json` 中引用：
+
+```json
+{
+  "compilerOptions": {
+    "types": ["cyberpunk-ui/global"]
+  }
+}
+```
+
+### 14.2 新增组件后的维护
+
+每新增一个组件，必须在 `global.d.ts` 中追加对应的 `GlobalComponents` 条目。格式固定：
+
+```ts
+'cyber-<kebab-name>': (typeof import('cyberpunk-ui'))['<CyberPascalName>']
+```
+
+## 15. package.json 类型发布配置
+
+确保消费者能正确解析类型声明，`package.json` 需要以下配置：
+
+```json
+{
+  "types": "./lib/types/cyberpunk-ui/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/cyberpunk-ui/index.d.ts",
+      "import": "./lib/cyberpunk-ui.mjs",
+      "require": "./lib/cyberpunk-ui.umd.js"
+    },
+    "./lib/style.css": "./lib/style.css",
+    "./global": "./global.d.ts"
+  },
+  "files": [
+    "lib/*",
+    "lib/types/**/*",
+    "package/*",
+    "global.d.ts",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ]
+}
+```
+
+关键点：
+- `"types"` 指向主入口声明文件
+- `"exports"` 中每个路径要配 `"types"` 条件（放在第一位，Node.js 条件解析按顺序匹配）
+- `"files"` 中必须包含 `lib/types/**/*`，否则 npm publish 时声明文件不会被打包
+- `"./global"` 路径暴露 `global.d.ts`，供消费者 tsconfig 引用
+
+## 16. AI 新增组件执行清单
 
 AI 新增组件时必须按顺序执行：
 
 1. 检查 `package/components`，确认组件名不冲突。
 2. 创建 `package/components/<componentName>/src/<componentName>.vue`。
-3. 创建 `package/components/<componentName>/src/instance.ts`。
+3. 创建 `package/components/<componentName>/src/instance.ts`（**必须导出所有 props/emits 中引用的自定义类型**）。
 4. 创建 `package/components/<componentName>/index.ts`。
 5. 修改 `package/components/index.ts`，增加导出。
 6. 修改 `package/cyberpunk-ui/component.ts`，增加导入和数组注册。
-7. 创建 `docs/components/<component-kebab-name>.md`。
-8. 修改 `docs/.vitepress/config.ts`，增加侧边栏入口。
-9. 创建 `test/src/conponents/<component-kebab-name>.vue`。
-10. 修改 `test/src/App.vue`，接入演示组件。
-11. 运行构建验证。
-12. 汇报改动文件和验证结果。
+7. 修改 `global.d.ts`，追加 `GlobalComponents` 条目。
+8. 创建 `docs/components/<component-kebab-name>.md`。
+9. 修改 `docs/.vitepress/config.ts`，增加侧边栏入口。
+10. 创建 `test/src/conponents/<component-kebab-name>.vue`。
+11. 修改 `test/src/App.vue`，接入演示组件。
+12. 运行构建验证（`pnpm run build`），确保 vue-tsc 无 "private name" 错误。
+13. 汇报改动文件和验证结果。
 
-## 14. 禁止事项
+## 17. 禁止事项
 
 - 禁止只写组件源码但不注册。
 - 禁止只注册到 `package/components/index.ts`，漏掉 `package/cyberpunk-ui/component.ts`。
@@ -342,9 +486,9 @@ AI 新增组件时必须按顺序执行：
 - 禁止在源码中使用不可控远程资源。
 - 禁止为了新组件重构整个安装器、构建配置或文档框架。
 
-## 15. 标准模板
+## 18. 标准模板
 
-### 15.1 `index.ts`
+### 18.1 `index.ts`
 
 ```ts
 import { withInstall } from '../../utils/index'
@@ -354,17 +498,27 @@ export const CyberComponentName = withInstall(ComponentName)
 export default CyberComponentName
 
 export type { ComponentNameInstance } from './src/instance'
+
+// 如果 instance.ts 中有消费者需要的数据类型，也可以导出
+// 例如: export type { MenuItem } from './src/instance'
 ```
 
-### 15.2 `instance.ts`
+### 18.2 `instance.ts`
 
 ```ts
 import type ComponentName from './componentName.vue'
 
 export type ComponentNameInstance = InstanceType<typeof ComponentName>
+
+// 如果组件 props/emits 使用了自定义 interface/type，必须在此定义并导出
+// 例如:
+// export interface ComponentDataType {
+//   id: number
+//   label: string
+// }
 ```
 
-### 15.3 `componentName.vue`
+### 18.3 `componentName.vue`
 
 ```vue
 <template>
@@ -374,15 +528,26 @@ export type ComponentNameInstance = InstanceType<typeof ComponentName>
 </template>
 
 <script setup lang="ts">
+// 1. 所有 import 语句必须在最顶部
+import { ref } from 'vue'
+import type { ComponentDataType } from './instance'
+
+// 2. defineOptions 紧跟 import 之后
 defineOptions({
   name: 'CyberComponentName',
 })
 
+// 3. 之后才能写其他代码
 const props = withDefaults(defineProps<{
   type?: 'primary' | 'success' | 'warning' | 'danger'
+  data?: ComponentDataType  // 类型引用自 instance.ts
 }>(), {
   type: 'primary',
 })
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
 </script>
 
 <style lang="scss" scoped>
