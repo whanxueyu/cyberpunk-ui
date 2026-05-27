@@ -69,22 +69,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, reactive } from 'vue';
 
+import type { TableColumn, TableRow } from './instance'
+
 defineOptions({
   name: 'CyberInfiniteTable',
 })
-
-interface TableColumn {
-  title: string;
-  field: string;
-  width?: string;
-  minWidth?: string;
-  align?: 'left' | 'center' | 'right';
-}
-
-interface TableRow {
-  [key: string]: any;
-  _uniqueKey?: string;
-}
 
 const props = withDefaults(defineProps<{
   data?: TableRow[];

@@ -51,16 +51,7 @@ export default defineComponent({
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
-type OptionValue = string | number;
-
-interface CascaderOption {
-  label?: string;
-  value?: OptionValue;
-  disabled?: boolean;
-  children?: CascaderOption[];
-  [key: string]: any;
-}
+import type { CascaderOption, OptionValue } from './instance'
 
 const props = defineProps<{
   options: CascaderOption[];

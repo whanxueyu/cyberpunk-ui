@@ -33,20 +33,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import CyberMenuItem from './menu-item.vue'
+import type { MenuItem, MenuDirection, MenuTheme, MenuEffect } from './instance'
 
 defineOptions({ name: 'CyberMenu' })
-
-type MenuDirection = 'horizontal' | 'vertical'
-type MenuTheme = 'neon' | 'terminal' | 'matrix' | 'hologram'
-type MenuEffect = 'none' | 'glitch' | 'scanline' | 'pulse'
-
-interface MenuItem {
-  label: string
-  value: string | number
-  icon?: string
-  disabled?: boolean
-  children?: MenuItem[]
-}
 
 const props = withDefaults(defineProps<{
   modelValue?: string | number

@@ -4,4 +4,4 @@ import Menu from './src/menu.vue'
 export const CyberMenu = withInstall(Menu)
 export default CyberMenu
 
-export type { MenuInstance } from './src/instance'
+export type { MenuInstance, MenuItem, MenuDirection, MenuTheme, MenuEffect } from './src/instance'

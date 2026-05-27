@@ -126,30 +126,11 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
+import type { OptionValue, SelectOption, ModelValue, OptionGroup } from './instance'
+
 defineOptions({
   name: 'CyberSelect',
 })
-
-type OptionValue = string | number | boolean | null;
-type ModelValue = OptionValue | OptionValue[];
-
-interface SelectOption {
-  label?: string;
-  value?: OptionValue;
-  disabled?: boolean;
-  options?: SelectOption[]; // 分组选项
-  icon?: any; // 图标组件
-  shortcut?: string; // 快捷键提示
-  divider?: boolean; // 分隔线
-  key?: string; // 唯一标识
-  [key: string]: any;
-}
-
-interface OptionGroup {
-  key: string;
-  label: string;
-  options: SelectOption[];
-}
 
 const props = withDefaults(defineProps<{
   modelValue?: ModelValue;

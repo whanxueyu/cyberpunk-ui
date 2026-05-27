@@ -1,8 +1,10 @@
 import type { Component } from 'vue';
 
+export type OptionValue = string | number
+
 export interface CascaderOption {
   label?: string;
-  value?: string | number;
+  value?: OptionValue;
   disabled?: boolean;
   children?: CascaderOption[];
   [key: string]: any;
@@ -10,7 +12,7 @@ export interface CascaderOption {
 
 export interface CascaderProps {
   options: CascaderOption[];
-  modelValue?: string | number | (string | number)[];
+  modelValue?: OptionValue | OptionValue[];
   placeholder?: string;
   disabled?: boolean;
   clearable?: boolean;

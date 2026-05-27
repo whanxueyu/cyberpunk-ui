@@ -15,16 +15,15 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
+import type { FullPageItem } from './instance'
+
 defineOptions({
     name: 'CyberFullPage',
 })
-type Item = {
-    title: string;
-    content?: string;
-}
+
 const props = defineProps({
     items: {
-        type: Array as () => Array<Item>,
+        type: Array as () => Array<FullPageItem>,
         default: [{ title: '标题1' }]
     },
     position: {

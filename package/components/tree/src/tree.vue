@@ -97,29 +97,11 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import type { TreeNode, InternalTreeNode } from './instance'
 
 defineOptions({
   name: 'CyberTree',
 })
-
-interface TreeNode {
-  id: string | number;
-  label: string;
-  children?: TreeNode[];
-  expanded?: boolean;
-  selected?: boolean;
-  status?: 'online' | 'offline' | 'warning' | 'error';
-  icon?: string;
-  [key: string]: any;
-}
-
-interface InternalTreeNode extends TreeNode {
-  _expanded: boolean;
-  _selected: boolean;
-  _level: number;
-  _parent?: InternalTreeNode;
-  _isLastChild: boolean;
-}
 
 const props = withDefaults(defineProps<{
   data?: TreeNode[];

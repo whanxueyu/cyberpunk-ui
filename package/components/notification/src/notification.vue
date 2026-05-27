@@ -52,37 +52,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 
+import type { NotificationType, NotificationPosition, NotificationEffect, NotificationAction, NotificationOptions } from './instance'
+
 defineOptions({
   name: 'CyberNotification',
 })
-
-// 通知类型
-type NotificationType = 'info' | 'success' | 'warning' | 'error';
-
-// 通知位置
-type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'center';
-
-// 通知效果
-type NotificationEffect = 'glitch' | 'hologram' | 'circuit';
-
-// 通知操作按钮
-interface NotificationAction {
-  text: string;
-  callback: () => void;
-}
-
-// 通知配置
-interface NotificationOptions {
-  title?: string;
-  message: string;
-  type?: NotificationType;
-  duration?: number;
-  showClose?: boolean;
-  showIcon?: boolean;
-  actions?: NotificationAction[];
-  effect?: NotificationEffect;
-  onClose?: () => void;
-}
 
 // 通知实例
 interface Notification extends Required<NotificationOptions> {

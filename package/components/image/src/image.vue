@@ -56,10 +56,11 @@
   </div>
 </template>
 <script setup lang="ts">
+/// <reference types="vite/client" />
 import { ref, computed, onMounted, watch } from "vue";
 
 // 导入所有可能的图片资源（用于相对路径解析）
-const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,svg}', { eager: true, as: 'url' });
+const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,svg}', { eager: true, query: '?url', import: 'default' });
 
 defineOptions({
   name: "CyberImage",

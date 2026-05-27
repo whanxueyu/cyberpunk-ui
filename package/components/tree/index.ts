@@ -3,4 +3,4 @@ import Tree from './src/tree.vue'
 export const CyberTree = withInstall(Tree)
 export default CyberTree
 
-export type { TreeInstance } from './src/instance.ts'
+export type { TreeInstance, TreeNode, InternalTreeNode } from './src/instance.ts'

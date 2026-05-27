@@ -83,21 +83,13 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import CascaderOptionTree from './option-tree.vue';
+import type { CascaderOption, OptionValue } from './instance'
 
 defineOptions({
   name: 'CyberCascader',
 })
 
-type OptionValue = string | number;
-type ModelValue = OptionValue | OptionValue[];
-
-interface CascaderOption {
-  label?: string;
-  value?: OptionValue;
-  disabled?: boolean;
-  children?: CascaderOption[];
-  [key: string]: any;
-}
+type ModelValue = OptionValue | OptionValue[]
 
 const props = withDefaults(defineProps<{
   modelValue?: ModelValue;

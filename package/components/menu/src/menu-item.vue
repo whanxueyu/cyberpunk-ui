@@ -71,16 +71,9 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import type { MenuItem } from './instance'
 
 defineOptions({ name: 'CyberMenuItem' })
-
-interface MenuItem {
-  label: string
-  value: string | number
-  icon?: string
-  disabled?: boolean
-  children?: MenuItem[]
-}
 
 const props = defineProps<{
   item: MenuItem
