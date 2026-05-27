@@ -51,19 +51,11 @@ const disabledMenu = [
   { label: '禁用选项', value: 'disabled', disabled: true },
   { label: '另一个选项', value: 'another' }
 ]
-
-const handleChange = (value) => {
-  console.log('菜单值变化:', value)
-}
-
-const handleSelect = (item) => {
-  console.log('选中菜单项:', item)
-}
 </script>
 
 # Menu 菜单
 
-赛博朋克风格的菜单组件，支持横向和纵向布局、多级菜单、不同主题。
+赛博朋克风格的菜单组件，支持横向/纵向布局、无限层级嵌套、四种主题配色和四种视觉特效。
 
 ## 基本用法
 
@@ -90,28 +82,30 @@ const menuItems = [
 
 ## 横向菜单
 
+设置 `direction="horizontal"` 启用横向布局，子菜单向下展开。
+
 <cyber-menu v-model="activeMenu" :items="menuItems" direction="horizontal" />
 
 ```vue
-<template>
-  <cyber-menu v-model="activeMenu" :items="menuItems" direction="horizontal" />
-</template>
+<cyber-menu v-model="activeMenu" :items="menuItems" direction="horizontal" />
 ```
 
 ## 多级菜单
 
-<cyber-menu v-model="activeMenu" :items="multiLevelMenu" />
+支持无限层级嵌套，通过 `children` 字段定义子菜单。
+
+<cyber-menu v-model="activeMenu" :items="multiLevelMenu" :expanded-values="['file', 'edit']" />
 
 ```vue
 <template>
-  <cyber-menu v-model="activeMenu" :items="multiLevelMenu" />
+  <cyber-menu
+    v-model="activeMenu"
+    :items="multiLevelMenu"
+    :expanded-values="['file', 'edit']"
+  />
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-const activeMenu = ref('')
-
 const multiLevelMenu = [
   {
     label: '文件',
@@ -127,18 +121,7 @@ const multiLevelMenu = [
     value: 'edit',
     children: [
       { label: '撤销', value: 'undo' },
-      { label: '重做', value: 'redo' },
-      { label: '剪切', value: 'cut' },
-      { label: '复制', value: 'copy' },
-      { label: '粘贴', value: 'paste' }
-    ]
-  },
-  {
-    label: '视图',
-    value: 'view',
-    children: [
-      { label: '放大', value: 'zoom-in' },
-      { label: '缩小', value: 'zoom-out' }
+      { label: '重做', value: 'redo' }
     ]
   }
 ]
@@ -147,7 +130,7 @@ const multiLevelMenu = [
 
 ## 主题
 
-支持四种赛博朋克主题：`neon`、`terminal`、`matrix`、`hologram`
+四种赛博朋克主题：`neon`、`terminal`、`matrix`、`hologram`
 
 <cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" />
 <cyber-menu v-model="activeMenu" :items="menuItems" theme="terminal" />
@@ -155,15 +138,40 @@ const multiLevelMenu = [
 <cyber-menu v-model="activeMenu" :items="menuItems" theme="hologram" />
 
 ```vue
-<template>
-  <cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" />
-  <cyber-menu v-model="activeMenu" :items="menuItems" theme="terminal" />
-  <cyber-menu v-model="activeMenu" :items="menuItems" theme="matrix" />
-  <cyber-menu v-model="activeMenu" :items="menuItems" theme="hologram" />
-</template>
+<cyber-menu :items="items" theme="neon" />
+<cyber-menu :items="items" theme="terminal" />
+<cyber-menu :items="items" theme="matrix" />
+<cyber-menu :items="items" theme="hologram" />
+```
+
+### 主题配色
+
+| 主题 | 主色 | 风格 |
+| --- | --- | --- |
+| neon | `#00e6f6` | 霓虹蓝青 |
+| terminal | `#47f26b` | 终端绿色 |
+| matrix | `#00ff41` | 矩阵黑绿 |
+| hologram | `#ff40ff` | 全息紫红 |
+
+## 特效
+
+四种视觉特效：`none`、`glitch`、`scanline`、`pulse`
+
+<cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" effect="none" />
+<cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" effect="glitch" />
+<cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" effect="scanline" />
+<cyber-menu v-model="activeMenu" :items="menuItems" theme="neon" effect="pulse" />
+
+```vue
+<cyber-menu :items="items" theme="neon" effect="none" />
+<cyber-menu :items="items" theme="neon" effect="glitch" />
+<cyber-menu :items="items" theme="neon" effect="scanline" />
+<cyber-menu :items="items" theme="neon" effect="pulse" />
 ```
 
 ## 禁用项
+
+通过菜单数据的 `disabled` 字段禁用特定菜单项。
 
 <cyber-menu v-model="activeMenu" :items="disabledMenu" />
 
@@ -181,40 +189,38 @@ const disabledMenu = [
 </script>
 ```
 
-## 属性
+## API
 
-| 属性名 | 说明 | 类型 | 可选值 | 默认值 |
-|--------|------|------|--------|--------|
-| modelValue / v-model | 当前激活的菜单项 | `string \| number` | - | `''` |
-| items | 菜单项数据 | array | - | `[]` |
-| direction | 菜单方向 | string | `horizontal` / `vertical` | `vertical` |
-| theme | 主题样式 | string | `neon` / `terminal` / `matrix` / `hologram` | `neon` |
-| expandedValues | 展开的子菜单值 | array | - | `[]` |
+### Props
 
-## 事件
+| 参数 | 说明 | 类型 | 可选值 | 默认值 |
+| --- | --- | --- | --- | --- |
+| modelValue / v-model | 当前选中值 | `string \| number` | — | `''` |
+| items | 菜单数据 | `MenuItem[]` | — | `[]` |
+| direction | 布局方向 | `string` | `vertical` / `horizontal` | `vertical` |
+| theme | 主题配色 | `string` | `neon` / `terminal` / `matrix` / `hologram` | `neon` |
+| effect | 视觉特效 | `string` | `none` / `glitch` / `scanline` / `pulse` | `none` |
+| expandedValues | 展开的子菜单值（受控） | `(string \| number)[]` | — | `[]` |
+
+### Events
 
 | 事件名 | 说明 | 回调参数 |
-|--------|------|----------|
-| update:modelValue | 激活菜单项变化 | `(value)` |
-| change | 菜单项变化事件 | `(value)` |
-| select | 选中菜单项事件 | `(item)` |
-| update:expandedValues | 展开的菜单项变化 | `(expandedValues)` |
+| --- | --- | --- |
+| update:modelValue | 选中值变化 | `(value: string \| number)` |
+| change | 选中值变化 | `(value: string \| number)` |
+| select | 选中菜单项 | `(item: MenuItem)` |
+| update:expandedValues | 展开项变化 | `(values: (string \| number)[])` |
 
-## 菜单项数据结构
+### MenuItem 数据结构
 
-| 属性 | 说明 | 类型 | 默认值 |
-|------|------|------|--------|
-| label | 菜单项文本 | `string` | - |
-| value | 菜单项值 | `string \| number` | - |
-| icon | 图标类名 | `string` | - |
-| disabled | 是否禁用 | `boolean` | `false` |
-| children | 子菜单项 | `MenuItem[]` | - |
+| 字段 | 说明 | 类型 | 必填 |
+| --- | --- | --- | --- |
+| label | 菜单项文本 | `string` | 是 |
+| value | 菜单项唯一值 | `string \| number` | 是 |
+| icon | 图标 CSS 类名 | `string` | 否 |
+| disabled | 是否禁用 | `boolean` | 否 |
+| children | 子菜单项 | `MenuItem[]` | 否 |
 
-## 主题配色
+## 示例代码
 
-| 主题 | 主色调 | 背景色 |
-|------|--------|--------|
-| neon | #00e6f6 | rgba(8,16,28,0.95) |
-| terminal | #47f26b | #0a140a |
-| matrix | #00ff41 | #000000 |
-| hologram | #ff00ff | rgba(10,0,20,0.9) |
+完整演示见：`test/src/conponents/menu-test.vue`
