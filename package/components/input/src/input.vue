@@ -1,424 +1,601 @@
 <template>
-  <div :class="['cp-input', inputSize, inputType]">
-    <div class="input-wrapper">
+  <div
+    :class="[
+      'cp-input',
+      `cp-input--${size}`,
+      `cp-input--${theme}`,
+      {
+        'cp-input--disabled': disabled,
+        'cp-input--focused': isFocused,
+        'cp-input--has-value': modelValue !== '' && modelValue != null,
+      }
+    ]"
+  >
+    <div class="cp-input-wrapper">
+      <!-- 前缀插槽 -->
+      <span v-if="$slots.prefix" class="cp-input-prefix">
+        <slot name="prefix" />
+      </span>
+
       <input
         ref="inputRef"
-        :type="type"
+        :type="currentType"
         :value="modelValue"
         :placeholder="placeholder"
         :disabled="disabled"
         :readonly="readonly"
         :maxlength="maxlength"
         :autocomplete="autocomplete"
+        class="cp-input-inner"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
         @keyup="handleKeyup"
         @keydown="handleKeydown"
-        class="cyber-input"
       />
-      <div class="input-border"></div>
-      <div class="input-glitch" v-if="glitchEffect"></div>
-      <div class="input-scanline" v-if="scanlineEffect"></div>
+
+      <!-- 清除按钮 -->
+      <span
+        v-if="clearable && modelValue && !disabled"
+        class="cp-input-clear"
+        @mousedown.prevent="handleClear"
+      >
+        <svg viewBox="0 0 16 16" class="cp-input-icon">
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </span>
+
+      <!-- 密码可见切换 -->
+      <span
+        v-if="type === 'password' && showPassword"
+        class="cp-input-password-toggle"
+        @mousedown.prevent="togglePassword"
+      >
+        <svg v-if="passwordVisible" viewBox="0 0 24 24" class="cp-input-icon">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" class="cp-input-icon">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z" />
+          <line x1="1.5" y1="1.5" x2="22.5" y2="22.5" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </span>
+
+      <!-- 后缀插槽 -->
+      <span v-if="$slots.suffix" class="cp-input-suffix">
+        <slot name="suffix" />
+      </span>
+
+      <!-- 底部扫描线 -->
+      <div v-if="scanlineEffect" class="cp-input-scanline"></div>
     </div>
+
+    <!-- 故障特效叠加层 -->
+    <div v-if="glitchEffect" class="cp-input-glitch"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
 defineOptions({
   name: 'CyberInput',
-});
+})
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: ''
-  },
-  type: {
-    type: String,
-    default: 'text',
-    validator: (value: string) => {
-      return ['text', 'password', 'number', 'email', 'tel', 'url'].indexOf(value) !== -1;
-    }
-  },
-  placeholder: {
-    type: String,
-    default: '请输入...'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  readonly: {
-    type: Boolean,
-    default: false
-  },
-  maxlength: {
-    type: [String, Number],
-    default: undefined
-  },
-  autocomplete: {
-    type: String,
-    default: 'off'
-  },
-  size: {
-    type: String,
-    default: 'default',
-    validator: (value: string) => {
-      return ['large', 'default', 'small'].indexOf(value) !== -1;
-    }
-  },
-  theme: {
-    type: String,
-    default: 'primary',
-    validator: (value: string) => {
-      return ['primary', 'success', 'warning', 'danger', 'info'].indexOf(value) !== -1;
-    }
-  },
-  glitchEffect: {
-    type: Boolean,
-    default: true
-  },
-  scanlineEffect: {
-    type: Boolean,
-    default: true
+const props = withDefaults(defineProps<{
+  modelValue?: string | number
+  type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url'
+  placeholder?: string
+  disabled?: boolean
+  readonly?: boolean
+  maxlength?: string | number
+  autocomplete?: string
+  size?: 'large' | 'default' | 'small'
+  theme?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
+  glitchEffect?: boolean
+  scanlineEffect?: boolean
+  clearable?: boolean
+  showPassword?: boolean
+}>(), {
+  modelValue: '',
+  type: 'text',
+  placeholder: '请输入...',
+  disabled: false,
+  readonly: false,
+  maxlength: undefined,
+  autocomplete: 'off',
+  size: 'default',
+  theme: 'primary',
+  glitchEffect: true,
+  scanlineEffect: true,
+  clearable: false,
+  showPassword: false,
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string | number): void
+  (e: 'input', value: string): void
+  (e: 'change', value: string | number): void
+  (e: 'focus', event: FocusEvent): void
+  (e: 'blur', event: FocusEvent): void
+  (e: 'keyup', event: KeyboardEvent): void
+  (e: 'keydown', event: KeyboardEvent): void
+  (e: 'clear'): void
+}>()
+
+const inputRef = ref<HTMLInputElement | null>(null)
+const isFocused = ref(false)
+const passwordVisible = ref(false)
+const prevValue = ref<string | number>('')
+
+const currentType = computed(() => {
+  if (props.type === 'password' && passwordVisible.value) {
+    return 'text'
   }
-});
+  return props.type
+})
 
-const emit = defineEmits([
-  'update:modelValue',
-  'input',
-  'change',
-  'focus',
-  'blur',
-  'keyup',
-  'keydown'
-]);
-
-const inputRef = ref<HTMLInputElement | null>(null);
-
-const inputSize = computed(() => {
-  switch (props.size) {
-    case 'large':
-      return 'large-size';
-    case 'default':
-      return 'default-size';
-    case 'small':
-      return 'small-size';
-    default:
-      return 'default-size';
-  }
-});
-
-const inputType = computed(() => {
-  switch (props.theme) {
-    case 'primary':
-      return 'primary-theme';
-    case 'success':
-      return 'success-theme';
-    case 'warning':
-      return 'warning-theme';
-    case 'danger':
-      return 'danger-theme';
-    case 'info':
-      return 'info-theme';
-    default:
-      return 'primary-theme';
-  }
-});
+const togglePassword = () => {
+  passwordVisible.value = !passwordVisible.value
+}
 
 const handleInput = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emit('update:modelValue', target.value);
-  emit('input', target.value);
-};
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
+  emit('input', target.value)
+}
 
 const handleFocus = (event: FocusEvent) => {
-  emit('focus', event);
-};
+  isFocused.value = true
+  prevValue.value = props.modelValue ?? ''
+  emit('focus', event)
+}
 
 const handleBlur = (event: FocusEvent) => {
-  emit('blur', event);
-};
+  isFocused.value = false
+  if (props.modelValue !== prevValue.value) {
+    emit('change', props.modelValue ?? '')
+  }
+  emit('blur', event)
+}
 
 const handleKeyup = (event: KeyboardEvent) => {
-  emit('keyup', event);
-};
+  emit('keyup', event)
+}
 
 const handleKeydown = (event: KeyboardEvent) => {
-  emit('keydown', event);
-};
+  emit('keydown', event)
+}
 
-// 暴露方法给父组件
+const handleClear = () => {
+  emit('update:modelValue', '')
+  emit('input', '')
+  emit('change', '')
+  emit('clear')
+  inputRef.value?.focus()
+}
+
 defineExpose({
   focus: () => {
-    inputRef.value?.focus();
+    inputRef.value?.focus()
   },
   blur: () => {
-    inputRef.value?.blur();
+    inputRef.value?.blur()
   },
   select: () => {
-    inputRef.value?.select();
-  }
-});
+    inputRef.value?.select()
+  },
+  clear: () => {
+    handleClear()
+  },
+  ref: inputRef,
+})
 </script>
 
 <style lang="scss" scoped>
+/* ========== 根容器 ========== */
 .cp-input {
+  --input-theme: var(--cp-primary-color);
+  --input-theme2: var(--cp-primary-color2);
+  --input-theme3: var(--cp-primary-color3);
+  --input-theme-bg: var(--cp-primary-bg);
+  --input-text: #e0f7ff;
+  --input-placeholder: rgba(180, 220, 255, 0.4);
+  --input-bg: rgba(0, 10, 20, 0.85);
+  --input-border-opacity: 0.35;
+
   position: relative;
   display: inline-block;
   width: 100%;
-  max-width: 300px;
+  font-family: 'Courier New', 'Consolas', monospace;
 }
 
-.input-wrapper {
+/* ========== 主题色变量 ========== */
+.cp-input--primary {
+  --input-theme: var(--cp-primary-color);
+  --input-theme2: var(--cp-primary-color2);
+  --input-theme3: var(--cp-primary-color3);
+  --input-theme-bg: var(--cp-primary-bg);
+  --input-text: #e0f7ff;
+  --input-placeholder: rgba(180, 220, 255, 0.4);
+}
+
+.cp-input--success {
+  --input-theme: var(--cp-success-color);
+  --input-theme2: var(--cp-success-color2);
+  --input-theme3: var(--cp-success-color3);
+  --input-theme-bg: var(--cp-success-bg);
+  --input-text: #e0ffe8;
+  --input-placeholder: rgba(180, 255, 200, 0.4);
+}
+
+.cp-input--warning {
+  --input-theme: var(--cp-warning-color);
+  --input-theme2: var(--cp-warning-color2);
+  --input-theme3: var(--cp-warning-color3);
+  --input-theme-bg: var(--cp-warning-bg);
+  --input-text: #fff0e0;
+  --input-placeholder: rgba(255, 220, 180, 0.4);
+}
+
+.cp-input--danger {
+  --input-theme: var(--cp-danger-color);
+  --input-theme2: var(--cp-danger-color2);
+  --input-theme3: var(--cp-danger-color3);
+  --input-theme-bg: var(--cp-danger-bg);
+  --input-text: #ffe0e8;
+  --input-placeholder: rgba(255, 180, 200, 0.4);
+}
+
+.cp-input--info {
+  --input-theme: var(--cp-info-color);
+  --input-theme2: var(--cp-info-color2);
+  --input-theme3: var(--cp-info-color3);
+  --input-theme-bg: var(--cp-info-bg);
+  --input-text: #e0e8ff;
+  --input-placeholder: rgba(180, 200, 255, 0.4);
+}
+
+/* ========== 包裹层 ========== */
+.cp-input-wrapper {
   position: relative;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  clip-path: polygon(
+    6px 0, calc(100% - 6px) 0,
+    100% 6px, 100% calc(100% - 6px),
+    calc(100% - 6px) 100%, 6px 100%,
+    0 calc(100% - 6px), 0 6px
+  );
 }
 
-.cyber-input {
+.cp-input--focused .cp-input-wrapper {
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    var(--input-theme),
+    var(--input-theme2),
+    var(--input-theme3),
+    var(--input-theme)
+  );
+  background-size: 300% 300%;
+  animation: inputBorderGlow 3s ease infinite;
+  box-shadow:
+    0 0 20px rgba(0, 166, 220, 0.25),
+    0 0 60px rgba(0, 166, 220, 0.08);
+}
+
+/* ========== 输入框本体 ========== */
+.cp-input-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
   width: 100%;
-  padding: 12px 16px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid var(--cp-primary-color);
-  color: #fff;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
+  min-width: 0;
+  border: none;
   outline: none;
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-family: inherit;
+  line-height: 1.5;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--input-placeholder);
+    font-style: italic;
+    transition: color 0.3s ease;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--input-text);
+    box-shadow: 0 0 0 1000px var(--input-theme-bg) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+/* ========== 聚焦内发光 ========== */
+.cp-input--focused .cp-input-inner {
+  box-shadow: inset 0 0 30px rgba(0, 166, 220, 0.12);
+}
+
+/* ========== 禁用状态 ========== */
+.cp-input--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  .cp-input-inner {
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .cp-input-wrapper {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+/* ========== 尺寸变体 ========== */
+.cp-input--large .cp-input-inner {
+  padding: 14px 16px;
+  font-size: 17px;
+  height: 52px;
+}
+
+.cp-input--default .cp-input-inner {
+  padding: 10px 14px;
+  font-size: 14px;
+  height: 42px;
+}
+
+.cp-input--small .cp-input-inner {
+  padding: 6px 10px;
+  font-size: 12px;
+  height: 30px;
+}
+
+/* ========== 前缀 / 后缀插槽 ========== */
+.cp-input-prefix,
+.cp-input-suffix {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--input-theme);
+  padding: 0 10px;
+  font-size: 16px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.cp-input--focused .cp-input-prefix,
+.cp-input--focused .cp-input-suffix {
+  opacity: 1;
+}
+
+/* ========== 清除按钮 ========== */
+.cp-input-clear {
   position: relative;
   z-index: 2;
-  box-sizing: border-box;
-  
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
-  }
-  
-  &:focus {
-    border-color: var(--cp-primary-color2);
-    box-shadow: 0 0 15px var(--cp-primary-color), inset 0 0 10px rgba(0, 166, 220, 0.3);
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    border-color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: all 0.25s ease;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 12px var(--input-theme);
   }
 }
 
-.input-border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 2px solid transparent;
-  pointer-events: none;
-  z-index: 1;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-      var(--cp-primary-color), 
-      var(--cp-primary-color2), 
-      var(--cp-primary-color3), 
-      var(--cp-primary-color));
-    background-size: 400% 400%;
-    animation: gradientShift 3s ease infinite;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .cp-input:focus-within &::before {
-    opacity: 1;
+.cp-input-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ========== 密码切换按钮 ========== */
+.cp-input-password-toggle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-right: 4px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: all 0.25s ease;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 12px var(--input-theme);
   }
 }
 
-.input-glitch {
+/* ========== 扫描线 ========== */
+.cp-input-scanline {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
+  left: 10%;
+  right: 10%;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--input-theme2),
+    var(--input-theme),
+    transparent
+  );
   z-index: 3;
-  opacity: 0;
-  
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: inherit;
-    mix-blend-mode: screen;
-  }
-  
-  &::before {
-    animation: glitchTop 2s infinite linear alternate-reverse;
-  }
-  
-  &::after {
-    animation: glitchBottom 3s infinite linear alternate-reverse;
-  }
-}
-
-.input-scanline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(to right, 
-    transparent, 
-    var(--cp-primary-color2), 
-    transparent);
-  animation: scanline 2s linear infinite;
   pointer-events: none;
-  z-index: 4;
-  opacity: 0.7;
+  opacity: 0;
+  animation: scanlineSweep 2.5s linear infinite;
 }
 
-/* 尺寸样式 */
-.large-size .cyber-input {
-  padding: 16px 20px;
-  font-size: 18px;
+.cp-input--focused .cp-input-scanline {
+  opacity: 0.9;
 }
 
-.default-size .cyber-input {
-  padding: 12px 16px;
-  font-size: 14px;
-}
-
-.small-size .cyber-input {
-  padding: 8px 12px;
-  font-size: 12px;
-}
-
-/* 主题样式 */
-.primary-theme .cyber-input {
-  border-color: var(--cp-primary-color);
-  
-  &:focus {
-    border-color: var(--cp-primary-color2);
-    box-shadow: 0 0 15px var(--cp-primary-color), inset 0 0 10px rgba(0, 166, 220, 0.3);
+@keyframes scanlineSweep {
+  0% {
+    top: 10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 88%;
+    opacity: 0;
   }
 }
 
-.success-theme .cyber-input {
-  border-color: var(--cp-success-color);
-  
-  &:focus {
-    border-color: var(--cp-success-color2);
-    box-shadow: 0 0 15px var(--cp-success-color), inset 0 0 10px rgba(2, 197, 77, 0.3);
-  }
+/* ========== 故障特效 ========== */
+.cp-input-glitch {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.warning-theme .cyber-input {
-  border-color: var(--cp-warning-color);
-  
-  &:focus {
-    border-color: var(--cp-warning-color2);
-    box-shadow: 0 0 15px var(--cp-warning-color), inset 0 0 10px rgba(255, 153, 0, 0.3);
-  }
+.cp-input--focused .cp-input-glitch {
+  opacity: 1;
 }
 
-.danger-theme .cyber-input {
-  border-color: var(--cp-danger-color);
-  
-  &:focus {
-    border-color: var(--cp-danger-color2);
-    box-shadow: 0 0 15px var(--cp-danger-color), inset 0 0 10px rgba(255, 1, 60, 0.3);
-  }
+.cp-input-glitch::before,
+.cp-input-glitch::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  height: 3px;
+  mix-blend-mode: screen;
+  border-radius: 1px;
 }
 
-.info-theme .cyber-input {
-  border-color: var(--cp-info-color);
-  
-  &:focus {
-    border-color: var(--cp-info-color2);
-    box-shadow: 0 0 15px var(--cp-info-color), inset 0 0 10px rgba(74, 65, 175, 0.3);
-  }
+.cp-input-glitch::before {
+  background: rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+  animation: glitchBarA 2.3s infinite steps(1);
 }
 
-/* 动画定义 */
-@keyframes gradientShift {
+.cp-input-glitch::after {
+  background: rgba(255, 0, 255, 0.7);
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+  animation: glitchBarB 3.1s infinite steps(1);
+}
+
+@keyframes glitchBarA {
+  0%, 10% { top: 25%; opacity: 0; }
+  11%, 13% { top: 25%; opacity: 0.9; }
+  14%, 100% { top: 25%; opacity: 0; }
+}
+
+@keyframes glitchBarB {
+  0%, 20% { top: 55%; opacity: 0; }
+  21%, 24% { top: 55%; opacity: 0.75; }
+  25%, 100% { top: 55%; opacity: 0; }
+}
+
+/* ========== 渐变边框动画 ========== */
+@keyframes inputBorderGlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-@keyframes glitchTop {
-  0% {
-    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-    transform: translateX(-2px);
-  }
-  20% {
-    clip-path: polygon(0 0, 100% 0, 100% 25%, 0 25%);
-    transform: translateX(2px);
-  }
-  40% {
-    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-    transform: translateX(-1px);
-  }
-  60% {
-    clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%);
-    transform: translateX(1px);
-  }
-  80% {
-    clip-path: polygon(0 0, 100% 0, 100% 40%, 0 40%);
-    transform: translateX(-2px);
-  }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-    transform: translateX(0);
+/* ========================================
+   亮色模式
+   ======================================== */
+
+:root:not(.dark) .cp-input {
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-placeholder: rgba(100, 100, 120, 0.5);
+}
+
+:root:not(.dark) .cp-input--primary {
+  --input-text: #0a2a3a;
+}
+
+:root:not(.dark) .cp-input--success {
+  --input-text: #0a2a1a;
+}
+
+:root:not(.dark) .cp-input--warning {
+  --input-text: #3a2a0a;
+}
+
+:root:not(.dark) .cp-input--danger {
+  --input-text: #3a0a1a;
+}
+
+:root:not(.dark) .cp-input--info {
+  --input-text: #0a1a3a;
+}
+
+:root:not(.dark) .cp-input-wrapper {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+:root:not(.dark) .cp-input--focused .cp-input-wrapper {
+  box-shadow:
+    0 0 15px rgba(0, 166, 220, 0.15),
+    0 0 40px rgba(0, 166, 220, 0.05);
+}
+
+:root:not(.dark) .cp-input--disabled .cp-input-wrapper {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+:root:not(.dark) .cp-input--disabled .cp-input-inner {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+:root:not(.dark) .cp-input-clear,
+:root:not(.dark) .cp-input-password-toggle {
+  color: rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    color: #222;
+    background: rgba(0, 0, 0, 0.06);
   }
 }
 
-@keyframes glitchBottom {
-  0% {
-    clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-    transform: translateX(2px);
-  }
-  20% {
-    clip-path: polygon(0 75%, 100% 75%, 100% 100%, 0 100%);
-    transform: translateX(-2px);
-  }
-  40% {
-    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-    transform: translateX(1px);
-  }
-  60% {
-    clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%);
-    transform: translateX(-1px);
-  }
-  80% {
-    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-    transform: translateX(2px);
-  }
-  100% {
-    clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-    transform: translateX(0);
-  }
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
+:root:not(.dark) .cp-input-glitch::before,
+:root:not(.dark) .cp-input-glitch::after {
+  mix-blend-mode: multiply;
 }
 </style>
