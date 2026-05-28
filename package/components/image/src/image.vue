@@ -29,13 +29,18 @@
         backgroundSize: computedBackgroundSize,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        animationDelay: `-${glitchDelay1}s`,
       }"
     >
       <!-- 故障效果层 -->
-      <div 
-        v-if="isLoaded && !hasError && !disableGlitch" 
+      <div
+        v-if="isLoaded && !hasError && !disableGlitch"
         class="glitch-layer"
-        :style="{ backgroundImage: displayImage }"
+        :style="{
+          backgroundImage: displayImage,
+          animationDelay: `-${glitchDelay2}s`,
+          '--glitch-delay': `-${glitchDelay3}s`,
+        }"
       ></div>
       
       <!-- 占位符 -->
@@ -65,6 +70,13 @@ const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,sv
 defineOptions({
   name: "CyberImage",
 });
+
+// 每个实例生成独立的随机动画延迟，避免多个图片动画同步
+const seed = Math.random()
+const glitchDelay1  = (seed * 20).toFixed(2)
+const glitchDelay2  = ((seed * 17 + 3) % 20).toFixed(2)
+const glitchDelay3  = ((seed * 13 + 7) % 20).toFixed(2)
+
 // 定义并设置默认值的属性
 const props = withDefaults(
   defineProps<{
@@ -228,8 +240,11 @@ onMounted(() => {
   
   &.is-loaded:not(.no-glitch) {
     // 主图动画
-    animation: main-img-hide 20s infinite step-end;
-    
+    animation-name: main-img-hide;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: step-end;
+
     // 故障层
     .glitch-layer {
       position: absolute;
@@ -240,13 +255,16 @@ onMounted(() => {
       background-size: inherit;
       background-position: inherit;
       background-repeat: inherit;
-      
+
       // 第一个故障层
       &:nth-child(1) {
-        animation: glitch-anim-1 20s infinite 1s step-end;
+        animation-name: glitch-anim-1;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: step-end;
       }
-      
-      // 第二个故障层（需要额外添加）
+
+      // 第二个故障层（伪元素）
       &::after {
         content: '';
         position: absolute;
@@ -258,7 +276,11 @@ onMounted(() => {
         background-size: inherit;
         background-position: inherit;
         background-repeat: inherit;
-        animation: glitch-anim-1 20s infinite step-end;
+        animation-name: glitch-anim-2;
+        animation-duration: 20s;
+        animation-iteration-count: infinite;
+        animation-timing-function: step-end;
+        animation-delay: var(--glitch-delay, 0s);
       }
     }
   }
