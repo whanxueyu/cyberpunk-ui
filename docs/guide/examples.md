@@ -151,28 +151,34 @@ const handleRegister = () => {
 
   <div class="sp-cards">
     <div class="sp-card">
-      <cyber-holocard title="停泊位占用" type="basic" theme="neon">
-        <cyber-digital-counter :value="847" />
-        <cyber-glow-text color="#f59e0b">/ 1200 席位</cyber-glow-text>
-      </cyber-holocard>
+      <cyber-holo-card title="停泊位占用" theme="neon">
+        <div class="sp-row">
+          <cyber-digital-counter :value="847" />
+          <cyber-glow-text class="after-text" color="#f59e0b">/ 1200 席位</cyber-glow-text>
+        </div>
+      </cyber-holo-card>
     </div>
     <div class="sp-card">
-      <cyber-holocard title="今日货物吞吐" type="basic" theme="neon">
-        <cyber-digital-counter :value="52380" />
-        <cyber-glow-text color="#22c55e">吨 · 正常流转</cyber-glow-text>
-      </cyber-holocard>
+      <cyber-holo-card title="今日货物吞吐" effect="glitch" theme="hologram">
+        <div class="sp-row">
+          <cyber-digital-counter :value="52380" />
+          <cyber-glow-text class="after-text" color="#22c55e">吨 · 正常流转</cyber-glow-text>
+        </div>
+      </cyber-holo-card>
     </div>
     <div class="sp-card">
-      <cyber-holocard title="导航信标在线率" type="basic" theme="neon">
-        <cyber-progress :percentage="98" theme="neon" />
-        <cyber-glow-text color="#22c55e">98% 正常</cyber-glow-text>
-      </cyber-holocard>
+      <cyber-holo-card title="导航信标在线率" effect="scan">
+          <cyber-progress :percentage="98" theme="neon" />
+          <cyber-glow-text color="#22c55e">98% 正常</cyber-glow-text>
+      </cyber-holo-card>
     </div>
     <div class="sp-card">
-      <cyber-holocard title="星舰排队数" type="basic" theme="neon">
-        <cyber-digital-counter :value="23" />
-        <cyber-glow-text color="#ef4444">等待入港</cyber-glow-text>
-      </cyber-holocard>
+      <cyber-holo-card title="星舰排队数" effect="pulse" theme="terminal">
+        <div class="sp-row">
+          <cyber-digital-counter :value="23" />
+          <cyber-glow-text class="after-text" color="#ef4444">等待入港</cyber-glow-text>
+        </div>
+      </cyber-holo-card>
     </div>
   </div>
 
@@ -215,7 +221,7 @@ const handleRegister = () => {
     <div class="sp-control-row">
       <cyber-input placeholder="搜索船舰编号..." theme="primary" style="flex: 1;" />
       <cyber-button type="primary">查询</cyber-button>
-      <cyber-button type="warning" size="small">清空</cyber-button>
+      <cyber-button type="warning">清空</cyber-button>
     </div>
     <div class="sp-actions">
       <cyber-nenobutton type="primary" bg>批准入港</cyber-nenobutton>
@@ -279,7 +285,7 @@ const handleRegister = () => {
       <div class="sp-control-row">
         <cyber-input v-model="searchQuery" placeholder="搜索船舰编号..." theme="primary" />
         <cyber-button type="primary" @click="handleSearch">查询</cyber-button>
-        <cyber-button type="warning" size="small" @click="searchQuery = ''">清空</cyber-button>
+        <cyber-button type="warning" @click="searchQuery = ''">清空</cyber-button>
       </div>
       <div class="sp-actions">
         <cyber-tooltip content="允许当前等待队列中的星舰进入停泊区">
@@ -396,6 +402,10 @@ onUnmounted(() => clearInterval(timer));
   padding: 24px 40px;
 }
 
+.sp-row {
+  display: flex;
+}
+
 .sp-resources {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -480,6 +490,12 @@ onUnmounted(() => clearInterval(timer));
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 14px;
   padding: 20px 30px;
+}
+.spaceport-demo .sp-row {
+  display: flex;
+}
+.spaceport-demo .after-text{
+  margin-left: 10px;
 }
 
 .spaceport-demo .sp-resources {
