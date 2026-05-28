@@ -1,5 +1,4 @@
 // .vitepress/config.ts
-import path from 'path'
 
 export default {
   title: 'CyberPunk-UI',

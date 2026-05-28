@@ -60,5 +60,6 @@ declare module '@vue/runtime-core' {
     'cyber-holo-card': (typeof import('cyberpunk-ui'))['CyberHoloCard']
     'cyber-holo-loader': (typeof import('cyberpunk-ui'))['CyberHoloLoader']
     'cyber-full-page': (typeof import('cyberpunk-ui'))['CyberFullPage']
+    'cyber-scrollbar': (typeof import('cyberpunk-ui'))['CyberScrollbar']
   }
 }
