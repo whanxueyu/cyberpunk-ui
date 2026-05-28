@@ -24,6 +24,7 @@ import dividerPanel from './conponents/divider.vue';
 import inputPanel from './conponents/input.vue';
 import cascaderPanel from './conponents/cascader.vue';
 import menuPanel from './conponents/menu-test.vue';
+import scrollbarPanel from './conponents/scrollbar.vue';
 
 
 console.log(
@@ -56,7 +57,8 @@ const menuItems: MenuItem[] = [
       { label: '按钮组', value: 'button', component: shallowRef(buttonPanel) },
       { label: '文字样式', value: 'text', component: shallowRef(textPanel) },
       { label: '输入框', value: 'input', component: shallowRef(inputPanel) },
-      { label: '分割线', value: 'divider', component: shallowRef(dividerPanel) }
+      { label: '分割线', value: 'divider', component: shallowRef(dividerPanel) },
+      { label: '滚动条', value: 'scrollbar', component: shallowRef(scrollbarPanel) }
     ]
   },
   {
