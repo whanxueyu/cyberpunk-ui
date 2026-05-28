@@ -1,8 +1,12 @@
 import { ref, computed, onMounted, watch } from "vue";
-const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,svg}', { eager: true, as: 'url' });
+const imageModules = import.meta.glob('../assets/img/*.{png,jpg,jpeg,gif,webp,svg}', { eager: true, query: '?url', import: 'default' });
 defineOptions({
     name: "CyberImage",
 });
+const seed = Math.random();
+const glitchDelay1 = (seed * 20).toFixed(2);
+const glitchDelay2 = ((seed * 17 + 3) % 20).toFixed(2);
+const glitchDelay3 = ((seed * 13 + 7) % 20).toFixed(2);
 const props = withDefaults(defineProps(), {
     src: "",
     alt: "",
@@ -129,9 +133,14 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
         backgroundSize: __VLS_ctx.computedBackgroundSize,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        animationDelay: `-${__VLS_ctx.glitchDelay1}s`,
     }) }));
 if (__VLS_ctx.isLoaded && !__VLS_ctx.hasError && !__VLS_ctx.disableGlitch) {
-    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glitch-layer" }, { style: ({ backgroundImage: __VLS_ctx.displayImage }) }));
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glitch-layer" }, { style: ({
+            backgroundImage: __VLS_ctx.displayImage,
+            animationDelay: `-${__VLS_ctx.glitchDelay2}s`,
+            '--glitch-delay': `-${__VLS_ctx.glitchDelay3}s`,
+        }) }));
 }
 if (!__VLS_ctx.isLoaded && __VLS_ctx.placeholder) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "placeholder" }));
@@ -160,6 +169,9 @@ var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
+            glitchDelay1: glitchDelay1,
+            glitchDelay2: glitchDelay2,
+            glitchDelay3: glitchDelay3,
             isLoaded: isLoaded,
             hasError: hasError,
             wrapperStyle: wrapperStyle,

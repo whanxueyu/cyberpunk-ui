@@ -1,0 +1,62 @@
+export declare const CyberSelect: import("package/utils/typescript").SFCWithInstall<import("vue").DefineComponent<{
+    modelValue?: import("./src/instance.ts").ModelValue;
+    options?: import(".").SelectOption[];
+    placeholder?: string;
+    searchPlaceholder?: string;
+    noDataText?: string;
+    disabled?: boolean;
+    clearable?: boolean;
+    filterable?: boolean;
+    multiple?: boolean;
+    showCheck?: boolean;
+    size?: "large" | "default" | "small";
+    theme?: "neon" | "terminal" | "matrix" | "hologram";
+    labelKey?: string;
+    valueKey?: string;
+}, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
+    focus: (event: FocusEvent) => any;
+    blur: (event: FocusEvent) => any;
+    change: (value: import("./src/instance.ts").ModelValue, option?: import(".").SelectOption | import(".").SelectOption[] | undefined) => any;
+    clear: () => any;
+    "update:modelValue": (value: import("./src/instance.ts").ModelValue) => any;
+    "visible-change": (visible: boolean) => any;
+}, string, import("vue").PublicProps, Readonly<{
+    modelValue?: import("./src/instance.ts").ModelValue;
+    options?: import(".").SelectOption[];
+    placeholder?: string;
+    searchPlaceholder?: string;
+    noDataText?: string;
+    disabled?: boolean;
+    clearable?: boolean;
+    filterable?: boolean;
+    multiple?: boolean;
+    showCheck?: boolean;
+    size?: "large" | "default" | "small";
+    theme?: "neon" | "terminal" | "matrix" | "hologram";
+    labelKey?: string;
+    valueKey?: string;
+}> & Readonly<{
+    onFocus?: ((event: FocusEvent) => any) | undefined;
+    onBlur?: ((event: FocusEvent) => any) | undefined;
+    onChange?: ((value: import("./src/instance.ts").ModelValue, option?: import(".").SelectOption | import(".").SelectOption[] | undefined) => any) | undefined;
+    onClear?: (() => any) | undefined;
+    "onUpdate:modelValue"?: ((value: import("./src/instance.ts").ModelValue) => any) | undefined;
+    "onVisible-change"?: ((visible: boolean) => any) | undefined;
+}>, {
+    size: "large" | "default" | "small";
+    disabled: boolean;
+    placeholder: string;
+    theme: "neon" | "terminal" | "matrix" | "hologram";
+    modelValue: import("./src/instance.ts").ModelValue;
+    options: import(".").SelectOption[];
+    searchPlaceholder: string;
+    noDataText: string;
+    clearable: boolean;
+    filterable: boolean;
+    multiple: boolean;
+    showCheck: boolean;
+    labelKey: string;
+    valueKey: string;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>> & Record<string, any>;
+export default CyberSelect;
+export type { SelectInstance, SelectOption, OptionGroup } from './src/instance.ts';

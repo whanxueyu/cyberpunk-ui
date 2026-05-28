@@ -1,4 +1,3 @@
-import { onMounted } from 'vue';
 defineOptions({
     name: 'CyberGlowText',
 });
@@ -8,14 +7,11 @@ const props = defineProps({
         default: '#e91e84',
     },
 });
-onMounted(() => {
-    document.documentElement.style.setProperty('--child-color', props.color);
-});
 debugger;
 const __VLS_ctx = {};
 let __VLS_components;
 let __VLS_directives;
-__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glow-text" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)(Object.assign({ class: "glow-text" }, { style: ({ '--child-color': __VLS_ctx.color }) }));
 var __VLS_0 = {};
 ;
 var __VLS_1 = __VLS_0;

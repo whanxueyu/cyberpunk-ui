@@ -25,6 +25,7 @@ import { CyberTree } from '../components/tree';
 import { CyberDivider } from '../components/divider';
 import { CyberInput } from '../components/input';
 import { CyberMenu } from '../components/menu';
+import { CyberScrollbar } from '../components/scrollbar';
 export default [
     CyberButton,
     CyberNotification,
@@ -52,6 +53,7 @@ export default [
     CyberBanner,
     CyberDivider,
     CyberInput,
-    CyberMenu
+    CyberMenu,
+    CyberScrollbar
 ];
 //# sourceMappingURL=component.js.map

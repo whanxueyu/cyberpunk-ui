@@ -1,0 +1,62 @@
+export declare const CyberCascader: import("package/utils/typescript").SFCWithInstall<import("vue").DefineComponent<{
+    modelValue?: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[];
+    options?: import(".").CascaderOption[];
+    placeholder?: string;
+    noDataText?: string;
+    disabled?: boolean;
+    clearable?: boolean;
+    multiple?: boolean;
+    showAllLevels?: boolean;
+    filterable?: boolean;
+    size?: "large" | "default" | "small";
+    theme?: "neon" | "terminal" | "matrix" | "hologram";
+    labelKey?: string;
+    valueKey?: string;
+    childrenKey?: string;
+}, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
+    focus: (event: FocusEvent) => any;
+    blur: (event: FocusEvent) => any;
+    change: (value: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[]) => any;
+    clear: () => any;
+    "update:modelValue": (value: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[]) => any;
+    "visible-change": (visible: boolean) => any;
+}, string, import("vue").PublicProps, Readonly<{
+    modelValue?: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[];
+    options?: import(".").CascaderOption[];
+    placeholder?: string;
+    noDataText?: string;
+    disabled?: boolean;
+    clearable?: boolean;
+    multiple?: boolean;
+    showAllLevels?: boolean;
+    filterable?: boolean;
+    size?: "large" | "default" | "small";
+    theme?: "neon" | "terminal" | "matrix" | "hologram";
+    labelKey?: string;
+    valueKey?: string;
+    childrenKey?: string;
+}> & Readonly<{
+    onFocus?: ((event: FocusEvent) => any) | undefined;
+    onBlur?: ((event: FocusEvent) => any) | undefined;
+    onChange?: ((value: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[]) => any) | undefined;
+    onClear?: (() => any) | undefined;
+    "onUpdate:modelValue"?: ((value: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[]) => any) | undefined;
+    "onVisible-change"?: ((visible: boolean) => any) | undefined;
+}>, {
+    size: "large" | "default" | "small";
+    disabled: boolean;
+    placeholder: string;
+    theme: "neon" | "terminal" | "matrix" | "hologram";
+    modelValue: import("./src/instance.ts").OptionValue | import("./src/instance.ts").OptionValue[];
+    options: import(".").CascaderOption[];
+    noDataText: string;
+    clearable: boolean;
+    filterable: boolean;
+    multiple: boolean;
+    labelKey: string;
+    valueKey: string;
+    childrenKey: string;
+    showAllLevels: boolean;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>> & Record<string, any>;
+export default CyberCascader;
+export type { CascaderInstance, CascaderOption } from './src/instance.ts';

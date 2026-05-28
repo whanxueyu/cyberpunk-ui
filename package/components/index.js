@@ -25,4 +25,5 @@ export * from './tree';
 export * from './divider';
 export * from './input';
 export * from './menu';
+export * from './scrollbar';
 //# sourceMappingURL=index.js.map
