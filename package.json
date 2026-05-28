@@ -3,10 +3,10 @@
   "private": false,
   "version": "1.1.1",
   "scripts": {
+    "build:tsc": "vue-tsc --project tsconfig.package.js.json",
     "build:types": "vue-tsc --project tsconfig.package.json --declaration --emitDeclarationOnly --declarationDir ./lib/types",
     "build:vite": "vite build",
-    "build:rename-css": "node -e \"const fs=require('fs');const path=require('path');const oldPath=path.join(__dirname,'lib/cyberpunk-ui.css');const newPath=path.join(__dirname,'lib/style.css');if(fs.existsSync(oldPath)){fs.renameSync(oldPath,newPath);console.log('Renamed cyberpunk-ui.css to style.css');}\"",
-    "build": "npm run build:types && npm run build:vite && npm run build:rename-css",
+    "build": "npm run build:tsc && npm run build:vite && npm run build:types",
     "preview": "vite preview",
     "test:dev": "pnpm -C test dev",
     "docs:dev": "pnpm -C docs dev",

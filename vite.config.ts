@@ -1,9 +1,23 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import fs from 'fs'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    {
+      name: 'rename-css',
+      closeBundle() {
+        const oldPath = path.resolve(__dirname, 'lib/cyberpunk-ui.css')
+        const newPath = path.resolve(__dirname, 'lib/style.css')
+        if (fs.existsSync(oldPath)) {
+          fs.renameSync(oldPath, newPath)
+          console.log('Renamed cyberpunk-ui.css to style.css')
+        }
+      }
+    }
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
