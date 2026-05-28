@@ -131,13 +131,15 @@ const handleWheel = (e) => {
     const view = viewRef.value;
     const maxSY = view.scrollHeight - wrap.clientHeight;
     const maxSX = view.scrollWidth - wrap.clientWidth;
-    if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
-        if (maxSY > 0) {
-            scrollToY(scrollTop.value + e.deltaY);
-        }
-        else if (maxSX > 0) {
-            scrollToX(scrollLeft.value + e.deltaX);
-        }
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && maxSX > 0) {
+        scrollToX(scrollLeft.value + e.deltaX);
+        return;
+    }
+    if (maxSY > 0) {
+        scrollToY(scrollTop.value + e.deltaY);
+    }
+    else if (maxSX > 0) {
+        scrollToX(scrollLeft.value + e.deltaY);
     }
 };
 const handleVDragStart = (e) => {
@@ -180,6 +182,7 @@ const handleDragMove = (e) => {
             scrollToX(dragStartScroll + delta * ratio);
         }
     }
+    update();
 };
 const handleDragEnd = () => {
     isDragging = false;

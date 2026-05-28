@@ -194,12 +194,17 @@ const handleWheel = (e: WheelEvent) => {
   const maxSY = view.scrollHeight - wrap.clientHeight
   const maxSX = view.scrollWidth - wrap.clientWidth
 
-  if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
-    if (maxSY > 0) {
-      scrollToY(scrollTop.value + e.deltaY)
-    } else if (maxSX > 0) {
-      scrollToX(scrollLeft.value + e.deltaX)
-    }
+  // Shift + 滚轮 或触控板横向滑动 → 优先横向
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && maxSX > 0) {
+    scrollToX(scrollLeft.value + e.deltaX)
+    return
+  }
+
+  // 普通滚轮：有纵向就滚纵向，否则把 deltaY 转用于横向
+  if (maxSY > 0) {
+    scrollToY(scrollTop.value + e.deltaY)
+  } else if (maxSX > 0) {
+    scrollToX(scrollLeft.value + e.deltaY)
   }
 }
 
@@ -245,6 +250,7 @@ const handleDragMove = (e: MouseEvent) => {
       scrollToX(dragStartScroll + delta * ratio)
     }
   }
+  update()
 }
 
 const handleDragEnd = () => {
