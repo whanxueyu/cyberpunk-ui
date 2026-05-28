@@ -145,6 +145,7 @@ export default {
             { text: "holo-card 全息卡片", link: "/components/holo-card" },
             { text: "holo-loader 全息加载器", link: "/components/holo-loader" },
             { text: "fullpage 全屏滚动", link: "/components/fullpage" },
+            { text: "scrollbar 滚动条", link: "/components/scrollbar" },
           ]
         }
       ]
