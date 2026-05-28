@@ -1,12 +1,10 @@
 <template>
-  <div class="glow-text">
+  <div class="glow-text" :style="{ '--child-color': color }">
     <slot></slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
 defineOptions({
   name: 'CyberGlowText',
 })
@@ -15,9 +13,6 @@ const props = defineProps({
     type: String,
     default: '#e91e84',
   },
-})
-onMounted(() => {
-  document.documentElement.style.setProperty('--child-color', props.color)
 })
 </script>
 
