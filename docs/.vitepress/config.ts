@@ -44,6 +44,18 @@ export default {
               text: "快速开始",
               link: "/guide/quickstart",
             },
+            {
+              text: "实战案例",
+              link: "/guide/examples",
+            },
+            {
+              text: "主题与样式",
+              link: "/guide/theme",
+            },
+            {
+              text: "最佳实践",
+              link: "/guide/best-practices",
+            },
           ],
         },
         {
