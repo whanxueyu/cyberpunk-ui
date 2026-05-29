@@ -9,6 +9,10 @@ import cyberImagePanel from './conponents/cyberimage.vue';
 import imagesPanel from './conponents/images.vue';
 import buttonPanel from "./conponents/button.vue";
 import textPanel from "./conponents/text.vue";
+import shadowTextPanel from "./conponents/shadow-text.vue";
+import glowTextPanel from "./conponents/glow-text.vue";
+import typingPanel from "./conponents/typing.vue";
+import magicTextPanel from "./conponents/magic-text.vue";
 import switchPanel from "./conponents/switch.vue";
 import glitchProgressPanel from './conponents/glitch-progress.vue';
 import tooltipPanel from "./conponents/tooltip.vue";
@@ -55,7 +59,11 @@ const menuItems: MenuItem[] = [
     value: 'basic',
     children: [
       { label: '按钮组', value: 'button', component: shallowRef(buttonPanel) },
-      { label: '文字样式', value: 'text', component: shallowRef(textPanel) },
+      { label: '故障文字', value: 'text', component: shallowRef(textPanel) },
+      { label: '阴影文字', value: 'shadow-text', component: shallowRef(shadowTextPanel) },
+      { label: '发光文字', value: 'glow-text', component: shallowRef(glowTextPanel) },
+      { label: '打字机', value: 'typing', component: shallowRef(typingPanel) },
+      { label: '魔术文字', value: 'magic-text', component: shallowRef(magicTextPanel) },
       { label: '输入框', value: 'input', component: shallowRef(inputPanel) },
       { label: '分割线', value: 'divider', component: shallowRef(dividerPanel) },
       { label: '滚动条', value: 'scrollbar', component: shallowRef(scrollbarPanel) }

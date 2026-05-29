@@ -1,138 +1,154 @@
 <template>
-    <div class="content">
-        <!-- CyberText 组件 -->
-        <div class="section">
-            <div class="section-title">CyberText - 基础用法</div>
-            <pre class="code-block"><code class="html">&lt;cyber-text lineColor="#000"&gt;赛博朋克风格组件 CyberPunk-UI 震撼来袭 ！！！&lt;/cyber-text&gt;</code></pre>
-            <cyber-text lineColor="#000">赛博朋克风格组件 CyberPunk-UI 震撼来袭 ！！！</cyber-text>
-        </div>
+  <div class="content">
+    <!-- 四种故障效果（hover 触发） -->
+    <div class="section">
+      <div class="section-title">CyberText - 四种故障效果</div>
 
-        <!-- CyberShadowText 组件 -->
-        <div class="section">
-            <div class="section-title">CyberShadowText - 不同方向和长度</div>
-            <pre class="code-block"><code class="html">&lt;!-- 左方向，长度20 --&gt;
-&lt;cyber-shadow-text shadowColor="#33a6f9" direction="left" :long="20"&gt;shadow-left-long20&lt;/cyber-shadow-text&gt;
+      <div class="demo-item">
+        <p class="demo-label">glitch — 经典故障位移（hover 触发 glitch）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="GLITCH 故障文字" effect="glitch" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="GLITCH 故障文字" effect="glitch" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
 
-&lt;!-- 左方向，长度10 --&gt;
-&lt;cyber-shadow-text shadowColor="#33a89f" direction="left" :long="10"&gt;shadow-left-long10&lt;/cyber-shadow-text&gt;
+      <div class="demo-item">
+        <p class="demo-label">flicker — 快速闪烁干扰（hover 触发）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="FLICKER 闪烁干扰" effect="flicker" shadow-color="#ff5500" glitch-color="#00ff88" line-color="#ff5500"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="FLICKER 闪烁干扰" effect="flicker" shadow-color="#ff5500" glitch-color="#00ff88" line-color="#ff5500"></cyber-text>
+      </div>
 
-&lt;!-- 右方向，长度10 --&gt;
-&lt;cyber-shadow-text shadowColor="#ff5555" direction="right" :long="10"&gt;shadow-right-long10&lt;/cyber-shadow-text&gt;
+      <div class="demo-item">
+        <p class="demo-label">pulse — 呼吸脉冲（hover 触发）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="PULSE 呼吸脉冲" effect="pulse" shadow-color="#a855f7" glitch-color="#00e6f6" line-color="#a855f7"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="PULSE 呼吸脉冲" effect="pulse" shadow-color="#a855f7" glitch-color="#00e6f6" line-color="#a855f7"></cyber-text>
+      </div>
 
-&lt;!-- 右方向，长度20 --&gt;
-&lt;cyber-shadow-text shadowColor="#ff5588" direction="right" :long="20"&gt;shadow-right-long20&lt;/cyber-shadow-text&gt;</code></pre>
-            <div class="demo-row">
-                <div class="demo-item">
-                    <p class="demo-label">Left + Long 20</p>
-                    <cyber-shadow-text shadowColor="#33a6f9" direction="left" :long="20" style="font-size: 48px;font-weight: bold;color:#99f8ff;">shadow-left-long20</cyber-shadow-text>
-                </div>
-                <div class="demo-item">
-                    <p class="demo-label">Left + Long 10</p>
-                    <cyber-shadow-text shadowColor="#33a89f" direction="left" :long="10" style="font-size: 48px;font-weight: bold;color:#99f8ff;">shadow-left-long10</cyber-shadow-text>
-                </div>
-                <div class="demo-item">
-                    <p class="demo-label">Right + Long 10</p>
-                    <cyber-shadow-text shadowColor="#ff5555" direction="right" :long="10" style="font-size: 48px;font-weight: bold;color:#99f8ff;">shadow-right-long10</cyber-shadow-text>
-                </div>
-                <div class="demo-item">
-                    <p class="demo-label">Right + Long 20</p>
-                    <cyber-shadow-text shadowColor="#ff5588" direction="right" :long="20" style="font-size: 48px;font-weight: bold;color:#99f8ff;">shadow-right-long20</cyber-shadow-text>
-                </div>
-            </div>
-        </div>
-
-        <!-- CyberGlowText 组件 -->
-        <div class="section">
-            <div class="section-title">CyberGlowText - 发光效果</div>
-            <pre class="code-block"><code class="html">&lt;!-- 自定义发光颜色 --&gt;
-&lt;cyber-glow-text color="#3355ff"&gt;cp-glow-text 鼠标移上来看看&lt;/cyber-glow-text&gt;</code></pre>
-            <div class="demo-row">
-                <cyber-glow-text color="#3355ff">cp-glow-text 鼠标移上来看看</cyber-glow-text>
-            </div>
-        </div>
-
-        <!-- CyberTyping 组件 -->
-        <div class="section">
-            <div class="section-title">CyberTyping - 打字机效果</div>
-            <pre class="code-block"><code class="html">&lt;cyber-typing&gt;CpTyping 1239945646 这是一段打字效果&lt;/cyber-typing&gt;</code></pre>
-            <div class="demo-row">
-                <cyber-typing>CpTyping 1239945646 这是一段打字效果</cyber-typing>
-            </div>
-        </div>
-
-        <!-- CyberMagicText 组件 -->
-        <div class="section">
-            <div class="section-title">CyberMagicText - 魔术文字效果</div>
-            <pre class="code-block"><code class="html">&lt;!-- 大字号示例 --&gt;
-&lt;cyber-magic-text style="font-size: 48px;"&gt;CyberMagicText&lt;/cyber-magic-text&gt;
-&lt;cyber-magic-text style="font-size: 48px;"&gt;赛博朋克魔术文字&lt;/cyber-magic-text&gt;
-
-&lt;!-- 小字号示例 --&gt;
-&lt;cyber-magic-text style="font-size: 22px;"&gt;CyberMagicText&lt;/cyber-magic-text&gt;
-&lt;cyber-magic-text style="font-size: 22px;"&gt;1234567890&lt;/cyber-magic-text&gt;
-&lt;cyber-magic-text style="font-size: 22px;"&gt;~!@#$%^&&*=+*/\|&lt;/cyber-magic-text&gt;
-&lt;cyber-magic-text style="font-size: 22px;"&gt;赛博朋克魔术文字&lt;/cyber-magic-text&gt;</code></pre>
-            <div class="demo-row">
-                <div class="demo-item">
-                    <p class="demo-label">大字号 (48px)</p>
-                    <div style="display: flex; gap: 20px; color: #fff; font-size: 48px;">
-                        <cyber-magic-text>CyberMagicText</cyber-magic-text>
-                        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-                    </div>
-                </div>
-            </div>
-            <div class="demo-row" style="margin-top: 30px;">
-                <div class="demo-item">
-                    <p class="demo-label">小字号 (22px)</p>
-                    <div style="display: flex; gap: 20px; color: #fff; font-size: 22px;">
-                        <cyber-magic-text>CyberMagicText</cyber-magic-text>
-                        <cyber-magic-text>1234567890</cyber-magic-text>
-                        <cyber-magic-text>~!@#$%^&&*=+*/\|</cyber-magic-text>
-                        <cyber-magic-text>赛博朋克魔术文字</cyber-magic-text>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="demo-item">
+        <p class="demo-label">static — 静态故障叠影（hover 触发一次性 glitch）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="STATIC 静态叠影" effect="static" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="STATIC 静态叠影" effect="static" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
     </div>
+
+    <!-- glowing 常驻效果 -->
+    <div class="section">
+      <div class="section-title">CyberText - glowing 常驻效果</div>
+
+      <div class="demo-item">
+        <p class="demo-label">glitch + glowing（故障常驻运行）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="常驻故障" effect="glitch" glowing shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="常驻故障" effect="glitch" glowing shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
+
+      <div class="demo-item">
+        <p class="demo-label">flicker + glowing（持续闪烁）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="常驻闪烁" effect="flicker" glowing shadow-color="#ff5500" glitch-color="#00ff88" line-color="#ff5500"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="常驻闪烁" effect="flicker" glowing shadow-color="#ff5500" glitch-color="#00ff88" line-color="#ff5500"></cyber-text>
+      </div>
+
+      <div class="demo-item">
+        <p class="demo-label">pulse + glowing（持续呼吸）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="常驻呼吸" effect="pulse" glowing shadow-color="#a855f7" glitch-color="#00e6f6" line-color="#a855f7"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="常驻呼吸" effect="pulse" glowing shadow-color="#a855f7" glitch-color="#00e6f6" line-color="#a855f7"></cyber-text>
+      </div>
+
+      <div class="demo-item">
+        <p class="demo-label">static + glowing（常驻叠影）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="常驻叠影" effect="static" glowing shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="常驻叠影" effect="static" glowing shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
+    </div>
+
+    <!-- 自定义颜色 -->
+    <div class="section">
+      <div class="section-title">CyberText - 自定义配色</div>
+
+      <div class="demo-item">
+        <p class="demo-label">粉 + 青（经典赛博配色）</p>
+        <cyber-text text="CYBERPUNK 2077" effect="glitch" glowing shadow-color="#ff00b3" glitch-color="#00e6f6" line-color="#fff"></cyber-text>
+      </div>
+      <div class="demo-item">
+        <p class="demo-label">橙 + 绿（终端配色）</p>
+        <cyber-text text="TERMINAL V2.0" effect="glitch" glowing shadow-color="#ff6600" glitch-color="#00ff66" line-color="#ff6600"></cyber-text>
+      </div>
+      <div class="demo-item">
+        <p class="demo-label">紫 + 金（霓虹配色）</p>
+        <cyber-text text="NEON CITY" effect="pulse" glowing shadow-color="#a855f7" glitch-color="#ffd700" line-color="#a855f7"></cyber-text>
+      </div>
+    </div>
+
+    <!-- 动画速度 -->
+    <div class="section">
+      <div class="section-title">CyberText - 动画速度</div>
+
+      <div class="demo-item">
+        <p class="demo-label">slow</p>
+        <cyber-text text="SLOW 慢速" effect="glitch" glowing animation-speed="slow" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
+      <div class="demo-item">
+        <p class="demo-label">normal</p>
+        <cyber-text text="NORMAL 正常" effect="glitch" glowing animation-speed="normal" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
+      <div class="demo-item">
+        <p class="demo-label">fast</p>
+        <cyber-text text="FAST 快速" effect="glitch" glowing animation-speed="fast" shadow-color="#ff00b3" glitch-color="#00c3ff" line-color="#fff"></cyber-text>
+      </div>
+    </div>
+
+    <!-- 隐藏扫描线 & 禁用 -->
+    <div class="section">
+      <div class="section-title">CyberText - 隐藏扫描线 & 禁用</div>
+
+      <div class="demo-item">
+        <p class="demo-label">隐藏扫描线（line-visible="false"）</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="无扫描线" effect="glitch" glowing :line-visible="false" shadow-color="#ff00b3" glitch-color="#00c3ff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="无扫描线" effect="glitch" glowing :line-visible="false" shadow-color="#ff00b3" glitch-color="#00c3ff"></cyber-text>
+      </div>
+
+      <div class="demo-item">
+        <p class="demo-label">禁用状态</p>
+        <pre class="code-block"><code class="html">&lt;cyber-text text="禁用故障文字" effect="glitch" disabled shadow-color="#ff00b3" glitch-color="#00c3ff"&gt;&lt;/cyber-text&gt;</code></pre>
+        <cyber-text text="禁用故障文字" effect="glitch" disabled shadow-color="#ff00b3" glitch-color="#00c3ff"></cyber-text>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 </script>
 <style scoped lang="scss">
 .content {
-    padding: 20px;
-    text-align: left;
+  padding: 20px;
+  text-align: left;
 }
 
 .section {
-    margin-bottom: 60px;
+  margin-bottom: 60px;
 }
 
 .section-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #00ffff;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .demo-row {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .demo-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .demo-label {
-    font-size: 14px;
-    color: #999;
-    margin-bottom: 5px;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 5px;
 }
 </style>
-
