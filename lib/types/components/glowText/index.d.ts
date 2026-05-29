@@ -1,36 +1,63 @@
 export declare const CyberGlowText: import("package/utils/typescript").SFCWithInstall<{
-    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<import("vue").ExtractPropTypes<{
-        color: {
-            type: StringConstructor;
-            default: string;
-        };
-    }>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
+        color?: string;
+        glowing?: boolean;
+        effect?: import("./src/instance.ts").GlowEffect;
+        size?: import("./src/instance.ts").GlowTextSize;
+        animationSpeed?: import("./src/instance.ts").AnimationSpeed;
+        tag?: string;
+        disabled?: boolean;
+    }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+        size: import("./src/instance.ts").GlowTextSize;
+        effect: import("./src/instance.ts").GlowEffect;
+        disabled: boolean;
+        tag: string;
         color: string;
-    }, true, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
+        glowing: boolean;
+        animationSpeed: import("./src/instance.ts").AnimationSpeed;
+    }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
         B: {};
         D: {};
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<import("vue").ExtractPropTypes<{
-        color: {
-            type: StringConstructor;
-            default: string;
-        };
-    }>> & Readonly<{}>, {}, {}, {}, {}, {
+    }, Readonly<{
+        color?: string;
+        glowing?: boolean;
+        effect?: import("./src/instance.ts").GlowEffect;
+        size?: import("./src/instance.ts").GlowTextSize;
+        animationSpeed?: import("./src/instance.ts").AnimationSpeed;
+        tag?: string;
+        disabled?: boolean;
+    }> & Readonly<{}>, {}, {}, {}, {}, {
+        size: import("./src/instance.ts").GlowTextSize;
+        effect: import("./src/instance.ts").GlowEffect;
+        disabled: boolean;
+        tag: string;
         color: string;
+        glowing: boolean;
+        animationSpeed: import("./src/instance.ts").AnimationSpeed;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
     __isSuspense?: never;
-} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{
-    color: {
-        type: StringConstructor;
-        default: string;
-    };
-}>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+} & import("vue").ComponentOptionsBase<Readonly<{
+    color?: string;
+    glowing?: boolean;
+    effect?: import("./src/instance.ts").GlowEffect;
+    size?: import("./src/instance.ts").GlowTextSize;
+    animationSpeed?: import("./src/instance.ts").AnimationSpeed;
+    tag?: string;
+    disabled?: boolean;
+}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    size: import("./src/instance.ts").GlowTextSize;
+    effect: import("./src/instance.ts").GlowEffect;
+    disabled: boolean;
+    tag: string;
     color: string;
+    glowing: boolean;
+    animationSpeed: import("./src/instance.ts").AnimationSpeed;
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         default?: (props: {}) => any;
