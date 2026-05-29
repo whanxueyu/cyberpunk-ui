@@ -116,7 +116,7 @@ const value = ref('')
 
 ## 输入类型
 
-支持 HTML 标准输入类型：`text`、`password`、`number`、`email`、`tel`、`url`
+支持 HTML 标准输入类型：`text`、`password`、`number`、`email`、`tel`、`url`、`search`
 
 <cyber-input type="email" placeholder="邮箱地址" style="max-width: 360px;"></cyber-input>
 <cyber-input type="number" placeholder="数字输入" style="max-width: 360px;"></cyber-input>
@@ -162,12 +162,13 @@ const value = ref('')
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | --- | --- | --- | --- | --- |
 | modelValue / v-model | 绑定值 | `string \| number` | — | `''` |
-| type | 输入框类型 | `string` | `text` / `password` / `number` / `email` / `tel` / `url` | `text` |
+| type | 输入框类型 | `string` | `text` / `password` / `number` / `email` / `tel` / `url` / `search` | `text` |
 | placeholder | 占位文本 | `string` | — | `'请输入...'` |
 | disabled | 是否禁用 | `boolean` | — | `false` |
 | readonly | 是否只读 | `boolean` | — | `false` |
 | maxlength | 最大输入长度 | `string \| number` | — | — |
 | autocomplete | 自动完成 | `string` | `on` / `off` | `off` |
+| name | 原生 name 属性 | `string` | — | — |
 | size | 尺寸 | `string` | `large` / `default` / `small` | `default` |
 | theme | 主题配色 | `string` | `primary` / `success` / `warning` / `danger` / `info` | `primary` |
 | glitchEffect | 故障特效 | `boolean` | — | `true` |
