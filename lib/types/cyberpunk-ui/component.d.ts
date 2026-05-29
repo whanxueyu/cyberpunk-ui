@@ -5339,12 +5339,13 @@ declare const _default: (({
 }) & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
         modelValue?: string | number;
-        type?: "text" | "password" | "number" | "email" | "tel" | "url";
+        type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         placeholder?: string;
         disabled?: boolean;
         readonly?: boolean;
         maxlength?: string | number;
         autocomplete?: string;
+        name?: string;
         size?: "large" | "default" | "small";
         theme?: "primary" | "success" | "warning" | "danger" | "info";
         glitchEffect?: boolean;
@@ -5376,7 +5377,8 @@ declare const _default: (({
         clear: () => any;
         "update:modelValue": (value: string | number) => any;
     }, import("vue").PublicProps, {
-        type: "text" | "password" | "number" | "email" | "tel" | "url";
+        name: string;
+        type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         size: "large" | "default" | "small";
         disabled: boolean;
         placeholder: string;
@@ -5398,12 +5400,13 @@ declare const _default: (({
         Defaults: {};
     }, Readonly<{
         modelValue?: string | number;
-        type?: "text" | "password" | "number" | "email" | "tel" | "url";
+        type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         placeholder?: string;
         disabled?: boolean;
         readonly?: boolean;
         maxlength?: string | number;
         autocomplete?: string;
+        name?: string;
         size?: "large" | "default" | "small";
         theme?: "primary" | "success" | "warning" | "danger" | "info";
         glitchEffect?: boolean;
@@ -5426,7 +5429,8 @@ declare const _default: (({
         clear: () => void;
         ref: import("vue").Ref<HTMLInputElement | null, HTMLInputElement | null>;
     }, {}, {}, {}, {
-        type: "text" | "password" | "number" | "email" | "tel" | "url";
+        name: string;
+        type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         size: "large" | "default" | "small";
         disabled: boolean;
         placeholder: string;
@@ -5445,12 +5449,13 @@ declare const _default: (({
     __isSuspense?: never;
 } & import("vue").ComponentOptionsBase<Readonly<{
     modelValue?: string | number;
-    type?: "text" | "password" | "number" | "email" | "tel" | "url";
+    type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
     placeholder?: string;
     disabled?: boolean;
     readonly?: boolean;
     maxlength?: string | number;
     autocomplete?: string;
+    name?: string;
     size?: "large" | "default" | "small";
     theme?: "primary" | "success" | "warning" | "danger" | "info";
     glitchEffect?: boolean;
@@ -5482,7 +5487,8 @@ declare const _default: (({
     clear: () => any;
     "update:modelValue": (value: string | number) => any;
 }, string, {
-    type: "text" | "password" | "number" | "email" | "tel" | "url";
+    name: string;
+    type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
     size: "large" | "default" | "small";
     disabled: boolean;
     placeholder: string;
@@ -5504,12 +5510,13 @@ declare const _default: (({
 }) & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
         modelValue?: string | number;
-        type?: "text" | "password" | "number" | "email" | "tel" | "url";
+        type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         placeholder?: string;
         disabled?: boolean;
         readonly?: boolean;
         maxlength?: string | number;
         autocomplete?: string;
+        name?: string;
         size?: "large" | "default" | "small";
         theme?: "primary" | "success" | "warning" | "danger" | "info";
         glitchEffect?: boolean;
@@ -5541,7 +5548,8 @@ declare const _default: (({
         clear: () => any;
         "update:modelValue": (value: string | number) => any;
     }, import("vue").PublicProps, {
-        type: "text" | "password" | "number" | "email" | "tel" | "url";
+        name: string;
+        type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         size: "large" | "default" | "small";
         disabled: boolean;
         placeholder: string;
@@ -5563,12 +5571,13 @@ declare const _default: (({
         Defaults: {};
     }, Readonly<{
         modelValue?: string | number;
-        type?: "text" | "password" | "number" | "email" | "tel" | "url";
+        type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         placeholder?: string;
         disabled?: boolean;
         readonly?: boolean;
         maxlength?: string | number;
         autocomplete?: string;
+        name?: string;
         size?: "large" | "default" | "small";
         theme?: "primary" | "success" | "warning" | "danger" | "info";
         glitchEffect?: boolean;
@@ -5591,7 +5600,8 @@ declare const _default: (({
         clear: () => void;
         ref: import("vue").Ref<HTMLInputElement | null, HTMLInputElement | null>;
     }, {}, {}, {}, {
-        type: "text" | "password" | "number" | "email" | "tel" | "url";
+        name: string;
+        type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
         size: "large" | "default" | "small";
         disabled: boolean;
         placeholder: string;
@@ -5610,12 +5620,13 @@ declare const _default: (({
     __isSuspense?: never;
 } & import("vue").ComponentOptionsBase<Readonly<{
     modelValue?: string | number;
-    type?: "text" | "password" | "number" | "email" | "tel" | "url";
+    type?: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
     placeholder?: string;
     disabled?: boolean;
     readonly?: boolean;
     maxlength?: string | number;
     autocomplete?: string;
+    name?: string;
     size?: "large" | "default" | "small";
     theme?: "primary" | "success" | "warning" | "danger" | "info";
     glitchEffect?: boolean;
@@ -5647,7 +5658,8 @@ declare const _default: (({
     clear: () => any;
     "update:modelValue": (value: string | number) => any;
 }, string, {
-    type: "text" | "password" | "number" | "email" | "tel" | "url";
+    name: string;
+    type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
     size: "large" | "default" | "small";
     disabled: boolean;
     placeholder: string;

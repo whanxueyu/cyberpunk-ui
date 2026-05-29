@@ -1,11 +1,12 @@
 type __VLS_Props = {
     modelValue?: string | number;
-    type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url';
+    type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'search';
     placeholder?: string;
     disabled?: boolean;
     readonly?: boolean;
     maxlength?: string | number;
     autocomplete?: string;
+    name?: string;
     size?: 'large' | 'default' | 'small';
     theme?: 'primary' | 'success' | 'warning' | 'danger' | 'info';
     glitchEffect?: boolean;
@@ -44,7 +45,8 @@ declare const __VLS_component: import("vue").DefineComponent<__VLS_Props, {
     onClear?: (() => any) | undefined;
     "onUpdate:modelValue"?: ((value: string | number) => any) | undefined;
 }>, {
-    type: "text" | "password" | "number" | "email" | "tel" | "url";
+    name: string;
+    type: "text" | "password" | "number" | "email" | "tel" | "url" | "search";
     size: "large" | "default" | "small";
     disabled: boolean;
     placeholder: string;

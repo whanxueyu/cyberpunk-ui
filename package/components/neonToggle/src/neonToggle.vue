@@ -213,60 +213,25 @@ const toggleSwitch = () => {
       bottom: 0;
       overflow: hidden;
 
-      &::before,
-      &::after {
+      &::before {
         content: '';
         position: absolute;
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-
-      &::before {
-        height: 1px;
-
-        // 根据尺寸调整位置
-        &.large-size {
-          top: 50%;
-        }
-
-        &.default-size {
-          top: 50%;
-        }
-
-        &.small-size {
-          top: 50%;
-        }
-      }
-
-      &::after {
-        width: 1px;
-
-        // 根据尺寸调整位置
-        &.large-size {
-          left: 50%;
-        }
-
-        &.default-size {
-          left: 50%;
-        }
-
-        &.small-size {
-          left: 50%;
-        }
-      }
-
-      &::before {
         top: 50%;
         left: 10%;
         right: 10%;
         height: 1px;
+        background-color: rgba(255, 255, 255, 0.1);
         transform: translateY(-50%);
       }
 
       &::after {
+        content: '';
+        position: absolute;
         top: 30%;
         bottom: 30%;
         left: 50%;
         width: 1px;
+        background-color: rgba(255, 255, 255, 0.1);
         transform: translateX(-50%);
       }
     }
@@ -293,21 +258,6 @@ const toggleSwitch = () => {
       border-radius: inherit;
       opacity: 0;
       animation: pulse 1.5s ease-in-out infinite;
-      width: 100%;
-      height: 100%;
-
-      &.large-size {
-        animation: pulse 1.5s ease-in-out infinite;
-      }
-
-      &.default-size {
-        animation: pulse 1.5s ease-in-out infinite;
-      }
-
-      &.small-size {
-        animation: pulse 1.5s ease-in-out infinite;
-      }
-
     }
   }
 
@@ -316,10 +266,6 @@ const toggleSwitch = () => {
       background-color: rgba(0, 0, 0, 0.3);
       border: 1px solid v-bind('props.activeColor');
       box-shadow: 0 0 10px v-bind('props.activeColor'), inset 0 0 5px v-bind('props.activeColor');
-
-      &::before {
-        opacity: 1;
-      }
     }
 
     .toggle-thumb {
@@ -372,7 +318,11 @@ const toggleSwitch = () => {
 
   &.hex-shape {
     .toggle-track {
+      border: none;
       clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+      // drop-shadow 天然跟随 clip-path 形状，不会被裁切
+      filter: drop-shadow(0 0 0 1px #666);
+      transition: all 0.3s ease, filter 0.3s ease;
     }
 
     .toggle-thumb {
@@ -380,37 +330,20 @@ const toggleSwitch = () => {
       clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     }
 
-    &.large-size {
-      .toggle-track {
-        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
-      }
-
-      .toggle-thumb {
-        width: 36px;
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      }
+    &.active .toggle-track {
+      border: none;
+      box-shadow: inset 0 0 5px v-bind('props.activeColor');
+      filter: drop-shadow(0 0 0 1px v-bind('props.activeColor'))
+              drop-shadow(0 0 10px v-bind('props.activeColor'));
     }
 
-    &.default-size {
-      .toggle-track {
-        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
-      }
-
-      .toggle-thumb {
-        width: 28px;
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      }
+    // 各尺寸仅需调整 thumb 宽度，clip-path 使用百分比自动适配
+    &.large-size .toggle-thumb {
+      width: 36px;
     }
 
-    &.small-size {
-      .toggle-track {
-        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
-      }
-
-      .toggle-thumb {
-        width: 20.25px;
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-      }
+    &.small-size .toggle-thumb {
+      width: 20.25px;
     }
   }
 }
