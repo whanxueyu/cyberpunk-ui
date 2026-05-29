@@ -10,6 +10,7 @@ const props = withDefaults(defineProps(), {
     readonly: false,
     maxlength: undefined,
     autocomplete: 'off',
+    name: undefined,
     size: 'default',
     theme: 'primary',
     glitchEffect: true,
@@ -92,6 +93,7 @@ const __VLS_withDefaultsArg = (function (t) { return t; })({
     readonly: false,
     maxlength: undefined,
     autocomplete: 'off',
+    name: undefined,
     size: 'default',
     theme: 'primary',
     glitchEffect: true,
@@ -167,7 +169,7 @@ if (__VLS_ctx.$slots.prefix) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ class: "cp-input-prefix" }));
     var __VLS_0 = {};
 }
-__VLS_asFunctionalElement(__VLS_intrinsicElements.input)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onInput: (__VLS_ctx.handleInput) }, { onFocus: (__VLS_ctx.handleFocus) }), { onBlur: (__VLS_ctx.handleBlur) }), { onKeyup: (__VLS_ctx.handleKeyup) }), { onKeydown: (__VLS_ctx.handleKeydown) }), { ref: "inputRef", type: (__VLS_ctx.currentType), value: (__VLS_ctx.modelValue), placeholder: (__VLS_ctx.placeholder), disabled: (__VLS_ctx.disabled), readonly: (__VLS_ctx.readonly), maxlength: (__VLS_ctx.maxlength), autocomplete: (__VLS_ctx.autocomplete) }), { class: "cp-input-inner" }));
+__VLS_asFunctionalElement(__VLS_intrinsicElements.input)(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ onInput: (__VLS_ctx.handleInput) }, { onFocus: (__VLS_ctx.handleFocus) }), { onBlur: (__VLS_ctx.handleBlur) }), { onKeyup: (__VLS_ctx.handleKeyup) }), { onKeydown: (__VLS_ctx.handleKeydown) }), { ref: "inputRef", type: (__VLS_ctx.currentType), value: (__VLS_ctx.modelValue), placeholder: (__VLS_ctx.placeholder), disabled: (__VLS_ctx.disabled), readonly: (__VLS_ctx.readonly), maxlength: (__VLS_ctx.maxlength), autocomplete: (__VLS_ctx.autocomplete), name: (__VLS_ctx.name) }), { class: "cp-input-inner" }));
 ;
 if (__VLS_ctx.clearable && __VLS_ctx.modelValue && !__VLS_ctx.disabled) {
     __VLS_asFunctionalElement(__VLS_intrinsicElements.span, __VLS_intrinsicElements.span)(Object.assign({ onMousedown: (__VLS_ctx.handleClear) }, { class: "cp-input-clear" }));

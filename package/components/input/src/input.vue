@@ -26,6 +26,7 @@
         :readonly="readonly"
         :maxlength="maxlength"
         :autocomplete="autocomplete"
+        :name="name"
         class="cp-input-inner"
         @input="handleInput"
         @focus="handleFocus"
@@ -83,12 +84,13 @@ defineOptions({
 
 const props = withDefaults(defineProps<{
   modelValue?: string | number
-  type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url'
+  type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'search'
   placeholder?: string
   disabled?: boolean
   readonly?: boolean
   maxlength?: string | number
   autocomplete?: string
+  name?: string
   size?: 'large' | 'default' | 'small'
   theme?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
   glitchEffect?: boolean
@@ -103,6 +105,7 @@ const props = withDefaults(defineProps<{
   readonly: false,
   maxlength: undefined,
   autocomplete: 'off',
+  name: undefined,
   size: 'default',
   theme: 'primary',
   glitchEffect: true,
@@ -201,7 +204,6 @@ defineExpose({
   --input-text: #e0f7ff;
   --input-placeholder: rgba(180, 220, 255, 0.4);
   --input-bg: rgba(0, 10, 20, 0.85);
-  --input-border-opacity: 0.35;
 
   position: relative;
   display: inline-block;
@@ -260,31 +262,17 @@ defineExpose({
   position: relative;
   display: flex;
   align-items: center;
-  padding: 1px;
-  background: rgba(255, 255, 255, 0.06);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  clip-path: polygon(
-    6px 0, calc(100% - 6px) 0,
-    100% 6px, 100% calc(100% - 6px),
-    calc(100% - 6px) 100%, 6px 100%,
-    0 calc(100% - 6px), 0 6px
-  );
+  border: 1px solid rgba(0, 238, 255, 0.35);
+  background: var(--input-bg);
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cp-input--focused .cp-input-wrapper {
-  padding: 2px;
-  background: linear-gradient(
-    135deg,
-    var(--input-theme),
-    var(--input-theme2),
-    var(--input-theme3),
-    var(--input-theme)
-  );
-  background-size: 300% 300%;
-  animation: inputBorderGlow 3s ease infinite;
+  border-color: var(--input-theme);
   box-shadow:
-    0 0 20px rgba(0, 166, 220, 0.25),
-    0 0 60px rgba(0, 166, 220, 0.08);
+    0 0 12px var(--input-theme),
+    0 0 40px var(--input-theme2);
 }
 
 /* ========== 输入框本体 ========== */
@@ -316,6 +304,7 @@ defineExpose({
   }
 
   &[type='number'] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 
@@ -330,7 +319,7 @@ defineExpose({
 
 /* ========== 聚焦内发光 ========== */
 .cp-input--focused .cp-input-inner {
-  box-shadow: inset 0 0 30px rgba(0, 166, 220, 0.12);
+  box-shadow: inset 0 0 30px var(--input-theme3);
 }
 
 /* ========== 禁用状态 ========== */
@@ -344,7 +333,7 @@ defineExpose({
   }
 
   .cp-input-wrapper {
-    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -507,14 +496,16 @@ defineExpose({
 }
 
 .cp-input-glitch::before {
-  background: rgba(0, 255, 255, 0.7);
-  box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+  background: var(--input-theme);
+  opacity: 0.7;
+  box-shadow: 0 0 8px var(--input-theme2);
   animation: glitchBarA 2.3s infinite steps(1);
 }
 
 .cp-input-glitch::after {
-  background: rgba(255, 0, 255, 0.7);
-  box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+  background: var(--input-theme3);
+  opacity: 0.7;
+  box-shadow: 0 0 8px var(--input-theme3);
   animation: glitchBarB 3.1s infinite steps(1);
 }
 
@@ -528,13 +519,6 @@ defineExpose({
   0%, 20% { top: 55%; opacity: 0; }
   21%, 24% { top: 55%; opacity: 0.75; }
   25%, 100% { top: 55%; opacity: 0; }
-}
-
-/* ========== 渐变边框动画 ========== */
-@keyframes inputBorderGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 /* ========================================
@@ -567,17 +551,18 @@ defineExpose({
 }
 
 :root:not(.dark) .cp-input-wrapper {
-  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 :root:not(.dark) .cp-input--focused .cp-input-wrapper {
+  border-color: var(--input-theme);
   box-shadow:
-    0 0 15px rgba(0, 166, 220, 0.15),
-    0 0 40px rgba(0, 166, 220, 0.05);
+    0 0 8px var(--input-theme),
+    0 0 24px var(--input-theme2);
 }
 
 :root:not(.dark) .cp-input--disabled .cp-input-wrapper {
-  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.06);
 }
 
 :root:not(.dark) .cp-input--disabled .cp-input-inner {
