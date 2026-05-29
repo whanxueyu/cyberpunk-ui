@@ -1,9 +1,8 @@
-import type { GlowEffect, GlowTextSize, AnimationSpeed } from './instance';
+import type { GlowEffect, AnimationSpeed } from './instance';
 type __VLS_Props = {
     color?: string;
     glowing?: boolean;
     effect?: GlowEffect;
-    size?: GlowTextSize;
     animationSpeed?: AnimationSpeed;
     tag?: string;
     disabled?: boolean;
@@ -13,7 +12,6 @@ type __VLS_Slots = {} & {
     default?: (props: typeof __VLS_6) => any;
 };
 declare const __VLS_component: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {
-    size: GlowTextSize;
     effect: GlowEffect;
     disabled: boolean;
     tag: string;

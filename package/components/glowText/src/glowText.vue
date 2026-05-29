@@ -3,7 +3,6 @@
     :is="tag"
     :class="[
       'cp-glow-text',
-      `cp-glow-text--${size}`,
       `cp-glow-text--${effect}`,
       `cp-glow-text--${animationSpeed}`,
       {
@@ -19,7 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { GlowEffect, GlowTextSize, AnimationSpeed } from './instance'
+import type { GlowEffect, AnimationSpeed } from './instance'
 
 defineOptions({
   name: 'CyberGlowText',
@@ -33,8 +32,6 @@ const props = withDefaults(
     glowing?: boolean
     /** 霓虹光效类型 */
     effect?: GlowEffect
-    /** 文字尺寸 */
-    size?: GlowTextSize
     /** 动画播放速度（turnon 效果不适用） */
     animationSpeed?: AnimationSpeed
     /** 渲染的 HTML 标签 */
@@ -46,7 +43,6 @@ const props = withDefaults(
     color: '#e91e84',
     glowing: false,
     effect: 'neon',
-    size: 'default',
     animationSpeed: 'normal',
     tag: 'span',
     disabled: false,
@@ -67,22 +63,6 @@ const glowStyle = computed(() => {
   text-align: center;
   cursor: pointer;
   transition: color 0.3s ease;
-
-  // ===================== 尺寸变体 =====================
-  &--small {
-    font-size: 16px;
-    line-height: 28px;
-  }
-
-  &--default {
-    font-size: 24px;
-    line-height: 40px;
-  }
-
-  &--large {
-    font-size: 36px;
-    line-height: 52px;
-  }
 
   // ===================== 动画速度 =====================
   &--slow {

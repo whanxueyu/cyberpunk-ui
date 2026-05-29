@@ -3,12 +3,10 @@ export declare const CyberGlowText: import("package/utils/typescript").SFCWithIn
         color?: string;
         glowing?: boolean;
         effect?: import("./src/instance.ts").GlowEffect;
-        size?: import("./src/instance.ts").GlowTextSize;
         animationSpeed?: import("./src/instance.ts").AnimationSpeed;
         tag?: string;
         disabled?: boolean;
     }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
-        size: import("./src/instance.ts").GlowTextSize;
         effect: import("./src/instance.ts").GlowEffect;
         disabled: boolean;
         tag: string;
@@ -26,12 +24,10 @@ export declare const CyberGlowText: import("package/utils/typescript").SFCWithIn
         color?: string;
         glowing?: boolean;
         effect?: import("./src/instance.ts").GlowEffect;
-        size?: import("./src/instance.ts").GlowTextSize;
         animationSpeed?: import("./src/instance.ts").AnimationSpeed;
         tag?: string;
         disabled?: boolean;
     }> & Readonly<{}>, {}, {}, {}, {}, {
-        size: import("./src/instance.ts").GlowTextSize;
         effect: import("./src/instance.ts").GlowEffect;
         disabled: boolean;
         tag: string;
@@ -46,12 +42,10 @@ export declare const CyberGlowText: import("package/utils/typescript").SFCWithIn
     color?: string;
     glowing?: boolean;
     effect?: import("./src/instance.ts").GlowEffect;
-    size?: import("./src/instance.ts").GlowTextSize;
     animationSpeed?: import("./src/instance.ts").AnimationSpeed;
     tag?: string;
     disabled?: boolean;
 }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
-    size: import("./src/instance.ts").GlowTextSize;
     effect: import("./src/instance.ts").GlowEffect;
     disabled: boolean;
     tag: string;

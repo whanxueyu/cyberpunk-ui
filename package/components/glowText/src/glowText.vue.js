@@ -6,7 +6,6 @@ const props = withDefaults(defineProps(), {
     color: '#e91e84',
     glowing: false,
     effect: 'neon',
-    size: 'default',
     animationSpeed: 'normal',
     tag: 'span',
     disabled: false,
@@ -21,7 +20,6 @@ const __VLS_withDefaultsArg = (function (t) { return t; })({
     color: '#e91e84',
     glowing: false,
     effect: 'neon',
-    size: 'default',
     animationSpeed: 'normal',
     tag: 'span',
     disabled: false,
@@ -38,7 +36,6 @@ let __VLS_directives;
 const __VLS_0 = ((__VLS_ctx.tag));
 const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0(Object.assign({ class: ([
         'cp-glow-text',
-        `cp-glow-text--${__VLS_ctx.size}`,
         `cp-glow-text--${__VLS_ctx.effect}`,
         `cp-glow-text--${__VLS_ctx.animationSpeed}`,
         {
@@ -48,7 +45,6 @@ const __VLS_1 = __VLS_asFunctionalComponent(__VLS_0, new __VLS_0(Object.assign({
     ]) }, { style: (__VLS_ctx.glowStyle) })));
 const __VLS_2 = __VLS_1(Object.assign({ class: ([
         'cp-glow-text',
-        `cp-glow-text--${__VLS_ctx.size}`,
         `cp-glow-text--${__VLS_ctx.effect}`,
         `cp-glow-text--${__VLS_ctx.animationSpeed}`,
         {
