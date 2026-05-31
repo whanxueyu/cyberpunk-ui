@@ -26,6 +26,7 @@ import { CyberDivider } from '../components/divider';
 import { CyberInput } from '../components/input';
 import { CyberMenu } from '../components/menu';
 import { CyberScrollbar } from '../components/scrollbar';
+import { CyberCubicProgress } from '../components/cubicProgress';
 export default [
     CyberButton,
     CyberNotification,
@@ -54,6 +55,7 @@ export default [
     CyberDivider,
     CyberInput,
     CyberMenu,
-    CyberScrollbar
+    CyberScrollbar,
+    CyberCubicProgress
 ];
 //# sourceMappingURL=component.js.map

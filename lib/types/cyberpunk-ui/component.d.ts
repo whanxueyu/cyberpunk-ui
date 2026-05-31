@@ -730,12 +730,22 @@ declare const _default: (({
         showPercentage?: boolean;
         percentagePosition?: "inside" | "outside";
         showStatus?: boolean;
+        indeterminate?: boolean;
+        direction?: "horizontal" | "vertical";
+        color?: string;
+        height?: number;
+        glowIntensity?: number;
     }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
         theme: "neon" | "hologram" | "terminal" | "matrix";
+        height: number;
         percentage: number;
         animated: boolean;
         showPercentage: boolean;
         percentagePosition: "inside" | "outside";
+        showStatus: boolean;
+        indeterminate: boolean;
+        direction: "horizontal" | "vertical";
+        glowIntensity: number;
     }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
         B: {};
@@ -750,12 +760,22 @@ declare const _default: (({
         showPercentage?: boolean;
         percentagePosition?: "inside" | "outside";
         showStatus?: boolean;
+        indeterminate?: boolean;
+        direction?: "horizontal" | "vertical";
+        color?: string;
+        height?: number;
+        glowIntensity?: number;
     }> & Readonly<{}>, {}, {}, {}, {}, {
         theme: "neon" | "hologram" | "terminal" | "matrix";
+        height: number;
         percentage: number;
         animated: boolean;
         showPercentage: boolean;
         percentagePosition: "inside" | "outside";
+        showStatus: boolean;
+        indeterminate: boolean;
+        direction: "horizontal" | "vertical";
+        glowIntensity: number;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
@@ -767,12 +787,22 @@ declare const _default: (({
     showPercentage?: boolean;
     percentagePosition?: "inside" | "outside";
     showStatus?: boolean;
+    indeterminate?: boolean;
+    direction?: "horizontal" | "vertical";
+    color?: string;
+    height?: number;
+    glowIntensity?: number;
 }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
     theme: "neon" | "hologram" | "terminal" | "matrix";
+    height: number;
     percentage: number;
     animated: boolean;
     showPercentage: boolean;
     percentagePosition: "inside" | "outside";
+    showStatus: boolean;
+    indeterminate: boolean;
+    direction: "horizontal" | "vertical";
+    glowIntensity: number;
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
         percentage?: number;
@@ -781,12 +811,22 @@ declare const _default: (({
         showPercentage?: boolean;
         percentagePosition?: "inside" | "outside";
         showStatus?: boolean;
+        indeterminate?: boolean;
+        direction?: "horizontal" | "vertical";
+        color?: string;
+        height?: number;
+        glowIntensity?: number;
     }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
         theme: "neon" | "hologram" | "terminal" | "matrix";
+        height: number;
         percentage: number;
         animated: boolean;
         showPercentage: boolean;
         percentagePosition: "inside" | "outside";
+        showStatus: boolean;
+        indeterminate: boolean;
+        direction: "horizontal" | "vertical";
+        glowIntensity: number;
     }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
         B: {};
@@ -801,12 +841,22 @@ declare const _default: (({
         showPercentage?: boolean;
         percentagePosition?: "inside" | "outside";
         showStatus?: boolean;
+        indeterminate?: boolean;
+        direction?: "horizontal" | "vertical";
+        color?: string;
+        height?: number;
+        glowIntensity?: number;
     }> & Readonly<{}>, {}, {}, {}, {}, {
         theme: "neon" | "hologram" | "terminal" | "matrix";
+        height: number;
         percentage: number;
         animated: boolean;
         showPercentage: boolean;
         percentagePosition: "inside" | "outside";
+        showStatus: boolean;
+        indeterminate: boolean;
+        direction: "horizontal" | "vertical";
+        glowIntensity: number;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
@@ -818,12 +868,22 @@ declare const _default: (({
     showPercentage?: boolean;
     percentagePosition?: "inside" | "outside";
     showStatus?: boolean;
+    indeterminate?: boolean;
+    direction?: "horizontal" | "vertical";
+    color?: string;
+    height?: number;
+    glowIntensity?: number;
 }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
     theme: "neon" | "hologram" | "terminal" | "matrix";
+    height: number;
     percentage: number;
     animated: boolean;
     showPercentage: boolean;
     percentagePosition: "inside" | "outside";
+    showStatus: boolean;
+    indeterminate: boolean;
+    direction: "horizontal" | "vertical";
+    glowIntensity: number;
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<import("vue").ExtractPropTypes<{
         value: {
@@ -1737,10 +1797,10 @@ declare const _default: (({
         };
     }>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
         progress: number;
-        direction: string;
-        glitchIntensity: number;
         indeterminate: boolean;
+        direction: string;
         color: string;
+        glitchIntensity: number;
         showText: boolean;
     }, true, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
@@ -1779,10 +1839,10 @@ declare const _default: (({
         };
     }>> & Readonly<{}>, {}, {}, {}, {}, {
         progress: number;
-        direction: string;
-        glitchIntensity: number;
         indeterminate: boolean;
+        direction: string;
         color: string;
+        glitchIntensity: number;
         showText: boolean;
     }>;
     __isFragment?: never;
@@ -1818,10 +1878,10 @@ declare const _default: (({
     };
 }>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
     progress: number;
-    direction: string;
-    glitchIntensity: number;
     indeterminate: boolean;
+    direction: string;
     color: string;
+    glitchIntensity: number;
     showText: boolean;
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<import("vue").ExtractPropTypes<{
@@ -1854,10 +1914,10 @@ declare const _default: (({
         };
     }>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
         progress: number;
-        direction: string;
-        glitchIntensity: number;
         indeterminate: boolean;
+        direction: string;
         color: string;
+        glitchIntensity: number;
         showText: boolean;
     }, true, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
@@ -1896,10 +1956,10 @@ declare const _default: (({
         };
     }>> & Readonly<{}>, {}, {}, {}, {}, {
         progress: number;
-        direction: string;
-        glitchIntensity: number;
         indeterminate: boolean;
+        direction: string;
         color: string;
+        glitchIntensity: number;
         showText: boolean;
     }>;
     __isFragment?: never;
@@ -1935,10 +1995,10 @@ declare const _default: (({
     };
 }>> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
     progress: number;
-    direction: string;
-    glitchIntensity: number;
     indeterminate: boolean;
+    direction: string;
     color: string;
+    glitchIntensity: number;
     showText: boolean;
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
@@ -5879,8 +5939,8 @@ declare const _default: (({
     }, import("vue").PublicProps, {
         effect: import("package/components").MenuEffect;
         theme: import("package/components").MenuTheme;
-        items: import("package/components").MenuItem[];
         direction: import("package/components").MenuDirection;
+        items: import("package/components").MenuItem[];
         modelValue: string | number;
         expandedValues: (string | number)[];
     }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
@@ -5905,8 +5965,8 @@ declare const _default: (({
     }>, {}, {}, {}, {}, {
         effect: import("package/components").MenuEffect;
         theme: import("package/components").MenuTheme;
-        items: import("package/components").MenuItem[];
         direction: import("package/components").MenuDirection;
+        items: import("package/components").MenuItem[];
         modelValue: string | number;
         expandedValues: (string | number)[];
     }>;
@@ -5933,8 +5993,8 @@ declare const _default: (({
 }, string, {
     effect: import("package/components").MenuEffect;
     theme: import("package/components").MenuTheme;
-    items: import("package/components").MenuItem[];
     direction: import("package/components").MenuDirection;
+    items: import("package/components").MenuItem[];
     modelValue: string | number;
     expandedValues: (string | number)[];
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
@@ -5958,8 +6018,8 @@ declare const _default: (({
     }, import("vue").PublicProps, {
         effect: import("package/components").MenuEffect;
         theme: import("package/components").MenuTheme;
-        items: import("package/components").MenuItem[];
         direction: import("package/components").MenuDirection;
+        items: import("package/components").MenuItem[];
         modelValue: string | number;
         expandedValues: (string | number)[];
     }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
@@ -5984,8 +6044,8 @@ declare const _default: (({
     }>, {}, {}, {}, {}, {
         effect: import("package/components").MenuEffect;
         theme: import("package/components").MenuTheme;
-        items: import("package/components").MenuItem[];
         direction: import("package/components").MenuDirection;
+        items: import("package/components").MenuItem[];
         modelValue: string | number;
         expandedValues: (string | number)[];
     }>;
@@ -6012,8 +6072,8 @@ declare const _default: (({
 }, string, {
     effect: import("package/components").MenuEffect;
     theme: import("package/components").MenuTheme;
-    items: import("package/components").MenuItem[];
     direction: import("package/components").MenuDirection;
+    items: import("package/components").MenuItem[];
     modelValue: string | number;
     expandedValues: (string | number)[];
 }, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
@@ -6252,5 +6312,149 @@ declare const _default: (({
     $slots: {
         default?: (props: {}) => any;
     };
-}) & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>))[];
+}) & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
+    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
+        percent?: number;
+        color?: string;
+        pipeWidth?: number;
+        pipeHeight?: number;
+        perspective?: number;
+        rotateX?: number;
+        indeterminate?: boolean;
+        showText?: boolean;
+        glowIntensity?: number;
+    }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+        indeterminate: boolean;
+        color: string;
+        glowIntensity: number;
+        showText: boolean;
+        percent: number;
+        pipeWidth: number;
+        pipeHeight: number;
+        perspective: number;
+        rotateX: number;
+    }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
+        P: {};
+        B: {};
+        D: {};
+        C: {};
+        M: {};
+        Defaults: {};
+    }, Readonly<{
+        percent?: number;
+        color?: string;
+        pipeWidth?: number;
+        pipeHeight?: number;
+        perspective?: number;
+        rotateX?: number;
+        indeterminate?: boolean;
+        showText?: boolean;
+        glowIntensity?: number;
+    }> & Readonly<{}>, {}, {}, {}, {}, {
+        indeterminate: boolean;
+        color: string;
+        glowIntensity: number;
+        showText: boolean;
+        percent: number;
+        pipeWidth: number;
+        pipeHeight: number;
+        perspective: number;
+        rotateX: number;
+    }>;
+    __isFragment?: never;
+    __isTeleport?: never;
+    __isSuspense?: never;
+} & import("vue").ComponentOptionsBase<Readonly<{
+    percent?: number;
+    color?: string;
+    pipeWidth?: number;
+    pipeHeight?: number;
+    perspective?: number;
+    rotateX?: number;
+    indeterminate?: boolean;
+    showText?: boolean;
+    glowIntensity?: number;
+}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    indeterminate: boolean;
+    color: string;
+    glowIntensity: number;
+    showText: boolean;
+    percent: number;
+    pipeWidth: number;
+    pipeHeight: number;
+    perspective: number;
+    rotateX: number;
+}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
+    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
+        percent?: number;
+        color?: string;
+        pipeWidth?: number;
+        pipeHeight?: number;
+        perspective?: number;
+        rotateX?: number;
+        indeterminate?: boolean;
+        showText?: boolean;
+        glowIntensity?: number;
+    }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+        indeterminate: boolean;
+        color: string;
+        glowIntensity: number;
+        showText: boolean;
+        percent: number;
+        pipeWidth: number;
+        pipeHeight: number;
+        perspective: number;
+        rotateX: number;
+    }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
+        P: {};
+        B: {};
+        D: {};
+        C: {};
+        M: {};
+        Defaults: {};
+    }, Readonly<{
+        percent?: number;
+        color?: string;
+        pipeWidth?: number;
+        pipeHeight?: number;
+        perspective?: number;
+        rotateX?: number;
+        indeterminate?: boolean;
+        showText?: boolean;
+        glowIntensity?: number;
+    }> & Readonly<{}>, {}, {}, {}, {}, {
+        indeterminate: boolean;
+        color: string;
+        glowIntensity: number;
+        showText: boolean;
+        percent: number;
+        pipeWidth: number;
+        pipeHeight: number;
+        perspective: number;
+        rotateX: number;
+    }>;
+    __isFragment?: never;
+    __isTeleport?: never;
+    __isSuspense?: never;
+} & import("vue").ComponentOptionsBase<Readonly<{
+    percent?: number;
+    color?: string;
+    pipeWidth?: number;
+    pipeHeight?: number;
+    perspective?: number;
+    rotateX?: number;
+    indeterminate?: boolean;
+    showText?: boolean;
+    glowIntensity?: number;
+}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    indeterminate: boolean;
+    color: string;
+    glowIntensity: number;
+    showText: boolean;
+    percent: number;
+    pipeWidth: number;
+    pipeHeight: number;
+    perspective: number;
+    rotateX: number;
+}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>))[];
 export default _default;

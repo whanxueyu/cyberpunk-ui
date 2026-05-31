@@ -56,10 +56,10 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
     };
 }>> & Readonly<{}>, {
     progress: number;
-    direction: string;
-    glitchIntensity: number;
     indeterminate: boolean;
+    direction: string;
     color: string;
+    glitchIntensity: number;
     showText: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 export default _default;

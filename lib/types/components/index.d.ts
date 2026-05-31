@@ -26,3 +26,4 @@ export * from './divider';
 export * from './input';
 export * from './menu';
 export * from './scrollbar';
+export * from './cubicProgress';

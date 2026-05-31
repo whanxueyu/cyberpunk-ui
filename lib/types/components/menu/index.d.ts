@@ -25,8 +25,8 @@ export declare const CyberMenu: import("package/utils/typescript").SFCWithInstal
 }>, {
     effect: import(".").MenuEffect;
     theme: import(".").MenuTheme;
-    items: import(".").MenuItem[];
     direction: import(".").MenuDirection;
+    items: import(".").MenuItem[];
     modelValue: string | number;
     expandedValues: (string | number)[];
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>> & Record<string, any>;

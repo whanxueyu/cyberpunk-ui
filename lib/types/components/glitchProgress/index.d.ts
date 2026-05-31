@@ -56,10 +56,10 @@ export declare const CyberGlitchProgress: import("package/utils/typescript").SFC
     };
 }>> & Readonly<{}>, {
     progress: number;
-    direction: string;
-    glitchIntensity: number;
     indeterminate: boolean;
+    direction: string;
     color: string;
+    glitchIntensity: number;
     showText: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>> & Record<string, any>;
 export default CyberGlitchProgress;

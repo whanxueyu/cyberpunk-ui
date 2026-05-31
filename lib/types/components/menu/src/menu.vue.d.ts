@@ -20,8 +20,8 @@ declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {
 }>, {
     effect: MenuEffect;
     theme: MenuTheme;
-    items: MenuItem[];
     direction: MenuDirection;
+    items: MenuItem[];
     modelValue: string | number;
     expandedValues: (string | number)[];
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
