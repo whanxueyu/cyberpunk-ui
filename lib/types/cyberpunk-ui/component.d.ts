@@ -3915,34 +3915,214 @@ declare const _default: (({
         default?: (props: {}) => any;
     };
 }) & ((app: import("vue").App, ...options: any[]) => any) & Partial<import("vue").ObjectPlugin<any[]>> & Record<string, any>) | ({
-    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {}, true, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
+    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
+        speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+        duration?: number;
+        gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientColors?: string[];
+        gradientAngle?: string;
+        glowColor?: string;
+        glowSize?: string;
+        strokeColor?: string;
+        strokeWidth?: string;
+        blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight?: string | number;
+        fontFamily?: string;
+        tag?: string;
+        disabled?: boolean;
+        direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+    }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+        disabled: boolean;
+        tag: string;
+        direction: import("package/components/magicText/src/instance").MagicTextDirection;
+        speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+        gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientAngle: string;
+        glowColor: string;
+        glowSize: string;
+        strokeColor: string;
+        strokeWidth: string;
+        blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight: string | number;
+        fontFamily: string;
+    }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
         B: {};
         D: {};
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, {}>;
+    }, Readonly<{
+        speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+        duration?: number;
+        gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientColors?: string[];
+        gradientAngle?: string;
+        glowColor?: string;
+        glowSize?: string;
+        strokeColor?: string;
+        strokeWidth?: string;
+        blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight?: string | number;
+        fontFamily?: string;
+        tag?: string;
+        disabled?: boolean;
+        direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+    }> & Readonly<{}>, {}, {}, {}, {}, {
+        disabled: boolean;
+        tag: string;
+        direction: import("package/components/magicText/src/instance").MagicTextDirection;
+        speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+        gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientAngle: string;
+        glowColor: string;
+        glowSize: string;
+        strokeColor: string;
+        strokeWidth: string;
+        blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight: string | number;
+        fontFamily: string;
+    }>;
     __isFragment?: never;
     __isTeleport?: never;
     __isSuspense?: never;
-} & import("vue").ComponentOptionsBase<Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+} & import("vue").ComponentOptionsBase<Readonly<{
+    speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+    duration?: number;
+    gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+    gradientColors?: string[];
+    gradientAngle?: string;
+    glowColor?: string;
+    glowSize?: string;
+    strokeColor?: string;
+    strokeWidth?: string;
+    blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+    fontWeight?: string | number;
+    fontFamily?: string;
+    tag?: string;
+    disabled?: boolean;
+    direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    disabled: boolean;
+    tag: string;
+    direction: import("package/components/magicText/src/instance").MagicTextDirection;
+    speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+    gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+    gradientAngle: string;
+    glowColor: string;
+    glowSize: string;
+    strokeColor: string;
+    strokeWidth: string;
+    blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+    fontWeight: string | number;
+    fontFamily: string;
+}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         default?: (props: {}) => any;
     };
 }) & import("vue").ObjectPlugin<any[]> & Record<string, any>) | ({
-    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {}, true, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
+    new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<{
+        speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+        duration?: number;
+        gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientColors?: string[];
+        gradientAngle?: string;
+        glowColor?: string;
+        glowSize?: string;
+        strokeColor?: string;
+        strokeWidth?: string;
+        blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight?: string | number;
+        fontFamily?: string;
+        tag?: string;
+        disabled?: boolean;
+        direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+    }> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, import("vue").PublicProps, {
+        disabled: boolean;
+        tag: string;
+        direction: import("package/components/magicText/src/instance").MagicTextDirection;
+        speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+        gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientAngle: string;
+        glowColor: string;
+        glowSize: string;
+        strokeColor: string;
+        strokeWidth: string;
+        blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight: string | number;
+        fontFamily: string;
+    }, false, {}, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, {}, any, import("vue").ComponentProvideOptions, {
         P: {};
         B: {};
         D: {};
         C: {};
         M: {};
         Defaults: {};
-    }, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, {}>;
+    }, Readonly<{
+        speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+        duration?: number;
+        gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientColors?: string[];
+        gradientAngle?: string;
+        glowColor?: string;
+        glowSize?: string;
+        strokeColor?: string;
+        strokeWidth?: string;
+        blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight?: string | number;
+        fontFamily?: string;
+        tag?: string;
+        disabled?: boolean;
+        direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+    }> & Readonly<{}>, {}, {}, {}, {}, {
+        disabled: boolean;
+        tag: string;
+        direction: import("package/components/magicText/src/instance").MagicTextDirection;
+        speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+        gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+        gradientAngle: string;
+        glowColor: string;
+        glowSize: string;
+        strokeColor: string;
+        strokeWidth: string;
+        blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+        fontWeight: string | number;
+        fontFamily: string;
+    }>;
     __isFragment?: never;
     __isTeleport?: never;
     __isSuspense?: never;
-} & import("vue").ComponentOptionsBase<Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+} & import("vue").ComponentOptionsBase<Readonly<{
+    speed?: import("package/components/magicText/src/instance").MagicTextSpeed;
+    duration?: number;
+    gradient?: import("package/components/magicText/src/instance").MagicTextGradient;
+    gradientColors?: string[];
+    gradientAngle?: string;
+    glowColor?: string;
+    glowSize?: string;
+    strokeColor?: string;
+    strokeWidth?: string;
+    blendMode?: import("package/components/magicText/src/instance").MagicTextBlendMode;
+    fontWeight?: string | number;
+    fontFamily?: string;
+    tag?: string;
+    disabled?: boolean;
+    direction?: import("package/components/magicText/src/instance").MagicTextDirection;
+}> & Readonly<{}>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    disabled: boolean;
+    tag: string;
+    direction: import("package/components/magicText/src/instance").MagicTextDirection;
+    speed: import("package/components/magicText/src/instance").MagicTextSpeed;
+    gradient: import("package/components/magicText/src/instance").MagicTextGradient;
+    gradientAngle: string;
+    glowColor: string;
+    glowSize: string;
+    strokeColor: string;
+    strokeWidth: string;
+    blendMode: import("package/components/magicText/src/instance").MagicTextBlendMode;
+    fontWeight: string | number;
+    fontFamily: string;
+}, {}, string, {}, import("vue").GlobalComponents, import("vue").GlobalDirectives, string, import("vue").ComponentProvideOptions> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         default?: (props: {}) => any;
     };
