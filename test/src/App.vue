@@ -29,6 +29,7 @@ import inputPanel from './conponents/input.vue';
 import cascaderPanel from './conponents/cascader.vue';
 import menuPanel from './conponents/menu-test.vue';
 import scrollbarPanel from './conponents/scrollbar.vue';
+import cubicProgressPanel from './conponents/cubic-progress.vue';
 
 
 console.log(
@@ -105,6 +106,7 @@ const menuItems: MenuItem[] = [
       { label: '数字翻牌器', value: 'digital-counter', component: shallowRef(digitalCounterPanel) },
       { label: '故障进度条', value: 'glitch-progress', component: shallowRef(glitchProgressPanel) },
       { label: '赛博进度条', value: 'progress', component: shallowRef(progressPanel) },
+	      { label: '立体管道进度条', value: 'cubic-progress', component: shallowRef(cubicProgressPanel) },
       { label: '滚动表格', value: 'table', component: shallowRef(tablePanel) }
     ]
   },

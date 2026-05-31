@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     /* 进度条组件 */
     'cyber-glitch-progress': (typeof import('cyberpunk-ui'))['CyberGlitchProgress']
     'cyber-progress': (typeof import('cyberpunk-ui'))['CyberProgress']
+    'cyber-cubic-progress': (typeof import('cyberpunk-ui'))['CyberCubicProgress']
 
     /* 数据展示 */
     'cyber-digital-counter': (typeof import('cyberpunk-ui'))['CyberDigitalCounter']

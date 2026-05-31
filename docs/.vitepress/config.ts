@@ -120,6 +120,7 @@ export default {
           items: [
             { text: "glitch-progress 故障进度条", link: "/components/glitch-progress" },
             { text: "progress 赛博进度条", link: "/components/progress" },
+            { text: "cubic-progress 立体管道进度条", link: "/components/cubic-progress" },
           ]
         },
         {
