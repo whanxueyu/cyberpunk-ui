@@ -7,10 +7,33 @@ lang: zh-CN
 
 利用 CSS 3D Transform 构建的立体管道进度条，通过 4 个面（顶/底/前/后）围成管道截面，渐变填充模拟液体推进效果。
 
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const loopPercent = ref(0)
+let timer = null
+
+onMounted(() => {
+  timer = setInterval(() => {
+    if (loopPercent.value >= 100) {
+      loopPercent.value = 0
+    } else {
+      loopPercent.value++
+    }
+  }, 60)
+})
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
+</script>
+
 ## 基本用法
 
-<div style="width: 100%; overflow: hidden;">
-  <cyber-cubic-progress :percent="50" />
+下方演示从 0% 到 100% 缓慢加载再循环，完整展示 3D 管道液体推进效果：
+
+<div style="width: 100%;">
+  <cyber-cubic-progress :percent="loopPercent" />
 </div>
 
 ```vue
@@ -23,7 +46,7 @@ lang: zh-CN
 
 内置 5 套赛博朋克配色方案：`pink`（粉紫）、`cyan`（青蓝）、`green`（矩阵绿）、`gold`（赛博金）、`purple`（霓虹紫）。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <div>
     <span style="font-size: 13px; color: #999;">pink 粉紫</span>
     <cyber-cubic-progress :percent="75" color="pink" />
@@ -60,7 +83,7 @@ lang: zh-CN
 
 通过 `color` 属性传入任意十六进制颜色，组件会自动派生辅助色完成渐变。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <cyber-cubic-progress :percent="60" color="#ff6600" />
   <cyber-cubic-progress :percent="80" color="#ff00ff" />
   <cyber-cubic-progress :percent="45" color="#00ffcc" />
@@ -78,7 +101,7 @@ lang: zh-CN
 
 不同进度值的填充效果对比。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <div v-for="pct in [0, 15, 30, 50, 75, 100]" :key="pct">
     <span style="font-size: 13px; color: #999;">{{ pct }}%</span>
     <cyber-cubic-progress :percent="pct" color="pink" />
@@ -99,7 +122,7 @@ lang: zh-CN
 
 设置 `indeterminate` 进入加载循环动画，光带在管道中持续滑动。此时忽略 `percent` 值，文字显示为 "LOADING"。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <div>
     <span style="font-size: 13px; color: #999;">pink</span>
     <cyber-cubic-progress indeterminate color="pink" />
@@ -125,7 +148,7 @@ lang: zh-CN
 
 通过 `pipeHeight` 控制 3D 管道的截面高度（像素）。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <div>
     <span style="font-size: 13px; color: #999;">细管 40px</span>
     <cyber-cubic-progress :percent="70" :pipe-height="40" color="cyan" />
@@ -152,7 +175,7 @@ lang: zh-CN
 
 通过 `glowIntensity`（1-10）控制管道面发光和文字辉光强度。
 
-<div style="display: flex; flex-direction: column; gap: 16px; overflow: hidden;">
+<div style="display: flex; flex-direction: column; gap: 16px;">
   <div>
     <span style="font-size: 13px; color: #999;">微弱 (1)</span>
     <cyber-cubic-progress :percent="60" color="purple" :glow-intensity="1" />
@@ -179,7 +202,7 @@ lang: zh-CN
 
 设置 `:show-text="false"` 隐藏管道下方的百分比文字，仅保留纯 3D 管道视觉。
 
-<div style="max-width: 500px; overflow: hidden;">
+<div style="max-width: 500px;">
   <cyber-cubic-progress :percent="88" color="gold" :show-text="false" />
 </div>
 
