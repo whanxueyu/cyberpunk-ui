@@ -6,7 +6,8 @@ import 'cyberpunk-ui/lib/style.css'
 import './rainbow.css'
 import './vars.css'
 import './overrides.css'
-
+// import CyberpunkUI from '../../../package/cyberpunk-ui'
+// import '../../../lib/style.css'
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {

@@ -1,5 +1,5 @@
 import { withInstall } from '../../utils/index';
-import Nenobutton from './src/nenoButton.vue';
-export const CyberNenobutton = withInstall(Nenobutton);
-export default CyberNenobutton;
+import NenoButton from './src/nenoButton.vue';
+export const CyberNenoButton = withInstall(NenoButton);
+export default CyberNenoButton;
 //# sourceMappingURL=index.js.map
