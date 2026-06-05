@@ -10,9 +10,9 @@ import { CyberGlowText } from '../components/glowText'
 import { CyberHoloCard } from '../components/holoCard';
 import { CyberHoloLoader } from '../components/holoLoader';
 import { CyberInfiniteTable } from '../components/infiniteTable';
-import { CyberNenobutton } from '../components/nenoButton';
+import { CyberNenoButton } from '../components/nenoButton';
 import { CyberNeonToggle } from '../components/neonToggle';
-import { CyberReflectbutton } from '../components/reflectButton';
+import { CyberReflectButton } from '../components/reflectButton';
 import { CyberText } from '../components/text'
 import { CyberShadowText } from '../components/shadowText'
 import { CyberTyping } from '../components/typing'
@@ -40,8 +40,8 @@ export default [
     CyberHoloLoader,
     CyberInfiniteTable,
     CyberNeonToggle,
-    CyberNenobutton,
-    CyberReflectbutton,
+    CyberNenoButton,
+    CyberReflectButton,
     CyberText,
     CyberShadowText,
     CyberGlowText,
