@@ -1,4 +1,4 @@
-export declare const CyberNenobutton: import("package/utils/typescript").SFCWithInstall<{
+export declare const CyberNenoButton: import("package/utils/typescript").SFCWithInstall<{
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<import("vue").ExtractPropTypes<{
         type: {
             type: StringConstructor;
@@ -87,5 +87,5 @@ export declare const CyberNenobutton: import("package/utils/typescript").SFCWith
         default?: (props: {}) => any;
     };
 })> & Record<string, any>;
-export default CyberNenobutton;
-export type { NenobuttonInstance } from './src/instance.ts';
+export default CyberNenoButton;
+export type { NenoButtonInstance } from './src/instance.ts';

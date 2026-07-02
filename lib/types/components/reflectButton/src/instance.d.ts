@@ -1,2 +1,2 @@
-import type Reflectbutton from './reflectButton.vue';
-export type ReflectbuttonInstance = InstanceType<typeof Reflectbutton>;
+import type ReflectButton from './reflectButton.vue';
+export type ReflectButtonInstance = InstanceType<typeof ReflectButton>;

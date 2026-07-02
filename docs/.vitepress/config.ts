@@ -3,7 +3,7 @@
 export default {
   title: 'CyberPunk-UI',
   description: 'cyberpunk-ui',
-  base: '/cyberpunk-ui/',
+  base: '/',
   /* prettier-ignore */
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],

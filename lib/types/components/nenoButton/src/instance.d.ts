@@ -1,2 +1,2 @@
-import type Nenobutton from './nenoButton.vue';
-export type NenobuttonInstance = InstanceType<typeof Nenobutton>;
+import type NenoButton from './nenoButton.vue';
+export type NenoButtonInstance = InstanceType<typeof NenoButton>;

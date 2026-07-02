@@ -1,4 +1,4 @@
-export declare const CyberReflectbutton: import("package/utils/typescript").SFCWithInstall<{
+export declare const CyberReflectButton: import("package/utils/typescript").SFCWithInstall<{
     new (...args: any[]): import("vue").CreateComponentPublicInstanceWithMixins<Readonly<import("vue").ExtractPropTypes<{
         type: {
             type: StringConstructor;
@@ -87,5 +87,5 @@ export declare const CyberReflectbutton: import("package/utils/typescript").SFCW
         default?: (props: {}) => any;
     };
 })> & Record<string, any>;
-export default CyberReflectbutton;
-export type { ReflectbuttonInstance } from './src/instance.ts';
+export default CyberReflectButton;
+export type { ReflectButtonInstance } from './src/instance.ts';

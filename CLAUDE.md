@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-重要规则：全程使用**简体中文**进行所有回复、解释、代码注释、文档说明，尽量不使用英文。
+重要规则：全程使用**简体中文**进行所有回复、解释、代码注释、文档说明，尽量不使用英文；不要随意修改项目配置的关键路径，如果要修改请说明情况等待确认后再执行。
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
